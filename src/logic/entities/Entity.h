@@ -5,7 +5,8 @@
 #ifndef DOODLEJUMP_ENTITY_H
 #define DOODLEJUMP_ENTITY_H
 
-public class Entity {
+
+class Entity {
 
 };
 

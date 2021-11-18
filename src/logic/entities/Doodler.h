@@ -5,6 +5,7 @@
 #ifndef DOODLEJUMP_DOODLER_H
 #define DOODLEJUMP_DOODLER_H
 
+#include "Entity.h"
 
 class Doodler: public Entity {
 
