@@ -1,0 +1,7 @@
+/mnt/d/University/Bachelor 2/AP/DoodleJump/CMakeFiles/edit_cache.dir
+/mnt/d/University/Bachelor 2/AP/DoodleJump/CMakeFiles/install/strip.dir
+/mnt/d/University/Bachelor 2/AP/DoodleJump/CMakeFiles/DoodleJump.dir
+/mnt/d/University/Bachelor 2/AP/DoodleJump/CMakeFiles/rebuild_cache.dir
+/mnt/d/University/Bachelor 2/AP/DoodleJump/CMakeFiles/list_install_components.dir
+/mnt/d/University/Bachelor 2/AP/DoodleJump/CMakeFiles/install/local.dir
+/mnt/d/University/Bachelor 2/AP/DoodleJump/CMakeFiles/install.dir
