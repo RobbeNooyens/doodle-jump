@@ -5,8 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 # Find SFML
 set(SFML_STATIC_LIBRARIES TRUE)
-set(SFML_DIR C:/SFML-2.5.1/lib/cmake/SFML)
-FIND_PACKAGE(SFML 2.5.1 COMPONENTS system window graphics)
+set(SFML_DIR C:/SFML/bin)
+set(CMAKE_MODULE_PATH C:/SFML/cmake/Modules)
+FIND_PACKAGE(SFML 2.4 COMPONENTS system window graphics)
 
 add_executable(DoodleJump src/main.cpp
         src/logic/entities/Entity.h
