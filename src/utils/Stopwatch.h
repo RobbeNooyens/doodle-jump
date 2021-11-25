@@ -23,7 +23,7 @@ namespace doodlejump {
     private:
         Stopwatch();
 
-        std::chrono::time_point start;
+        std::chrono::system_clock::time_point begin;
 
         bool running = false;
 

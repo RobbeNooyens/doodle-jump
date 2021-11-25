@@ -23,3 +23,10 @@ double doodlejump::Random::generate(double lowerbound, double upperbound) {
     result += lowerbound;
     return result;
 }
+
+doodlejump::Random &doodlejump::Random::getInstance() {
+    static Random INSTANCE;
+    return INSTANCE;
+}
+
+doodlejump::Random::Random() = default;

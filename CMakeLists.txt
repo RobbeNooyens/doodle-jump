@@ -3,41 +3,20 @@ project(DoodleJump)
 
 set(CMAKE_CXX_STANDARD 17)
 
+file(GLOB sourcefiles
+        "src/*.h"
+        "src/*.cpp"
+        "src/**/*.h"
+        "src/**/*.cpp"
+        )
+
+add_executable(DoodleJump ${sourcefiles} src/views/Bonus.cpp src/views/Bonus.h src/models/Entity.h src/controllers/Bonus.cpp src/controllers/Bonus.h src/controllers/Platform.cpp src/controllers/Platform.h src/controllers/Player.cpp src/controllers/Player.h src/controllers/Tile.cpp src/controllers/Tile.h)
+
 # Find SFML
-set(SFML_STATIC_LIBRARIES TRUE)
+#set(SFML_STATIC_LIBRARIES TRUE)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/")
 FIND_PACKAGE(SFML 2.4 COMPONENTS graphics window system)
 
-file(GLOB sourcefiles
-        "src/*/*.h"
-        "src/*/*.cpp"
-        )
-
-add_executable(DoodleJump ${sourcefiles})
-
-include_directories(headers C:/SFML/include/)
-
 TARGET_LINK_LIBRARIES(DoodleJump ${SFML_LIBRARIES})
-
-
-#if(WIN32)
-#    set(SFML_STATIC_LIBRARIES TRUE)
-#    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/")
-#    FIND_PACKAGE(SFML 2.4 COMPONENTS graphics window system)
-#
-#    add_executable(DoodleJump src/main.cpp)
-#
-#    include_directories(headers C:/SFML/include/)
-#
-#    TARGET_LINK_LIBRARIES(DoodleJump ${SFML_LIBRARIES})
-#
-#else()
-#    set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/")
-#    FIND_PACKAGE(SFML 2.4 COMPONENTS system window graphics)
-#
-#    add_executable(DoodleJump src/main.cpp)
-#
-#    TARGET_LINK_LIBRARIES(DoodleJump ${SFML_LIBRARIES})
-#endif()
 
 INSTALL(TARGETS DoodleJump DESTINATION ${PROJECT_SOURCE_DIR}/bin)
