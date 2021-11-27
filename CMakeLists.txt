@@ -10,7 +10,7 @@ file(GLOB sourcefiles
         "src/**/*.cpp"
         )
 
-add_executable(DoodleJump ${sourcefiles} src/views/Bonus.cpp src/views/Bonus.h src/models/Entity.h src/controllers/Bonus.cpp src/controllers/Bonus.h src/controllers/Platform.cpp src/controllers/Platform.h src/controllers/Player.cpp src/controllers/Player.h src/controllers/Tile.cpp src/controllers/Tile.h)
+add_executable(DoodleJump ${sourcefiles} src/views/Bonus.cpp src/views/Bonus.h src/models/Entity.h src/controllers/Bonus.cpp src/controllers/Bonus.h src/controllers/Platform.cpp src/controllers/Platform.h src/controllers/Player.cpp src/controllers/Player.h src/controllers/Tile.cpp src/controllers/Tile.h src/factories/AbstractFactory.h src/factories/ConcreteFactory.cpp src/factories/ConcreteFactory.h)
 
 # Find SFML
 #set(SFML_STATIC_LIBRARIES TRUE)
