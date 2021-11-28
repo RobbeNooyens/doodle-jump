@@ -18,7 +18,6 @@ private:
     sf::Sprite player;
     sf::Texture texture;
     sf::CircleShape circle;
-
 };
 
 

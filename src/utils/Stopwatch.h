@@ -21,16 +21,17 @@ public:
 
     double elapsedSeconds();
 
+    double elapsed();
 private:
     static TimeStamp getCurrentTime();
-    Stopwatch();
 
+    Stopwatch();
     TimeStamp begin;
+
     TimeStamp end;
 
+
     bool running = false;
-
-
 };
 
 

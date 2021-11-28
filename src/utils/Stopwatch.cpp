@@ -29,6 +29,10 @@ double Stopwatch::elapsedSeconds() {
     return (double) std::chrono::duration_cast<std::chrono::seconds>((running ? getCurrentTime() : end) - begin).count();
 }
 
+double Stopwatch::elapsed() {
+    return (double) ((running ? getCurrentTime() : end) - begin).count();
+}
+
 Stopwatch::Stopwatch(): begin(getCurrentTime()), end(getCurrentTime()) {}
 
 TimeStamp Stopwatch::getCurrentTime() {
