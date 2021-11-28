@@ -2,8 +2,8 @@
 // Created by robnoo on 25/11/21.
 //
 
-#ifndef DOODLEJUMP_PLAYER_H
-#define DOODLEJUMP_PLAYER_H
+#ifndef DOODLEJUMP_PLAYERMODEL_H
+#define DOODLEJUMP_PLAYERMODEL_H
 
 namespace models {
     class Player {
@@ -11,4 +11,6 @@ namespace models {
     };
 }
 
-#endif //DOODLEJUMP_PLAYER_H
+
+
+#endif //DOODLEJUMP_PLAYERMODEL_H

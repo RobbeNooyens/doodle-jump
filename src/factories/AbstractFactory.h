@@ -7,7 +7,7 @@
 
 
 #include "../controllers/Platform.h"
-#include "../controllers/Player.h"
+#include "../controllers/PlayerController.h"
 
 enum PlatformType { STATIC, HORIZONTAL, VERTICAL, TEMPORARY };
 enum BonusType { NONE, SPRING, JETPACK };
@@ -19,7 +19,7 @@ public:
         return loadPlatform(platformType, BonusType::NONE);
     }
 
-    virtual controllers::Player loadPlayer() = 0;
+    virtual controllers::PlayerController loadPlayer() = 0;
 };
 
 

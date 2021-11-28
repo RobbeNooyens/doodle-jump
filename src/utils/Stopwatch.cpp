@@ -23,6 +23,7 @@ void Stopwatch::stop() {
 void Stopwatch::reset() {
     begin = getCurrentTime();
     end = getCurrentTime();
+    beginCycle = getCurrentTime();
 }
 
 double Stopwatch::elapsedSeconds() {
@@ -37,4 +38,12 @@ Stopwatch::Stopwatch(): begin(getCurrentTime()), end(getCurrentTime()) {}
 
 TimeStamp Stopwatch::getCurrentTime() {
     return std::chrono::system_clock::now();
+}
+
+double Stopwatch::elapsedSinceLastCycle() {
+    return (double) ((running ? getCurrentTime() : end) - beginCycle).count();
+}
+
+void Stopwatch::startCycle() {
+    beginCycle = getCurrentTime();
 }

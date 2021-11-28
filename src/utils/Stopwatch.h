@@ -19,9 +19,13 @@ public:
 
     void reset();
 
+    void startCycle();
+
     double elapsedSeconds();
 
     double elapsed();
+
+    double elapsedSinceLastCycle();
 private:
     static TimeStamp getCurrentTime();
 
@@ -29,6 +33,8 @@ private:
     TimeStamp begin;
 
     TimeStamp end;
+
+    TimeStamp beginCycle;
 
 
     bool running = false;

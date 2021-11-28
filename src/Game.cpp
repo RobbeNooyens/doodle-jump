@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Game.h"
 #include "utils/Stopwatch.h"
+#include "controllers/EntityController.h"
+#include "controllers/PlayerController.h"
 
 #define MAX_CYCLES_PER_SECOND 30
 #define MIN_TIME_PER_CYCLE (1000000000.0 / MAX_CYCLES_PER_SECOND)
@@ -26,12 +28,19 @@ void Game::run() {
     clock.start();
     clock.reset();
     sf::Event event;
+
+
+    std::vector<EntityController> controllers;
+    controllers::PlayerController playerController;
+    playerController.load((std::string &) "player.json");
+
+
     // Game loop
     while (window.isOpen()) {
         double elapsedSeconds = clock.elapsedSeconds();
         double elapsedMilliseconds = elapsedSeconds / 1000;
         double elapsedPicoseconds = elapsedSeconds / 1000000000;
-        if (clock.elapsed() < MIN_TIME_PER_CYCLE)
+        if (clock.elapsedSinceLastCycle() < MIN_TIME_PER_CYCLE)
             continue;
 
         while (window.pollEvent(event)) {
@@ -39,10 +48,12 @@ void Game::run() {
                 return;
         }
 
-        clock.reset();
+        clock.startCycle();
 
         window.clear();
-        window.draw(player);
+        for(auto& entity: controllers) {
+            window.draw(entity.getSprite());
+        }
         window.display();
     }
 

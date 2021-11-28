@@ -1,0 +1,7 @@
+{
+  "id": "player",
+  "textures": {
+    "doodler": "ninja_doodler.png"
+  },
+  "center": [0.5, 0.5]
+}
