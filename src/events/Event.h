@@ -7,10 +7,16 @@
 
 #include <chrono>
 
+enum EventType {NONE, KEY_PRESSED, REACHED_HEIGHT};
+
 class Event {
 public:
+    explicit Event(EventType type): type(type) {}
+    Event(): type(EventType::NONE) {}
+    EventType getType() { return type; }
 
 private:
+    EventType type;
     std::chrono::system_clock::time_point timeStamp;
 };
 

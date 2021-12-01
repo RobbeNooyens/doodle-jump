@@ -7,6 +7,9 @@
 #include "utils/Stopwatch.h"
 #include "controllers/EntityController.h"
 #include "controllers/PlayerController.h"
+#include "events/Event.h"
+#include "events/KeyPressedEvent.h"
+#include "events/EventManager.h"
 
 #define MAX_CYCLES_PER_SECOND 30
 #define MIN_TIME_PER_CYCLE (1000000000.0 / MAX_CYCLES_PER_SECOND)
@@ -30,10 +33,13 @@ void Game::run() {
     sf::Event event;
 
 
-    std::vector<EntityController> controllers;
-    controllers::PlayerController playerController;
-    playerController.load((std::string &) "player.json");
-
+    std::vector<std::shared_ptr<EntityController>> controllers;
+    std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
+    std::string jsonFile = "player.json";
+    playerController->load(jsonFile);
+    controllers.push_back(playerController);
+    std::shared_ptr<EventHandler> handler = playerController;
+    EventManager::getInstance().registerHandler(handler);
 
     // Game loop
     while (window.isOpen()) {
@@ -44,15 +50,26 @@ void Game::run() {
             continue;
 
         while (window.pollEvent(event)) {
-            if(event.type == sf::Event::KeyPressed || event.type == sf::Event::Closed)
+            if(event.type == sf::Event::KeyPressed) {
+                if(event.key.code == sf::Keyboard::Left) {
+                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::LEFT);
+                    EventManager::getInstance().invoke(ev);
+                }
+            }
+            if(event.type == sf::Event::Closed)
                 return;
         }
 
         clock.startCycle();
 
+        // Update controllers
+
+
+        // Update camera
+
         window.clear();
         for(auto& entity: controllers) {
-            window.draw(entity.getSprite());
+            window.draw(entity->getSprite());
         }
         window.display();
     }

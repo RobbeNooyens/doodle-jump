@@ -2,6 +2,7 @@
 // Created by robnoo on 28/11/21.
 //
 
+#include <stdexcept>
 #include "EntityView.h"
 
 
@@ -12,9 +13,13 @@ sf::Sprite &EntityView::getSprite() {
 
 void EntityView::setTexture(std::string &textureFile) {
     // TODO: exception handling
-    texture.loadFromFile("resources/textures/" + textureFile);
+    try {
+        texture.loadFromFile("../resources/textures/" + textureFile);
+        sprite.setTexture(texture);
+    } catch(...) {
+        throw std::runtime_error("Error while loading texture");
+    }
 }
 
 EntityView::EntityView() {
-    sprite.setTexture(texture);
 }

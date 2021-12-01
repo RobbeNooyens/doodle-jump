@@ -18,11 +18,11 @@ namespace controllers {
     public:
         PlayerController();
 
-        void handle(Event& event) override;
+        void handle(std::shared_ptr<Event>& event) override;
 
         void load(std::string &entityJsonFile) override;
 
-        sf::Sprite getSprite() override;
+        sf::Sprite& getSprite() override;
 
 
     private:

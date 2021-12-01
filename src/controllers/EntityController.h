@@ -9,9 +9,9 @@
 
 class EntityController: public EventHandler {
 public:
-    void handle(Event& event) override = 0;
+    void handle(std::shared_ptr<Event>& event) override = 0;
     virtual void load(std::string& entityJsonFile) = 0;
-    virtual sf::Sprite getSprite() = 0;
+    virtual sf::Sprite& getSprite() = 0;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H

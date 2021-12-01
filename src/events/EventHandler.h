@@ -9,7 +9,7 @@ class Event;
 
 class EventHandler {
 public:
-    virtual void handle(Event& event) = 0;
+    virtual void handle(std::shared_ptr<Event>& event) = 0;
 };
 
 #endif //DOODLEJUMP_EVENTHANDLER_H

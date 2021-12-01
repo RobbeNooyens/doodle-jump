@@ -12,6 +12,8 @@ enum KeyAction {LEFT, RIGHT, EXIT, PAUSE};
 
 class KeyPressedEvent: public Event {
 public:
+    KeyPressedEvent(KeyAction action);
+    KeyAction getAction();
 
 private:
     KeyAction action;

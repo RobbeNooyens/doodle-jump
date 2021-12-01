@@ -10,7 +10,11 @@ file(GLOB sourcefiles
         "src/**/*.cpp"
         )
 
-add_executable(DoodleJump ${sourcefiles} src/views/Bonus.cpp src/views/Bonus.h src/models/Entity.h src/controllers/Bonus.cpp src/controllers/Bonus.h src/controllers/Platform.cpp src/controllers/Platform.h src/controllers/PlayerController.cpp src/controllers/PlayerController.h src/controllers/Tile.cpp src/controllers/Tile.h src/factories/AbstractFactory.h src/factories/ConcreteFactory.cpp src/factories/ConcreteFactory.h src/events/Event.h src/events/EventHandler.h src/events/KeyPressedEvent.cpp src/events/KeyPressedEvent.h src/controllers/EntityController.h src/views/EntityView.h src/views/EntityView.cpp)
+# Compile option needed to prevent Clion from skipping breakpoints
+add_compile_options(-gdwarf-4)
+
+
+add_executable(DoodleJump ${sourcefiles} src/views/Bonus.cpp src/views/Bonus.h src/models/Entity.h src/controllers/Bonus.cpp src/controllers/Bonus.h src/controllers/Platform.cpp src/controllers/Platform.h src/controllers/PlayerController.cpp src/controllers/PlayerController.h src/controllers/Tile.cpp src/controllers/Tile.h src/factories/AbstractFactory.h src/factories/ConcreteFactory.cpp src/factories/ConcreteFactory.h src/events/Event.h src/events/EventHandler.h src/events/KeyPressedEvent.cpp src/events/KeyPressedEvent.h src/controllers/EntityController.h src/views/EntityView.h src/views/EntityView.cpp src/events/EventManager.cpp src/events/EventManager.h src/events/ReachedNewHeightEvent.cpp src/events/ReachedNewHeightEvent.h)
 
 # Find SFML
 #set(SFML_STATIC_LIBRARIES TRUE)
