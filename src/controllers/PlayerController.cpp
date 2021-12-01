@@ -4,12 +4,13 @@
 
 #include <fstream>
 #include "PlayerController.h"
-#include "../models/Player.h"
+#include "../models/PlayerModel.h"
 #include "../../libraries/json.hpp"
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
+#include "../utils/ResourceLoader.h"
 
-using json = nlohmann::json;
+
 
 void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     if (event->getType() == EventType::KEY_PRESSED) {
@@ -21,18 +22,9 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
 }
 
 void controllers::PlayerController::load(std::string &entityJsonFile) {
-    std::ifstream input("../resources/entities/" + entityJsonFile);
+    std::string entity_id = "player", texture_id = "left";
+    (*playerView).setTexture(ResourceLoader::getInstance().getTexture(entity_id, texture_id));
 
-    std::string t = "ninja_doodler.png";
-    json j;
-    input >> j;
-
-
-    for(const auto& texture: j["textures"]) {
-        t = texture["source"];
-    }
-
-    (*playerView).setTexture(t);
 }
 
 sf::Sprite& controllers::PlayerController::getSprite() {
@@ -40,6 +32,6 @@ sf::Sprite& controllers::PlayerController::getSprite() {
 }
 
 controllers::PlayerController::PlayerController() {
-    playerModel = std::make_shared<models::Player>(models::Player());
-    playerView = std::make_shared<views::Player>(views::Player());
+    playerModel = std::make_shared<models::PlayerModel>(models::PlayerModel());
+    playerView = std::make_shared<views::PlayerView>(views::PlayerView());
 }

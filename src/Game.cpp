@@ -10,21 +10,12 @@
 #include "events/Event.h"
 #include "events/KeyPressedEvent.h"
 #include "events/EventManager.h"
+#include "utils/ResourceLoader.h"
 
 #define MAX_CYCLES_PER_SECOND 30
 #define MIN_TIME_PER_CYCLE (1000000000.0 / MAX_CYCLES_PER_SECOND)
 
-Game::Game()
-        : window(sf::VideoMode(640, 480), "Doodle Jump", sf::Style::Close),
-          player(),
-          texture(),
-          circle(sf::CircleShape(100.f)) {
-    if (!texture.loadFromFile("../resources/textures/ninja_doodler.png")) {
-        throw std::runtime_error("texture not found");
-    }
-    player.setTexture(texture);
-    circle.setFillColor(sf::Color::Green);
-}
+Game::Game(): window(sf::VideoMode(400, 600), "Doodle Jump", sf::Style::Close) {}
 
 void Game::run() {
     Stopwatch clock = Stopwatch::getInstance();
@@ -32,10 +23,11 @@ void Game::run() {
     clock.reset();
     sf::Event event;
 
+    std::string jsonFile = "config.json";
+    ResourceLoader::getInstance().load(jsonFile);
 
     std::vector<std::shared_ptr<EntityController>> controllers;
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
-    std::string jsonFile = "player.json";
     playerController->load(jsonFile);
     controllers.push_back(playerController);
     std::shared_ptr<EventHandler> handler = playerController;

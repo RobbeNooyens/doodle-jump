@@ -23,3 +23,8 @@ void EntityView::setTexture(std::string &textureFile) {
 
 EntityView::EntityView() {
 }
+
+void EntityView::setTexture(sf::Texture &newTexture) {
+    texture = newTexture;
+    sprite.setTexture(texture);
+}

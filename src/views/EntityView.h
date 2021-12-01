@@ -13,6 +13,7 @@ public:
     EntityView();
     sf::Sprite& getSprite();
     void setTexture(std::string& textureFile);
+    void setTexture(sf::Texture& texture);
 private:
     sf::Texture texture;
     sf::Sprite sprite;

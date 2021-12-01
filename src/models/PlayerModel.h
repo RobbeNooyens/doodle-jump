@@ -6,7 +6,7 @@
 #define DOODLEJUMP_PLAYERMODEL_H
 
 namespace models {
-    class Player {
+    class PlayerModel {
 
     };
 }

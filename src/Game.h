@@ -15,9 +15,6 @@ public:
 
 private:
     sf::RenderWindow window;
-    sf::Sprite player;
-    sf::Texture texture;
-    sf::CircleShape circle;
 };
 
 

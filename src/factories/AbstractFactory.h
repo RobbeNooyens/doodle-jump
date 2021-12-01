@@ -6,7 +6,7 @@
 #define DOODLEJUMP_ABSTRACTFACTORY_H
 
 
-#include "../controllers/Platform.h"
+#include "../controllers/PlatformController.h"
 #include "../controllers/PlayerController.h"
 
 enum PlatformType { STATIC, HORIZONTAL, VERTICAL, TEMPORARY };
@@ -14,8 +14,8 @@ enum BonusType { NONE, SPRING, JETPACK };
 
 class AbstractFactory {
 public:
-    virtual controllers::Platform loadPlatform(PlatformType platformType, BonusType bonus) = 0;
-    controllers::Platform loadPlatform(PlatformType platformType) {
+    virtual controllers::PlatformController loadPlatform(PlatformType platformType, BonusType bonus) = 0;
+    controllers::PlatformController loadPlatform(PlatformType platformType) {
         return loadPlatform(platformType, BonusType::NONE);
     }
 

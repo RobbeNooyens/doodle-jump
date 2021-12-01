@@ -10,9 +10,9 @@
 #include "EntityView.h"
 
 namespace views {
-    class Player: public EntityView {
+    class PlayerView: public EntityView {
     public:
-        Player();
+        PlayerView();
 
     };
 }

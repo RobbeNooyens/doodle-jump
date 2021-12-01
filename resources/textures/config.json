@@ -1,0 +1,33 @@
+{
+  "entities": [
+    {
+      "id": "player",
+      "textures": [
+        {
+          "id": "left",
+          "source": "doodle-left.png",
+          "bounding_box": {
+            "centerX": 0.65,
+            "centerY": 0.46,
+            "left": 0.35,
+            "right": 0.35,
+            "up": 0.45,
+            "down": 0.50
+          }
+        },
+        {
+          "id": "right",
+          "source": "doodle-right.png",
+          "bounding_box": {
+            "centerX": 0.35,
+            "centerY": 0.46,
+            "left": 0.35,
+            "right": 0.35,
+            "up": 0.45,
+            "down": 0.50
+          }
+        }
+      ]
+    }
+  ]
+}

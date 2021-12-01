@@ -7,8 +7,8 @@
 
 #include <memory>
 #include <SFML/Graphics/Sprite.hpp>
-#include "../models/Player.h"
-#include "../views/Player.h"
+#include "../models/PlayerModel.h"
+#include "../views/PlayerView.h"
 #include "EntityController.h"
 
 class Event;
@@ -26,8 +26,8 @@ namespace controllers {
 
 
     private:
-        std::shared_ptr<models::Player> playerModel;
-        std::shared_ptr<views::Player> playerView;
+        std::shared_ptr<models::PlayerModel> playerModel;
+        std::shared_ptr<views::PlayerView> playerView;
 
     };
 }

@@ -12,7 +12,7 @@ void EventManager::registerHandler(std::shared_ptr<EventHandler> &handler) {
 
 void EventManager::invoke(std::shared_ptr<Event> &event) {
     for(const auto& handler: handlers) {
-        handler->handle(*event);
+        handler->handle(event);
     }
 }
 
