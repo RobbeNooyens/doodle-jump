@@ -77,6 +77,20 @@
             "up": 0.5,
             "down": 0.5
           }
+        },
+        {
+          "id": "vertical",
+          "source": "yellow_platform.png",
+          "width": 64,
+          "height": 16,
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
         }
       ]
     },

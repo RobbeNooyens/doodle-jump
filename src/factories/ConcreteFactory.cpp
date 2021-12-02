@@ -9,18 +9,28 @@
 std::shared_ptr<controllers::PlatformController>
 ConcreteFactory::loadPlatform(PlatformType platformType, BonusType bonus) {
     std::shared_ptr<controllers::PlatformController> platformController;
+    std::string entity = "platform";
+    std::string texture;
     if(platformType == PlatformType::STATIC) {
         platformController = std::make_shared<controllers::StaticPlatformController>();
-        std::string entity = "platform";
-        std::string texture = "static";
-        std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
-        platformController->load(resource);
-        platformController->setSize(60);
-        std::shared_ptr<EventHandler> handler = platformController;
-        EventManager::getInstance().registerHandler(handler);
+        texture = "static";
+    } else if(platformType == PlatformType::TEMPORARY) {
+        platformController = std::make_shared<controllers::TemporaryPlatformController>();
+        texture = "temporary";
+    } else if(platformType == PlatformType::HORIZONTAL) {
+        platformController = std::make_shared<controllers::TemporaryPlatformController>();
+        texture = "horizontal";
+    } else if(platformType == PlatformType::VERTICAL) {
+        platformController = std::make_shared<controllers::TemporaryPlatformController>();
+        texture = "vertical";
     } else {
         throw std::runtime_error("Something went wrong");
     }
+    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    platformController->load(resource);
+    platformController->setSize(60);
+    std::shared_ptr<EventHandler> handler = platformController;
+    EventManager::getInstance().registerHandler(handler);
     return platformController;
 }
 

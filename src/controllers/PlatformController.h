@@ -24,6 +24,21 @@ namespace controllers {
     public:
         StaticPlatformController();
     };
+
+    class TemporaryPlatformController: public PlatformController {
+    public:
+        TemporaryPlatformController();
+    };
+
+    class HorizontalPlatformController: public PlatformController {
+    public:
+        HorizontalPlatformController();
+    };
+
+    class VerticalPlatformController: public PlatformController {
+    public:
+        VerticalPlatformController();
+    };
 }
 
 

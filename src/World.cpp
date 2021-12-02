@@ -33,10 +33,20 @@ void World::clear() {
 void World::setup() {
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
-    std::shared_ptr<controllers::PlatformController> platform = factory->loadPlatform(PlatformType::STATIC);
-    platform->moveTo(60, 300);
     player->moveTo(60, 100);
-    platforms.push_back(platform);
+    std::shared_ptr<controllers::PlatformController> platformStatic = factory->loadPlatform(PlatformType::STATIC);
+    platformStatic->moveTo(60, 300);
+    platforms.push_back(platformStatic);
+    std::shared_ptr<controllers::PlatformController> platformTemporary = factory->loadPlatform(PlatformType::TEMPORARY);
+    platformTemporary->moveTo(160, 300);
+    platforms.push_back(platformTemporary);
+    std::shared_ptr<controllers::PlatformController> platformHorizontal = factory->loadPlatform(PlatformType::HORIZONTAL);
+    platformHorizontal->moveTo(260, 300);
+    platforms.push_back(platformHorizontal);
+    std::shared_ptr<controllers::PlatformController> platformVertical = factory->loadPlatform(PlatformType::VERTICAL);
+    platformVertical->moveTo(360, 300);
+    platforms.push_back(platformVertical);
+
 }
 
 World &World::getInstance() {

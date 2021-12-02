@@ -15,3 +15,15 @@ controllers::PlatformController::PlatformController() {
 controllers::StaticPlatformController::StaticPlatformController(): PlatformController() {
     model = std::make_shared<models::StaticPlatform>();
 }
+
+controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController() {
+    model = std::make_shared<models::TemporaryPlatform>();
+}
+
+controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController() {
+    model = std::make_shared<models::HorizontalPlatform>();
+}
+
+controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController() {
+    model = std::make_shared<models::VerticalPlatform>();
+}
