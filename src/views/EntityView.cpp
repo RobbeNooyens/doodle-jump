@@ -37,6 +37,8 @@ void EntityView::moveTo(double x, double y) {
 }
 
 void EntityView::setSize(double s) {
+    double screensize = 400;
+
     double scale = s/width;
     sprite.setScale(scale, scale);
 }

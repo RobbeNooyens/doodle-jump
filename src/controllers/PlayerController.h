@@ -21,7 +21,6 @@ namespace controllers {
 
         // Actions
         void handle(std::shared_ptr<Event>& event) override;
-        void load(double size) override;
         void update(double elapsed) override;
     };
 }

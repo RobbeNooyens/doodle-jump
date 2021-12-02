@@ -12,17 +12,14 @@ void controllers::PlatformController::update(double elapsed) {
 
 }
 
-controllers::PlatformController::PlatformController() = default;
+controllers::PlatformController::PlatformController() {
+    view = std::make_shared<views::PlatformView>();
+}
 
-void controllers::StaticPlatformController::load(double size) {
-    std::string texture_id = "static";
-    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entityType, texture_id);
-    this->model = std::make_shared<models::StaticPlatform>();
-    model->setSize(size);
-    model->setBoundingBox(resource->boundingBox);
-    this->view = std::make_shared<views::PlatformView>();
-    view->setTexture(resource->texture);
-    view->setWidth(resource->width);
-    view->setHeight(resource->height);
-    view->setSize(size);
+controllers::StaticPlatformController::StaticPlatformController(): PlatformController() {
+    model = std::make_shared<models::StaticPlatform>();
+}
+
+void controllers::StaticPlatformController::update(double elapsed) {
+
 }

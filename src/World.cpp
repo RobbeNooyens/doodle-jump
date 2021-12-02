@@ -33,9 +33,10 @@ void World::clear() {
 void World::setup() {
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
-    std::shared_ptr<controllers::PlatformController> platformController = factory->loadPlatform(PlatformType::STATIC);
-    platformController->moveTo(60, 300);
-    platforms.push_back(platformController);
+    std::shared_ptr<controllers::PlatformController> platform = factory->loadPlatform(PlatformType::STATIC);
+    platform->moveTo(60, 300);
+    player->moveTo(60, 100);
+    platforms.push_back(platform);
 }
 
 World &World::getInstance() {
@@ -56,14 +57,15 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
 }
 
 void World::redraw(sf::RenderWindow &window) {
-    window.draw(player->getSprite());
     CollisionBox box = player->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
     cbox.setPosition(player->getSprite().getPosition());
     cbox.setOutlineColor(sf::Color::Red);
+    cbox.setOutlineThickness(4);
     cbox.setFillColor(sf::Color::Transparent);
     window.draw(cbox);
+    window.draw(player->getSprite());
     for(auto& platform: platforms)
         window.draw(platform->getSprite());
 

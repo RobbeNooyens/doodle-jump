@@ -18,18 +18,14 @@ namespace controllers {
 
         // Actions
         void handle(std::shared_ptr<Event> &event) override;
-        void update(double elapsed) override;
-        void load(double width) override = 0;
-
-    protected:
-        std::string entityType = "platform";
-
+        void update(double elapsed) override = 0;
     };
 
     class StaticPlatformController: public PlatformController {
     public:
-        // Loaders
-        void load(double width) override;
+        StaticPlatformController();
+
+        void update(double elapsed) override;
     };
 }
 

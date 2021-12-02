@@ -8,8 +8,6 @@
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
 
-
-
 void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     if (event->getType() == EventType::KEY_PRESSED) {
         std::shared_ptr<KeyPressedEvent> keyPressed = std::static_pointer_cast<KeyPressedEvent>(event);
@@ -17,18 +15,6 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
             view->changeX(-5);
         }
     }
-}
-
-void controllers::PlayerController::load(double size) {
-    std::string entity_id = "player", texture_id = "left";
-    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity_id, texture_id);
-    model->setSize(size);
-    model->setBoundingBox(resource->boundingBox);
-    view->setTexture(resource->texture);
-    view->setHeight(resource->height);
-    view->setWidth(resource->width);
-    view->setSize(size);
-
 }
 
 controllers::PlayerController::PlayerController() {

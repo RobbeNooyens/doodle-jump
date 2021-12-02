@@ -5,6 +5,7 @@
 #include "EntityController.h"
 #include "../views/EntityView.h"
 #include "../models/EntityModel.h"
+#include "../utils/ResourceLoader.h"
 
 sf::Sprite &EntityController::getSprite() {
     return view->getSprite();
@@ -18,6 +19,18 @@ void EntityController::moveTo(double x, double y) {
 CollisionBox EntityController::getCollisionBox() {
     auto box = model->getBox();
     return {box.first, box.second};
+}
+
+void EntityController::load(std::shared_ptr<Resource>& resource) {
+    model->setBoundingBox(resource->boundingBox);
+    view->setTexture(resource->texture);
+    view->setWidth(resource->width);
+    view->setHeight(resource->height);
+}
+
+void EntityController::setSize(double size) {
+    model->setSize(size);
+    view->setSize(size);
 }
 
 bool CollisionBox::collides(CollisionBox &box) const {

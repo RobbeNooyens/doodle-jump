@@ -10,6 +10,7 @@
 
 class EntityModel;
 class EntityView;
+class Resource;
 
 struct CollisionBox {
     std::pair<double, double> upperLeft;
@@ -22,10 +23,16 @@ struct CollisionBox {
 
 class EntityController: public EventHandler {
 public:
-    void handle(std::shared_ptr<Event>& event) override = 0;
-    virtual void load(double width) = 0;
+    // Abstracts
     virtual void update(double elapsed) = 0;
+    void handle(std::shared_ptr<Event>& event) override = 0;
+
+    // Actions
+    void load(std::shared_ptr<Resource>& resource);
     void moveTo(double x, double y);
+
+    // Setters
+    void setSize(double size);
 
     // Getters
     sf::Sprite& getSprite();
