@@ -19,9 +19,12 @@ namespace controllers {
         // Constructor
         PlayerController();
 
+        double getX() {return model->getX();}
+        double getY() {return model->getY();}
+
         // Actions
         void handle(std::shared_ptr<Event>& event) override;
-        void update(double elapsed) override;
+//        void update(double elapsed) override;
     };
 }
 

@@ -9,8 +9,8 @@
 void models::PlayerModel::update(double elapsed) {
     // Falling
     if(state == FALLING) {
-        energie += elapsed;
-        this->y += energie;
+//        energie += elapsed;
+//        this->y += energie;
 
         auto box = getBox();
         CollisionBox cbox = {box.first, box.second};

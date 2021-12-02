@@ -24,7 +24,7 @@ struct CollisionBox {
 class EntityController: public EventHandler {
 public:
     // Abstracts
-    virtual void update(double elapsed) = 0;
+    virtual void update(double elapsed);
     void handle(std::shared_ptr<Event>& event) override = 0;
 
     // Actions

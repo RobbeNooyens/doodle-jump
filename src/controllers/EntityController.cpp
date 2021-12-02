@@ -23,6 +23,8 @@ CollisionBox EntityController::getCollisionBox() {
 
 void EntityController::load(std::shared_ptr<Resource>& resource) {
     model->setBoundingBox(resource->boundingBox);
+    model->setWidth(resource->width);
+    model->setHeight(resource->height);
     view->setTexture(resource->texture);
     view->setWidth(resource->width);
     view->setHeight(resource->height);
@@ -31,6 +33,12 @@ void EntityController::load(std::shared_ptr<Resource>& resource) {
 void EntityController::setSize(double size) {
     model->setSize(size);
     view->setSize(size);
+}
+
+void EntityController::update(double elapsed) {
+    model->update(elapsed);
+    std::pair<double, double> corner = model->getUpperLeftCorner();
+    view->moveTo(corner.first, corner.second);
 }
 
 bool CollisionBox::collides(CollisionBox &box) const {

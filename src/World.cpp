@@ -56,17 +56,28 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
     return bonuses;
 }
 
-void World::redraw(sf::RenderWindow &window) {
-    CollisionBox box = player->getCollisionBox();
+void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> entity) {
+    CollisionBox box = entity->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
-    cbox.setPosition(player->getSprite().getPosition());
+    cbox.setPosition(box.upperLeft.first, box.upperLeft.second);
     cbox.setOutlineColor(sf::Color::Red);
-    cbox.setOutlineThickness(4);
+    cbox.setOutlineThickness(1);
     cbox.setFillColor(sf::Color::Transparent);
     window.draw(cbox);
+}
+
+void World::redraw(sf::RenderWindow &window) {
+    drawBoudingBox(window, player);
     window.draw(player->getSprite());
-    for(auto& platform: platforms)
+    sf::CircleShape position;
+    position.setRadius(2);
+    position.setFillColor(sf::Color::Yellow);
+    position.setPosition(player->getX(), player->getY());
+    window.draw(position);
+    for(auto& platform: platforms) {
         window.draw(platform->getSprite());
+        drawBoudingBox(window, platform);
+    }
 
 }
