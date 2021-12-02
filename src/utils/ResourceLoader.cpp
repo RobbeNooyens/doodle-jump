@@ -13,7 +13,7 @@ ResourceLoader &ResourceLoader::getInstance() {
     return INSTANCE;
 }
 
-BoundingBox &ResourceLoader::getBoundingBox(std::string &entity_id, std::string &texture_id) {
+std::shared_ptr<BoundingBox> &ResourceLoader::getBoundingBox(std::string &entity_id, std::string &texture_id) {
     return resources.at(entity_id).at(texture_id).second;
 }
 
@@ -30,7 +30,7 @@ void ResourceLoader::load(std::string &jsonFile) {
 
     for(const auto& entity: j["entities"]) {
         std::string entity_id = entity["id"];
-        auto textures_map = std::map<std::string, std::pair<sf::Texture, BoundingBox>>();
+        auto textures_map = std::map<std::string, std::pair<sf::Texture, std::shared_ptr<BoundingBox>>>();
         for(const auto& texture: entity["textures"]) {
             // TODO: replace accessors with .at() for nullpointer instead of segfault
             std::string texture_id = texture["id"];
@@ -41,7 +41,7 @@ void ResourceLoader::load(std::string &jsonFile) {
             double down = texture["bounding_box"]["down"];
             double left = texture["bounding_box"]["left"];
             double right = texture["bounding_box"]["right"];
-            BoundingBox bbox = BoundingBox(centerX, centerY, up, down, left, right);
+            std::shared_ptr<BoundingBox> bbox = std::make_shared<BoundingBox>(centerX, centerY, up, down, left, right);
             sf::Texture textureObj;
             textureObj.loadFromFile("../resources/textures/" + source);
             textures_map.insert({texture_id, {textureObj, bbox}});

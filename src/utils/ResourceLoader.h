@@ -9,6 +9,7 @@
 #include <map>
 #include <string>
 #include <SFML/Graphics/Texture.hpp>
+#include <memory>
 
 struct BoundingBox {
     BoundingBox(double centerX, double centerY, double up, double down, double left, double right)
@@ -20,13 +21,13 @@ struct BoundingBox {
 class ResourceLoader {
 public:
     static ResourceLoader& getInstance();
-    BoundingBox& getBoundingBox(std::string& entity_id, std::string& texture_id);
+    std::shared_ptr<BoundingBox>& getBoundingBox(std::string& entity_id, std::string& texture_id);
     sf::Texture& getTexture(std::string& entity_id, std::string& texture_id);
     void load(std::string& jsonFile);
 private:
     ResourceLoader();
 
-    std::map<std::string, std::map<std::string, std::pair<sf::Texture, BoundingBox>>> resources;
+    std::map<std::string, std::map<std::string, std::pair<sf::Texture, std::shared_ptr<BoundingBox>>>> resources;
 
 
 };

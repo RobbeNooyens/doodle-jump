@@ -16,17 +16,17 @@ class Event;
 namespace controllers {
     class PlayerController: public EntityController {
     public:
+        // Constructor
         PlayerController();
 
+        // Actions
         void handle(std::shared_ptr<Event>& event) override;
-
         void load(double size) override;
-
-        sf::Sprite& getSprite() override;
-
         void update(double elapsed) override;
-
         void moveTo(double x, double y) override;
+
+        // Getters
+        sf::Sprite& getSprite() override;
 
 
     private:
