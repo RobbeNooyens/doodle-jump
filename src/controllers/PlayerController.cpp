@@ -47,3 +47,8 @@ void controllers::PlayerController::moveTo(double x, double y) {
     playerModel->moveTo(x, y);
     playerView->moveTo(x, y);
 }
+
+CollisionBox controllers::PlayerController::createCollisionBox() {
+    auto box = playerModel->getBox();
+    return {box.first, box.second};
+}

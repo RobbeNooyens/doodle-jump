@@ -3,6 +3,7 @@
 //
 
 #include "EntityModel.h"
+#include "../utils/ResourceLoader.h"
 
 void EntityModel::moveTo(double x, double y) {
 
@@ -22,4 +23,8 @@ std::pair<double, double> EntityModel::getCoordinates() {
 
 void EntityModel::setSize(double size) {
     this->size = size;
+}
+
+std::pair<std::pair<double, double>, std::pair<double, double>> EntityModel::getBox() {
+    return {{x-(bbox->left*size), y-(bbox->up*size)}, {x+(bbox->right*size), y+(bbox->down*size)}};
 }

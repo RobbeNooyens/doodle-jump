@@ -25,6 +25,8 @@ namespace controllers {
         // Getters
         sf::Sprite &getSprite() override;
 
+        CollisionBox createCollisionBox() override;
+
     protected:
         std::shared_ptr<models::PlatformModel> platformModel;
         std::shared_ptr<views::PlatformView> platformView;

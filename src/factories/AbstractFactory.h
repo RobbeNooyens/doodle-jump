@@ -10,13 +10,13 @@
 #include "../controllers/PlayerController.h"
 
 enum PlatformType { STATIC, HORIZONTAL, VERTICAL, TEMPORARY };
-enum BonusType { NONE, SPRING, JETPACK };
+enum BonusType { EMPTY, SPRING, JETPACK };
 
 class AbstractFactory {
 public:
     virtual std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType, BonusType bonus) = 0;
     std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType) {
-        return loadPlatform(platformType, BonusType::NONE);
+        return loadPlatform(platformType, BonusType::EMPTY);
     }
 
     virtual std::shared_ptr<controllers::PlayerController> loadPlayer() = 0;

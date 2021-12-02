@@ -28,6 +28,8 @@ namespace controllers {
         // Getters
         sf::Sprite& getSprite() override;
 
+        CollisionBox createCollisionBox() override;
+
 
     private:
         std::shared_ptr<models::PlayerModel> playerModel;

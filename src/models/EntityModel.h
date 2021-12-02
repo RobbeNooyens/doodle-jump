@@ -20,6 +20,7 @@ public:
     double getX();
     double getY();
     std::pair<double, double> getCoordinates();
+    std::pair<std::pair<double, double>, std::pair<double, double>> getBox();
 
     // Setters
     void setSize(double size);

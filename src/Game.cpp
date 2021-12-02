@@ -11,6 +11,9 @@
 #include "events/KeyPressedEvent.h"
 #include "events/EventManager.h"
 #include "utils/ResourceLoader.h"
+#include "factories/AbstractFactory.h"
+#include "factories/ConcreteFactory.h"
+#include "World.h"
 
 #define MAX_CYCLES_PER_SECOND 30
 #define MIN_TIME_PER_CYCLE (1000000000.0 / MAX_CYCLES_PER_SECOND)
@@ -27,11 +30,21 @@ void Game::run() {
     ResourceLoader::getInstance().load(jsonFile);
 
     std::vector<std::shared_ptr<EntityController>> controllers;
-    std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
-    playerController->load(0.3);
-    controllers.push_back(playerController);
-    std::shared_ptr<EventHandler> handler = playerController;
-    EventManager::getInstance().registerHandler(handler);
+//    std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
+//    playerController->load(0.3);
+//    controllers.push_back(playerController);
+
+
+//    std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
+//    std::shared_ptr<controllers::PlayerController> playerController = factory->loadPlayer();
+//    controllers.push_back(playerController);
+//    std::shared_ptr<controllers::PlatformController> platformController = factory->loadPlatform(PlatformType::STATIC);
+//    controllers.push_back(platformController);
+//    platformController->moveTo(60, 300);
+
+    World world = World::getInstance();
+    world.clear();
+    world.setup();
 
     // Game loop
     while (window.isOpen()) {
@@ -55,16 +68,19 @@ void Game::run() {
         clock.startCycle();
 
         // Update controllers
-        for(auto& controller: controllers) {
-            controller->update(clock.elapsedSinceLastCycle()/1000);
-        }
+//        for(auto& controller: controllers) {
+//            controller->update(clock.elapsedSinceLastCycle()/1000);
+//        }
+        world.update(clock.elapsedSinceLastCycle()/100);
 
         // Update camera
 
         window.clear();
-        for(auto& entity: controllers) {
-            window.draw(entity->getSprite());
-        }
+        world.redraw(window);
+//        window.draw(world.getPlayer()->getSprite());
+//        for(auto& entity: world.getPlatforms()) {
+//            window.draw(entity->getSprite());
+//        }
         window.display();
     }
 
