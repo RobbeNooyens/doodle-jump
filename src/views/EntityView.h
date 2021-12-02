@@ -11,15 +11,21 @@
 class EntityView {
 public:
     EntityView();
+
     sf::Sprite& getSprite();
-    void setTexture(std::string& textureFile);
-    void setTexture(sf::Texture& texture);
     void moveTo(double x, double y);
     void changeX(double increment);
+
+    // Setters
+    void setWidth(double w);
+    void setHeight(double h);
     void setSize(double size);
+    void setTexture(std::string& textureFile);
+    void setTexture(sf::Texture& texture);
 private:
     sf::Texture texture;
     sf::Sprite sprite;
+    double width = 0, height = 0;
 };
 
 #endif //DOODLEJUMP_ENTITYVIEW_H

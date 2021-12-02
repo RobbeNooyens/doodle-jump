@@ -28,3 +28,7 @@ void EntityModel::setSize(double size) {
 std::pair<std::pair<double, double>, std::pair<double, double>> EntityModel::getBox() {
     return {{x-(bbox->left*size), y-(bbox->up*size)}, {x+(bbox->right*size), y+(bbox->down*size)}};
 }
+
+void EntityModel::setBoundingBox(std::shared_ptr<BoundingBox> &bbox) {
+    this->bbox = bbox;
+}

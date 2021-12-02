@@ -23,18 +23,6 @@ namespace controllers {
         void handle(std::shared_ptr<Event>& event) override;
         void load(double size) override;
         void update(double elapsed) override;
-        void moveTo(double x, double y) override;
-
-        // Getters
-        sf::Sprite& getSprite() override;
-
-        CollisionBox createCollisionBox() override;
-
-
-    private:
-        std::shared_ptr<models::PlayerModel> playerModel;
-        std::shared_ptr<views::PlayerView> playerView;
-
     };
 }
 

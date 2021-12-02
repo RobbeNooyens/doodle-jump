@@ -9,6 +9,8 @@
 
 namespace views {
     class PlatformView: public EntityView {
+    public:
+        PlatformView();
 
     };
 }

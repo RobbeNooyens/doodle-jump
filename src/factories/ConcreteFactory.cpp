@@ -11,7 +11,7 @@ ConcreteFactory::loadPlatform(PlatformType platformType, BonusType bonus) {
     std::shared_ptr<controllers::PlatformController> platformController;
     if(platformType == PlatformType::STATIC) {
         platformController = std::make_shared<controllers::StaticPlatformController>();
-        platformController->load(1);
+        platformController->load(60);
         std::shared_ptr<EventHandler> handler = platformController;
         EventManager::getInstance().registerHandler(handler);
     } else {
@@ -22,7 +22,7 @@ ConcreteFactory::loadPlatform(PlatformType platformType, BonusType bonus) {
 
 std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
-    playerController->load(0.3);
+    playerController->load(60);
     std::shared_ptr<EventHandler> handler = playerController;
     EventManager::getInstance().registerHandler(handler);
     return playerController;

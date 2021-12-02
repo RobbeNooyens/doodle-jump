@@ -57,6 +57,13 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
 
 void World::redraw(sf::RenderWindow &window) {
     window.draw(player->getSprite());
+    CollisionBox box = player->getCollisionBox();
+    sf::RectangleShape cbox;
+    cbox.setSize(sf::Vector2f(box.width(), box.height()));
+    cbox.setPosition(player->getSprite().getPosition());
+    cbox.setOutlineColor(sf::Color::Red);
+    cbox.setFillColor(sf::Color::Transparent);
+    window.draw(cbox);
     for(auto& platform: platforms)
         window.draw(platform->getSprite());
 

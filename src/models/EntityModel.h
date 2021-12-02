@@ -24,6 +24,7 @@ public:
 
     // Setters
     void setSize(double size);
+    void setBoundingBox(std::shared_ptr<BoundingBox>& bbox);
 
 protected:
     double size = 1;

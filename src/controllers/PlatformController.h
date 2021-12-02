@@ -19,17 +19,9 @@ namespace controllers {
         // Actions
         void handle(std::shared_ptr<Event> &event) override;
         void update(double elapsed) override;
-        void moveTo(double x, double y) override;
         void load(double width) override = 0;
 
-        // Getters
-        sf::Sprite &getSprite() override;
-
-        CollisionBox createCollisionBox() override;
-
     protected:
-        std::shared_ptr<models::PlatformModel> platformModel;
-        std::shared_ptr<views::PlatformView> platformView;
         std::string entityType = "platform";
 
     };

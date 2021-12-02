@@ -3,3 +3,7 @@
 //
 
 #include "PlatformView.h"
+
+views::PlatformView::PlatformView(): EntityView() {
+
+}
