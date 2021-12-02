@@ -14,12 +14,12 @@ enum BonusType { NONE, SPRING, JETPACK };
 
 class AbstractFactory {
 public:
-    virtual controllers::PlatformController loadPlatform(PlatformType platformType, BonusType bonus) = 0;
-    controllers::PlatformController loadPlatform(PlatformType platformType) {
+    virtual std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType, BonusType bonus) = 0;
+    std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType) {
         return loadPlatform(platformType, BonusType::NONE);
     }
 
-    virtual controllers::PlayerController loadPlayer() = 0;
+    virtual std::shared_ptr<controllers::PlayerController> loadPlayer() = 0;
 };
 
 

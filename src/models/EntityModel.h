@@ -7,10 +7,11 @@
 
 class EntityModel {
 public:
+    virtual void update(double elapsed) = 0;
 
 
 private:
-    double size;
+    double size = 1;
 
 
 

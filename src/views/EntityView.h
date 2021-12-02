@@ -14,6 +14,9 @@ public:
     sf::Sprite& getSprite();
     void setTexture(std::string& textureFile);
     void setTexture(sf::Texture& texture);
+    void moveTo(double x, double y);
+    void changeX(double increment);
+    void setSize(double size);
 private:
     sf::Texture texture;
     sf::Sprite sprite;

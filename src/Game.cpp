@@ -28,7 +28,7 @@ void Game::run() {
 
     std::vector<std::shared_ptr<EntityController>> controllers;
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
-    playerController->load(jsonFile);
+    playerController->load(0.3);
     controllers.push_back(playerController);
     std::shared_ptr<EventHandler> handler = playerController;
     EventManager::getInstance().registerHandler(handler);
@@ -55,7 +55,9 @@ void Game::run() {
         clock.startCycle();
 
         // Update controllers
-
+        for(auto& controller: controllers) {
+            controller->update(clock.elapsedSinceLastCycle()/1000);
+        }
 
         // Update camera
 

@@ -28,3 +28,15 @@ void EntityView::setTexture(sf::Texture &newTexture) {
     texture = newTexture;
     sprite.setTexture(texture);
 }
+
+void EntityView::changeX(double increment) {
+    sprite.setPosition((float) (sprite.getPosition().x + increment), sprite.getPosition().y);
+}
+
+void EntityView::moveTo(double x, double y) {
+    sprite.setPosition((float) x, (float) y);
+}
+
+void EntityView::setSize(double size) {
+    sprite.setScale(size, size);
+}

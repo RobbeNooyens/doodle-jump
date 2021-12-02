@@ -9,6 +9,10 @@
 #include "AbstractFactory.h"
 
 class ConcreteFactory: public AbstractFactory {
+public:
+    std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType, BonusType bonus) override;
+
+    std::shared_ptr<controllers::PlayerController> loadPlayer() override;
 
 };
 
