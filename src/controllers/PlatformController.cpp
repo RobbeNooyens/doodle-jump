@@ -3,3 +3,31 @@
 //
 
 #include "PlatformController.h"
+#include "../utils/ResourceLoader.h"
+
+void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
+}
+
+sf::Sprite &controllers::PlatformController::getSprite() {
+    return platformView->getSprite();
+}
+
+void controllers::PlatformController::update(double elapsed) {
+
+}
+
+void controllers::PlatformController::moveTo(double x, double y) {
+    platformModel->moveTo(x, y);
+    platformView->moveTo(x, y);
+}
+
+controllers::PlatformController::PlatformController() = default;
+
+void controllers::StaticPlatformController::load(double width) {
+    this->platformModel = std::make_shared<models::StaticPlatform>();
+    platformModel->setSize(width);
+    this->platformView = std::make_shared<views::PlatformView>();
+    std::string texture_id = "white";
+    platformView->setTexture(ResourceLoader::getInstance().getTexture(entityType, texture_id));
+    platformView->setSize(width);
+}

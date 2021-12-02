@@ -16,3 +16,7 @@ void models::VerticalPlatform::update(double elapsed) {
 models::PlatformModel::PlatformModel(): EntityModel() {
 
 }
+
+void models::StaticPlatform::update(double elapsed) {
+
+}

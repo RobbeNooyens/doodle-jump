@@ -14,6 +14,11 @@ namespace models {
         void update(double elapsed) override = 0;
     };
 
+    class StaticPlatform: public PlatformModel {
+    public:
+        void update(double elapsed) override;
+    };
+
     class HorizontalPlatform: public PlatformModel {
     public:
         void update(double elapsed) override;

@@ -6,7 +6,19 @@
 
 std::shared_ptr<controllers::PlatformController>
 ConcreteFactory::loadPlatform(PlatformType platformType, BonusType bonus) {
-    return std::shared_ptr<controllers::PlatformController>();
+    std::shared_ptr<controllers::PlatformController> platformController;
+    switch (platformType) {
+        case STATIC:
+            platformController = std::make_shared<controllers::StaticPlatformController>();
+            break;
+        case HORIZONTAL:
+            break;
+        case VERTICAL:
+            break;
+        case TEMPORARY:
+            break;
+    }
+    return platformController;
 }
 
 std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {

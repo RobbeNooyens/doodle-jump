@@ -28,6 +28,88 @@
           }
         }
       ]
+    },
+    {
+      "id": "platform",
+      "textures": [
+        {
+          "id": "static",
+          "source": "green_platform.png",
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        },
+        {
+          "id": "temporary",
+          "source": "white_platform.png",
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        },
+        {
+          "id": "horizontal",
+          "source": "blue_platform.png",
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "bonus",
+      "textures": [
+        {
+          "id": "spring",
+          "source": "spring.png",
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        },
+        {
+          "id": "spring_extended",
+          "source": "spring_extended.png",
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        },
+        {
+          "id": "jetpack",
+          "source": "jetpack.png",
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        }
+      ]
     }
   ]
 }

@@ -5,8 +5,10 @@
 #ifndef DOODLEJUMP_PLATFORMVIEW_H
 #define DOODLEJUMP_PLATFORMVIEW_H
 
+#include "EntityView.h"
+
 namespace views {
-    class PlatformView {
+    class PlatformView: public EntityView {
 
     };
 }
