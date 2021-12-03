@@ -14,11 +14,12 @@
 #include "factories/AbstractFactory.h"
 #include "factories/ConcreteFactory.h"
 #include "World.h"
+#include "Settings.h"
 
 #define MAX_CYCLES_PER_SECOND 60
 #define MIN_TIME_PER_CYCLE (1000000000.0 / MAX_CYCLES_PER_SECOND)
 
-Game::Game(): window(sf::VideoMode(400, 600), "Doodle Jump", sf::Style::Close) {}
+Game::Game(): window(sf::VideoMode(settings::screenWidth, settings::screenHeight), settings::applicationName, sf::Style::Close) {}
 
 void Game::run() {
     Stopwatch::getInstance().start();
@@ -39,10 +40,10 @@ void Game::run() {
         while (window.pollEvent(event)) {
             if(event.type == sf::Event::KeyPressed) {
                 if(event.key.code == sf::Keyboard::Left) {
-                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::LEFT);
+                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_LEFT);
                     EventManager::getInstance().invoke(ev);
                 } else if(event.key.code == sf::Keyboard::Right) {
-                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::RIGHT);
+                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_RIGHT);
                     EventManager::getInstance().invoke(ev);
                 }
             }
@@ -54,7 +55,7 @@ void Game::run() {
 
         Stopwatch::getInstance().startCycle();
 
-        World::getInstance().update(elapsedNS);
+        World::getInstance().update(elapsedNS/1000000000);
 
         // Update camera
 

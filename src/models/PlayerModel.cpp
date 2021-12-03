@@ -9,11 +9,10 @@
 #include "../utils/Stopwatch.h"
 
 void models::PlayerModel::update(double elapsed) {
-    double elapsedSeconds = elapsed/1000000000;
     // Falling
     if(state == FALLING) {
         // Working
-        this->t += elapsedSeconds;
+        this->t += elapsed;
         this->speed = acceleration*t;
         this->y += speed*t;
 
@@ -40,7 +39,7 @@ void models::PlayerModel::update(double elapsed) {
 //        double height = -std::pow((t-1), 2) + 1;
 //        height *= 200;
 //        this->y = y0 - height;
-        this->t += elapsedSeconds;
+        this->t += elapsed;
         this->speed = acceleration*t;
         double difference = 5-(speed*t);
         this->y -= difference;
@@ -57,9 +56,9 @@ void models::PlayerModel::update(double elapsed) {
 
     // Left right
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        this->x -= 300*(elapsedSeconds);
+        this->x -= 300*(elapsed);
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        this->x += 300*(elapsedSeconds);
+        this->x += 300*(elapsed);
     }
 
 

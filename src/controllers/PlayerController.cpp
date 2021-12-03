@@ -12,9 +12,9 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     std::shared_ptr<views::PlayerView> playerView = std::static_pointer_cast<views::PlayerView>(view);
     if (event->getType() == EventType::KEY_PRESSED) {
         std::shared_ptr<KeyPressedEvent> keyPressed = std::static_pointer_cast<KeyPressedEvent>(event);
-        if(keyPressed->getAction() == KeyAction::RIGHT) {
+        if(keyPressed->getAction() == KeyAction::MOVE_RIGHT) {
             playerView->lookRight();
-        } else if(keyPressed->getAction() == KeyAction::LEFT) {
+        } else if(keyPressed->getAction() == KeyAction::MOVE_LEFT) {
             playerView->lookLeft();
         }
     }

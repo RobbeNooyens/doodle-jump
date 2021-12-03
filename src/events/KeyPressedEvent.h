@@ -8,7 +8,7 @@
 
 #include "Event.h"
 
-enum KeyAction {LEFT, RIGHT, EXIT, PAUSE};
+enum KeyAction {MOVE_LEFT, MOVE_RIGHT, EXIT, PAUSE};
 
 class KeyPressedEvent: public Event {
 public:
