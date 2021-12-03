@@ -11,6 +11,7 @@
 #include "controllers/PlayerController.h"
 #include "controllers/PlatformController.h"
 #include "controllers/BonusController.h"
+#include "controllers/TileController.h"
 
 class World: public EventHandler {
 public:
@@ -40,6 +41,7 @@ private:
     std::shared_ptr<controllers::PlayerController> player;
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
     std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
+    std::vector<std::shared_ptr<controllers::TileController>> tiles;
 };
 
 

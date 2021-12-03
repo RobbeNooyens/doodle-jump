@@ -140,6 +140,25 @@
           }
         }
       ]
+    },
+    {
+      "id": "tile",
+      "textures": [
+        {
+          "id": "default",
+          "source": "background.png",
+          "width": 600,
+          "height": 700,
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        }
+      ]
     }
   ]
 }

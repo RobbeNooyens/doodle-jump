@@ -72,3 +72,17 @@ std::shared_ptr<controllers::BonusController> ConcreteFactory::loadBonus(BonusTy
     EventManager::getInstance().registerHandler(handler);
     return bonusController;
 }
+
+std::shared_ptr<controllers::TileController> ConcreteFactory::loadTile() {
+    std::shared_ptr<controllers::TileController> tileController = std::make_shared<controllers::TileController>();
+    std::string entity = "tile";
+    std::string texture = "default";
+    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    tileController->load(resource);
+    tileController->setSize(400);
+    std::shared_ptr<EntityController> controller = tileController;
+    tileController->link(controller);
+    std::shared_ptr<EventHandler> handler = tileController;
+    EventManager::getInstance().registerHandler(handler);
+    return tileController;
+}

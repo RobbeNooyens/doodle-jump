@@ -5,9 +5,14 @@
 #ifndef DOODLEJUMP_TILEMODEL_H
 #define DOODLEJUMP_TILEMODEL_H
 
-namespace models {
-    class TileModel {
+#include "EntityModel.h"
 
+namespace models {
+    class TileModel: public EntityModel {
+    public:
+        TileModel();
+
+        void update(double elapsed) override;
     };
 }
 

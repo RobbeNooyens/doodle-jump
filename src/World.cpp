@@ -23,6 +23,9 @@ void World::update(double elapsed) {
     for(auto& bonus: bonuses) {
         bonus->update(elapsed);
     }
+    for(auto& tile: tiles) {
+        tile->update(elapsed);
+    }
 }
 
 void World::clear() {
@@ -60,6 +63,11 @@ void World::setup() {
     std::shared_ptr<controllers::BonusController> jetpack = factory->loadBonus(BonusType::JETPACK);
     jetpack->moveTo(260, 500);
     bonuses.push_back(jetpack);
+
+    // Create Tiles
+    std::shared_ptr<controllers::TileController> tile = factory->loadTile();
+    tile->moveTo(200, 250);
+    tiles.push_back(tile);
 }
 
 World &World::getInstance() {
@@ -91,15 +99,19 @@ void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> 
 }
 
 void World::redraw(sf::RenderWindow &window) {
-    drawBoudingBox(window, player);
-    window.draw(player->getSprite());
-    for(auto& platform: platforms) {
-        window.draw(platform->getSprite());
-        drawBoudingBox(window, platform);
+    for(auto& tile: tiles) {
+        window.draw(tile->getSprite());
+        drawBoudingBox(window, tile);
     }
     for(auto& bonus: bonuses) {
         window.draw(bonus->getSprite());
         drawBoudingBox(window, bonus);
     }
+    for(auto& platform: platforms) {
+        window.draw(platform->getSprite());
+        drawBoudingBox(window, platform);
+    }
+    drawBoudingBox(window, player);
+    window.draw(player->getSprite());
 
 }

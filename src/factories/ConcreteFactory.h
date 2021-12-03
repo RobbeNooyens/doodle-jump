@@ -15,6 +15,8 @@ public:
 
     std::shared_ptr<controllers::BonusController> loadBonus(BonusType bonusType) override;
 
+    std::shared_ptr<controllers::TileController> loadTile() override;
+
 };
 
 
