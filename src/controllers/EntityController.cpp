@@ -55,7 +55,7 @@ bool CollisionBox::collides(CollisionBox &box) const {
         return false;
 
     // If one rectangle is above other
-    if (lowerRight.second >= box.upperLeft.second || box.lowerRight.second >= upperLeft.second)
+    if (lowerRight.second <= box.upperLeft.second || box.lowerRight.second <= upperLeft.second)
         return false;
 
     return true;

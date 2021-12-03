@@ -5,9 +5,24 @@
 #ifndef DOODLEJUMP_BONUSMODEL_H
 #define DOODLEJUMP_BONUSMODEL_H
 
-namespace models {
-    class BonusModel {
+#include "EntityModel.h"
 
+namespace models {
+    class BonusModel: public EntityModel {
+    public:
+        BonusModel();
+
+        void update(double elapsed) override;
+    };
+
+    class SpringModel: public BonusModel {
+    public:
+        SpringModel();
+    };
+
+    class JetpackModel: public BonusModel {
+    public:
+        JetpackModel();
     };
 }
 

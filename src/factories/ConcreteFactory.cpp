@@ -7,7 +7,7 @@
 #include "../events/EventManager.h"
 
 std::shared_ptr<controllers::PlatformController>
-ConcreteFactory::loadPlatform(PlatformType platformType, BonusType bonus) {
+ConcreteFactory::loadPlatform(PlatformType platformType) {
     std::shared_ptr<controllers::PlatformController> platformController;
     std::string entity = "platform";
     std::string texture;
@@ -44,4 +44,25 @@ std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {
     std::shared_ptr<EventHandler> handler = playerController;
     EventManager::getInstance().registerHandler(handler);
     return playerController;
+}
+
+std::shared_ptr<controllers::BonusController> ConcreteFactory::loadBonus(BonusType bonusType) {
+    std::shared_ptr<controllers::BonusController> bonusController;
+    std::string entity = "bonus";
+    std::string texture;
+    if(bonusType == BonusType::SPRING) {
+        bonusController = std::make_shared<controllers::SpringController>();
+        texture = "spring";
+    } else if(bonusType == BonusType::JETPACK) {
+        bonusController = std::make_shared<controllers::JetpackController>();
+        texture = "jetpack";
+    } else {
+        throw std::runtime_error("Something went wrong");
+    }
+    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    bonusController->load(resource);
+    bonusController->setSize(60);
+    std::shared_ptr<EventHandler> handler = bonusController;
+    EventManager::getInstance().registerHandler(handler);
+    return bonusController;
 }

@@ -21,9 +21,3 @@ controllers::PlayerController::PlayerController() {
     model = std::make_shared<models::PlayerModel>();
     view = std::make_shared<views::PlayerView>();
 }
-
-//void controllers::PlayerController::update(double elapsed) {
-//    model->update(elapsed);
-//    std::pair<double, double> corner = model->getUpperLeftCorner();
-//    view->moveTo(corner.first, corner.second);
-//}

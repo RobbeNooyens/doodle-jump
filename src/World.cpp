@@ -31,9 +31,12 @@ void World::clear() {
 }
 
 void World::setup() {
+    // Create Player
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
-    player->moveTo(60, 100);
+    player->moveTo(60, 200);
+
+    // Create Platforms
     std::shared_ptr<controllers::PlatformController> platformStatic = factory->loadPlatform(PlatformType::STATIC);
     platformStatic->moveTo(60, 300);
     platforms.push_back(platformStatic);
@@ -47,6 +50,13 @@ void World::setup() {
     platformVertical->moveTo(360, 300);
     platforms.push_back(platformVertical);
 
+    // Create Bonuses
+    std::shared_ptr<controllers::BonusController> spring = factory->loadBonus(BonusType::SPRING);
+    spring->moveTo(160, 500);
+    bonuses.push_back(spring);
+    std::shared_ptr<controllers::BonusController> jetpack = factory->loadBonus(BonusType::JETPACK);
+    jetpack->moveTo(260, 500);
+    bonuses.push_back(jetpack);
 }
 
 World &World::getInstance() {
@@ -58,7 +68,7 @@ std::shared_ptr<controllers::PlayerController> &World::getPlayer() {
     return player;
 }
 
-std::vector<std::shared_ptr<controllers::PlatformController>> &World::getPlatforms() {
+std::vector<std::shared_ptr<controllers::PlatformController>> World::getPlatforms() {
     return platforms;
 }
 
@@ -80,14 +90,13 @@ void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> 
 void World::redraw(sf::RenderWindow &window) {
     drawBoudingBox(window, player);
     window.draw(player->getSprite());
-    sf::CircleShape position;
-    position.setRadius(2);
-    position.setFillColor(sf::Color::Yellow);
-    position.setPosition(player->getX(), player->getY());
-    window.draw(position);
     for(auto& platform: platforms) {
         window.draw(platform->getSprite());
         drawBoudingBox(window, platform);
+    }
+    for(auto& bonus: bonuses) {
+        window.draw(bonus->getSprite());
+        drawBoudingBox(window, bonus);
     }
 
 }

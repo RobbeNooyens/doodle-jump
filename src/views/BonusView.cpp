@@ -3,3 +3,7 @@
 //
 
 #include "BonusView.h"
+
+views::BonusView::BonusView(): EntityView() {
+
+}

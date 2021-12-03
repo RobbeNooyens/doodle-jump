@@ -27,8 +27,11 @@ public:
     void redraw(sf::RenderWindow& window);
 
     std::shared_ptr<controllers::PlayerController>& getPlayer();
-    std::vector<std::shared_ptr<controllers::PlatformController>>& getPlatforms();
+    std::vector<std::shared_ptr<controllers::PlatformController>> getPlatforms();
     std::vector<std::shared_ptr<controllers::BonusController>>& getBonuses();
+
+    World(World const&) = delete;
+    void operator=(World const&) = delete;
 
 
 private:
