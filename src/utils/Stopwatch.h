@@ -7,29 +7,38 @@
 
 #include <chrono>
 
-namespace doodlejump {
-    class Stopwatch {
-    public:
-        static Stopwatch& getInstance();
+using TimeStamp = std::chrono::system_clock::time_point;
 
-        void start();
+class Stopwatch {
+public:
+    static Stopwatch& getInstance();
 
-        void stop();
+    void start();
 
-        void reset();
+    void stop();
 
-        double elapsedSeconds();
+    void reset();
 
-    private:
-        Stopwatch();
+    void startCycle();
 
-        std::chrono::system_clock::time_point begin;
+    double elapsedSeconds();
 
-        bool running = false;
+    double elapsed();
+
+    double elapsedSinceLastCycle();
+private:
+    static TimeStamp getCurrentTime();
+
+    Stopwatch();
+    TimeStamp begin;
+
+    TimeStamp end;
+
+    TimeStamp beginCycle;
 
 
-    };
-}
+    bool running = false;
+};
 
 
 #endif //DOODLEJUMP_STOPWATCH_H

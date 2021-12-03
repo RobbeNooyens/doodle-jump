@@ -7,15 +7,15 @@
 #include <cassert>
 #include "Random.h"
 
-double doodlejump::Random::generate() {
+double Random::generate() {
     return generate(1);
 }
 
-double doodlejump::Random::generate(double upperbound) {
+double Random::generate(double upperbound) {
     return generate(0, upperbound);
 }
 
-double doodlejump::Random::generate(double lowerbound, double upperbound) {
+double Random::generate(double lowerbound, double upperbound) {
     assert(lowerbound <= upperbound && "Lowerbound must be smaller than the upperbound.");
     std::srand(time(nullptr));
     double result = (rand() % 10) + 1;
@@ -24,9 +24,9 @@ double doodlejump::Random::generate(double lowerbound, double upperbound) {
     return result;
 }
 
-doodlejump::Random &doodlejump::Random::getInstance() {
+Random &Random::getInstance() {
     static Random INSTANCE;
     return INSTANCE;
 }
 
-doodlejump::Random::Random() = default;
+Random::Random() = default;
