@@ -46,3 +46,7 @@ void EntityModel::setWidth(double w) {
 void EntityModel::setHeight(double h) {
     this->height = h;
 }
+
+void EntityModel::setController(std::shared_ptr<EntityController> controller) {
+    this->controller = controller;
+}

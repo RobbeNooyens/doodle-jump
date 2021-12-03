@@ -7,6 +7,7 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
+#include "../controllers/EntityController.h"
 
 class EntityView {
 public:
@@ -22,10 +23,12 @@ public:
     void setSize(double size);
     void setTexture(std::string& textureFile);
     void setTexture(sf::Texture& texture);
-private:
+    void setController(std::shared_ptr<EntityController>& controller);
+protected:
     sf::Texture texture;
     sf::Sprite sprite;
     double width = 0, height = 0;
+    std::weak_ptr<EntityController> controller;
 };
 
 #endif //DOODLEJUMP_ENTITYVIEW_H

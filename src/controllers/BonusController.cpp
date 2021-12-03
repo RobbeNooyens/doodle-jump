@@ -10,10 +10,6 @@ controllers::BonusController::BonusController(): EntityController() {
     view = std::make_shared<views::BonusView>();
 }
 
-void controllers::BonusController::update(double elapsed) {
-
-}
-
 void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
 }
 

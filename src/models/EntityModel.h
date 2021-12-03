@@ -7,6 +7,7 @@
 
 #include <utility>
 #include <memory>
+#include "../controllers/EntityController.h"
 
 class BoundingBox;
 
@@ -28,12 +29,14 @@ public:
     void setBoundingBox(std::shared_ptr<BoundingBox>& bbox);
     void setWidth(double w);
     void setHeight(double h);
+    void setController(std::shared_ptr<EntityController> controller);
 
 protected:
     double size = 1, sizeY = 1;
     double width=1, height=1;
     double x = 0, y = 0;
     std::shared_ptr<BoundingBox> bbox;
+    std::weak_ptr<EntityController> controller;
 
 
 

@@ -29,6 +29,8 @@ ConcreteFactory::loadPlatform(PlatformType platformType) {
     std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
     platformController->load(resource);
     platformController->setSize(60);
+    std::shared_ptr<EntityController> controller = platformController;
+    platformController->link(controller);
     std::shared_ptr<EventHandler> handler = platformController;
     EventManager::getInstance().registerHandler(handler);
     return platformController;
@@ -41,6 +43,8 @@ std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {
     std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
     playerController->load(resource);
     playerController->setSize(60);
+    std::shared_ptr<EntityController> controller = playerController;
+    playerController->link(controller);
     std::shared_ptr<EventHandler> handler = playerController;
     EventManager::getInstance().registerHandler(handler);
     return playerController;
@@ -61,7 +65,9 @@ std::shared_ptr<controllers::BonusController> ConcreteFactory::loadBonus(BonusTy
     }
     std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
     bonusController->load(resource);
-    bonusController->setSize(60);
+    bonusController->setSize(20);
+    std::shared_ptr<EntityController> controller = bonusController;
+    bonusController->link(controller);
     std::shared_ptr<EventHandler> handler = bonusController;
     EventManager::getInstance().registerHandler(handler);
     return bonusController;

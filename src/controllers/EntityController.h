@@ -30,6 +30,7 @@ public:
     // Actions
     void load(std::shared_ptr<Resource>& resource);
     void moveTo(double x, double y);
+    void link(std::shared_ptr<EntityController>& controller);
 
     // Setters
     void setSize(double size);

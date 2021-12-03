@@ -37,8 +37,6 @@ void EntityView::moveTo(double x, double y) {
 }
 
 void EntityView::setSize(double s) {
-    double screensize = 400;
-
     double scale = s/width;
     sprite.setScale(scale, scale);
 }
@@ -49,4 +47,9 @@ void EntityView::setWidth(double w) {
 
 void EntityView::setHeight(double h) {
     this->height = h;
+}
+
+void EntityView::setController(std::shared_ptr<EntityController>& ctrl) {
+    this->controller = ctrl;
+
 }

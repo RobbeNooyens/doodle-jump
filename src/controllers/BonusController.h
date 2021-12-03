@@ -12,7 +12,6 @@ namespace controllers {
     public:
         BonusController();
 
-        void update(double elapsed) override;
         void handle(std::shared_ptr<Event> &event) override;
     };
 

@@ -20,6 +20,9 @@ void World::update(double elapsed) {
     for(auto& platform: platforms) {
         platform->update(elapsed);
     }
+    for(auto& bonus: bonuses) {
+        bonus->update(elapsed);
+    }
 }
 
 void World::clear() {

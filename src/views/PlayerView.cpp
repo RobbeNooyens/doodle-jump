@@ -5,3 +5,11 @@
 #include "PlayerView.h"
 
 views::PlayerView::PlayerView(): EntityView() {}
+
+void views::PlayerView::lookRight() {
+
+}
+
+void views::PlayerView::lookLeft() {
+
+}
