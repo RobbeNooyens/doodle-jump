@@ -5,9 +5,14 @@
 #ifndef DOODLEJUMP_TILECONTROLLER_H
 #define DOODLEJUMP_TILECONTROLLER_H
 
-namespace controllers {
-    class TileController {
+#include "EntityController.h"
 
+namespace controllers {
+    class TileController: public EntityController {
+    public:
+        TileController();
+
+        void handle(std::shared_ptr<Event> &event) override;
     };
 }
 

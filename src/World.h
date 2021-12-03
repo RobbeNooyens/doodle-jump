@@ -11,6 +11,7 @@
 #include "controllers/PlayerController.h"
 #include "controllers/PlatformController.h"
 #include "controllers/BonusController.h"
+#include "controllers/TileController.h"
 
 class World: public EventHandler {
 public:
@@ -27,8 +28,11 @@ public:
     void redraw(sf::RenderWindow& window);
 
     std::shared_ptr<controllers::PlayerController>& getPlayer();
-    std::vector<std::shared_ptr<controllers::PlatformController>>& getPlatforms();
+    std::vector<std::shared_ptr<controllers::PlatformController>> getPlatforms();
     std::vector<std::shared_ptr<controllers::BonusController>>& getBonuses();
+
+    World(World const&) = delete;
+    void operator=(World const&) = delete;
 
 
 private:
@@ -37,6 +41,7 @@ private:
     std::shared_ptr<controllers::PlayerController> player;
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
     std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
+    std::vector<std::shared_ptr<controllers::TileController>> tiles;
 };
 
 

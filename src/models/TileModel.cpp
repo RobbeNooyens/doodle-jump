@@ -3,3 +3,11 @@
 //
 
 #include "TileModel.h"
+
+models::TileModel::TileModel(): EntityModel() {
+
+}
+
+void models::TileModel::update(double elapsed) {
+
+}

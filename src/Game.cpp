@@ -29,22 +29,8 @@ void Game::run() {
     std::string jsonFile = "config.json";
     ResourceLoader::getInstance().load(jsonFile);
 
-    std::vector<std::shared_ptr<EntityController>> controllers;
-//    std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
-//    playerController->load(0.3);
-//    controllers.push_back(playerController);
-
-
-//    std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
-//    std::shared_ptr<controllers::PlayerController> playerController = factory->loadPlayer();
-//    controllers.push_back(playerController);
-//    std::shared_ptr<controllers::PlatformController> platformController = factory->loadPlatform(PlatformType::STATIC);
-//    controllers.push_back(platformController);
-//    platformController->moveTo(60, 300);
-
-    World world = World::getInstance();
-    world.clear();
-    world.setup();
+    World::getInstance().clear();
+    World::getInstance().setup();
 
     // Game loop
     while (window.isOpen()) {
@@ -59,6 +45,9 @@ void Game::run() {
                 if(event.key.code == sf::Keyboard::Left) {
                     std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::LEFT);
                     EventManager::getInstance().invoke(ev);
+                } else if(event.key.code == sf::Keyboard::Right) {
+                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::RIGHT);
+                    EventManager::getInstance().invoke(ev);
                 }
             }
             if(event.type == sf::Event::Closed)
@@ -71,12 +60,12 @@ void Game::run() {
 //        for(auto& controller: controllers) {
 //            controller->update(clock.elapsedSinceLastCycle()/1000);
 //        }
-        world.update(clock.elapsedSinceLastCycle()/100);
+        World::getInstance().update(clock.elapsedSinceLastCycle()/100);
 
         // Update camera
 
         window.clear();
-        world.redraw(window);
+        World::getInstance().redraw(window);
 //        window.draw(world.getPlayer()->getSprite());
 //        for(auto& entity: world.getPlatforms()) {
 //            window.draw(entity->getSprite());

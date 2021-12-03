@@ -5,9 +5,12 @@
 #ifndef DOODLEJUMP_TILEVIEW_H
 #define DOODLEJUMP_TILEVIEW_H
 
-namespace views {
-    class TileView {
+#include "EntityView.h"
 
+namespace views {
+    class TileView: public EntityView {
+    public:
+        TileView();
     };
 }
 

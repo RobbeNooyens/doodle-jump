@@ -6,6 +6,8 @@
         {
           "id": "left",
           "source": "doodle-left.png",
+          "width": 355,
+          "height": 355,
           "bounding_box": {
             "centerX": 0.65,
             "centerY": 0.46,
@@ -18,6 +20,8 @@
         {
           "id": "right",
           "source": "doodle-right.png",
+          "width": 355,
+          "height": 355,
           "bounding_box": {
             "centerX": 0.35,
             "centerY": 0.46,
@@ -35,6 +39,8 @@
         {
           "id": "static",
           "source": "green_platform.png",
+          "width": 64,
+          "height": 16,
           "bounding_box": {
             "centerX": 0.5,
             "centerY": 0.5,
@@ -47,6 +53,8 @@
         {
           "id": "temporary",
           "source": "white_platform.png",
+          "width": 64,
+          "height": 16,
           "bounding_box": {
             "centerX": 0.5,
             "centerY": 0.5,
@@ -59,6 +67,22 @@
         {
           "id": "horizontal",
           "source": "blue_platform.png",
+          "width": 64,
+          "height": 16,
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        },
+        {
+          "id": "vertical",
+          "source": "yellow_platform.png",
+          "width": 64,
+          "height": 16,
           "bounding_box": {
             "centerX": 0.5,
             "centerY": 0.5,
@@ -76,6 +100,8 @@
         {
           "id": "spring",
           "source": "spring.png",
+          "width": 17,
+          "height": 14,
           "bounding_box": {
             "centerX": 0.5,
             "centerY": 0.5,
@@ -88,6 +114,8 @@
         {
           "id": "spring_extended",
           "source": "spring_extended.png",
+          "width": 18,
+          "height": 28,
           "bounding_box": {
             "centerX": 0.5,
             "centerY": 0.5,
@@ -100,6 +128,27 @@
         {
           "id": "jetpack",
           "source": "jetpack.png",
+          "width": 26,
+          "height": 38,
+          "bounding_box": {
+            "centerX": 0.5,
+            "centerY": 0.5,
+            "left": 0.5,
+            "right": 0.5,
+            "up": 0.5,
+            "down": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "tile",
+      "textures": [
+        {
+          "id": "default",
+          "source": "background.png",
+          "width": 600,
+          "height": 700,
           "bounding_box": {
             "centerX": 0.5,
             "centerY": 0.5,

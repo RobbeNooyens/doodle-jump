@@ -5,9 +5,12 @@
 #ifndef DOODLEJUMP_BONUSVIEW_H
 #define DOODLEJUMP_BONUSVIEW_H
 
-namespace views {
-    class BonusView {
+#include "EntityView.h"
 
+namespace views {
+    class BonusView: public EntityView {
+    public:
+        BonusView();
     };
 }
 

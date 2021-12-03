@@ -5,9 +5,24 @@
 #ifndef DOODLEJUMP_BONUSCONTROLLER_H
 #define DOODLEJUMP_BONUSCONTROLLER_H
 
-namespace controllers {
-    class BonusController {
+#include "EntityController.h"
 
+namespace controllers {
+    class BonusController: public EntityController {
+    public:
+        BonusController();
+
+        void handle(std::shared_ptr<Event> &event) override;
+    };
+
+    class SpringController: public BonusController {
+    public:
+        SpringController();
+    };
+
+    class JetpackController: public BonusController {
+    public:
+        JetpackController();
     };
 }
 

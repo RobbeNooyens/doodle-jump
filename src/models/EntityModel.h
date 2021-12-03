@@ -7,6 +7,7 @@
 
 #include <utility>
 #include <memory>
+#include "../controllers/EntityController.h"
 
 class BoundingBox;
 
@@ -20,15 +21,22 @@ public:
     double getX();
     double getY();
     std::pair<double, double> getCoordinates();
+    std::pair<double, double> getUpperLeftCorner();
     std::pair<std::pair<double, double>, std::pair<double, double>> getBox();
 
     // Setters
     void setSize(double size);
+    void setBoundingBox(std::shared_ptr<BoundingBox>& bbox);
+    void setWidth(double w);
+    void setHeight(double h);
+    void setController(std::shared_ptr<EntityController> controller);
 
 protected:
-    double size = 1;
+    double size = 1, sizeY = 1;
+    double width=1, height=1;
     double x = 0, y = 0;
     std::shared_ptr<BoundingBox> bbox;
+    std::weak_ptr<EntityController> controller;
 
 
 

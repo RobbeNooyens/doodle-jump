@@ -10,9 +10,12 @@
 
 class ConcreteFactory: public AbstractFactory {
 public:
-    std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType, BonusType bonus) override;
-
+    std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType) override;
     std::shared_ptr<controllers::PlayerController> loadPlayer() override;
+
+    std::shared_ptr<controllers::BonusController> loadBonus(BonusType bonusType) override;
+
+    std::shared_ptr<controllers::TileController> loadTile() override;
 
 };
 

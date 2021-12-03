@@ -3,3 +3,7 @@
 //
 
 #include "TileView.h"
+
+views::TileView::TileView(): EntityView() {
+
+}

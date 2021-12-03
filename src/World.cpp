@@ -20,6 +20,12 @@ void World::update(double elapsed) {
     for(auto& platform: platforms) {
         platform->update(elapsed);
     }
+    for(auto& bonus: bonuses) {
+        bonus->update(elapsed);
+    }
+    for(auto& tile: tiles) {
+        tile->update(elapsed);
+    }
 }
 
 void World::clear() {
@@ -31,11 +37,37 @@ void World::clear() {
 }
 
 void World::setup() {
+    // Create Player
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
-    std::shared_ptr<controllers::PlatformController> platformController = factory->loadPlatform(PlatformType::STATIC);
-    platformController->moveTo(60, 300);
-    platforms.push_back(platformController);
+    player->moveTo(60, 200);
+
+    // Create Platforms
+    std::shared_ptr<controllers::PlatformController> platformStatic = factory->loadPlatform(PlatformType::STATIC);
+    platformStatic->moveTo(60, 300);
+    platforms.push_back(platformStatic);
+    std::shared_ptr<controllers::PlatformController> platformTemporary = factory->loadPlatform(PlatformType::TEMPORARY);
+    platformTemporary->moveTo(160, 300);
+    platforms.push_back(platformTemporary);
+    std::shared_ptr<controllers::PlatformController> platformHorizontal = factory->loadPlatform(PlatformType::HORIZONTAL);
+    platformHorizontal->moveTo(260, 300);
+    platforms.push_back(platformHorizontal);
+    std::shared_ptr<controllers::PlatformController> platformVertical = factory->loadPlatform(PlatformType::VERTICAL);
+    platformVertical->moveTo(360, 300);
+    platforms.push_back(platformVertical);
+
+    // Create Bonuses
+    std::shared_ptr<controllers::BonusController> spring = factory->loadBonus(BonusType::SPRING);
+    spring->moveTo(160, 500);
+    bonuses.push_back(spring);
+    std::shared_ptr<controllers::BonusController> jetpack = factory->loadBonus(BonusType::JETPACK);
+    jetpack->moveTo(260, 500);
+    bonuses.push_back(jetpack);
+
+    // Create Tiles
+    std::shared_ptr<controllers::TileController> tile = factory->loadTile();
+    tile->moveTo(200, 250);
+    tiles.push_back(tile);
 }
 
 World &World::getInstance() {
@@ -47,7 +79,7 @@ std::shared_ptr<controllers::PlayerController> &World::getPlayer() {
     return player;
 }
 
-std::vector<std::shared_ptr<controllers::PlatformController>> &World::getPlatforms() {
+std::vector<std::shared_ptr<controllers::PlatformController>> World::getPlatforms() {
     return platforms;
 }
 
@@ -55,9 +87,31 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
     return bonuses;
 }
 
+void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> entity) {
+    CollisionBox box = entity->getCollisionBox();
+    sf::RectangleShape cbox;
+    cbox.setSize(sf::Vector2f(box.width(), box.height()));
+    cbox.setPosition(box.upperLeft.first, box.upperLeft.second);
+    cbox.setOutlineColor(sf::Color::Red);
+    cbox.setOutlineThickness(1);
+    cbox.setFillColor(sf::Color::Transparent);
+    window.draw(cbox);
+}
+
 void World::redraw(sf::RenderWindow &window) {
-    window.draw(player->getSprite());
-    for(auto& platform: platforms)
+    for(auto& tile: tiles) {
+        window.draw(tile->getSprite());
+        drawBoudingBox(window, tile);
+    }
+    for(auto& bonus: bonuses) {
+        window.draw(bonus->getSprite());
+        drawBoudingBox(window, bonus);
+    }
+    for(auto& platform: platforms) {
         window.draw(platform->getSprite());
+        drawBoudingBox(window, platform);
+    }
+    drawBoudingBox(window, player);
+    window.draw(player->getSprite());
 
 }

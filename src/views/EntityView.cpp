@@ -21,8 +21,7 @@ void EntityView::setTexture(std::string &textureFile) {
     }
 }
 
-EntityView::EntityView() {
-}
+EntityView::EntityView() = default;
 
 void EntityView::setTexture(sf::Texture &newTexture) {
     texture = newTexture;
@@ -37,6 +36,20 @@ void EntityView::moveTo(double x, double y) {
     sprite.setPosition((float) x, (float) y);
 }
 
-void EntityView::setSize(double size) {
-    sprite.setScale(size, size);
+void EntityView::setSize(double s) {
+    double scale = s/width;
+    sprite.setScale(scale, scale);
+}
+
+void EntityView::setWidth(double w) {
+    this->width = w;
+}
+
+void EntityView::setHeight(double h) {
+    this->height = h;
+}
+
+void EntityView::setController(std::shared_ptr<EntityController>& ctrl) {
+    this->controller = ctrl;
+
 }
