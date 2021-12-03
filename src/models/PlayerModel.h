@@ -18,8 +18,8 @@ namespace models {
         void update(double elapsed) override;
 
     private:
-        const double jumpHeight = 7;
-        const double acceleration = 4;
+        const double jumpHeight = 40;
+        const double acceleration = 6;
         double speed = 0;
         double highest = 0;
         double y0 = 0, t = 0, a = 0.5;

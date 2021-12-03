@@ -9,32 +9,45 @@
 #include "../utils/Stopwatch.h"
 
 void models::PlayerModel::update(double elapsed) {
-    double elapsedMS = Stopwatch::getInstance().elapsedMillisecondsSinceLastCycle();
+    double elapsedSeconds = elapsed/1000000000;
     // Falling
     if(state == FALLING) {
-        this->t += elapsedMS/10000;
-        this->speed = acceleration*t*t;
-        this->y += speed;
+        // Working
+        this->t += elapsedSeconds;
+        this->speed = acceleration*t;
+        this->y += speed*t;
+
 
         auto box = getBox();
         CollisionBox cbox = {box.first, box.second};
         for(auto& platform: World::getInstance().getPlatforms()) {
-            if(platform->getCollisionBox().collides(cbox)) {
+            CollisionBox platformBox = platform->getCollisionBox();
+            if(platformBox.collides(cbox)) {
+                if(platformBox.upperLeft.second > cbox.lowerRight.second)
+                    continue;
                 state = JUMPING;
                 double difference = cbox.lowerRight.second - platform->getCollisionBox().upperLeft.second;
                 this->y -= difference;
                 this->t = 0;
                 this->speed = 10;
+                this->y0 = y;
             }
         }
     } else if(state == JUMPING) {
-        this->t += elapsedMS/10000;
-        this->speed = acceleration*t*t;
-        this->y -= jumpHeight-speed;
+        // Working
+//        this->t += elapsedSeconds;
+//        this->speed = acceleration*std::pow(t, 2);
+//        double height = -std::pow((t-1), 2) + 1;
+//        height *= 200;
+//        this->y = y0 - height;
+        this->t += elapsedSeconds;
+        this->speed = acceleration*t;
+        double difference = 5-(speed*t);
+        this->y -= difference;
 
-        if(speed > jumpHeight) {
+        if(difference < 0) {
             state = FALLING;
-            speed = 0;
+            speed = 2;
             t = 0;
         }
     }
@@ -44,9 +57,9 @@ void models::PlayerModel::update(double elapsed) {
 
     // Left right
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        this->x -= 3*(elapsed);
+        this->x -= 300*(elapsedSeconds);
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        this->x += 3*(elapsed);
+        this->x += 300*(elapsedSeconds);
     }
 
 

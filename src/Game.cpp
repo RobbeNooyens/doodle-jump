@@ -15,7 +15,7 @@
 #include "factories/ConcreteFactory.h"
 #include "World.h"
 
-#define MAX_CYCLES_PER_SECOND 30
+#define MAX_CYCLES_PER_SECOND 60
 #define MIN_TIME_PER_CYCLE (1000000000.0 / MAX_CYCLES_PER_SECOND)
 
 Game::Game(): window(sf::VideoMode(400, 600), "Doodle Jump", sf::Style::Close) {}
@@ -50,22 +50,16 @@ void Game::run() {
                 return;
         }
 
+        double elapsedNS = Stopwatch::getInstance().elapsedMillisecondsSinceLastCycle();
+
         Stopwatch::getInstance().startCycle();
 
-        // Update controllers
-//        for(auto& controller: controllers) {
-//            controller->update(clock.elapsedSinceLastCycle()/1000);
-//        }
-        World::getInstance().update(Stopwatch::getInstance().elapsedSinceLastCycle()/100);
+        World::getInstance().update(elapsedNS);
 
         // Update camera
 
         window.clear();
         World::getInstance().redraw(window);
-//        window.draw(world.getPlayer()->getSprite());
-//        for(auto& entity: world.getPlatforms()) {
-//            window.draw(entity->getSprite());
-//        }
         window.display();
     }
 
