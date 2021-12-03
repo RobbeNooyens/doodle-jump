@@ -20,6 +20,9 @@ namespace views {
         void lookLeft();
 
     private:
+        std::string entity = "player";
+        std::string textureLeft = "left";
+        std::string textureRight = "right";
         PlayerOrientation orientation = ORIENTATION_LEFT;
 
     };

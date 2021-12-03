@@ -45,6 +45,9 @@ void Game::run() {
                 if(event.key.code == sf::Keyboard::Left) {
                     std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::LEFT);
                     EventManager::getInstance().invoke(ev);
+                } else if(event.key.code == sf::Keyboard::Right) {
+                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::RIGHT);
+                    EventManager::getInstance().invoke(ev);
                 }
             }
             if(event.type == sf::Event::Closed)
