@@ -47,3 +47,7 @@ double Stopwatch::elapsedSinceLastCycle() {
 void Stopwatch::startCycle() {
     beginCycle = getCurrentTime();
 }
+
+double Stopwatch::elapsedMillisecondsSinceLastCycle() {
+    return (double) std::chrono::duration_cast<std::chrono::nanoseconds>((running ? getCurrentTime() : end) - beginCycle).count();
+}

@@ -21,9 +21,8 @@
 Game::Game(): window(sf::VideoMode(400, 600), "Doodle Jump", sf::Style::Close) {}
 
 void Game::run() {
-    Stopwatch clock = Stopwatch::getInstance();
-    clock.start();
-    clock.reset();
+    Stopwatch::getInstance().start();
+    Stopwatch::getInstance().reset();
     sf::Event event;
 
     std::string jsonFile = "config.json";
@@ -34,10 +33,7 @@ void Game::run() {
 
     // Game loop
     while (window.isOpen()) {
-        double elapsedSeconds = clock.elapsedSeconds();
-        double elapsedMilliseconds = elapsedSeconds / 1000;
-        double elapsedPicoseconds = elapsedSeconds / 1000000000;
-        if (clock.elapsedSinceLastCycle() < MIN_TIME_PER_CYCLE)
+        if (Stopwatch::getInstance().elapsedSinceLastCycle() < MIN_TIME_PER_CYCLE)
             continue;
 
         while (window.pollEvent(event)) {
@@ -54,13 +50,13 @@ void Game::run() {
                 return;
         }
 
-        clock.startCycle();
+        Stopwatch::getInstance().startCycle();
 
         // Update controllers
 //        for(auto& controller: controllers) {
 //            controller->update(clock.elapsedSinceLastCycle()/1000);
 //        }
-        World::getInstance().update(clock.elapsedSinceLastCycle()/100);
+        World::getInstance().update(Stopwatch::getInstance().elapsedSinceLastCycle()/100);
 
         // Update camera
 

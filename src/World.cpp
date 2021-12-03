@@ -7,6 +7,8 @@
 #include "factories/ConcreteFactory.h"
 #include "SFML/Graphics.hpp"
 
+#define RENDER_BBOX(yesno) if(!yesno) return;
+
 void World::handle(std::shared_ptr<Event> &event) {
 
 }
@@ -40,7 +42,7 @@ void World::setup() {
     // Create Player
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
-    player->moveTo(60, 200);
+    player->moveTo(60, 0);
 
     // Create Platforms
     std::shared_ptr<controllers::PlatformController> platformStatic = factory->loadPlatform(PlatformType::STATIC);
@@ -66,8 +68,11 @@ void World::setup() {
 
     // Create Tiles
     std::shared_ptr<controllers::TileController> tile = factory->loadTile();
-    tile->moveTo(200, 250);
+    tile->moveTo(200, 0);
     tiles.push_back(tile);
+    std::shared_ptr<controllers::TileController> tile2 = factory->loadTile();
+    tile2->moveTo(200, 400);
+    tiles.push_back(tile2);
 }
 
 World &World::getInstance() {
@@ -87,7 +92,8 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
     return bonuses;
 }
 
-void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> entity) {
+void drawBoundingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> entity) {
+    RENDER_BBOX(false)
     CollisionBox box = entity->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
@@ -101,17 +107,17 @@ void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> 
 void World::redraw(sf::RenderWindow &window) {
     for(auto& tile: tiles) {
         window.draw(tile->getSprite());
-        drawBoudingBox(window, tile);
+        drawBoundingBox(window, tile);
     }
     for(auto& bonus: bonuses) {
         window.draw(bonus->getSprite());
-        drawBoudingBox(window, bonus);
+        drawBoundingBox(window, bonus);
     }
     for(auto& platform: platforms) {
         window.draw(platform->getSprite());
-        drawBoudingBox(window, platform);
+        drawBoundingBox(window, platform);
     }
-    drawBoudingBox(window, player);
+    drawBoundingBox(window, player);
     window.draw(player->getSprite());
 
 }
