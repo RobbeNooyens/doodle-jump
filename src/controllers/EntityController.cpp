@@ -46,6 +46,18 @@ void EntityController::link(std::shared_ptr<EntityController> &controller) {
     view->setController(controller);
 }
 
+void EntityController::destroy() {
+    destroyed = true;
+}
+
+bool EntityController::isDestroyed() {
+    return destroyed;
+}
+
+void EntityController::changeY(double value) {
+    this->model->moveTo(model->getX(), model->getY() + value);
+}
+
 bool CollisionBox::collides(CollisionBox &box) const {
     // Source: https://www.geeksforgeeks.org/find-two-rectangles-overlap/
 

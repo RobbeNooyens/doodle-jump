@@ -5,6 +5,8 @@
 #include "World.h"
 #include "factories/AbstractFactory.h"
 #include "factories/ConcreteFactory.h"
+#include "controllers/EntityController.h"
+#include "controllers/PlatformController.h"
 #include "SFML/Graphics.hpp"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
@@ -28,6 +30,8 @@ void World::update(double elapsed) {
     for(auto& tile: tiles) {
         tile->update(elapsed);
     }
+    // Remove destroyed objects
+    platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return platform->isDestroyed(); }), platforms.end());
 }
 
 void World::clear() {
@@ -42,17 +46,17 @@ void World::setup() {
     // Create Player
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
-    player->moveTo(60, 0);
+    player->moveTo(60, 250);
 
     // Create Platforms
     std::shared_ptr<controllers::PlatformController> platformStatic = factory->loadPlatform(PlatformType::STATIC);
     platformStatic->moveTo(60, 300);
     platforms.push_back(platformStatic);
     std::shared_ptr<controllers::PlatformController> platformTemporary = factory->loadPlatform(PlatformType::TEMPORARY);
-    platformTemporary->moveTo(160, 300);
+    platformTemporary->moveTo(160, 200);
     platforms.push_back(platformTemporary);
     std::shared_ptr<controllers::PlatformController> platformHorizontal = factory->loadPlatform(PlatformType::HORIZONTAL);
-    platformHorizontal->moveTo(260, 300);
+    platformHorizontal->moveTo(260, 100);
     platforms.push_back(platformHorizontal);
     std::shared_ptr<controllers::PlatformController> platformVertical = factory->loadPlatform(PlatformType::VERTICAL);
     platformVertical->moveTo(360, 300);

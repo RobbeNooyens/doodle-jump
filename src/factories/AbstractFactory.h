@@ -10,8 +10,8 @@
 #include "../controllers/PlayerController.h"
 #include "../controllers/BonusController.h"
 #include "../controllers/TileController.h"
+#include "../enums/PlatformType.h"
 
-enum PlatformType { STATIC, HORIZONTAL, VERTICAL, TEMPORARY };
 enum BonusType { SPRING, JETPACK };
 
 class AbstractFactory {

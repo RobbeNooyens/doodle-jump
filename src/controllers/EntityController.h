@@ -30,7 +30,9 @@ public:
     // Actions
     void load(std::shared_ptr<Resource>& resource);
     void moveTo(double x, double y);
+    void changeY(double value);
     void link(std::shared_ptr<EntityController>& controller);
+    void destroy();
 
     // Setters
     void setSize(double size);
@@ -38,10 +40,14 @@ public:
     // Getters
     sf::Sprite& getSprite();
     CollisionBox getCollisionBox();
+    bool isDestroyed();
 
 protected:
     std::shared_ptr<EntityModel> model;
     std::shared_ptr<EntityView> view;
+
+private:
+    bool destroyed = false;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H

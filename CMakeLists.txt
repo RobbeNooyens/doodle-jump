@@ -14,7 +14,7 @@ file(GLOB sourcefiles
 add_compile_options(-gdwarf-4)
 
 
-add_executable(DoodleJump ${sourcefiles} src/utils/ResourceLoader.cpp src/utils/ResourceLoader.h src/controllers/EntityController.cpp src/enums/Direction.h src/Settings.h)
+add_executable(DoodleJump ${sourcefiles} src/utils/ResourceLoader.cpp src/utils/ResourceLoader.h src/controllers/EntityController.cpp src/enums/Direction.h src/Settings.h src/enums/PlatformType.h)
 
 # Find SFML
 #set(SFML_STATIC_LIBRARIES TRUE)

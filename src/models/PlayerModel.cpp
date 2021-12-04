@@ -7,6 +7,8 @@
 #include "../controllers/EntityController.h"
 #include "../World.h"
 #include "../utils/Stopwatch.h"
+#include "../events/ReachedNewHeightEvent.h"
+#include "../events/EventManager.h"
 
 void models::PlayerModel::update(double elapsed) {
     // Falling
@@ -30,6 +32,9 @@ void models::PlayerModel::update(double elapsed) {
                 this->t = 0;
                 this->speed = 10;
                 this->y0 = y;
+                if(platform->getType() == PlatformType::TEMPORARY) {
+                    platform->destroy();
+                }
             }
         }
     } else if(state == JUMPING) {
@@ -51,7 +56,13 @@ void models::PlayerModel::update(double elapsed) {
         }
     }
 
-    // Jumping
+    if(y <= 200) {
+        double difference = 200 - y;
+        y = 200;
+        this->highest += difference;
+        std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
+        EventManager::getInstance().invoke(newHeight);
+    }
 
 
     // Left right
@@ -60,8 +71,6 @@ void models::PlayerModel::update(double elapsed) {
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         this->x += 300*(elapsed);
     }
-
-
 
 }
 
