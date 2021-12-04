@@ -12,6 +12,7 @@
 #include "controllers/PlatformController.h"
 #include "controllers/BonusController.h"
 #include "controllers/TileController.h"
+#include "WorldGenerator.h"
 
 class World: public EventHandler {
 public:
@@ -34,9 +35,13 @@ public:
     World(World const&) = delete;
     void operator=(World const&) = delete;
 
+    void createPlatform();
+
 
 private:
     World();
+
+    const std::unique_ptr<WorldGenerator> worldGenerator;
 
     std::shared_ptr<controllers::PlayerController> player;
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;

@@ -4,7 +4,7 @@
 
 #include "EventManager.h"
 #include "EventHandler.h"
-
+#include <algorithm>
 
 void EventManager::registerHandler(std::shared_ptr<EventHandler> &handler) {
     handlers.push_back(handler);

@@ -15,6 +15,7 @@ class Resource;
 struct CollisionBox {
     std::pair<double, double> upperLeft;
     std::pair<double, double> lowerRight;
+    std::pair<double, double> getRelativeCenter() {return {(lowerRight.first - upperLeft.first) / 2, (lowerRight.second - upperLeft.second) / 2};}
     double width() const {return lowerRight.first - upperLeft.first;}
     double height() const {return lowerRight.second - upperLeft.second;}
 

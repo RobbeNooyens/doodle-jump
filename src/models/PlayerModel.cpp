@@ -9,6 +9,7 @@
 #include "../utils/Stopwatch.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../events/EventManager.h"
+#include "../ScoreManager.h"
 
 void models::PlayerModel::update(double elapsed) {
     // Falling
@@ -62,6 +63,10 @@ void models::PlayerModel::update(double elapsed) {
         this->highest += difference;
         std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
         EventManager::getInstance().invoke(newHeight);
+        if(((int) ((highest-difference) / 60.0)) != ((int) (highest / 60.0))) {
+            World::getInstance().createPlatform();
+        }
+        ScoreManager::getInstance().setScore(highest);
     }
 
 

@@ -8,6 +8,11 @@
 #include "controllers/EntityController.h"
 #include "controllers/PlatformController.h"
 #include "SFML/Graphics.hpp"
+#include "utils/Random.h"
+#include "Settings.h"
+#include "events/Event.h"
+#include "events/EventManager.h"
+#include "ScoreManager.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
@@ -15,8 +20,7 @@ void World::handle(std::shared_ptr<Event> &event) {
 
 }
 
-World::World() {
-
+World::World(): worldGenerator(std::make_unique<WorldGenerator>()) {
 }
 
 void World::update(double elapsed) {
@@ -32,6 +36,11 @@ void World::update(double elapsed) {
     }
     // Remove destroyed objects
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return platform->isDestroyed(); }), platforms.end());
+    for(auto& platform: platforms) {
+        if(platform->isDestroyed()) {
+            platform.reset();
+        }
+    }
 }
 
 void World::clear() {
@@ -43,6 +52,9 @@ void World::clear() {
 }
 
 void World::setup() {
+//    std::shared_ptr<EventHandler> worldGenEventHandler = std::static_pointer_cast<EventHandler>(worldGenerator);
+//    EventManager::getInstance().registerHandler(worldGenEventHandler);
+
     // Create Player
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
@@ -123,5 +135,13 @@ void World::redraw(sf::RenderWindow &window) {
     }
     drawBoundingBox(window, player);
     window.draw(player->getSprite());
+    window.draw(ScoreManager::getInstance().getText());
+}
 
+void World::createPlatform() {
+    std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
+    std::shared_ptr<controllers::PlatformController> platform = factory->loadPlatform(PlatformType::STATIC);
+    auto center = platform->getCollisionBox().getRelativeCenter();
+    platform->moveTo(Random::getInstance().generate(center.first, settings::screenWidth-center.first), -center.second);
+    platforms.push_back(platform);
 }

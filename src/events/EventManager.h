@@ -17,12 +17,9 @@ public:
     void registerHandler(std::shared_ptr<EventHandler>& handler);
     void invoke(std::shared_ptr<Event>& event);
     static EventManager& getInstance();
-
 private:
     EventManager();
     std::vector<std::shared_ptr<EventHandler>> handlers;
-
-
 };
 
 

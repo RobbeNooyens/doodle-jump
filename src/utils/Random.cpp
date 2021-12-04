@@ -18,7 +18,8 @@ double Random::generate(double upperbound) {
 double Random::generate(double lowerbound, double upperbound) {
     assert(lowerbound <= upperbound && "Lowerbound must be smaller than the upperbound.");
     std::srand(time(nullptr));
-    double result = (rand() % 10) + 1;
+    double result = (rand()%1000)/1000.0;
+//    double result = (rand() % 10) + 1;
     result *= (upperbound - lowerbound);
     result += lowerbound;
     return result;

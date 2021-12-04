@@ -7,6 +7,7 @@
 #include "../models/EntityModel.h"
 #include "../utils/ResourceLoader.h"
 #include "../Settings.h"
+#include "../events/EventManager.h"
 
 sf::Sprite &EntityController::getSprite() {
     return view->getSprite();
