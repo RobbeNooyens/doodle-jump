@@ -6,6 +6,7 @@
 #include "../views/EntityView.h"
 #include "../models/EntityModel.h"
 #include "../utils/ResourceLoader.h"
+#include "../Settings.h"
 
 sf::Sprite &EntityController::getSprite() {
     return view->getSprite();
@@ -39,6 +40,9 @@ void EntityController::update(double elapsed) {
     model->update(elapsed);
     std::pair<double, double> corner = model->getUpperLeftCorner();
     view->moveTo(corner.first, corner.second);
+    if(corner.second > screenHeight) {
+        destroy();
+    }
 }
 
 void EntityController::link(std::shared_ptr<EntityController> &controller) {
@@ -56,6 +60,10 @@ bool EntityController::isDestroyed() {
 
 void EntityController::changeY(double value) {
     this->model->moveTo(model->getX(), model->getY() + value);
+}
+
+EntityController::EntityController(): screenHeight(settings::screenHeight) {
+
 }
 
 bool CollisionBox::collides(CollisionBox &box) const {

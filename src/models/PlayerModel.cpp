@@ -24,7 +24,7 @@ void models::PlayerModel::update(double elapsed) {
         for(auto& platform: World::getInstance().getPlatforms()) {
             CollisionBox platformBox = platform->getCollisionBox();
             if(platformBox.collides(cbox)) {
-                if(platformBox.upperLeft.second > cbox.lowerRight.second)
+                if(platformBox.upperLeft.second > cbox.lowerRight.second || platformBox.lowerRight.second < cbox.lowerRight.second)
                     continue;
                 state = JUMPING;
                 double difference = cbox.lowerRight.second - platform->getCollisionBox().upperLeft.second;

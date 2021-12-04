@@ -23,6 +23,9 @@ struct CollisionBox {
 
 class EntityController: public EventHandler {
 public:
+    // Constructor
+    EntityController();
+
     // Abstracts
     virtual void update(double elapsed);
     void handle(std::shared_ptr<Event>& event) override = 0;
@@ -48,6 +51,7 @@ protected:
 
 private:
     bool destroyed = false;
+    double screenHeight = 0;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H

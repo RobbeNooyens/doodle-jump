@@ -97,7 +97,7 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
 }
 
 void drawBoundingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> entity) {
-    RENDER_BBOX(true)
+    RENDER_BBOX(false)
     CollisionBox box = entity->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
