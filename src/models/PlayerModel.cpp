@@ -12,6 +12,7 @@
 #include "../ScoreManager.h"
 
 void models::PlayerModel::update(double elapsed) {
+    auto bboxBeforeMoving = this->getBox();
     // Falling
     if(state == FALLING) {
         // Working
@@ -22,13 +23,33 @@ void models::PlayerModel::update(double elapsed) {
 
         auto box = getBox();
         CollisionBox cbox = {box.first, box.second};
+        // Check bonuses
+        for(auto& bonus: World::getInstance().getBonuses()) {
+            CollisionBox bonusBox = bonus->getCollisionBox();
+            if(bonusBox.collides(cbox)) {
+                if(bboxBeforeMoving.second.second >= bonusBox.upperLeft.second)
+                    continue;
+                if(bonusBox.upperLeft.second > cbox.lowerRight.second || bonusBox.lowerRight.second < cbox.lowerRight.second)
+                    continue;
+                state = JUMPING;
+                double difference = cbox.lowerRight.second - bonusBox.upperLeft.second;
+                this->y -= difference;
+                this->t = 0;
+                this->speed = 10;
+                this->y0 = y;
+                bonus->use();
+            }
+        }
+        // Check platforms
         for(auto& platform: World::getInstance().getPlatforms()) {
             CollisionBox platformBox = platform->getCollisionBox();
             if(platformBox.collides(cbox)) {
+                if(bboxBeforeMoving.second.second >= platformBox.upperLeft.second)
+                    continue;
                 if(platformBox.upperLeft.second > cbox.lowerRight.second || platformBox.lowerRight.second < cbox.lowerRight.second)
                     continue;
                 state = JUMPING;
-                double difference = cbox.lowerRight.second - platform->getCollisionBox().upperLeft.second;
+                double difference = cbox.lowerRight.second - platformBox.upperLeft.second;
                 this->y -= difference;
                 this->t = 0;
                 this->speed = 10;

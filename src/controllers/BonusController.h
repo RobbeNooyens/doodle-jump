@@ -13,16 +13,22 @@ namespace controllers {
         BonusController();
 
         void handle(std::shared_ptr<Event> &event) override;
+
+        virtual void use() = 0;
     };
 
     class SpringController: public BonusController {
     public:
         SpringController();
+
+        void use() override;
     };
 
     class JetpackController: public BonusController {
     public:
         JetpackController();
+
+        void use() override;
     };
 }
 
