@@ -6,12 +6,21 @@
 #include "../models/BonusModel.h"
 #include "../views/BonusView.h"
 #include "../utils/ResourceLoader.h"
+#include "../events/ReachedNewHeightEvent.h"
 
 controllers::BonusController::BonusController(): EntityController() {
     view = std::make_shared<views::BonusView>();
 }
 
 void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
+    if(event->getType() == REACHED_HEIGHT) {
+        std::shared_ptr<ReachedNewHeightEvent> heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
+        this->changeY(heightEvent->getDifference());
+    }
+}
+
+std::shared_ptr<controllers::PlatformController> &controllers::BonusController::getPlatform() {
+    return platform;
 }
 
 controllers::SpringController::SpringController(): BonusController() {

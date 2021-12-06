@@ -2,6 +2,7 @@
 // Created by robnoo on 4/12/21.
 //
 
+#include <iostream>
 #include "WorldGenerator.h"
 #include "events/ReachedNewHeightEvent.h"
 #include "World.h"
@@ -12,21 +13,25 @@
 
 void WorldGenerator::update() {
     while(ScoreManager::getInstance().getScore() >= nextHeight) {
-        generatePlatform(PlatformType::STATIC);
+        generatePlatform();
         calculateNextPlatformHeight();
     }
 }
 
-void WorldGenerator::generatePlatform(PlatformType type) {
+void WorldGenerator::generatePlatform() {
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     std::shared_ptr<controllers::PlatformController> platform = factory->loadPlatform(nextPlatformType);
     auto center = platform->getCollisionBox().getRelativeCenter();
-    platform->moveTo(Random::getInstance().generate<double>(center.first, settings::screenWidth-center.first), -center.second+(ScoreManager::getInstance().getScore()-nextHeight));
+    auto platformX = Random::getInstance().generate<double>(center.first, settings::screenWidth-center.first);
+    auto platformY = -center.second+(ScoreManager::getInstance().getScore()-nextHeight);
+    platform->moveTo(platformX, platformY);
     World::getInstance().addPlatform(platform);
-}
-
-void WorldGenerator::generateBonusPlatform(PlatformType type, BonusType) {
-
+    if(addBonus) {
+        std::shared_ptr<controllers::BonusController> bonusController = factory->loadBonus(bonusType);
+//        bonusController->attachTo(platform);
+//        bonusController->syncWithPlatform();
+        World::getInstance().addBonus(bonusController);
+    }
 }
 
 void WorldGenerator::calculateNextPlatformHeight() {
@@ -48,6 +53,19 @@ void WorldGenerator::calculateNextPlatformHeight() {
         types.emplace(0.1, VERTICAL);
     }
     nextPlatformType = Random::getInstance().randomWeighted(types);
+    // Decide whether or not to include a bonus
+    addBonus = Random::getInstance().generate<double>() <= 0.5;
+    std::cout << addBonus << std::endl;
+    if(addBonus && score > 500) {
+        std::map<double, BonusType> bonuses;
+        if(score > 500) {
+            bonuses.emplace(1, SPRING);
+        }
+        if(score > 1500) {
+            bonuses.emplace(0.1, JETPACK);
+        }
+        bonusType = Random::getInstance().randomWeighted(bonuses);
+    }
 }
 
 WorldGenerator::WorldGenerator(): heightDifference(maxHeight-minHeight) {

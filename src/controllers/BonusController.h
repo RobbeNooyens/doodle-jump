@@ -6,6 +6,7 @@
 #define DOODLEJUMP_BONUSCONTROLLER_H
 
 #include "EntityController.h"
+#include "PlatformController.h"
 
 namespace controllers {
     class BonusController: public EntityController {
@@ -15,6 +16,11 @@ namespace controllers {
         void handle(std::shared_ptr<Event> &event) override;
 
         virtual void use() = 0;
+
+        std::shared_ptr<PlatformController>& getPlatform();
+
+    private:
+        std::shared_ptr<PlatformController> platform;
     };
 
     class SpringController: public BonusController {

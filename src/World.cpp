@@ -110,7 +110,7 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
 }
 
 void drawBoundingBox(sf::RenderWindow &window, const std::shared_ptr<EntityController>& entity) {
-    RENDER_BBOX(false)
+    RENDER_BBOX(true)
     CollisionBox box = entity->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
@@ -141,4 +141,8 @@ void World::redraw(sf::RenderWindow &window) {
 
 void World::addPlatform(std::shared_ptr<controllers::PlatformController> &platform) {
     platforms.push_back(platform);
+}
+
+void World::addBonus(std::shared_ptr<controllers::BonusController> &bonus) {
+    bonuses.push_back(bonus);
 }

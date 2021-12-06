@@ -23,10 +23,12 @@ private:
     const double maxHeight = 120;
     const double heightDifference;
 
+    bool addBonus = false;
+    BonusType bonusType = SPRING;
+
     PlatformType nextPlatformType = STATIC;
 
-    void generatePlatform(PlatformType type);
-    void generateBonusPlatform(PlatformType type, BonusType);
+    void generatePlatform();
 
     void calculateNextPlatformHeight();
 };

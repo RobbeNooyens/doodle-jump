@@ -22,9 +22,6 @@ namespace controllers {
 
         // Getters
         virtual PlatformType getType() = 0;
-
-    private:
-        PlatformType type = STATIC;
     };
 
     class StaticPlatformController: public PlatformController {

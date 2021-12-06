@@ -19,11 +19,11 @@ public:
         for(auto& entry: weightMap) {
             sum += entry.first;
         }
-        double random = generate(sum);
+        auto random = generate<double>(sum);
         double checkSum = 0;
         for(auto& entry: weightMap) {
             checkSum += entry.first;
-            if(checkSum >= random)
+            if(random <= checkSum)
                 return entry.second;
         }
         throw std::runtime_error("Cant reach this");

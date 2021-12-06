@@ -21,7 +21,7 @@ ScoreManager::ScoreManager() {
         // error...
     }
     scoreText.setFont(font);
-    scoreText.move(settings::screenWidth/2.0, 30);
+    scoreText.move(20, 10);
     scoreText.setCharacterSize(40);
     scoreText.setFillColor(sf::Color::Black);
     scoreText.setString("0");

@@ -16,8 +16,6 @@
 
 class World: public EventHandler {
 public:
-    static World& getInstance();
-
     void clear();
 
     void setup();
@@ -29,15 +27,17 @@ public:
     void redraw(sf::RenderWindow& window);
 
     std::shared_ptr<controllers::PlayerController>& getPlayer();
+
     std::vector<std::shared_ptr<controllers::PlatformController>> getPlatforms();
     std::vector<std::shared_ptr<controllers::BonusController>>& getBonuses();
+    void addPlatform(std::shared_ptr<controllers::PlatformController>& platform);
 
+    void addBonus(std::shared_ptr<controllers::BonusController>& bonus);
+
+    // Singleton
     World(World const&) = delete;
     void operator=(World const&) = delete;
-
-    void createPlatform();
-
-    void addPlatform(std::shared_ptr<controllers::PlatformController>& platform);
+    static World& getInstance();
 
 
 private:
