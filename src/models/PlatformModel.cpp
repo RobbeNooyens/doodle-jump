@@ -15,15 +15,13 @@ void models::HorizontalPlatform::update(double elapsed) {
             direction = LEFT;
             this->x -= rightX - screenWidth;
         }
-    } else if(direction == LEFT) {
-        this->x -= elapsed*speed;
+    } else {
+        this->x -= elapsed * speed;
         double leftX = this->getBox().first.first;
-        if(leftX < 0) {
+        if (leftX < 0) {
             direction = RIGHT;
             this->x += leftX;
         }
-    } else {
-        throw std::runtime_error("Cant have another value");
     }
 }
 
@@ -43,22 +41,24 @@ models::TemporaryPlatform::TemporaryPlatform(): PlatformModel() {
 // Vertical Platform
 // =================
 void models::VerticalPlatform::update(double elapsed) {
-    if(direction == RIGHT) {
-        this->x += elapsed*speed;
-        double rightX = this->getBox().second.first;
-        if(rightX >= 10) {
-            direction = LEFT;
-            this->x -= rightX - 10;
-        }
-    } else if(direction == LEFT) {
-        this->x -= elapsed*speed;
-        double leftX = this->getBox().first.first;
-        if(leftX < 0) {
-            direction = RIGHT;
-            this->x += leftX;
+    if(direction == UP) {
+        this->y -= elapsed*speed;
+        this->relativeY += elapsed*speed;
+        if(relativeY >= distance) {
+            double difference = relativeY-distance;
+            this->y += 2*difference;
+            direction = DOWN;
+            this->relativeY = 0;
         }
     } else {
-        throw std::runtime_error("Cant have another value");
+        this->y += elapsed * speed;
+        this->relativeY += elapsed * speed;
+        if (relativeY >= distance) {
+            double difference = relativeY - distance;
+            this->y += 2 * difference;
+            direction = UP;
+            this->relativeY = 0;
+        }
     }
 }
 

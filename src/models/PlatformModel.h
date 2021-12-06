@@ -39,6 +39,8 @@ namespace models {
     private:
         Direction direction = UP;
         double speed = 100;
+        double relativeY = 0;
+        double distance = 200;
     };
 
     class TemporaryPlatform: public PlatformModel{
