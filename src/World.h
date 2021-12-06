@@ -37,6 +37,8 @@ public:
 
     void createPlatform();
 
+    void addPlatform(std::shared_ptr<controllers::PlatformController>& platform);
+
 
 private:
     World();

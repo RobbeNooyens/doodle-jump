@@ -8,8 +8,6 @@
 #include "controllers/EntityController.h"
 #include "controllers/PlatformController.h"
 #include "SFML/Graphics.hpp"
-#include "utils/Random.h"
-#include "Settings.h"
 #include "events/Event.h"
 #include "events/EventManager.h"
 #include "ScoreManager.h"
@@ -41,6 +39,9 @@ void World::update(double elapsed) {
             platform.reset();
         }
     }
+
+    // Update worldgenerator
+    worldGenerator->update();
 }
 
 void World::clear() {
@@ -108,8 +109,8 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
     return bonuses;
 }
 
-void drawBoundingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> entity) {
-    RENDER_BBOX(true)
+void drawBoundingBox(sf::RenderWindow &window, const std::shared_ptr<EntityController>& entity) {
+    RENDER_BBOX(false)
     CollisionBox box = entity->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
@@ -138,10 +139,6 @@ void World::redraw(sf::RenderWindow &window) {
     window.draw(ScoreManager::getInstance().getText());
 }
 
-void World::createPlatform() {
-    std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
-    std::shared_ptr<controllers::PlatformController> platform = factory->loadPlatform(PlatformType::STATIC);
-    auto center = platform->getCollisionBox().getRelativeCenter();
-    platform->moveTo(Random::getInstance().generate(center.first, settings::screenWidth-center.first), -center.second);
+void World::addPlatform(std::shared_ptr<controllers::PlatformController> &platform) {
     platforms.push_back(platform);
 }

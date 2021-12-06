@@ -38,6 +38,7 @@ void models::PlayerModel::update(double elapsed) {
                 this->speed = 10;
                 this->y0 = y;
                 bonus->use();
+                boost = 10;
             }
         }
         // Check platforms
@@ -68,7 +69,7 @@ void models::PlayerModel::update(double elapsed) {
 //        this->y = y0 - height;
         this->t += elapsed;
         this->speed = acceleration*t;
-        double difference = 5-(speed*t);
+        double difference = (5-(speed*t))*boost;
         this->y -= difference;
 
         if(difference < 0) {
@@ -78,15 +79,22 @@ void models::PlayerModel::update(double elapsed) {
         }
     }
 
+    // Update boost
+    if(boost < 1) {
+        boost = 1;
+    } else if(boost > 1) {
+        boost /= (1+elapsed);
+    }
+
     if(y <= 200) {
         double difference = 200 - y;
         y = 200;
         this->highest += difference;
         std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
         EventManager::getInstance().invoke(newHeight);
-        if(((int) ((highest-difference) / 60.0)) != ((int) (highest / 60.0))) {
-            World::getInstance().createPlatform();
-        }
+//        if(((int) ((highest-difference) / 60.0)) != ((int) (highest / 60.0))) {
+//            World::getInstance().createPlatform();
+//        }
         ScoreManager::getInstance().setScore(highest);
     }
 

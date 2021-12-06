@@ -37,7 +37,8 @@ namespace models {
         VerticalPlatform();
         void update(double elapsed) override;
     private:
-        double speed = 5;
+        Direction direction = UP;
+        double speed = 100;
     };
 
     class TemporaryPlatform: public PlatformModel{
