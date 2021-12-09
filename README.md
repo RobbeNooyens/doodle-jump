@@ -27,6 +27,19 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
  4. Compile the sourcecode.
  5. Run the generated executable.
 
+## To do
+
+- Detect jumping on the same platform
+- Jetpack usage
+- Jump animation
+- Jetpack animation when using
+- Jetpack implementation
+- Blue bar under score
+- Game menu
+- Game over
+- Implement a Camera
+- Cleanup
+
 ## Warning
 
 *Plagiarism is illegal and will have consequences. Do NOT copy parts of this repository claiming it's your own work.*

@@ -17,9 +17,12 @@ namespace controllers {
 
         virtual void use() = 0;
 
-        std::shared_ptr<PlatformController>& getPlatform();
+        void update(double elapsed) override;
+
+        void setPlatform(std::shared_ptr<PlatformController>& platformController);
 
     private:
+        double offset = 0;
         std::shared_ptr<PlatformController> platform;
     };
 

@@ -19,8 +19,22 @@ void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
     }
 }
 
-std::shared_ptr<controllers::PlatformController> &controllers::BonusController::getPlatform() {
-    return platform;
+void controllers::BonusController::update(double elapsed) {
+    EntityController::update(elapsed);
+    if(platform) {
+        if(platform->isDestroyed()) {
+            this->destroy();
+            return;
+        }
+        CollisionBox platformBox = platform->getCollisionBox();
+        this->moveTo(platformBox.getRelativeCenter().first + platformBox.upperLeft.first + offset, platformBox.upperLeft.second);
+    } else {
+        this->destroy();
+    }
+}
+
+void controllers::BonusController::setPlatform(std::shared_ptr<PlatformController> &platformController) {
+    this->platform = platformController;
 }
 
 controllers::SpringController::SpringController(): BonusController() {

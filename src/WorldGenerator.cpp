@@ -28,6 +28,7 @@ void WorldGenerator::generatePlatform() {
     World::getInstance().addPlatform(platform);
     if(addBonus) {
         std::shared_ptr<controllers::BonusController> bonusController = factory->loadBonus(bonusType);
+        bonusController->setPlatform(platform);
 //        bonusController->attachTo(platform);
 //        bonusController->syncWithPlatform();
         World::getInstance().addBonus(bonusController);
@@ -55,8 +56,7 @@ void WorldGenerator::calculateNextPlatformHeight() {
     nextPlatformType = Random::getInstance().randomWeighted(types);
     // Decide whether or not to include a bonus
     addBonus = Random::getInstance().generate<double>() <= 0.5;
-    std::cout << addBonus << std::endl;
-    if(addBonus && score > 500) {
+    if(addBonus && score > 500 && nextPlatformType != TEMPORARY) {
         std::map<double, BonusType> bonuses;
         if(score > 500) {
             bonuses.emplace(1, SPRING);

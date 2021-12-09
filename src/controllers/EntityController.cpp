@@ -15,7 +15,8 @@ sf::Sprite &EntityController::getSprite() {
 
 void EntityController::moveTo(double x, double y) {
     model->moveTo(x, y);
-    view->moveTo(x, y);
+    std::pair<double, double> corner = model->getUpperLeftCorner();
+    view->moveTo(corner.first, corner.second);
 }
 
 CollisionBox EntityController::getCollisionBox() {

@@ -39,6 +39,12 @@ void World::update(double elapsed) {
             platform.reset();
         }
     }
+    bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(), [](auto& bonus){ return bonus->isDestroyed(); }), bonuses.end());
+    for(auto& bonus: bonuses) {
+        if(bonus->isDestroyed()) {
+            bonus.reset();
+        }
+    }
 
     // Update worldgenerator
     worldGenerator->update();
