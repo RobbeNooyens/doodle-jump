@@ -9,6 +9,7 @@
 #include "../models/PlatformModel.h"
 #include "../views/PlatformView.h"
 #include "EntityController.h"
+#include "../enums/PlatformType.h"
 
 namespace controllers {
     class PlatformController: public EntityController {
@@ -18,26 +19,37 @@ namespace controllers {
 
         // Actions
         void handle(std::shared_ptr<Event> &event) override;
+
+        // Getters
+        virtual PlatformType getType() = 0;
     };
 
     class StaticPlatformController: public PlatformController {
     public:
         StaticPlatformController();
+
+        PlatformType getType() override;
     };
 
     class TemporaryPlatformController: public PlatformController {
     public:
         TemporaryPlatformController();
+
+        PlatformType getType() override;
     };
 
     class HorizontalPlatformController: public PlatformController {
     public:
         HorizontalPlatformController();
+
+        PlatformType getType() override;
     };
 
     class VerticalPlatformController: public PlatformController {
     public:
         VerticalPlatformController();
+
+        PlatformType getType() override;
     };
 }
 

@@ -6,6 +6,8 @@
 #include "../views/EntityView.h"
 #include "../models/EntityModel.h"
 #include "../utils/ResourceLoader.h"
+#include "../Settings.h"
+#include "../events/EventManager.h"
 
 sf::Sprite &EntityController::getSprite() {
     return view->getSprite();
@@ -13,7 +15,8 @@ sf::Sprite &EntityController::getSprite() {
 
 void EntityController::moveTo(double x, double y) {
     model->moveTo(x, y);
-    view->moveTo(x, y);
+    std::pair<double, double> corner = model->getUpperLeftCorner();
+    view->moveTo(corner.first, corner.second);
 }
 
 CollisionBox EntityController::getCollisionBox() {
@@ -39,11 +42,30 @@ void EntityController::update(double elapsed) {
     model->update(elapsed);
     std::pair<double, double> corner = model->getUpperLeftCorner();
     view->moveTo(corner.first, corner.second);
+    if(corner.second > screenHeight) {
+        destroy();
+    }
 }
 
 void EntityController::link(std::shared_ptr<EntityController> &controller) {
     model->setController(controller);
     view->setController(controller);
+}
+
+void EntityController::destroy() {
+    destroyed = true;
+}
+
+bool EntityController::isDestroyed() {
+    return destroyed;
+}
+
+void EntityController::changeY(double value) {
+    this->model->moveTo(model->getX(), model->getY() + value);
+}
+
+EntityController::EntityController(): screenHeight(settings::screenHeight) {
+
 }
 
 bool CollisionBox::collides(CollisionBox &box) const {

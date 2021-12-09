@@ -1,0 +1,10 @@
+//
+// Created by robnoo on 4/12/21.
+//
+
+#ifndef DOODLEJUMP_PLATFORMTYPE_H
+#define DOODLEJUMP_PLATFORMTYPE_H
+
+enum PlatformType {STATIC, HORIZONTAL, VERTICAL, TEMPORARY};
+
+#endif //DOODLEJUMP_PLATFORMTYPE_H

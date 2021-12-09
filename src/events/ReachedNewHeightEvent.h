@@ -10,9 +10,14 @@
 
 class ReachedNewHeightEvent: public Event {
 public:
+    ReachedNewHeightEvent(double difference, double maxHeight);
+
+    double getDifference();
+    double getMaxHeight();
 
 private:
     double difference;
+    double maxHeight;
 
 };
 

@@ -15,6 +15,7 @@ class Resource;
 struct CollisionBox {
     std::pair<double, double> upperLeft;
     std::pair<double, double> lowerRight;
+    std::pair<double, double> getRelativeCenter() {return {(lowerRight.first - upperLeft.first) / 2, (lowerRight.second - upperLeft.second) / 2};}
     double width() const {return lowerRight.first - upperLeft.first;}
     double height() const {return lowerRight.second - upperLeft.second;}
 
@@ -23,6 +24,9 @@ struct CollisionBox {
 
 class EntityController: public EventHandler {
 public:
+    // Constructor
+    EntityController();
+
     // Abstracts
     virtual void update(double elapsed);
     void handle(std::shared_ptr<Event>& event) override = 0;
@@ -30,7 +34,9 @@ public:
     // Actions
     void load(std::shared_ptr<Resource>& resource);
     void moveTo(double x, double y);
+    void changeY(double value);
     void link(std::shared_ptr<EntityController>& controller);
+    void destroy();
 
     // Setters
     void setSize(double size);
@@ -38,10 +44,15 @@ public:
     // Getters
     sf::Sprite& getSprite();
     CollisionBox getCollisionBox();
+    bool isDestroyed();
 
 protected:
     std::shared_ptr<EntityModel> model;
     std::shared_ptr<EntityView> view;
+
+private:
+    bool destroyed = false;
+    double screenHeight = 0;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H

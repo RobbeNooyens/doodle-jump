@@ -18,10 +18,10 @@ ConcreteFactory::loadPlatform(PlatformType platformType) {
         platformController = std::make_shared<controllers::TemporaryPlatformController>();
         texture = "temporary";
     } else if(platformType == PlatformType::HORIZONTAL) {
-        platformController = std::make_shared<controllers::TemporaryPlatformController>();
+        platformController = std::make_shared<controllers::HorizontalPlatformController>();
         texture = "horizontal";
     } else if(platformType == PlatformType::VERTICAL) {
-        platformController = std::make_shared<controllers::TemporaryPlatformController>();
+        platformController = std::make_shared<controllers::VerticalPlatformController>();
         texture = "vertical";
     } else {
         throw std::runtime_error("Something went wrong");

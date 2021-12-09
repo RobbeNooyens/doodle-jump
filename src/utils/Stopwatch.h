@@ -26,6 +26,10 @@ public:
     double elapsed();
 
     double elapsedSinceLastCycle();
+    double elapsedMillisecondsSinceLastCycle();
+
+    Stopwatch(Stopwatch()) = delete;
+    void operator=(Stopwatch const&) = delete;
 private:
     static TimeStamp getCurrentTime();
 

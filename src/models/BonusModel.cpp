@@ -3,6 +3,7 @@
 //
 
 #include "BonusModel.h"
+#include "../controllers/PlatformController.h"
 
 models::JetpackModel::JetpackModel(): BonusModel() {
 
@@ -17,5 +18,4 @@ models::BonusModel::BonusModel(): EntityModel() {
 }
 
 void models::BonusModel::update(double elapsed) {
-
 }

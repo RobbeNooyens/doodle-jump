@@ -6,6 +6,7 @@
 #define DOODLEJUMP_BONUSMODEL_H
 
 #include "EntityModel.h"
+#include "PlatformModel.h"
 
 namespace models {
     class BonusModel: public EntityModel {

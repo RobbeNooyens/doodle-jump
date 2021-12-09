@@ -6,6 +6,7 @@
 #define DOODLEJUMP_PLATFORMMODEL_H
 
 #include "EntityModel.h"
+#include "../enums/Direction.h"
 
 namespace models {
     class PlatformModel: public EntityModel {
@@ -16,26 +17,35 @@ namespace models {
 
     class StaticPlatform: public PlatformModel {
     public:
+        StaticPlatform();
         void update(double elapsed) override;
     };
 
     class HorizontalPlatform: public PlatformModel {
     public:
+        HorizontalPlatform();
         void update(double elapsed) override;
 
     private:
-        double speed = 5;
+        Direction direction = RIGHT;
+        const unsigned int screenWidth;
+        double speed = 100;
     };
 
     class VerticalPlatform: public PlatformModel{
     public:
+        VerticalPlatform();
         void update(double elapsed) override;
     private:
-        double speed = 5;
+        Direction direction = UP;
+        double speed = 100;
+        double relativeY = 0;
+        double distance = 200;
     };
 
     class TemporaryPlatform: public PlatformModel{
     public:
+        TemporaryPlatform();
         void update(double elapsed) override;
     };
 }

@@ -5,14 +5,20 @@
 #include "World.h"
 #include "factories/AbstractFactory.h"
 #include "factories/ConcreteFactory.h"
+#include "controllers/EntityController.h"
+#include "controllers/PlatformController.h"
 #include "SFML/Graphics.hpp"
+#include "events/Event.h"
+#include "events/EventManager.h"
+#include "ScoreManager.h"
+
+#define RENDER_BBOX(yesno) if(!yesno) return;
 
 void World::handle(std::shared_ptr<Event> &event) {
 
 }
 
-World::World() {
-
+World::World(): worldGenerator(std::make_unique<WorldGenerator>()) {
 }
 
 void World::update(double elapsed) {
@@ -26,6 +32,22 @@ void World::update(double elapsed) {
     for(auto& tile: tiles) {
         tile->update(elapsed);
     }
+    // Remove destroyed objects
+    platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return platform->isDestroyed(); }), platforms.end());
+    for(auto& platform: platforms) {
+        if(platform->isDestroyed()) {
+            platform.reset();
+        }
+    }
+    bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(), [](auto& bonus){ return bonus->isDestroyed(); }), bonuses.end());
+    for(auto& bonus: bonuses) {
+        if(bonus->isDestroyed()) {
+            bonus.reset();
+        }
+    }
+
+    // Update worldgenerator
+    worldGenerator->update();
 }
 
 void World::clear() {
@@ -37,20 +59,23 @@ void World::clear() {
 }
 
 void World::setup() {
+//    std::shared_ptr<EventHandler> worldGenEventHandler = std::static_pointer_cast<EventHandler>(worldGenerator);
+//    EventManager::getInstance().registerHandler(worldGenEventHandler);
+
     // Create Player
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
-    player->moveTo(60, 200);
+    player->moveTo(60, 250);
 
     // Create Platforms
     std::shared_ptr<controllers::PlatformController> platformStatic = factory->loadPlatform(PlatformType::STATIC);
     platformStatic->moveTo(60, 300);
     platforms.push_back(platformStatic);
     std::shared_ptr<controllers::PlatformController> platformTemporary = factory->loadPlatform(PlatformType::TEMPORARY);
-    platformTemporary->moveTo(160, 300);
+    platformTemporary->moveTo(160, 200);
     platforms.push_back(platformTemporary);
     std::shared_ptr<controllers::PlatformController> platformHorizontal = factory->loadPlatform(PlatformType::HORIZONTAL);
-    platformHorizontal->moveTo(260, 300);
+    platformHorizontal->moveTo(260, 100);
     platforms.push_back(platformHorizontal);
     std::shared_ptr<controllers::PlatformController> platformVertical = factory->loadPlatform(PlatformType::VERTICAL);
     platformVertical->moveTo(360, 300);
@@ -66,8 +91,11 @@ void World::setup() {
 
     // Create Tiles
     std::shared_ptr<controllers::TileController> tile = factory->loadTile();
-    tile->moveTo(200, 250);
+    tile->moveTo(200, 0);
     tiles.push_back(tile);
+    std::shared_ptr<controllers::TileController> tile2 = factory->loadTile();
+    tile2->moveTo(200, 400);
+    tiles.push_back(tile2);
 }
 
 World &World::getInstance() {
@@ -87,7 +115,8 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
     return bonuses;
 }
 
-void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> entity) {
+void drawBoundingBox(sf::RenderWindow &window, const std::shared_ptr<EntityController>& entity) {
+    RENDER_BBOX(true)
     CollisionBox box = entity->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
@@ -101,17 +130,25 @@ void drawBoudingBox(sf::RenderWindow &window, std::shared_ptr<EntityController> 
 void World::redraw(sf::RenderWindow &window) {
     for(auto& tile: tiles) {
         window.draw(tile->getSprite());
-        drawBoudingBox(window, tile);
+        drawBoundingBox(window, tile);
     }
     for(auto& bonus: bonuses) {
         window.draw(bonus->getSprite());
-        drawBoudingBox(window, bonus);
+        drawBoundingBox(window, bonus);
     }
     for(auto& platform: platforms) {
         window.draw(platform->getSprite());
-        drawBoudingBox(window, platform);
+        drawBoundingBox(window, platform);
     }
-    drawBoudingBox(window, player);
+    drawBoundingBox(window, player);
     window.draw(player->getSprite());
+    window.draw(ScoreManager::getInstance().getText());
+}
 
+void World::addPlatform(std::shared_ptr<controllers::PlatformController> &platform) {
+    platforms.push_back(platform);
+}
+
+void World::addBonus(std::shared_ptr<controllers::BonusController> &bonus) {
+    bonuses.push_back(bonus);
 }
