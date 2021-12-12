@@ -12,8 +12,6 @@
 #include "../controllers/TileController.h"
 #include "../enums/PlatformType.h"
 
-enum BonusType { SPRING, JETPACK };
-
 class AbstractFactory {
 public:
     virtual std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType) = 0;

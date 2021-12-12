@@ -7,6 +7,7 @@
 
 #include "EntityController.h"
 #include "PlatformController.h"
+#include "../enums/BonusType.h"
 
 namespace controllers {
     class BonusController: public EntityController {
@@ -21,9 +22,14 @@ namespace controllers {
 
         void setPlatform(std::shared_ptr<PlatformController>& platformController);
 
+        BonusType getType();
+
     private:
         double offset = 0;
         std::shared_ptr<PlatformController> platform;
+
+    protected:
+        BonusType bonusType = BonusType::SPRING;
     };
 
     class SpringController: public BonusController {

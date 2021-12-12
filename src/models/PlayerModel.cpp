@@ -3,6 +3,7 @@
 //
 
 #include <complex>
+#include <algorithm>
 #include "PlayerModel.h"
 #include "../controllers/EntityController.h"
 #include "../World.h"
@@ -38,7 +39,11 @@ void models::PlayerModel::update(double elapsed) {
                 this->speed = 10;
                 this->y0 = y;
                 bonus->use();
-                boost = 10;
+                if(bonus->getType() == BonusType::SPRING) {
+                    boost = 10;
+                } else if(bonus->getType() == BonusType::JETPACK) {
+                    rocketPower = 200;
+                }
             }
         }
         // Check platforms
@@ -67,9 +72,13 @@ void models::PlayerModel::update(double elapsed) {
 //        double height = -std::pow((t-1), 2) + 1;
 //        height *= 200;
 //        this->y = y0 - height;
+        if(rocketPower > 0)
+            this->rocketPower -= elapsed*100;
+        if(rocketPower < 0)
+            this->rocketPower = 0;
         this->t += elapsed;
         this->speed = acceleration*t;
-        double difference = (5-(speed*t))*boost;
+        double difference = (5-(speed*t))*boost + std::min(rocketPower, 100.0)*elapsed*50;
         this->y -= difference;
 
         if(difference < 0) {

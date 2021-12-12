@@ -29,16 +29,27 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 
 ## To do
 
+Necessary:
 - Detect jumping on the same platform
-- Jetpack usage
+- Implement a Camera
+- Cleanup
+- Press A and D
+- All time highscore
+- Max height is middle of screen
+- Spring 5x as high
+- Scroll BG tile
+- Exception handling
+- Documentation
+- Virtual destructors
+- Format with CLANG
+
+
+  Extra:
 - Jump animation
 - Jetpack animation when using
-- Jetpack implementation
 - Blue bar under score
 - Game menu
 - Game over
-- Implement a Camera
-- Cleanup
 
 ## Warning
 

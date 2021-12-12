@@ -37,8 +37,13 @@ void controllers::BonusController::setPlatform(std::shared_ptr<PlatformControlle
     this->platform = platformController;
 }
 
+BonusType controllers::BonusController::getType() {
+    return bonusType;
+}
+
 controllers::SpringController::SpringController(): BonusController() {
     model = std::make_shared<models::SpringModel>();
+    bonusType = SPRING;
 }
 
 void controllers::SpringController::use() {
@@ -50,6 +55,7 @@ void controllers::SpringController::use() {
 
 controllers::JetpackController::JetpackController(): BonusController() {
     model = std::make_shared<models::JetpackModel>();
+    bonusType = JETPACK;
 }
 
 void controllers::JetpackController::use() {
