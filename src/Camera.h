@@ -7,7 +7,15 @@
 
 
 class Camera {
+public:
+    static Camera& getInstance();
+    double getHeight() const;
+    void setHeight(double h);
+    void addHeight(double h);
 
+private:
+    Camera();
+    double height = 0;
 };
 
 

@@ -39,9 +39,11 @@ Necessary:
 - Spring 5x as high
 - Scroll BG tile
 - Exception handling
+- Death screen
 - Documentation
 - Virtual destructors
 - Format with CLANG
+- Singletons override copy constructor
 
 
   Extra:

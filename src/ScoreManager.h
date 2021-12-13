@@ -15,6 +15,7 @@ public:
     static ScoreManager& getInstance();
     int getScore() const;
     void setScore(int score);
+    void addScore(int score);
     sf::Text& getText();
 
 private:
