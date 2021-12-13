@@ -18,7 +18,7 @@ sf::Text& ScoreManager::getText() {
 ScoreManager::ScoreManager() {
     if (!font.loadFromFile("../resources/fonts/DoodleJump.ttf"))
     {
-        // error...
+        // TODO: error...
     }
     scoreText.setFont(font);
     scoreText.move(20, 10);
@@ -27,12 +27,16 @@ ScoreManager::ScoreManager() {
     scoreText.setString("0");
 }
 
-void ScoreManager::setScore(int score) {
-    this->score = score;
+void ScoreManager::setScore(int s) {
+    this->score = s;
     scoreText.setString(std::to_string(score));
 }
 
 ScoreManager &ScoreManager::getInstance() {
     static ScoreManager INSTANCE;
     return INSTANCE;
+}
+
+void ScoreManager::addScore(int s) {
+    this->score += s;
 };
