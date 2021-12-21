@@ -6,7 +6,7 @@
 #include "../models/TileModel.h"
 #include "../views/TileView.h"
 
-controllers::TileController::TileController(): EntityController() {
+controllers::TileController::TileController(): EntityController(EntityType::BGTILE) {
     model = std::make_shared<models::TileModel>();
     view = std::make_shared<views::TileView>();
 }

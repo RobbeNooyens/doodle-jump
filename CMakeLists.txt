@@ -14,7 +14,7 @@ file(GLOB sourcefiles
 add_compile_options(-gdwarf-4)
 
 
-add_executable(DoodleJump ${sourcefiles} src/utils/ResourceLoader.cpp src/utils/ResourceLoader.h src/controllers/EntityController.cpp src/enums/Direction.h src/Settings.h src/enums/PlatformType.h src/WorldGenerator.cpp src/WorldGenerator.h src/ScoreManager.cpp src/ScoreManager.h src/enums/BonusType.h src/events/PlayerUsesBonusEvent.cpp src/events/PlayerUsesBonusEvent.h src/enums/EventType.h src/events/PlayerCollisionEvent.cpp src/events/PlayerCollisionEvent.h src/enums/EntityType.h)
+add_executable(DoodleJump ${sourcefiles} src/utils/ResourceLoader.cpp src/utils/ResourceLoader.h src/controllers/EntityController.cpp src/enums/Direction.h src/Settings.h src/enums/PlatformType.h src/WorldGenerator.cpp src/WorldGenerator.h src/ScoreManager.cpp src/ScoreManager.h src/enums/BonusType.h src/events/PlayerUsesBonusEvent.cpp src/events/PlayerUsesBonusEvent.h src/enums/EventType.h src/events/PlayerCollisionEvent.cpp src/events/PlayerCollisionEvent.h src/enums/EntityType.h src/bounding_box/BoundingBox.cpp src/bounding_box/BoundingBox.h)
 
 # Find SFML
 #set(SFML_STATIC_LIBRARIES TRUE)

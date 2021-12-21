@@ -24,10 +24,10 @@ void models::PlayerModel::update(double elapsed) {
     // Falling
     if(falling()) {
         auto box = getBox();
-        CollisionBox cbox = {box.first, box.second};
+        AbsoluteBoundingBox cbox = {box.first, box.second};
         // Check bonuses
         for(auto& bonus: World::getInstance().getBonuses()) {
-            CollisionBox bonusBox = bonus->getCollisionBox();
+            AbsoluteBoundingBox bonusBox = bonus->getCollisionBox();
             if(bonusBox.collides(cbox)) {
                 if(bboxBeforeMoving.second.second >= bonusBox.upperLeft.second)
                     continue;
@@ -48,7 +48,7 @@ void models::PlayerModel::update(double elapsed) {
         }
         // Check platforms
         for(auto& platform: World::getInstance().getPlatforms()) {
-            CollisionBox platformBox = platform->getCollisionBox();
+            AbsoluteBoundingBox platformBox = platform->getCollisionBox();
             if(platformBox.collides(cbox)) {
                 if(bboxBeforeMoving.second.second >= platformBox.upperLeft.second)
                     continue;
@@ -65,18 +65,10 @@ void models::PlayerModel::update(double elapsed) {
             }
         }
     } else if(jumping()) {
-        // Working
-//        this->t += elapsedSeconds;
-//        this->speed = acceleration*std::pow(t, 2);
-//        double height = -std::pow((t-1), 2) + 1;
-//        height *= 200;
-//        this->y = y0 - height;
         if(rocketPower > 0)
             this->rocketPower -= elapsed*100;
         if(rocketPower < 0)
             this->rocketPower = 0;
-
-//        double difference = (5-(speed*t))*boost + std::min(rocketPower, 100.0)*elapsed*50;
 
         if(speed <= 0) {
             direction = DOWN;
@@ -98,9 +90,6 @@ void models::PlayerModel::update(double elapsed) {
         this->highest += difference;
         std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
         EventManager::getInstance().invoke(newHeight);
-//        if(((int) ((highest-difference) / 60.0)) != ((int) (highest / 60.0))) {
-//            World::getInstance().createPlatform();
-//        }
         ScoreManager::getInstance().setScore(highest);
     }
 

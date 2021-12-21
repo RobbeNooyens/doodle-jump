@@ -11,6 +11,7 @@
 #include "events/Event.h"
 #include "events/EventManager.h"
 #include "ScoreManager.h"
+#include "events/PlayerCollisionEvent.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
@@ -29,9 +30,6 @@ void World::update(double elapsed) {
         bonus->update(elapsed);
     for(auto& tile: tiles)
         tile->update(elapsed);
-
-    // TODO check collission
-
 
     // Remove destroyed objects
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return platform->isDestroyed(); }), platforms.end());
@@ -118,7 +116,7 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
 
 void drawBoundingBox(sf::RenderWindow &window, const std::shared_ptr<EntityController>& entity) {
     RENDER_BBOX(true)
-    CollisionBox box = entity->getCollisionBox();
+    AbsoluteBoundingBox box = entity->getCollisionBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box.width(), box.height()));
     cbox.setPosition(box.upperLeft.first, box.upperLeft.second);

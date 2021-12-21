@@ -9,33 +9,33 @@
 #include <memory>
 #include "../controllers/EntityController.h"
 
-class BoundingBox;
+class RelativeBoundingBox;
 
 class EntityModel {
 public:
     // Actions
     virtual void update(double elapsed) = 0;
     void moveTo(double x, double y);
+    void updateAbsoluteBBox();
 
     // Getters
     double getX();
     double getY();
-    std::pair<double, double> getCoordinates();
-    std::pair<double, double> getUpperLeftCorner();
-    std::pair<std::pair<double, double>, std::pair<double, double>> getBox();
+    std::shared_ptr<BoundingBox> getAbsoluteBBox();
 
     // Setters
     void setSize(double size);
-    void setBoundingBox(std::shared_ptr<BoundingBox>& bbox);
     void setWidth(double w);
     void setHeight(double h);
+    void setRelativeBBox(std::shared_ptr<BoundingBox>& bbox);
     void setController(std::shared_ptr<EntityController> controller);
 
 protected:
     double size = 1, sizeY = 1;
     double width=1, height=1;
     double x = 0, y = 0;
-    std::shared_ptr<BoundingBox> bbox;
+    std::shared_ptr<BoundingBox> relativeBBox;
+    std::shared_ptr<BoundingBox> absoluteBBox;
     std::weak_ptr<EntityController> controller;
 
 

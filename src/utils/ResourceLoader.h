@@ -11,12 +11,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <memory>
 
-struct BoundingBox {
-    BoundingBox(double centerX, double centerY, double up, double down, double left, double right)
-        : center({centerX, centerY}), left(left), right(right), up(up), down(down) {}
-    std::pair<double, double> center;
-    double left, right, up, down;
-};
+class BoundingBox;
 
 struct Resource {
     Resource(double w, double h, std::shared_ptr<BoundingBox> bbox, const sf::Texture& texture)

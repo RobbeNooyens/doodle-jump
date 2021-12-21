@@ -8,6 +8,7 @@
 #include "../utils/ResourceLoader.h"
 #include "../Settings.h"
 #include "../events/EventManager.h"
+#include "../bounding_box/BoundingBox.h"
 
 sf::Sprite &EntityController::getSprite() {
     return view->getSprite();
@@ -19,7 +20,7 @@ void EntityController::moveTo(double x, double y) {
     view->moveTo(corner.first, corner.second);
 }
 
-CollisionBox EntityController::getCollisionBox() {
+BoundingBox EntityController::getBoundingBox() {
     auto box = model->getBox();
     return {box.first, box.second};
 }
@@ -64,26 +65,9 @@ void EntityController::changeY(double value) {
     this->model->moveTo(model->getX(), model->getY() + value);
 }
 
-EntityController::EntityController(): screenHeight(settings::screenHeight) {
-
+EntityController::EntityController(EntityType entityType): screenHeight(settings::screenHeight), type(entityType) {
 }
 
-bool CollisionBox::collides(CollisionBox &box) const {
-    // Source: https://www.geeksforgeeks.org/find-two-rectangles-overlap/
-
-    if (upperLeft.first == lowerRight.first || upperLeft.second == lowerRight.second || box.upperLeft.first == box.lowerRight.first
-        || box.upperLeft.second == box.lowerRight.second) {
-        // the line cannot have positive overlap
-        return false;
-    }
-
-    // If one rectangle is on left side of other
-    if (upperLeft.first >= box.lowerRight.first || box.upperLeft.first >= lowerRight.first)
-        return false;
-
-    // If one rectangle is above other
-    if (lowerRight.second <= box.upperLeft.second || box.lowerRight.second <= upperLeft.second)
-        return false;
-
-    return true;
+EntityType EntityController::getType() {
+    return type;
 }

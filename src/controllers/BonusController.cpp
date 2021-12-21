@@ -8,7 +8,7 @@
 #include "../utils/ResourceLoader.h"
 #include "../events/ReachedNewHeightEvent.h"
 
-controllers::BonusController::BonusController(): EntityController() {
+controllers::BonusController::BonusController(): EntityController(EntityType::BONUS) {
     view = std::make_shared<views::BonusView>();
 }
 
@@ -26,7 +26,7 @@ void controllers::BonusController::update(double elapsed) {
             this->destroy();
             return;
         }
-        CollisionBox platformBox = platform->getCollisionBox();
+        AbsoluteBoundingBox platformBox = platform->getCollisionBox();
         this->moveTo(platformBox.getRelativeCenter().first + platformBox.upperLeft.first + offset, platformBox.upperLeft.second);
     } else {
         this->destroy();

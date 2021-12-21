@@ -14,7 +14,7 @@ void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
     }
 }
 
-controllers::PlatformController::PlatformController() {
+controllers::PlatformController::PlatformController(EntityType::PLATFORM) {
     view = std::make_shared<views::PlatformView>();
 }
 

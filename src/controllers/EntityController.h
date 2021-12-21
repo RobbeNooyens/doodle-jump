@@ -7,25 +7,17 @@
 
 #include "../events/EventHandler.h"
 #include "SFML/Graphics.hpp"
+#include "../enums/EntityType.h"
 
 class EntityModel;
 class EntityView;
 class Resource;
-
-struct CollisionBox {
-    std::pair<double, double> upperLeft;
-    std::pair<double, double> lowerRight;
-    std::pair<double, double> getRelativeCenter() {return {(lowerRight.first - upperLeft.first) / 2, (lowerRight.second - upperLeft.second) / 2};}
-    double width() const {return lowerRight.first - upperLeft.first;}
-    double height() const {return lowerRight.second - upperLeft.second;}
-
-    bool collides(CollisionBox& box) const;
-};
+class BoundingBox;
 
 class EntityController: public EventHandler {
 public:
     // Constructor
-    EntityController();
+    explicit EntityController(EntityType entityType);
 
     // Abstracts
     virtual void update(double elapsed);
@@ -43,16 +35,17 @@ public:
 
     // Getters
     sf::Sprite& getSprite();
-    CollisionBox getCollisionBox();
+    BoundingBox getBoundingBox();
     bool isDestroyed();
+    EntityType getType();
 
 protected:
     std::shared_ptr<EntityModel> model;
     std::shared_ptr<EntityView> view;
 
 private:
+    EntityType type;
     bool destroyed = false;
-    double screenHeight = 0;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H

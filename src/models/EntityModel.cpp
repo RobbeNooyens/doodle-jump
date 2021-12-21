@@ -31,14 +31,6 @@ std::pair<std::pair<double, double>, std::pair<double, double>> EntityModel::get
     return {{x-((bbox->left) * size), y - (bbox->up * sizeY)}, {x + (bbox->right * size), y + (bbox->down * sizeY)}};
 }
 
-void EntityModel::setBoundingBox(std::shared_ptr<BoundingBox> &bbox) {
-    this->bbox = bbox;
-}
-
-std::pair<double, double> EntityModel::getUpperLeftCorner() {
-    return {x-(bbox->center.first * size), y - (bbox->center.second * sizeY)};
-}
-
 void EntityModel::setWidth(double w) {
     this->width = w;
 }
@@ -49,4 +41,17 @@ void EntityModel::setHeight(double h) {
 
 void EntityModel::setController(std::shared_ptr<EntityController> controller) {
     this->controller = controller;
+}
+
+std::shared_ptr<BoundingBox> EntityModel::getAbsoluteBBox() {
+    return std::shared_ptr<BoundingBox>();
+}
+
+void EntityModel::setRelativeBBox(std::shared_ptr<BoundingBox> &bbox) {
+
+}
+
+void EntityModel::updateAbsoluteBBox() {
+
+
 }

@@ -20,7 +20,7 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     }
 }
 
-controllers::PlayerController::PlayerController() {
+controllers::PlayerController::PlayerController(): EntityController(EntityType::PLAYER) {
     model = std::make_shared<models::PlayerModel>();
     view = std::make_shared<views::PlayerView>();
 }
