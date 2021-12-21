@@ -23,15 +23,16 @@ World::World(): worldGenerator(std::make_unique<WorldGenerator>()) {
 
 void World::update(double elapsed) {
     player->update(elapsed);
-    for(auto& platform: platforms) {
+    for(auto& platform: platforms)
         platform->update(elapsed);
-    }
-    for(auto& bonus: bonuses) {
+    for(auto& bonus: bonuses)
         bonus->update(elapsed);
-    }
-    for(auto& tile: tiles) {
+    for(auto& tile: tiles)
         tile->update(elapsed);
-    }
+
+    // TODO check collission
+
+
     // Remove destroyed objects
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return platform->isDestroyed(); }), platforms.end());
     for(auto& platform: platforms) {

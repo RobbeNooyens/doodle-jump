@@ -6,13 +6,12 @@
 #define DOODLEJUMP_EVENT_H
 
 #include <chrono>
-
-enum EventType {NONE, KEY_PRESSED, REACHED_HEIGHT};
+#include "../enums/EventType.h"
 
 class Event {
 public:
     explicit Event(EventType type): type(type) {}
-    Event(): type(EventType::NONE) {}
+    Event(): type(EventType::UNDEFINED) {}
     EventType getType() { return type; }
 
 private:

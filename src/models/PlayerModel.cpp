@@ -12,16 +12,17 @@
 #include "../events/EventManager.h"
 #include "../ScoreManager.h"
 
+#define MAX_SPEED 15.0
+
 void models::PlayerModel::update(double elapsed) {
     auto bboxBeforeMoving = this->getBox();
+
+    double absDifference = elapsed * acceleration;
+    this->speed += (jumping() ? -1 : 1) * absDifference;
+    this->y += (jumping() ? -1 : 1) * std::min(speed, MAX_SPEED) * boost * jumpHeight;
+
     // Falling
-    if(state == FALLING) {
-        // Working
-        this->t += elapsed;
-        this->speed = acceleration*t;
-        this->y += speed*t;
-
-
+    if(falling()) {
         auto box = getBox();
         CollisionBox cbox = {box.first, box.second};
         // Check bonuses
@@ -32,15 +33,14 @@ void models::PlayerModel::update(double elapsed) {
                     continue;
                 if(bonusBox.upperLeft.second > cbox.lowerRight.second || bonusBox.lowerRight.second < cbox.lowerRight.second)
                     continue;
-                state = JUMPING;
+                direction = UP;
                 double difference = cbox.lowerRight.second - bonusBox.upperLeft.second;
                 this->y -= difference;
-                this->t = 0;
                 this->speed = 10;
                 this->y0 = y;
                 bonus->use();
                 if(bonus->getType() == BonusType::SPRING) {
-                    boost = 10;
+                    boost = 5;
                 } else if(bonus->getType() == BonusType::JETPACK) {
                     rocketPower = 200;
                 }
@@ -54,10 +54,9 @@ void models::PlayerModel::update(double elapsed) {
                     continue;
                 if(platformBox.upperLeft.second > cbox.lowerRight.second || platformBox.lowerRight.second < cbox.lowerRight.second)
                     continue;
-                state = JUMPING;
+                direction = UP;
                 double difference = cbox.lowerRight.second - platformBox.upperLeft.second;
                 this->y -= difference;
-                this->t = 0;
                 this->speed = 10;
                 this->y0 = y;
                 if(platform->getType() == PlatformType::TEMPORARY) {
@@ -65,7 +64,7 @@ void models::PlayerModel::update(double elapsed) {
                 }
             }
         }
-    } else if(state == JUMPING) {
+    } else if(jumping()) {
         // Working
 //        this->t += elapsedSeconds;
 //        this->speed = acceleration*std::pow(t, 2);
@@ -76,15 +75,13 @@ void models::PlayerModel::update(double elapsed) {
             this->rocketPower -= elapsed*100;
         if(rocketPower < 0)
             this->rocketPower = 0;
-        this->t += elapsed;
-        this->speed = acceleration*t;
-        double difference = (5-(speed*t))*boost + std::min(rocketPower, 100.0)*elapsed*50;
-        this->y -= difference;
 
-        if(difference < 0) {
-            state = FALLING;
-            speed = 2;
-            t = 0;
+//        double difference = (5-(speed*t))*boost + std::min(rocketPower, 100.0)*elapsed*50;
+
+        if(speed <= 0) {
+            direction = DOWN;
+            speed = 0;
+            boost = 0;
         }
     }
 
@@ -115,6 +112,14 @@ void models::PlayerModel::update(double elapsed) {
         this->x += 300*(elapsed);
     }
 
+}
+
+bool models::PlayerModel::falling() {
+    return direction == DOWN;
+}
+
+bool models::PlayerModel::jumping() {
+    return direction == UP;
 }
 
 models::PlayerModel::PlayerModel() = default;

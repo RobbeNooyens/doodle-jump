@@ -57,13 +57,13 @@ void WorldGenerator::calculateNextPlatformHeight() {
     // Decide whether or not to include a bonus
     addBonus = Random::getInstance().generate<double>() <= 0.5;
     if(addBonus && score > 500 && nextPlatformType != TEMPORARY) {
-        std::map<double, BonusType> bonuses = {{1, JETPACK}};
-//        if(score > 500) {
-//            bonuses.emplace(1, SPRING);
-//        }
-//        if(score > 1500) {
-//            bonuses.emplace(0.1, JETPACK);
-//        }
+        std::map<double, BonusType> bonuses;
+        if(score > 500) {
+            bonuses.emplace(1, SPRING);
+        }
+        if(score > 1500) {
+            bonuses.emplace(0.1, JETPACK);
+        }
         bonusType = Random::getInstance().randomWeighted(bonuses);
     }
 }

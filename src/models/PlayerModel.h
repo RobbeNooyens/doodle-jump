@@ -7,8 +7,7 @@
 
 #include "EntityModel.h"
 #include "../utils/ResourceLoader.h"
-
-enum PlayerState {FALLING, JUMPING, BOUNCING, FLYING};
+#include "../enums/Direction.h"
 
 namespace models {
     class PlayerModel: public EntityModel {
@@ -18,13 +17,17 @@ namespace models {
         void update(double elapsed) override;
 
     private:
-        const double jumpHeight = 40;
-        const double acceleration = 6;
+        const double acceleration = 15;
+        double speed = 20;
+        const double jumpHeight = 1.2;
+        Direction direction = Direction::UP;
+
+        bool falling();
+        bool jumping();
+
         double boost = 1, rocketPower = 0;
-        double speed = 0;
         double highest = 0;
-        double y0 = 0, t = 0, a = 0.5;
-        PlayerState state = FALLING;
+        double y0 = 0, a = 0.5;
 
 
     };
