@@ -7,15 +7,18 @@
 
 
 #include <utility>
+#include <memory>
 
 class BoundingBox {
 public:
+    BoundingBox();
     BoundingBox(double left, double top, double right, double bottom);
-    BoundingBox(double left, double top, double right, double bottom, std::pair<double, double> center);
-    bool collides(BoundingBox& box) const;
+    bool collides(std::shared_ptr<BoundingBox>& box) const;
 
     // Setters
-
+    void setBorder(double left, double top, double right, double bottom);
+    void setCenter(std::pair<double, double> center);
+    void calculateCenter();
 
     // Getters
     std::pair<double, double>& getCenter();
@@ -25,6 +28,8 @@ public:
     [[nodiscard]] double getBottom() const;
     [[nodiscard]] double getLeft() const;
     [[nodiscard]] double getRight() const;
+
+    BoundingBox copy();
 
 private:
     double left, right, top, bottom;

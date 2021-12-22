@@ -4,6 +4,7 @@
 
 #include "EntityModel.h"
 #include "../utils/ResourceLoader.h"
+#include "../bounding_box/BoundingBox.h"
 
 void EntityModel::moveTo(double x, double y) {
     this->x = x;
@@ -18,17 +19,9 @@ double EntityModel::getY() {
     return y;
 }
 
-std::pair<double, double> EntityModel::getCoordinates() {
-    return {x,y};
-}
-
 void EntityModel::setSize(double size) {
     this->size = size;
     this->sizeY = (size*height)/width;
-}
-
-std::pair<std::pair<double, double>, std::pair<double, double>> EntityModel::getBox() {
-    return {{x-((bbox->left) * size), y - (bbox->up * sizeY)}, {x + (bbox->right * size), y + (bbox->down * sizeY)}};
 }
 
 void EntityModel::setWidth(double w) {
@@ -43,15 +36,24 @@ void EntityModel::setController(std::shared_ptr<EntityController> controller) {
     this->controller = controller;
 }
 
-std::shared_ptr<BoundingBox> EntityModel::getAbsoluteBBox() {
-    return std::shared_ptr<BoundingBox>();
-}
-
 void EntityModel::setRelativeBBox(std::shared_ptr<BoundingBox> &bbox) {
+    this->relativeBBox = bbox;
 
 }
 
-void EntityModel::updateAbsoluteBBox() {
+std::shared_ptr<BoundingBox> EntityModel::getBoundingBox() {
+    return absoluteBBox;
+}
 
+EntityModel::EntityModel() {
+    absoluteBBox = std::make_shared<BoundingBox>();
+}
 
+void EntityModel::updateBoundingBox() {
+    absoluteBBox->setCenter({x,  y});
+    absoluteBBox->setBorder(
+            x-relativeBBox->getLeft()*size,
+            y-relativeBBox->getTop()*sizeY,
+            x+relativeBBox->getRight()*size,
+            y+relativeBBox->getBottom()*sizeY);
 }

@@ -7,6 +7,7 @@
 #include "../views/BonusView.h"
 #include "../utils/ResourceLoader.h"
 #include "../events/ReachedNewHeightEvent.h"
+#include "../bounding_box/BoundingBox.h"
 
 controllers::BonusController::BonusController(): EntityController(EntityType::BONUS) {
     view = std::make_shared<views::BonusView>();
@@ -26,8 +27,8 @@ void controllers::BonusController::update(double elapsed) {
             this->destroy();
             return;
         }
-        AbsoluteBoundingBox platformBox = platform->getCollisionBox();
-        this->moveTo(platformBox.getRelativeCenter().first + platformBox.upperLeft.first + offset, platformBox.upperLeft.second);
+        auto platformBox = platform->getBoundingBox();
+        this->moveTo(platformBox->getCenter().first + offset, platformBox->getTop());
     } else {
         this->destroy();
     }

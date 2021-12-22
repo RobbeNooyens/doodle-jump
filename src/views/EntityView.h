@@ -24,11 +24,15 @@ public:
     void setTexture(std::string& textureFile);
     void setTexture(sf::Texture& texture);
     void setController(std::shared_ptr<EntityController>& controller);
+    void setBoundingBox(std::shared_ptr<BoundingBox>& bbox);
+
 protected:
     sf::Texture texture;
     sf::Sprite sprite;
     double width = 0, height = 0;
+    double sizeX = 0, sizeY = 0;
     std::weak_ptr<EntityController> controller;
+    std::shared_ptr<BoundingBox> boundingBox;
 };
 
 #endif //DOODLEJUMP_ENTITYVIEW_H

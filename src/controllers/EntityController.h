@@ -35,7 +35,7 @@ public:
 
     // Getters
     sf::Sprite& getSprite();
-    BoundingBox getBoundingBox();
+    std::shared_ptr<BoundingBox> getBoundingBox();
     bool isDestroyed();
     EntityType getType();
 

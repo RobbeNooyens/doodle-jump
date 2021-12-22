@@ -13,15 +13,17 @@ class RelativeBoundingBox;
 
 class EntityModel {
 public:
+    EntityModel();
+
     // Actions
     virtual void update(double elapsed) = 0;
     void moveTo(double x, double y);
-    void updateAbsoluteBBox();
+    void updateBoundingBox();
 
     // Getters
     double getX();
     double getY();
-    std::shared_ptr<BoundingBox> getAbsoluteBBox();
+    std::shared_ptr<BoundingBox> getBoundingBox();
 
     // Setters
     void setSize(double size);

@@ -16,22 +16,18 @@ sf::Sprite &EntityController::getSprite() {
 
 void EntityController::moveTo(double x, double y) {
     model->moveTo(x, y);
-    std::pair<double, double> corner = model->getUpperLeftCorner();
-    view->moveTo(corner.first, corner.second);
-}
-
-BoundingBox EntityController::getBoundingBox() {
-    auto box = model->getBox();
-    return {box.first, box.second};
+    view->moveTo(model->getX(), model->getY());
 }
 
 void EntityController::load(std::shared_ptr<Resource>& resource) {
-    model->setBoundingBox(resource->boundingBox);
     model->setWidth(resource->width);
     model->setHeight(resource->height);
+    model->setRelativeBBox(resource->boundingBox);
+    model->updateBoundingBox();
     view->setTexture(resource->texture);
     view->setWidth(resource->width);
     view->setHeight(resource->height);
+    view->setBoundingBox(resource->boundingBox);
 }
 
 void EntityController::setSize(double size) {
@@ -40,10 +36,11 @@ void EntityController::setSize(double size) {
 }
 
 void EntityController::update(double elapsed) {
+    model->updateBoundingBox();
     model->update(elapsed);
-    std::pair<double, double> corner = model->getUpperLeftCorner();
-    view->moveTo(corner.first, corner.second);
-    if(corner.second > screenHeight) {
+    model->updateBoundingBox();
+    view->moveTo(model->getX(), model->getY());
+    if(model->getBoundingBox()->getTop() > settings::screenHeight) {
         destroy();
     }
 }
@@ -65,9 +62,14 @@ void EntityController::changeY(double value) {
     this->model->moveTo(model->getX(), model->getY() + value);
 }
 
-EntityController::EntityController(EntityType entityType): screenHeight(settings::screenHeight), type(entityType) {
+EntityController::EntityController(EntityType entityType): type(entityType) {
+
 }
 
 EntityType EntityController::getType() {
     return type;
+}
+
+std::shared_ptr<BoundingBox> EntityController::getBoundingBox() {
+    return model->getBoundingBox();
 }

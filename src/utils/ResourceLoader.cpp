@@ -36,8 +36,9 @@ void ResourceLoader::load(std::string &jsonFile) {
             double right = texture["bounding_box"]["right"];
             double width = texture["width"];
             double height = texture["height"];
+            std::shared_ptr<BoundingBox> bbox = std::make_shared<BoundingBox>(left, up, right, down);
             std::pair<double, double> center = {centerX, centerY};
-            std::shared_ptr<BoundingBox> bbox = std::make_shared<BoundingBox>(left, up, right, down, center);
+            bbox->setCenter(center);
             sf::Texture textureObj;
             textureObj.loadFromFile("../resources/textures/" + source);
             // TODO: error handling

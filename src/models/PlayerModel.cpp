@@ -11,30 +11,32 @@
 #include "../events/ReachedNewHeightEvent.h"
 #include "../events/EventManager.h"
 #include "../ScoreManager.h"
+#include "../bounding_box/BoundingBox.h"
 
 #define MAX_SPEED 15.0
 
 void models::PlayerModel::update(double elapsed) {
-    auto bboxBeforeMoving = this->getBox();
+    auto previousBottom = this->getBoundingBox()->getBottom();
 
     double absDifference = elapsed * acceleration;
     this->speed += (jumping() ? -1 : 1) * absDifference;
     this->y += (jumping() ? -1 : 1) * std::min(speed, MAX_SPEED) * boost * jumpHeight;
 
+    updateBoundingBox();
+
     // Falling
     if(falling()) {
-        auto box = getBox();
-        AbsoluteBoundingBox cbox = {box.first, box.second};
+        auto bbox = getBoundingBox();
         // Check bonuses
         for(auto& bonus: World::getInstance().getBonuses()) {
-            AbsoluteBoundingBox bonusBox = bonus->getCollisionBox();
-            if(bonusBox.collides(cbox)) {
-                if(bboxBeforeMoving.second.second >= bonusBox.upperLeft.second)
+            auto bonusBox = bonus->getBoundingBox();
+            if(bonusBox->collides(bbox)) {
+                if(previousBottom >= bonusBox->getTop())
                     continue;
-                if(bonusBox.upperLeft.second > cbox.lowerRight.second || bonusBox.lowerRight.second < cbox.lowerRight.second)
+                if(bbox->getBottom() < bonusBox->getTop())
                     continue;
                 direction = UP;
-                double difference = cbox.lowerRight.second - bonusBox.upperLeft.second;
+                double difference = bbox->getBottom() - bonusBox->getTop();
                 this->y -= difference;
                 this->speed = 10;
                 this->y0 = y;
@@ -42,20 +44,20 @@ void models::PlayerModel::update(double elapsed) {
                 if(bonus->getType() == BonusType::SPRING) {
                     boost = 5;
                 } else if(bonus->getType() == BonusType::JETPACK) {
-                    rocketPower = 200;
+                    speed = 40;
                 }
             }
         }
         // Check platforms
         for(auto& platform: World::getInstance().getPlatforms()) {
-            AbsoluteBoundingBox platformBox = platform->getCollisionBox();
-            if(platformBox.collides(cbox)) {
-                if(bboxBeforeMoving.second.second >= platformBox.upperLeft.second)
+            auto platformBox = platform->getBoundingBox();
+            if(platformBox->collides(bbox)) {
+                if(previousBottom >= platformBox->getTop())
                     continue;
-                if(platformBox.upperLeft.second > cbox.lowerRight.second || platformBox.lowerRight.second < cbox.lowerRight.second)
+                if(bbox->getBottom() < platformBox->getTop())
                     continue;
                 direction = UP;
-                double difference = cbox.lowerRight.second - platformBox.upperLeft.second;
+                double difference = bbox->getBottom() - platformBox->getTop();
                 this->y -= difference;
                 this->speed = 10;
                 this->y0 = y;
@@ -100,7 +102,6 @@ void models::PlayerModel::update(double elapsed) {
     } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
         this->x += 300*(elapsed);
     }
-
 }
 
 bool models::PlayerModel::falling() {
@@ -111,4 +112,4 @@ bool models::PlayerModel::jumping() {
     return direction == UP;
 }
 
-models::PlayerModel::PlayerModel() = default;
+models::PlayerModel::PlayerModel(): EntityModel() {};

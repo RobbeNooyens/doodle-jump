@@ -3,8 +3,9 @@
 //
 
 #include <stdexcept>
+#include <iostream>
 #include "EntityView.h"
-
+#include "../bounding_box/BoundingBox.h"
 
 
 sf::Sprite &EntityView::getSprite() {
@@ -33,12 +34,16 @@ void EntityView::changeX(double increment) {
 }
 
 void EntityView::moveTo(double x, double y) {
-    sprite.setPosition((float) x, (float) y);
+    float pixelX = x - boundingBox->getCenter().first*(sizeX);
+    float pixelY = y - boundingBox->getCenter().second*(sizeY);
+    sprite.setPosition(pixelX, pixelY);
 }
 
 void EntityView::setSize(double s) {
     double scale = s/width;
     sprite.setScale(scale, scale);
+    this->sizeX = s;
+    this->sizeY = (s*height)/width;
 }
 
 void EntityView::setWidth(double w) {
@@ -52,4 +57,8 @@ void EntityView::setHeight(double h) {
 void EntityView::setController(std::shared_ptr<EntityController>& ctrl) {
     this->controller = ctrl;
 
+}
+
+void EntityView::setBoundingBox(std::shared_ptr<BoundingBox> &bbox) {
+    this->boundingBox = bbox;
 }

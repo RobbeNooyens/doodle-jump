@@ -12,6 +12,7 @@
 #include "events/EventManager.h"
 #include "ScoreManager.h"
 #include "events/PlayerCollisionEvent.h"
+#include "bounding_box/BoundingBox.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
@@ -116,10 +117,10 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
 
 void drawBoundingBox(sf::RenderWindow &window, const std::shared_ptr<EntityController>& entity) {
     RENDER_BBOX(true)
-    AbsoluteBoundingBox box = entity->getCollisionBox();
+    auto box = entity->getBoundingBox();
     sf::RectangleShape cbox;
-    cbox.setSize(sf::Vector2f(box.width(), box.height()));
-    cbox.setPosition(box.upperLeft.first, box.upperLeft.second);
+    cbox.setSize(sf::Vector2f(box->getWidth(), box->getHeight()));
+    cbox.setPosition(box->getLeft(), box->getTop());
     cbox.setOutlineColor(sf::Color::Red);
     cbox.setOutlineThickness(1);
     cbox.setFillColor(sf::Color::Transparent);

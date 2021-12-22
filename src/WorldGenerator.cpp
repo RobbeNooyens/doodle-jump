@@ -10,6 +10,7 @@
 #include "utils/Random.h"
 #include "factories/ConcreteFactory.h"
 #include "Settings.h"
+#include "bounding_box/BoundingBox.h"
 
 void WorldGenerator::update() {
     while(ScoreManager::getInstance().getScore() >= nextHeight) {
@@ -21,9 +22,10 @@ void WorldGenerator::update() {
 void WorldGenerator::generatePlatform() {
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     std::shared_ptr<controllers::PlatformController> platform = factory->loadPlatform(nextPlatformType);
-    auto center = platform->getCollisionBox().getRelativeCenter();
-    auto platformX = Random::getInstance().generate<double>(center.first, settings::screenWidth-center.first);
-    auto platformY = -center.second+(ScoreManager::getInstance().getScore()-nextHeight);
+    auto midX = platform->getBoundingBox()->getWidth()/2;
+    auto midY = platform->getBoundingBox()->getHeight()/2;
+    auto platformX = Random::getInstance().generate<double>(midX, settings::screenWidth-midX);
+    auto platformY = -midY+(ScoreManager::getInstance().getScore()-nextHeight);
     platform->moveTo(platformX, platformY);
     World::getInstance().addPlatform(platform);
     if(addBonus) {
