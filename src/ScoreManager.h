@@ -18,6 +18,9 @@ public:
     void addScore(double score);
     sf::Text& getText();
 
+    ScoreManager(ScoreManager()) = delete;
+    void operator=(ScoreManager const&) = delete;
+
 private:
     void updateDisplay();
     ScoreManager();

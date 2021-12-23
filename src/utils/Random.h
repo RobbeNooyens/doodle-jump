@@ -49,6 +49,9 @@ public:
         return result;
     }
 
+    Random(Random()) = delete;
+    void operator=(Random const&) = delete;
+
 private:
     Random();
 

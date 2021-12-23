@@ -27,6 +27,9 @@ public:
     static ResourceLoader& getInstance();
     std::shared_ptr<Resource> getResource(std::string& entity_id, std::string& texture_id);
     void load(std::string& jsonFile);
+
+    ResourceLoader(ResourceLoader()) = delete;
+    void operator=(ResourceLoader const&) = delete;
 private:
     ResourceLoader();
     std::map<std::string, std::map<std::string, std::shared_ptr<Resource>>> resources;

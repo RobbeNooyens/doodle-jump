@@ -38,7 +38,6 @@ Necessary:
 - Documentation
 - Virtual destructors
 - Format with CLANG
-- Singletons override copy constructor
 
 
   Extra:
