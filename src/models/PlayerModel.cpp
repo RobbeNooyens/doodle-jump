@@ -13,6 +13,7 @@
 #include "../ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../Camera.h"
+#include "../Settings.h"
 
 #define MAX_SPEED 15.0
 
@@ -83,7 +84,7 @@ void models::PlayerModel::update(double elapsed) {
         std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
         EventManager::getInstance().invoke(newHeight);
         ScoreManager::getInstance().addScore(difference);
-        Camera::getInstance().addHeight(difference);
+        Camera::getInstance().setHeight(highest);
     }
 
 
@@ -96,6 +97,13 @@ void models::PlayerModel::update(double elapsed) {
         }
     }
     moveXAxis = false;
+
+    // Detect off-screen
+    if(getBoundingBox()->getRight() < 0) {
+        this->x = settings::screenWidth + getBoundingBox()->getWidth()/2;
+    } else if(getBoundingBox()->getLeft() > settings::screenWidth) {
+        this->x = -getBoundingBox()->getWidth()/2;
+    }
 }
 
 bool models::PlayerModel::falling() {

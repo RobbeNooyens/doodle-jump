@@ -6,7 +6,6 @@
 #include "WorldGenerator.h"
 #include "events/ReachedNewHeightEvent.h"
 #include "World.h"
-#include "ScoreManager.h"
 #include "utils/Random.h"
 #include "factories/ConcreteFactory.h"
 #include "Settings.h"
@@ -14,7 +13,7 @@
 #include "Camera.h"
 
 void WorldGenerator::update() {
-    while(ScoreManager::getInstance().getScore() >= nextHeight) {
+    while(Camera::getInstance().getHeight() >= nextHeight) {
         generatePlatform();
         calculateNextPlatformHeight();
     }
@@ -26,7 +25,7 @@ void WorldGenerator::generatePlatform() {
     auto midX = platform->getBoundingBox()->getWidth()/2;
     auto midY = platform->getBoundingBox()->getHeight()/2;
     auto platformX = Random::getInstance().generate<double>(midX, settings::screenWidth-midX);
-    auto platformY = -midY+(ScoreManager::getInstance().getScore()-nextHeight);
+    auto platformY = -midY+(Camera::getInstance().getHeight()-nextHeight);
     platform->moveTo(platformX, platformY);
     World::getInstance().addPlatform(platform);
     if(addBonus) {
