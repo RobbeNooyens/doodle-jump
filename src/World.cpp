@@ -67,9 +67,6 @@ void World::clear() {
 }
 
 void World::setup() {
-//    std::shared_ptr<EventHandler> worldGenEventHandler = std::static_pointer_cast<EventHandler>(worldGenerator);
-//    EventManager::getInstance().registerHandler(worldGenEventHandler);
-
     // Create Player
     std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     player = factory->loadPlayer();
@@ -113,18 +110,6 @@ void World::setup() {
 World &World::getInstance() {
     static World INSTANCE;
     return INSTANCE;
-}
-
-std::shared_ptr<controllers::PlayerController> &World::getPlayer() {
-    return player;
-}
-
-std::vector<std::shared_ptr<controllers::PlatformController>> World::getPlatforms() {
-    return platforms;
-}
-
-std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() {
-    return bonuses;
 }
 
 void drawBoundingBox(sf::RenderWindow &window, const std::shared_ptr<EntityController>& entity) {
@@ -171,7 +156,7 @@ void World::checkCollisions(double previousPlayerBottom) {
     for(auto& bonus: bonuses) {
         auto bonusBox = bonus->getBoundingBox();
         if(bonusBox->collides(playerBox)) {
-            if(previousPlayerBottom >= bonusBox->getBottom())
+            if(previousPlayerBottom >= bonusBox->getTop())
                 continue;
             if(playerBox->getBottom() < bonusBox->getTop())
                 continue;

@@ -13,4 +13,4 @@ Random &Random::getInstance() {
     return INSTANCE;
 }
 
-Random::Random() = default;
+Random::Random(): mt(rd()), zeroToOne((0, 1)) {};

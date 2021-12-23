@@ -31,45 +31,26 @@ void WorldGenerator::generatePlatform() {
     if(addBonus) {
         std::shared_ptr<controllers::BonusController> bonusController = factory->loadBonus(bonusType);
         bonusController->setPlatform(platform);
-//        bonusController->attachTo(platform);
-//        bonusController->syncWithPlatform();
         World::getInstance().addBonus(bonusController);
     }
 }
 
 void WorldGenerator::calculateNextPlatformHeight() {
     double height = Camera::getInstance().getHeight();
-    double difficulty = std::min(height / 20000.0, 1.0);
+    double difficulty = std::min(height / 40000.0, 1.0);
     double intervalBegin = difficulty/2;
     double intervalEnd = difficulty + 0.5;
     int yRelative = (int) (Random::getInstance().generate(intervalBegin, intervalEnd) * heightDifference);
     previousHeight = nextHeight;
-    nextHeight = previousHeight + (minHeight + yRelative);
-    std::map<double, PlatformType> types = {{1, STATIC}};
-    if(height > 1000) {
-        types.emplace(0.5, HORIZONTAL);
-    }
-    if(height > 5000) {
-        types.emplace(0.2, TEMPORARY);
-    }
-    if(height > 10000) {
-        types.emplace(0.1, VERTICAL);
-    }
-    nextPlatformType = Random::getInstance().randomWeighted(types);
+    nextHeight = previousHeight + (settings::minPlatformDifference + yRelative);
+    nextPlatformType = Random::getInstance().randomWeighted(settings::platformRarityMap);
     // Decide whether or not to include a bonus
-    addBonus = Random::getInstance().generate<double>() <= 1;
+    addBonus = Random::getInstance().generate<double>() <= settings::bonusSpawnRate;
     if(addBonus && height > 500 && nextPlatformType != TEMPORARY) {
-        std::map<double, BonusType> bonuses;
-        if(height > 500) {
-            bonuses.emplace(1, SPRING);
-        }
-        if(height > 1500) {
-            bonuses.emplace(0.5, JETPACK);
-        }
-        bonusType = Random::getInstance().randomWeighted(bonuses);
+        bonusType = Random::getInstance().randomWeighted(settings::bonusRarityMap);
     }
 }
 
-WorldGenerator::WorldGenerator(): heightDifference(maxHeight-minHeight) {
+WorldGenerator::WorldGenerator(): heightDifference(settings::maxPlatformDifference-settings::minPlatformDifference) {
 
 }

@@ -19,8 +19,6 @@ private:
     double previousHeight;
     double nextHeight;
 
-    const double minHeight = 60;
-    const double maxHeight = 120;
     const double heightDifference;
 
     bool addBonus = false;

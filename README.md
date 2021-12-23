@@ -38,6 +38,7 @@ Necessary:
 - Documentation
 - Virtual destructors
 - Format with CLANG
+- Better game start
 
 
   Extra:

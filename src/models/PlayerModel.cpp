@@ -76,17 +76,7 @@ void models::PlayerModel::update(double elapsed) {
         boost /= (1+elapsed);
     }
 
-    // TODO own function
-    if(y <= 200) {
-        double difference = 200 - y;
-        y = 200;
-        this->highest += difference;
-        std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
-        EventManager::getInstance().invoke(newHeight);
-        ScoreManager::getInstance().addScore(difference);
-        Camera::getInstance().setHeight(highest);
-    }
-
+    checkMaxHeight();
 
     // Left right
     if(moveXAxis) {
@@ -142,4 +132,16 @@ void models::PlayerModel::useBonus(BonusType bonusType, double surfaceHeight) {
 
 void models::PlayerModel::bounceOnPlatform(double surfaceHeight) {
     bounce(surfaceHeight);
+}
+
+void models::PlayerModel::checkMaxHeight() {
+    if(y <= maxHeight) {
+        double difference = maxHeight - y;
+        y = maxHeight;
+        this->highest += difference;
+        std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
+        EventManager::getInstance().invoke(newHeight);
+        ScoreManager::getInstance().addScore(difference);
+        Camera::getInstance().setHeight(highest);
+    }
 };

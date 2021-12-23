@@ -26,10 +26,6 @@ public:
 
     void redraw(sf::RenderWindow& window);
 
-    std::shared_ptr<controllers::PlayerController>& getPlayer();
-
-    std::vector<std::shared_ptr<controllers::PlatformController>> getPlatforms();
-    std::vector<std::shared_ptr<controllers::BonusController>>& getBonuses();
     void addPlatform(std::shared_ptr<controllers::PlatformController>& platform);
 
     void addBonus(std::shared_ptr<controllers::BonusController>& bonus);

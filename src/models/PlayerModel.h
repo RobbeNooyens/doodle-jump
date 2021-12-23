@@ -9,6 +9,7 @@
 #include "../utils/ResourceLoader.h"
 #include "../enums/Direction.h"
 #include "../enums/BonusType.h"
+#include "../Settings.h"
 
 namespace models {
     class PlayerModel: public EntityModel {
@@ -24,8 +25,9 @@ namespace models {
 
     private:
         const double acceleration = 15;
-        double speed = 20, boost = 1;
+        double speed = 10, boost = 1;
         const double jumpHeight = 1.2;
+        const double maxHeight = settings::screenHeight/(2.0);
         Direction verticalDirection = Direction::UP;
         Direction horizontalDirection = Direction::RIGHT;
 
@@ -35,6 +37,7 @@ namespace models {
         bool jumping();
 
         void bounce(double from);
+        void checkMaxHeight();
 
         double highest = 0;
 
