@@ -45,10 +45,7 @@ public:
     template<typename T>
     T generate(T lowerbound, T upperbound) {
         assert(lowerbound <= upperbound && "Lowerbound must be smaller than the upperbound.");
-        std::srand((unsigned int) ScoreManager::getInstance().getScore());
-        double result = zeroToOne(mt) * (upperbound - lowerbound);
-        result += lowerbound;
-        return (T) result;
+        return (T) (zeroToOne(mt) * (upperbound - lowerbound) + lowerbound);
     }
 
     Random(Random()) = delete;
