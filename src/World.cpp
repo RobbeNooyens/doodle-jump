@@ -11,9 +11,10 @@
 #include "events/Event.h"
 #include "events/EventManager.h"
 #include "ScoreManager.h"
-#include "events/PlayerCollisionEvent.h"
 #include "bounding_box/BoundingBox.h"
 #include "Settings.h"
+#include "events/PlayerUsesBonusEvent.h"
+#include "events/PlayerBouncesOnPlatformEvent.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
@@ -162,4 +163,32 @@ void World::addPlatform(std::shared_ptr<controllers::PlatformController> &platfo
 
 void World::addBonus(std::shared_ptr<controllers::BonusController> &bonus) {
     bonuses.push_back(bonus);
+}
+
+void World::checkCollisions(double previousPlayerBottom) {
+    auto playerBox = player->getBoundingBox();
+    // Check bonuses
+    for(auto& bonus: bonuses) {
+        auto bonusBox = bonus->getBoundingBox();
+        if(bonusBox->collides(playerBox)) {
+            if(previousPlayerBottom >= bonusBox->getBottom())
+                continue;
+            if(playerBox->getBottom() < bonusBox->getTop())
+                continue;
+            std::shared_ptr<Event> bonusEvent = std::make_shared<PlayerUsesBonusEvent>(bonus->getType(), bonusBox->getTop(), bonus->getId());
+            EventManager::getInstance().invoke(bonusEvent);
+        }
+    }
+    // Check platforms
+    for(auto& platform: platforms) {
+        auto platformBox = platform->getBoundingBox();
+        if(platformBox->collides(playerBox)) {
+            if(previousPlayerBottom >= platformBox->getTop())
+                continue;
+            if(playerBox->getBottom() < platformBox->getTop())
+                continue;
+            std::shared_ptr<Event> platformEvent = std::make_shared<PlayerBouncesOnPlatformEvent>(platformBox->getTop(), platform->getId());
+            EventManager::getInstance().invoke(platformEvent);
+        }
+    }
 }

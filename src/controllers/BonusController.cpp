@@ -8,6 +8,7 @@
 #include "../utils/ResourceLoader.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../bounding_box/BoundingBox.h"
+#include "../events/PlayerUsesBonusEvent.h"
 
 controllers::BonusController::BonusController(): EntityController(EntityType::BONUS) {
     view = std::make_shared<views::BonusView>();
@@ -17,6 +18,18 @@ void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == REACHED_HEIGHT) {
         std::shared_ptr<ReachedNewHeightEvent> heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
         this->changeY(heightEvent->getDifference());
+    }
+
+    if(event->getType() == PLAYER_USES_BONUS) {
+        std::shared_ptr<PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<PlayerUsesBonusEvent>(event);
+        if(bonusEvent->getBonusEntityId() == getId()) {
+            if(getType() == SPRING) {
+                std::string entity = "bonus";
+                std::string texture = "spring_extended";
+                std::shared_ptr<Resource> extended_spring = ResourceLoader::getInstance().getResource(entity, texture);
+                this->load(extended_spring);
+            }
+        }
     }
 }
 
@@ -49,18 +62,7 @@ controllers::SpringController::SpringController(): BonusController() {
     bonusType = SPRING;
 }
 
-void controllers::SpringController::use() {
-    std::string entity = "bonus";
-    std::string texture = "spring_extended";
-    std::shared_ptr<Resource> extended_spring = ResourceLoader::getInstance().getResource(entity, texture);
-    this->load(extended_spring);
-}
-
 controllers::JetpackController::JetpackController(): BonusController() {
     model = std::make_shared<models::JetpackModel>();
     bonusType = JETPACK;
-}
-
-void controllers::JetpackController::use() {
-
 }

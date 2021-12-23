@@ -6,10 +6,14 @@
 #include "../../libraries/json.hpp"
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
+#include "../events/PlayerUsesBonusEvent.h"
+#include "../events/PlayerBouncesOnPlatformEvent.h"
 
 void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     auto playerView = std::static_pointer_cast<views::PlayerView>(view);
     auto playerModel = std::static_pointer_cast<models::PlayerModel>(model);
+
+    // Key pressed
     if (event->getType() == EventType::KEY_PRESSED) {
         std::shared_ptr<KeyPressedEvent> keyPressed = std::static_pointer_cast<KeyPressedEvent>(event);
         if(keyPressed->getAction() == KeyAction::MOVE_RIGHT) {
@@ -19,6 +23,18 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
             playerView->lookLeft();
             playerModel->moveHorizontal(Direction::LEFT);
         }
+    }
+
+    // Bonus
+    if(event->getType() == EventType::PLAYER_USES_BONUS) {
+        std::shared_ptr<PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<PlayerUsesBonusEvent>(event);
+        playerModel->useBonus(bonusEvent->getBonusType(), bonusEvent->getSurfaceHeight());
+    }
+
+    // Platform
+    if(event->getType() == EventType::PLAYER_BOUNCES_ON_PLATFORM) {
+        std::shared_ptr<PlayerBouncesOnPlatformEvent> platformEvent = std::static_pointer_cast<PlayerBouncesOnPlatformEvent>(event);
+        playerModel->bounceOnPlatform(platformEvent->getSurfaceHeight());
     }
 }
 

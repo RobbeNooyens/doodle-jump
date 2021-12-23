@@ -9,6 +9,8 @@
 #include "../Settings.h"
 #include "../events/EventManager.h"
 #include "../bounding_box/BoundingBox.h"
+#include "../utils/Random.h"
+#include <iostream>
 
 sf::Sprite &EntityController::getSprite() {
     return view->getSprite();
@@ -40,7 +42,7 @@ void EntityController::update(double elapsed) {
     model->update(elapsed);
     model->updateBoundingBox();
     view->moveTo(model->getX(), model->getY());
-    if(model->getBoundingBox()->getTop() > settings::screenHeight) {
+    if(model->getBoundingBox()->getTop() > settings::screenHeight+20) {
         destroy();
     }
 }
@@ -63,7 +65,7 @@ void EntityController::changeY(double value) {
 }
 
 EntityController::EntityController(EntityType entityType): type(entityType) {
-
+    id = Random::getInstance().generate(static_cast<long>(1e20));
 }
 
 EntityType EntityController::getType() {
@@ -76,4 +78,8 @@ std::shared_ptr<BoundingBox> EntityController::getBoundingBox() {
 
 void EntityController::setDestroyed(bool d) {
     this->destroyed = d;
+}
+
+long EntityController::getId() {
+    return id;
 }

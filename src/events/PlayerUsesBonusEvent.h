@@ -11,11 +11,15 @@
 
 class PlayerUsesBonusEvent: public Event {
 public:
-    PlayerUsesBonusEvent(BonusType type);
+    PlayerUsesBonusEvent(BonusType type, double surfaceHeight, long bonusId);
     BonusType getBonusType();
+    double getSurfaceHeight();
+    long getBonusEntityId();
 
 private:
     BonusType bonusType;
+    double surfaceHeight;
+    long bonusId;
 
 };
 

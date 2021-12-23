@@ -48,8 +48,6 @@ double BoundingBox::getHeight() const {
     return bottom - top;
 }
 
-// TODO {(right - left) / 2, (bottom - top) / 2}
-
 BoundingBox::BoundingBox(double l, double t, double r, double b): left(l), top(t), right(r), bottom(b) {
     calculateCenter();
 }
@@ -70,8 +68,7 @@ void BoundingBox::setCenter(std::pair<double, double> center) {
 }
 
 void BoundingBox::calculateCenter() {
-    this->center.first = (left + right) / 2;
-    this->center.second = (bottom + top) / 2;
+    this->center = {(left + right) / 2, (bottom + top) / 2};
 }
 
 BoundingBox::BoundingBox(): left(0), top(0), right(0), bottom(0) {

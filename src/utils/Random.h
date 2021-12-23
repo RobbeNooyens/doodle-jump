@@ -42,11 +42,11 @@ public:
     template<typename T>
     T generate(T lowerbound, T upperbound) {
         assert(lowerbound <= upperbound && "Lowerbound must be smaller than the upperbound.");
-        std::srand(ScoreManager::getInstance().getScore());
-        T result = (T) ((rand()%1000)/1000.0);
+        std::srand((unsigned int) ScoreManager::getInstance().getScore());
+        double result = ((rand()%1000)/1000.0);
         result *= (upperbound - lowerbound);
         result += lowerbound;
-        return result;
+        return (T) result;
     }
 
     Random(Random()) = delete;

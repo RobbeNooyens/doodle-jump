@@ -8,6 +8,7 @@
 #include "EntityModel.h"
 #include "../utils/ResourceLoader.h"
 #include "../enums/Direction.h"
+#include "../enums/BonusType.h"
 
 namespace models {
     class PlayerModel: public EntityModel {
@@ -17,6 +18,9 @@ namespace models {
         void update(double elapsed) override;
 
         void moveHorizontal(Direction direction);
+
+        void useBonus(BonusType bonusType, double surfaceHeight);
+        void bounceOnPlatform(double surfaceHeight);
 
     private:
         const double acceleration = 15;

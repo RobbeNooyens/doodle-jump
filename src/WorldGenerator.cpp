@@ -57,7 +57,7 @@ void WorldGenerator::calculateNextPlatformHeight() {
     }
     nextPlatformType = Random::getInstance().randomWeighted(types);
     // Decide whether or not to include a bonus
-    addBonus = Random::getInstance().generate<double>() <= 0.2;
+    addBonus = Random::getInstance().generate<double>() <= 1;
     if(addBonus && height > 500 && nextPlatformType != TEMPORARY) {
         std::map<double, BonusType> bonuses;
         if(height > 500) {

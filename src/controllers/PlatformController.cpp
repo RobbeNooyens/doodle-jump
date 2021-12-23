@@ -7,23 +7,30 @@
 #include "../events/Event.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../ScoreManager.h"
+#include "../events/PlayerBouncesOnPlatformEvent.h"
 
 void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == REACHED_HEIGHT) {
-        std::shared_ptr<ReachedNewHeightEvent> heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
+        auto heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
         this->changeY(heightEvent->getDifference());
+    }
+
+    if(event->getType() == PLAYER_BOUNCES_ON_PLATFORM) {
+        auto bounceEvent = std::static_pointer_cast<PlayerBouncesOnPlatformEvent>(event);
+        if(bounceEvent->getPlatformId() == getId()) {
+            jumpCount++;
+            if(jumpCount > 1) {
+                ScoreManager::getInstance().addScore(-jumpCount*50);
+            }
+            if(getType() == TEMPORARY) {
+                destroy();
+            }
+        }
     }
 }
 
 controllers::PlatformController::PlatformController(): EntityController(EntityType::PLATFORM) {
     view = std::make_shared<views::PlatformView>();
-}
-
-void controllers::PlatformController::increaseJumpCount() {
-    jumpCount++;
-    if(jumpCount > 1) {
-        ScoreManager::getInstance().addScore(-jumpCount*50);
-    }
 }
 
 controllers::StaticPlatformController::StaticPlatformController(): PlatformController() {

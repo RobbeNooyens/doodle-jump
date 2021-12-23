@@ -34,6 +34,8 @@ public:
 
     void addBonus(std::shared_ptr<controllers::BonusController>& bonus);
 
+    void checkCollisions(double previousPlayerBottom);
+
     // Singleton
     World(World const&) = delete;
     void operator=(World const&) = delete;

@@ -14,6 +14,7 @@
 #include "../bounding_box/BoundingBox.h"
 #include "../Camera.h"
 #include "../Settings.h"
+#include "../events/PlayerUsesBonusEvent.h"
 
 #define MAX_SPEED 15.0
 
@@ -26,48 +27,46 @@ void models::PlayerModel::update(double elapsed) {
 
     updateBoundingBox();
 
+    // TODO: move to World
     // Falling
-    if(falling()) {
-        auto bbox = getBoundingBox();
-        // Check bonuses
-        for(auto& bonus: World::getInstance().getBonuses()) {
-            auto bonusBox = bonus->getBoundingBox();
-            if(bonusBox->collides(bbox)) {
-                if(previousBottom >= bonusBox->getBottom())
-                    continue;
-                if(bbox->getBottom() < bonusBox->getTop())
-                    continue;
-                bounce(bonusBox->getTop());
-                bonus->use();
-                if(bonus->getType() == BonusType::SPRING) {
-                    boost = 5;
-                } else if(bonus->getType() == BonusType::JETPACK) {
-                    speed = 40;
-                    boost = 0.5;
-                }
-            }
-        }
-        // Check platforms
-        for(auto& platform: World::getInstance().getPlatforms()) {
-            auto platformBox = platform->getBoundingBox();
-            if(platformBox->collides(bbox)) {
-                if(previousBottom >= platformBox->getTop())
-                    continue;
-                if(bbox->getBottom() < platformBox->getTop())
-                    continue;
-                bounce(platformBox->getTop());
-                platform->increaseJumpCount();
-                if(platform->getType() == PlatformType::TEMPORARY) {
-                    platform->destroy();
-                }
-            }
-        }
-    } else {
-        if(speed <= 0) {
-            verticalDirection = DOWN;
-            speed = 0;
-            boost = 1;
-        }
+//    if(falling()) {
+//        auto bbox = getBoundingBox();
+//        // Check bonuses
+//        for(auto& bonus: World::getInstance().getBonuses()) {
+//            auto bonusBox = bonus->getBoundingBox();
+//            if(bonusBox->collides(bbox)) {
+//                if(previousBottom >= bonusBox->getBottom())
+//                    continue;
+//                if(bbox->getBottom() < bonusBox->getTop())
+//                    continue;
+//                bounce(bonusBox->getTop());
+//                bonus->use();
+//                std::shared_ptr<Event> bonusEvent = std::make_shared<PlayerUsesBonusEvent>(bonus->getType());
+//                EventManager::getInstance().invoke(bonusEvent);
+//            }
+//        }
+//        // Check platforms
+//        for(auto& platform: World::getInstance().getPlatforms()) {
+//            auto platformBox = platform->getBoundingBox();
+//            if(platformBox->collides(bbox)) {
+//                if(previousBottom >= platformBox->getTop())
+//                    continue;
+//                if(bbox->getBottom() < platformBox->getTop())
+//                    continue;
+//                bounce(platformBox->getTop());
+//                platform->increaseJumpCount();
+//                if(platform->getType() == PlatformType::TEMPORARY) {
+//                    platform->destroy();
+//                }
+//            }
+//        }
+//    }
+    World::getInstance().checkCollisions(previousBottom);
+
+    if(speed < 0) {
+        verticalDirection = DOWN;
+        speed = 0;
+        boost = 1;
     }
 
     // Update boost
@@ -77,6 +76,7 @@ void models::PlayerModel::update(double elapsed) {
         boost /= (1+elapsed);
     }
 
+    // TODO own function
     if(y <= 200) {
         double difference = 200 - y;
         y = 200;
@@ -126,4 +126,20 @@ void models::PlayerModel::bounce(double from) {
 void models::PlayerModel::moveHorizontal(Direction direction) {
     horizontalDirection = direction;
     moveXAxis = true;
+}
+
+void models::PlayerModel::useBonus(BonusType bonusType, double surfaceHeight) {
+    Direction previousDirection = verticalDirection;
+    bounce(surfaceHeight);
+    if(bonusType == BonusType::SPRING) {
+        boost = 5;
+    } else if(bonusType == BonusType::JETPACK) {
+        if(previousDirection == DOWN)
+            boost = 0.5;
+        speed = 40;
+    }
+}
+
+void models::PlayerModel::bounceOnPlatform(double surfaceHeight) {
+    bounce(surfaceHeight);
 };

@@ -39,6 +39,7 @@ public:
     std::shared_ptr<BoundingBox> getBoundingBox();
     bool isDestroyed();
     EntityType getType();
+    long getId();
 
 protected:
     std::shared_ptr<EntityModel> model;
@@ -47,6 +48,7 @@ protected:
 private:
     bool destroyed = false;
     EntityType type;
+    long id = 0;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H
