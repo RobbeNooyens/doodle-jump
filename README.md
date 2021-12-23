@@ -44,6 +44,7 @@ Necessary:
 - Virtual destructors
 - Format with CLANG
 - Singletons override copy constructor
+- Leave screen, enter screen
 
 
   Extra:

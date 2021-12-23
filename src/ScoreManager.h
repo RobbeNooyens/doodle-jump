@@ -13,14 +13,15 @@
 class ScoreManager {
 public:
     static ScoreManager& getInstance();
-    int getScore() const;
-    void setScore(int score);
-    void addScore(int score);
+    double getScore() const;
+    void setScore(double score);
+    void addScore(double score);
     sf::Text& getText();
 
 private:
+    void updateDisplay();
     ScoreManager();
-    int score = 0;
+    double score = 0;
     sf::Text scoreText;
     sf::Font font;
 

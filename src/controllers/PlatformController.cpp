@@ -6,6 +6,7 @@
 #include "../utils/ResourceLoader.h"
 #include "../events/Event.h"
 #include "../events/ReachedNewHeightEvent.h"
+#include "../ScoreManager.h"
 
 void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == REACHED_HEIGHT) {
@@ -16,6 +17,13 @@ void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
 
 controllers::PlatformController::PlatformController(): EntityController(EntityType::PLATFORM) {
     view = std::make_shared<views::PlatformView>();
+}
+
+void controllers::PlatformController::increaseJumpCount() {
+    jumpCount++;
+    if(jumpCount > 1) {
+        ScoreManager::getInstance().addScore(-jumpCount*50);
+    }
 }
 
 controllers::StaticPlatformController::StaticPlatformController(): PlatformController() {

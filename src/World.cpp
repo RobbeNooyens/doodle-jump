@@ -116,7 +116,7 @@ std::vector<std::shared_ptr<controllers::BonusController>> &World::getBonuses() 
 }
 
 void drawBoundingBox(sf::RenderWindow &window, const std::shared_ptr<EntityController>& entity) {
-    RENDER_BBOX(true)
+    RENDER_BBOX(false)
     auto box = entity->getBoundingBox();
     sf::RectangleShape cbox;
     cbox.setSize(sf::Vector2f(box->getWidth(), box->getHeight()));

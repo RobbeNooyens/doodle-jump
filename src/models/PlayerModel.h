@@ -16,18 +16,23 @@ namespace models {
 
         void update(double elapsed) override;
 
+        void moveHorizontal(Direction direction);
+
     private:
         const double acceleration = 15;
-        double speed = 20;
+        double speed = 20, boost = 1;
         const double jumpHeight = 1.2;
-        Direction direction = Direction::UP;
+        Direction verticalDirection = Direction::UP;
+        Direction horizontalDirection = Direction::RIGHT;
+
+        bool moveXAxis = false;
 
         bool falling();
         bool jumping();
 
-        double boost = 1, rocketPower = 0;
+        void bounce(double from);
+
         double highest = 0;
-        double y0 = 0, a = 0.5;
 
 
     };

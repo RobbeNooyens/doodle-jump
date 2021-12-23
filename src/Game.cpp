@@ -38,17 +38,16 @@ void Game::run() {
             continue;
 
         while (window.pollEvent(event)) {
-            if(event.type == sf::Event::KeyPressed) {
-                if(event.key.code == sf::Keyboard::Left) {
-                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_LEFT);
-                    EventManager::getInstance().invoke(ev);
-                } else if(event.key.code == sf::Keyboard::Right) {
-                    std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_RIGHT);
-                    EventManager::getInstance().invoke(ev);
-                }
-            }
             if(event.type == sf::Event::Closed)
                 return;
+        }
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_LEFT);
+            EventManager::getInstance().invoke(ev);
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_RIGHT);
+            EventManager::getInstance().invoke(ev);
         }
 
         double elapsedNS = Stopwatch::getInstance().elapsedMillisecondsSinceLastCycle();

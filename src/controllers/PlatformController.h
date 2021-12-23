@@ -19,9 +19,13 @@ namespace controllers {
 
         // Actions
         void handle(std::shared_ptr<Event> &event) override;
+        void increaseJumpCount();
 
         // Getters
         virtual PlatformType getType() = 0;
+
+    private:
+        int jumpCount = 0;
     };
 
     class StaticPlatformController: public PlatformController {

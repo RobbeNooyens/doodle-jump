@@ -12,6 +12,7 @@
 #include "../events/EventManager.h"
 #include "../ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
+#include "../Camera.h"
 
 #define MAX_SPEED 15.0
 
@@ -35,16 +36,13 @@ void models::PlayerModel::update(double elapsed) {
                     continue;
                 if(bbox->getBottom() < bonusBox->getTop())
                     continue;
-                direction = UP;
-                double difference = bbox->getBottom() - bonusBox->getTop();
-                this->y -= difference;
-                this->speed = 10;
-                this->y0 = y;
+                bounce(bonusBox->getTop());
                 bonus->use();
                 if(bonus->getType() == BonusType::SPRING) {
                     boost = 5;
                 } else if(bonus->getType() == BonusType::JETPACK) {
                     speed = 40;
+                    boost = 0.5;
                 }
             }
         }
@@ -56,32 +54,24 @@ void models::PlayerModel::update(double elapsed) {
                     continue;
                 if(bbox->getBottom() < platformBox->getTop())
                     continue;
-                direction = UP;
-                double difference = bbox->getBottom() - platformBox->getTop();
-                this->y -= difference;
-                this->speed = 10;
-                this->y0 = y;
+                bounce(platformBox->getTop());
+                platform->increaseJumpCount();
                 if(platform->getType() == PlatformType::TEMPORARY) {
                     platform->destroy();
                 }
             }
         }
-    } else if(jumping()) {
-        if(rocketPower > 0)
-            this->rocketPower -= elapsed*100;
-        if(rocketPower < 0)
-            this->rocketPower = 0;
-
+    } else {
         if(speed <= 0) {
-            direction = DOWN;
+            verticalDirection = DOWN;
             speed = 0;
-            boost = 0;
+            boost = 1;
         }
     }
 
     // Update boost
     if(boost < 1) {
-        boost = 1;
+        boost *= (1+elapsed);
     } else if(boost > 1) {
         boost /= (1+elapsed);
     }
@@ -92,24 +82,40 @@ void models::PlayerModel::update(double elapsed) {
         this->highest += difference;
         std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
         EventManager::getInstance().invoke(newHeight);
-        ScoreManager::getInstance().setScore(highest);
+        ScoreManager::getInstance().addScore(difference);
+        Camera::getInstance().addHeight(difference);
     }
 
 
     // Left right
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        this->x -= 300*(elapsed);
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        this->x += 300*(elapsed);
+    if(moveXAxis) {
+        if(horizontalDirection == LEFT) {
+            this->x -= 300*(elapsed);
+        } else if(horizontalDirection == RIGHT) {
+            this->x += 300*(elapsed);
+        }
     }
+    moveXAxis = false;
 }
 
 bool models::PlayerModel::falling() {
-    return direction == DOWN;
+    return verticalDirection == DOWN;
 }
 
 bool models::PlayerModel::jumping() {
-    return direction == UP;
+    return verticalDirection == UP;
 }
 
-models::PlayerModel::PlayerModel(): EntityModel() {};
+models::PlayerModel::PlayerModel(): EntityModel() {}
+
+void models::PlayerModel::bounce(double from) {
+    verticalDirection = UP;
+    double difference = this->getBoundingBox()->getBottom() - from;
+    this->y -= difference;
+    this->speed = 10;
+}
+
+void models::PlayerModel::moveHorizontal(Direction direction) {
+    horizontalDirection = direction;
+    moveXAxis = true;
+};

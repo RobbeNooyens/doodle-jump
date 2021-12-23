@@ -11,6 +11,7 @@
 #include "factories/ConcreteFactory.h"
 #include "Settings.h"
 #include "bounding_box/BoundingBox.h"
+#include "Camera.h"
 
 void WorldGenerator::update() {
     while(ScoreManager::getInstance().getScore() >= nextHeight) {
@@ -38,33 +39,33 @@ void WorldGenerator::generatePlatform() {
 }
 
 void WorldGenerator::calculateNextPlatformHeight() {
-    double score = ScoreManager::getInstance().getScore();
-    double difficulty = std::min(score / 20000.0, 1.0);
+    double height = Camera::getInstance().getHeight();
+    double difficulty = std::min(height / 20000.0, 1.0);
     double intervalBegin = difficulty/2;
     double intervalEnd = difficulty + 0.5;
     int yRelative = (int) (Random::getInstance().generate(intervalBegin, intervalEnd) * heightDifference);
     previousHeight = nextHeight;
     nextHeight = previousHeight + (minHeight + yRelative);
     std::map<double, PlatformType> types = {{1, STATIC}};
-    if(score > 1000) {
+    if(height > 1000) {
         types.emplace(0.5, HORIZONTAL);
     }
-    if(score > 5000) {
+    if(height > 5000) {
         types.emplace(0.2, TEMPORARY);
     }
-    if(score > 10000) {
+    if(height > 10000) {
         types.emplace(0.1, VERTICAL);
     }
     nextPlatformType = Random::getInstance().randomWeighted(types);
     // Decide whether or not to include a bonus
-    addBonus = Random::getInstance().generate<double>() <= 0.5;
-    if(addBonus && score > 500 && nextPlatformType != TEMPORARY) {
+    addBonus = Random::getInstance().generate<double>() <= 0.2;
+    if(addBonus && height > 500 && nextPlatformType != TEMPORARY) {
         std::map<double, BonusType> bonuses;
-        if(score > 500) {
+        if(height > 500) {
             bonuses.emplace(1, SPRING);
         }
-        if(score > 1500) {
-            bonuses.emplace(0.1, JETPACK);
+        if(height > 1500) {
+            bonuses.emplace(0.5, JETPACK);
         }
         bonusType = Random::getInstance().randomWeighted(bonuses);
     }

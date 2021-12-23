@@ -9,7 +9,7 @@
 class Camera {
 public:
     static Camera& getInstance();
-    double getHeight() const;
+    [[nodiscard]] double getHeight() const;
     void setHeight(double h);
     void addHeight(double h);
 

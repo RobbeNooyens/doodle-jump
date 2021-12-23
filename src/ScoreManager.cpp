@@ -7,7 +7,7 @@
 #include "events/ReachedNewHeightEvent.h"
 #include "Settings.h"
 
-int ScoreManager::getScore() const {
+double ScoreManager::getScore() const {
     return score;
 }
 
@@ -24,12 +24,13 @@ ScoreManager::ScoreManager() {
     scoreText.move(20, 10);
     scoreText.setCharacterSize(40);
     scoreText.setFillColor(sf::Color::Black);
-    scoreText.setString("0");
+    updateDisplay();
 }
 
-void ScoreManager::setScore(int s) {
+void ScoreManager::setScore(double s) {
     this->score = s;
-    scoreText.setString(std::to_string(score));
+    this->score = std::max(score, 0.0);
+    updateDisplay();
 }
 
 ScoreManager &ScoreManager::getInstance() {
@@ -37,6 +38,12 @@ ScoreManager &ScoreManager::getInstance() {
     return INSTANCE;
 }
 
-void ScoreManager::addScore(int s) {
+void ScoreManager::addScore(double s) {
     this->score += s;
+    this->score = std::max(score, 0.0);
+    updateDisplay();
+}
+
+void ScoreManager::updateDisplay() {
+    scoreText.setString(std::to_string((int)score));
 };
