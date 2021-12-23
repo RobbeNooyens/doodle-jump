@@ -14,6 +14,7 @@ namespace settings {
     const std::string applicationName = "DoodleJump";
     const unsigned int screenWidth = 400;
     const unsigned int screenHeight = 600;
+    const unsigned int FPS = 60;
 
     // World generation
     // ==================================================
@@ -37,6 +38,12 @@ namespace settings {
             {VERTICAL, 0.1},
     };
 
+    // Player movement
+    // ==================================================
+    const double acceleration = 15;
+    const double jumpAmplifier = 1.2;
+    const double maxHeight = screenHeight/(2.0);
+    const double maxSpeed = 15;
 
 }
 

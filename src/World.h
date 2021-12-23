@@ -13,14 +13,13 @@
 #include "controllers/BonusController.h"
 #include "controllers/TileController.h"
 #include "WorldGenerator.h"
+#include "enums/GameState.h"
 
-class World: public EventHandler {
+class World {
 public:
     void clear();
 
     void setup();
-
-    void handle(std::shared_ptr<Event> &event) override;
 
     void update(double elapsed);
 
@@ -31,6 +30,8 @@ public:
     void addBonus(std::shared_ptr<controllers::BonusController>& bonus);
 
     void checkCollisions(double previousPlayerBottom);
+
+    void spacebarPressed();
 
     // Singleton
     World(World const&) = delete;
@@ -47,6 +48,8 @@ private:
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
     std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
     std::vector<std::shared_ptr<controllers::TileController>> tiles;
+
+    GameState gameState = MENU;
 };
 
 

@@ -11,7 +11,7 @@ double ScoreManager::getScore() const {
     return score;
 }
 
-sf::Text& ScoreManager::getText() {
+sf::Text& ScoreManager::getScoreText() {
     return scoreText;
 }
 
@@ -25,6 +25,12 @@ ScoreManager::ScoreManager() {
     scoreText.setCharacterSize(40);
     scoreText.setFillColor(sf::Color::Black);
     updateDisplay();
+
+    highScoreText.setFont(font);
+    highScoreText.move(20, 60);
+    highScoreText.setCharacterSize(40);
+    highScoreText.setFillColor(sf::Color::Black);
+    highScoreText.setString("Highscore: " + std::to_string((int)score));
 }
 
 void ScoreManager::setScore(double s) {
@@ -46,4 +52,16 @@ void ScoreManager::addScore(double s) {
 
 void ScoreManager::updateDisplay() {
     scoreText.setString(std::to_string((int)score));
+}
+
+sf::Text &ScoreManager::getHighScoreText() {
+    return highScoreText;
+}
+
+void ScoreManager::menuLayout() {
+    scoreText.setString("Score: " + std::to_string((int)score));
+}
+
+void ScoreManager::gameLayout() {
+    updateDisplay();
 };

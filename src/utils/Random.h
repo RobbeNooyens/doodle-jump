@@ -7,7 +7,6 @@
 
 #include <map>
 #include <cassert>
-#include <iostream>
 #include <random>
 #include "../ScoreManager.h"
 
@@ -23,7 +22,6 @@ public:
         }
         auto random = generate<double>(sum);
         double checkSum = 0;
-        std::cout << random << std::endl;
         for(auto& entry: weightMap) {
             checkSum += entry.second;
             if(random <= checkSum)

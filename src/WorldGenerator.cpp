@@ -2,7 +2,6 @@
 // Created by robnoo on 4/12/21.
 //
 
-#include <iostream>
 #include "WorldGenerator.h"
 #include "events/ReachedNewHeightEvent.h"
 #include "World.h"
@@ -53,4 +52,11 @@ void WorldGenerator::calculateNextPlatformHeight() {
 
 WorldGenerator::WorldGenerator(): heightDifference(settings::maxPlatformDifference-settings::minPlatformDifference) {
 
+}
+
+void WorldGenerator::reset() {
+    this->nextHeight = 0;
+    this->nextPlatformType = STATIC;
+    this->addBonus = false;
+    this->previousHeight = 0;
 }

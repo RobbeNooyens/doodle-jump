@@ -12,7 +12,7 @@
 namespace controllers {
     class BonusController: public EntityController {
     public:
-        BonusController();
+        explicit BonusController(BonusType type);
 
         void handle(std::shared_ptr<Event> &event) override;
 

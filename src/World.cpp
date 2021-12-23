@@ -15,17 +15,22 @@
 #include "Settings.h"
 #include "events/PlayerUsesBonusEvent.h"
 #include "events/PlayerBouncesOnPlatformEvent.h"
+#include "enums/GameState.h"
+#include "Camera.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
-void World::handle(std::shared_ptr<Event> &event) {
-
-}
-
-World::World(): worldGenerator(std::make_unique<WorldGenerator>()) {
-}
+World::World(): worldGenerator(std::make_unique<WorldGenerator>()) {}
 
 void World::update(double elapsed) {
+    if(gameState == PAUSED || gameState == MENU)
+        return;
+    if(player->isDestroyed()) {
+        gameState = MENU;
+        clear();
+        ScoreManager::getInstance().menuLayout();
+        return;
+    }
     player->update(elapsed);
     for(auto& platform: platforms)
         platform->update(elapsed);
@@ -53,7 +58,6 @@ void World::update(double elapsed) {
         }
     }
 
-
     // Update worldgenerator
     worldGenerator->update();
 }
@@ -64,37 +68,15 @@ void World::clear() {
         platform.reset();
     }
     platforms.clear();
+    for(auto& bonus: bonuses) {
+        bonus.reset();
+    }
+    bonuses.clear();
 }
 
 void World::setup() {
-    // Create Player
-    std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
-    player = factory->loadPlayer();
-    player->moveTo(60, 250);
-
-    // Create Platforms
-    std::shared_ptr<controllers::PlatformController> platformStatic = factory->loadPlatform(PlatformType::STATIC);
-    platformStatic->moveTo(60, 300);
-    platforms.push_back(platformStatic);
-    std::shared_ptr<controllers::PlatformController> platformTemporary = factory->loadPlatform(PlatformType::TEMPORARY);
-    platformTemporary->moveTo(160, 200);
-    platforms.push_back(platformTemporary);
-    std::shared_ptr<controllers::PlatformController> platformHorizontal = factory->loadPlatform(PlatformType::HORIZONTAL);
-    platformHorizontal->moveTo(260, 100);
-    platforms.push_back(platformHorizontal);
-    std::shared_ptr<controllers::PlatformController> platformVertical = factory->loadPlatform(PlatformType::VERTICAL);
-    platformVertical->moveTo(360, 300);
-    platforms.push_back(platformVertical);
-
-    // Create Bonuses
-    std::shared_ptr<controllers::BonusController> spring = factory->loadBonus(BonusType::SPRING);
-    spring->moveTo(160, 500);
-    bonuses.push_back(spring);
-    std::shared_ptr<controllers::BonusController> jetpack = factory->loadBonus(BonusType::JETPACK);
-    jetpack->moveTo(260, 500);
-    bonuses.push_back(jetpack);
-
     // Create Tiles
+    std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
     double tileBottom = 0;
     while(tileBottom < settings::screenHeight) {
         std::shared_ptr<controllers::TileController> tile = factory->loadTile();
@@ -105,6 +87,11 @@ void World::setup() {
     std::shared_ptr<controllers::TileController> tile = factory->loadTile();
     tile->moveTo(tile->getBoundingBox()->getWidth()/2,tileBottom - tile->getBoundingBox()->getHeight()/2);
     tiles.push_back(tile);
+
+    if(gameState == MENU)
+        ScoreManager::getInstance().menuLayout();
+    else
+        ScoreManager::getInstance().gameLayout();
 }
 
 World &World::getInstance() {
@@ -129,17 +116,21 @@ void World::redraw(sf::RenderWindow &window) {
         window.draw(tile->getSprite());
         drawBoundingBox(window, tile);
     }
-    for(auto& bonus: bonuses) {
-        window.draw(bonus->getSprite());
-        drawBoundingBox(window, bonus);
+    if(gameState == PLAYING || gameState == PAUSED) {
+        for (auto &bonus: bonuses) {
+            window.draw(bonus->getSprite());
+            drawBoundingBox(window, bonus);
+        }
+        for (auto &platform: platforms) {
+            window.draw(platform->getSprite());
+            drawBoundingBox(window, platform);
+        }
+        drawBoundingBox(window, player);
+        window.draw(player->getSprite());
     }
-    for(auto& platform: platforms) {
-        window.draw(platform->getSprite());
-        drawBoundingBox(window, platform);
-    }
-    drawBoundingBox(window, player);
-    window.draw(player->getSprite());
-    window.draw(ScoreManager::getInstance().getText());
+    window.draw(ScoreManager::getInstance().getScoreText());
+    if(gameState == MENU)
+        window.draw(ScoreManager::getInstance().getHighScoreText());
 }
 
 void World::addPlatform(std::shared_ptr<controllers::PlatformController> &platform) {
@@ -176,4 +167,22 @@ void World::checkCollisions(double previousPlayerBottom) {
             EventManager::getInstance().invoke(platformEvent);
         }
     }
+}
+
+void World::spacebarPressed() {
+    if(gameState == MENU) {
+        gameState = PLAYING;
+        ScoreManager::getInstance().gameLayout();
+        ScoreManager::getInstance().setScore(0);
+        Camera::getInstance().setHeight(settings::screenHeight);
+        std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
+        worldGenerator->reset();
+        player = factory->loadPlayer();
+        player->moveTo(settings::screenWidth/2.0, settings::screenHeight + player->getBoundingBox()->getHeight());
+    } else if(gameState == PLAYING) {
+        gameState = PAUSED;
+    } else if(gameState == PAUSED) {
+        gameState = PLAYING;
+    }
+
 }

@@ -14,12 +14,13 @@ class WorldGenerator {
 public:
     WorldGenerator();
     void update();
+    void reset();
 
 private:
-    double previousHeight;
-    double nextHeight;
+    double previousHeight = 0;
+    double nextHeight = 0;
 
-    const double heightDifference;
+    const double heightDifference = 0;
 
     bool addBonus = false;
     BonusType bonusType = SPRING;

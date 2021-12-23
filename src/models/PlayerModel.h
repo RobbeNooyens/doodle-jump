@@ -19,29 +19,18 @@ namespace models {
         void update(double elapsed) override;
 
         void moveHorizontal(Direction direction);
-
         void useBonus(BonusType bonusType, double surfaceHeight);
         void bounceOnPlatform(double surfaceHeight);
 
     private:
-        const double acceleration = 15;
-        double speed = 10, boost = 1;
-        const double jumpHeight = 1.2;
-        const double maxHeight = settings::screenHeight/(2.0);
+        double speed = 15, boost = 1;
         Direction verticalDirection = Direction::UP;
         Direction horizontalDirection = Direction::RIGHT;
 
         bool moveXAxis = false;
 
-        bool falling();
-        bool jumping();
-
         void bounce(double from);
         void checkMaxHeight();
-
-        double highest = 0;
-
-
     };
 }
 

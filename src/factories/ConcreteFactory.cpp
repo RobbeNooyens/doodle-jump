@@ -40,7 +40,7 @@ ConcreteFactory::loadPlatform(PlatformType platformType) {
 std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
     std::string entity = "player";
-    std::string texture = "left";
+    std::string texture = "right";
     std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
     playerController->load(resource);
     playerController->setSize(60);

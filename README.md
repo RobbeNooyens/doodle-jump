@@ -32,13 +32,11 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 Necessary:
 - Cleanup
 - All time highscore
-- Max height is middle of screen
 - Exception handling
 - Death screen
 - Documentation
 - Virtual destructors
 - Format with CLANG
-- Better game start
 
 
   Extra:
@@ -47,6 +45,7 @@ Necessary:
 - Blue bar under score
 - Game menu
 - Game over
+- Start game at 0
 
 ## Warning
 

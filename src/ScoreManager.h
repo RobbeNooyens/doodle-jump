@@ -13,10 +13,16 @@
 class ScoreManager {
 public:
     static ScoreManager& getInstance();
+
     double getScore() const;
     void setScore(double score);
     void addScore(double score);
-    sf::Text& getText();
+
+    sf::Text& getHighScoreText();
+    sf::Text& getScoreText();
+
+    void menuLayout();
+    void gameLayout();
 
     ScoreManager(ScoreManager()) = delete;
     void operator=(ScoreManager const&) = delete;
@@ -25,7 +31,9 @@ private:
     void updateDisplay();
     ScoreManager();
     double score = 0;
+    double highScore = 0;
     sf::Text scoreText;
+    sf::Text highScoreText;
     sf::Font font;
 
 };

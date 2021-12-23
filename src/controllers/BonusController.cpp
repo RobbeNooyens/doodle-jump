@@ -10,7 +10,7 @@
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
 
-controllers::BonusController::BonusController(): EntityController(EntityType::BONUS) {
+controllers::BonusController::BonusController(BonusType type): EntityController(EntityType::BONUS), bonusType(type) {
     view = std::make_shared<views::BonusView>();
 }
 
@@ -57,12 +57,10 @@ BonusType controllers::BonusController::getType() {
     return bonusType;
 }
 
-controllers::SpringController::SpringController(): BonusController() {
+controllers::SpringController::SpringController(): BonusController(SPRING) {
     model = std::make_shared<models::SpringModel>();
-    bonusType = SPRING;
 }
 
-controllers::JetpackController::JetpackController(): BonusController() {
+controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
     model = std::make_shared<models::JetpackModel>();
-    bonusType = JETPACK;
 }

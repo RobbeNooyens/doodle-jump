@@ -14,7 +14,7 @@ file(GLOB sourcefiles
 add_compile_options(-gdwarf-4)
 
 
-add_executable(DoodleJump ${sourcefiles})
+add_executable(DoodleJump ${sourcefiles} src/utils/Random.cpp src/enums/GameState.h)
 
 # Find SFML
 #set(SFML_STATIC_LIBRARIES TRUE)

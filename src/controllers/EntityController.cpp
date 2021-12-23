@@ -42,7 +42,7 @@ void EntityController::update(double elapsed) {
     model->update(elapsed);
     model->updateBoundingBox();
     view->moveTo(model->getX(), model->getY());
-    if(model->getBoundingBox()->getTop() > settings::screenHeight+20) {
+    if(model->getBoundingBox()->getTop() > settings::screenHeight+40) {
         destroy();
     }
 }

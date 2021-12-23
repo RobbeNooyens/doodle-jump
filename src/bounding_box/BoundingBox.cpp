@@ -71,9 +71,7 @@ void BoundingBox::calculateCenter() {
     this->center = {(left + right) / 2, (bottom + top) / 2};
 }
 
-BoundingBox::BoundingBox(): left(0), top(0), right(0), bottom(0) {
-
-}
+BoundingBox::BoundingBox(): left(0), top(0), right(0), bottom(0) {}
 
 BoundingBox BoundingBox::copy() {
     BoundingBox box{left, top, right, bottom};
