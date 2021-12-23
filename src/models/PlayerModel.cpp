@@ -33,7 +33,7 @@ void models::PlayerModel::update(double elapsed) {
         for(auto& bonus: World::getInstance().getBonuses()) {
             auto bonusBox = bonus->getBoundingBox();
             if(bonusBox->collides(bbox)) {
-                if(previousBottom >= bonusBox->getTop())
+                if(previousBottom >= bonusBox->getBottom())
                     continue;
                 if(bbox->getBottom() < bonusBox->getTop())
                     continue;

@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include "ConcreteFactory.h"
 #include "../events/EventManager.h"
+#include "../Settings.h"
 
 std::shared_ptr<controllers::PlatformController>
 ConcreteFactory::loadPlatform(PlatformType platformType) {
@@ -78,9 +79,9 @@ std::shared_ptr<controllers::TileController> ConcreteFactory::loadTile() {
     std::string entity = "tile";
     std::string texture = "default";
     std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
-    tileController->setSize(400);
+    tileController->setSize(settings::screenWidth);
     tileController->load(resource);
-    tileController->setSize(400);
+    tileController->setSize(settings::screenWidth);
     std::shared_ptr<EntityController> controller = tileController;
     tileController->link(controller);
     std::shared_ptr<EventHandler> handler = tileController;

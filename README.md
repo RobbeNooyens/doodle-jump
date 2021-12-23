@@ -33,7 +33,6 @@ Necessary:
 - Cleanup
 - All time highscore
 - Max height is middle of screen
-- Scroll BG tile
 - Exception handling
 - Death screen
 - Documentation
