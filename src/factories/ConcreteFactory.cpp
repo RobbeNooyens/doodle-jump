@@ -78,6 +78,7 @@ std::shared_ptr<controllers::TileController> ConcreteFactory::loadTile() {
     std::string entity = "tile";
     std::string texture = "default";
     std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    tileController->setSize(400);
     tileController->load(resource);
     tileController->setSize(400);
     std::shared_ptr<EntityController> controller = tileController;

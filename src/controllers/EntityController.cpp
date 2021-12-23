@@ -73,3 +73,7 @@ EntityType EntityController::getType() {
 std::shared_ptr<BoundingBox> EntityController::getBoundingBox() {
     return model->getBoundingBox();
 }
+
+void EntityController::setDestroyed(bool d) {
+    this->destroyed = d;
+}

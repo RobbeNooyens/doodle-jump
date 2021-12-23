@@ -36,6 +36,8 @@ void controllers::BonusController::update(double elapsed) {
 
 void controllers::BonusController::setPlatform(std::shared_ptr<PlatformController> &platformController) {
     this->platform = platformController;
+    auto platformBox = platform->getBoundingBox();
+    this->moveTo(platformBox->getCenter().first + offset, platformBox->getTop());
 }
 
 BonusType controllers::BonusController::getType() {

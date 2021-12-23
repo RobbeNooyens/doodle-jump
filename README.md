@@ -30,13 +30,9 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 ## To do
 
 Necessary:
-- Detect jumping on the same platform
-- Implement a Camera
 - Cleanup
-- Press A and D
 - All time highscore
 - Max height is middle of screen
-- Spring 5x as high
 - Scroll BG tile
 - Exception handling
 - Death screen
@@ -44,7 +40,6 @@ Necessary:
 - Virtual destructors
 - Format with CLANG
 - Singletons override copy constructor
-- Leave screen, enter screen
 
 
   Extra:

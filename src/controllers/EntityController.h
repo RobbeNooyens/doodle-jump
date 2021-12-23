@@ -32,6 +32,7 @@ public:
 
     // Setters
     void setSize(double size);
+    void setDestroyed(bool d);
 
     // Getters
     sf::Sprite& getSprite();
@@ -44,8 +45,8 @@ protected:
     std::shared_ptr<EntityView> view;
 
 private:
-    EntityType type;
     bool destroyed = false;
+    EntityType type;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H

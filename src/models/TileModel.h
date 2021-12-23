@@ -13,6 +13,8 @@ namespace models {
         TileModel();
 
         void update(double elapsed) override;
+
+        void recycle();
     };
 }
 

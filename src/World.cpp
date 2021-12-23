@@ -13,6 +13,7 @@
 #include "ScoreManager.h"
 #include "events/PlayerCollisionEvent.h"
 #include "bounding_box/BoundingBox.h"
+#include "Settings.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
@@ -33,18 +34,24 @@ void World::update(double elapsed) {
         tile->update(elapsed);
 
     // Remove destroyed objects
-    platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return platform->isDestroyed(); }), platforms.end());
     for(auto& platform: platforms) {
         if(platform->isDestroyed()) {
             platform.reset();
         }
     }
-    bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(), [](auto& bonus){ return bonus->isDestroyed(); }), bonuses.end());
+    platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return !platform; }), platforms.end());
     for(auto& bonus: bonuses) {
         if(bonus->isDestroyed()) {
             bonus.reset();
         }
     }
+    bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(), [](std::shared_ptr<controllers::BonusController>& bonus){ return !bonus; }), bonuses.end());
+    for(auto& tile: tiles) {
+        if(tile->isDestroyed()) {
+            tile->recycle();
+        }
+    }
+
 
     // Update worldgenerator
     worldGenerator->update();
@@ -90,12 +97,16 @@ void World::setup() {
     bonuses.push_back(jetpack);
 
     // Create Tiles
+    double tileBottom = 0;
+    while(tileBottom < settings::screenHeight) {
+        std::shared_ptr<controllers::TileController> tile = factory->loadTile();
+        tile->moveTo(tile->getBoundingBox()->getWidth()/2,tileBottom - tile->getBoundingBox()->getHeight()/2);
+        tiles.push_back(tile);
+        tileBottom += tile->getBoundingBox()->getHeight();
+    }
     std::shared_ptr<controllers::TileController> tile = factory->loadTile();
-    tile->moveTo(200, 0);
+    tile->moveTo(tile->getBoundingBox()->getWidth()/2,tileBottom - tile->getBoundingBox()->getHeight()/2);
     tiles.push_back(tile);
-    std::shared_ptr<controllers::TileController> tile2 = factory->loadTile();
-    tile2->moveTo(200, 400);
-    tiles.push_back(tile2);
 }
 
 World &World::getInstance() {
