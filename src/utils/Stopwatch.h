@@ -13,35 +13,18 @@ class Stopwatch {
 public:
     static Stopwatch& getInstance();
 
-    void start();
-
-    void stop();
-
     void reset();
 
-    void startCycle();
-
-    double elapsedSeconds();
-
     double elapsed();
-
-    double elapsedSinceLastCycle();
-    double elapsedMillisecondsSinceLastCycle();
+    double elapsedNanoseconds();
 
     Stopwatch(Stopwatch()) = delete;
     void operator=(Stopwatch const&) = delete;
 private:
     static TimeStamp getCurrentTime();
-
     Stopwatch();
+
     TimeStamp begin;
-
-    TimeStamp end;
-
-    TimeStamp beginCycle;
-
-
-    bool running = false;
 };
 
 

@@ -22,7 +22,6 @@
 Game::Game(): window(sf::VideoMode(settings::screenWidth, settings::screenHeight), settings::applicationName, sf::Style::Close) {}
 
 void Game::run() {
-    Stopwatch::getInstance().start();
     Stopwatch::getInstance().reset();
     sf::Event event;
 
@@ -34,14 +33,18 @@ void Game::run() {
 
     // Game loop
     while (window.isOpen()) {
-        if (Stopwatch::getInstance().elapsedSinceLastCycle() < MIN_TIME_PER_CYCLE)
+        // Ensure max FPS
+        // TODO: move to settings
+        if (Stopwatch::getInstance().elapsed() < MIN_TIME_PER_CYCLE)
             continue;
 
+        // Check events
         while (window.pollEvent(event)) {
             if(event.type == sf::Event::Closed)
                 return;
         }
 
+        // Check keyboard input
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_LEFT);
             EventManager::getInstance().invoke(ev);
@@ -50,9 +53,9 @@ void Game::run() {
             EventManager::getInstance().invoke(ev);
         }
 
-        double elapsedNS = Stopwatch::getInstance().elapsedMillisecondsSinceLastCycle();
+        double elapsedNS = Stopwatch::getInstance().elapsedNanoseconds();
 
-        Stopwatch::getInstance().startCycle();
+        Stopwatch::getInstance().reset();
 
         World::getInstance().update(elapsedNS/1000000000);
 
