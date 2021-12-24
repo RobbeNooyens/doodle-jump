@@ -29,6 +29,7 @@ void World::update(double elapsed) {
         gameState = MENU;
         clear();
         ScoreManager::getInstance().menuLayout();
+        ScoreManager::getInstance().writeHighScore();
         return;
     }
     player->update(elapsed);

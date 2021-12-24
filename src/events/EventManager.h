@@ -12,6 +12,8 @@
 class EventHandler;
 class Event;
 
+// TODO Memory leak
+
 class EventManager {
 public:
     void registerHandler(std::shared_ptr<EventHandler>& handler);

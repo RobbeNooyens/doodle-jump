@@ -18,6 +18,9 @@ public:
     void setScore(double score);
     void addScore(double score);
 
+    void readHighScore();
+    void writeHighScore();
+
     sf::Text& getHighScoreText();
     sf::Text& getScoreText();
 

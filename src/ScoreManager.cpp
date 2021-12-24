@@ -2,10 +2,9 @@
 // Created by robnoo on 4/12/21.
 //
 
+#include <fstream>
+#include <iostream>
 #include "ScoreManager.h"
-#include "events/Event.h"
-#include "events/ReachedNewHeightEvent.h"
-#include "Settings.h"
 
 double ScoreManager::getScore() const {
     return score;
@@ -24,13 +23,13 @@ ScoreManager::ScoreManager() {
     scoreText.move(20, 10);
     scoreText.setCharacterSize(40);
     scoreText.setFillColor(sf::Color::Black);
-    updateDisplay();
 
     highScoreText.setFont(font);
     highScoreText.move(20, 60);
     highScoreText.setCharacterSize(40);
     highScoreText.setFillColor(sf::Color::Black);
-    highScoreText.setString("Highscore: " + std::to_string((int)score));
+    readHighScore();
+    updateDisplay();
 }
 
 void ScoreManager::setScore(double s) {
@@ -51,7 +50,10 @@ void ScoreManager::addScore(double s) {
 }
 
 void ScoreManager::updateDisplay() {
+    if(score > highScore)
+        highScore = score;
     scoreText.setString(std::to_string((int)score));
+    highScoreText.setString("Highscore: " + std::to_string((int)highScore));
 }
 
 sf::Text &ScoreManager::getHighScoreText() {
@@ -64,4 +66,23 @@ void ScoreManager::menuLayout() {
 
 void ScoreManager::gameLayout() {
     updateDisplay();
+}
+
+void ScoreManager::readHighScore() {
+    std::string line;
+    std::ifstream myfile ("../resources/files/highscore.txt");
+    if (myfile.is_open()) {
+        getline(myfile, line);
+        myfile.close();
+    } else {
+        std::cout << "Unable to open file";
+    }
+    highScore = std::stod(line);
+}
+
+void ScoreManager::writeHighScore() {
+    std::ofstream myfile;
+    myfile.open ("../resources/files/highscore.txt");
+    myfile << highScore;
+    myfile.close();
 };

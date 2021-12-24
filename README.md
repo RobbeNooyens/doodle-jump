@@ -31,9 +31,7 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 
 Necessary:
 - Cleanup
-- All time highscore
 - Exception handling
-- Death screen
 - Documentation
 - Virtual destructors
 - Format with CLANG
@@ -43,9 +41,6 @@ Necessary:
 - Jump animation
 - Jetpack animation when using
 - Blue bar under score
-- Game menu
-- Game over
-- Start game at 0
 
 ## Warning
 
