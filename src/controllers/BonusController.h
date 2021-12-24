@@ -22,6 +22,9 @@ namespace controllers {
 
         BonusType getType();
 
+    protected:
+        virtual void use() = 0;
+
     private:
         double offset = 0;
         std::shared_ptr<PlatformController> platform;
@@ -33,11 +36,17 @@ namespace controllers {
     class SpringController: public BonusController {
     public:
         SpringController();
+
+    protected:
+        void use() override;
     };
 
     class JetpackController: public BonusController {
     public:
         JetpackController();
+
+    protected:
+        void use() override;
     };
 }
 

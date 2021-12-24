@@ -23,12 +23,7 @@ void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == PLAYER_USES_BONUS) {
         std::shared_ptr<PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<PlayerUsesBonusEvent>(event);
         if(bonusEvent->getBonusEntityId() == getId()) {
-            if(getType() == SPRING) {
-                std::string entity = "bonus";
-                std::string texture = "spring_extended";
-                std::shared_ptr<Resource> extended_spring = ResourceLoader::getInstance().getResource(entity, texture);
-                this->load(extended_spring);
-            }
+            this->use();
         }
     }
 }
@@ -61,6 +56,17 @@ controllers::SpringController::SpringController(): BonusController(SPRING) {
     model = std::make_shared<models::SpringModel>();
 }
 
+void controllers::SpringController::use() {
+    std::string entity = "bonus";
+    std::string texture = "spring_extended";
+    std::shared_ptr<Resource> extended_spring = ResourceLoader::getInstance().getResource(entity, texture);
+    this->load(extended_spring);
+}
+
 controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
     model = std::make_shared<models::JetpackModel>();
+}
+
+void controllers::JetpackController::use() {
+
 }

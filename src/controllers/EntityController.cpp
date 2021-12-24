@@ -68,7 +68,7 @@ EntityController::EntityController(EntityType entityType): type(entityType) {
     id = Random::getInstance().generate(static_cast<long>(1e20));
 }
 
-EntityType EntityController::getType() {
+EntityType EntityController::getEntityType() {
     return type;
 }
 

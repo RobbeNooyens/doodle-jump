@@ -52,7 +52,7 @@ BoundingBox::BoundingBox(double l, double t, double r, double b): left(l), top(t
     calculateCenter();
 }
 
-std::pair<double, double> &BoundingBox::getCenter() {
+const std::pair<double, double> &BoundingBox::getCenter() const {
     return center;
 }
 
@@ -72,9 +72,3 @@ void BoundingBox::calculateCenter() {
 }
 
 BoundingBox::BoundingBox(): left(0), top(0), right(0), bottom(0) {}
-
-BoundingBox BoundingBox::copy() {
-    BoundingBox box{left, top, right, bottom};
-    box.setCenter(center);
-    return box;
-}

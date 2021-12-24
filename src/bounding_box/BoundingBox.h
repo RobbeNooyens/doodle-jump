@@ -13,23 +13,22 @@ class BoundingBox {
 public:
     BoundingBox();
     BoundingBox(double left, double top, double right, double bottom);
+
     bool collides(std::shared_ptr<BoundingBox>& box) const;
+    void calculateCenter();
 
     // Setters
     void setBorder(double left, double top, double right, double bottom);
     void setCenter(std::pair<double, double> center);
-    void calculateCenter();
 
     // Getters
-    std::pair<double, double>& getCenter();
+    [[nodiscard]] const std::pair<double, double>& getCenter() const;
     [[nodiscard]] double getWidth() const;
     [[nodiscard]] double getHeight() const;
     [[nodiscard]] double getTop() const;
     [[nodiscard]] double getBottom() const;
     [[nodiscard]] double getLeft() const;
     [[nodiscard]] double getRight() const;
-
-    BoundingBox copy();
 
 private:
     double left, right, top, bottom;

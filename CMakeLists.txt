@@ -14,7 +14,7 @@ file(GLOB sourcefiles
 add_compile_options(-gdwarf-4)
 
 
-add_executable(DoodleJump ${sourcefiles} src/utils/Random.cpp src/enums/GameState.h)
+add_executable(DoodleJump ${sourcefiles} src/utils/Random.cpp src/enums/GameState.h src/exceptions/Exception.cpp src/exceptions/Exception.h src/exceptions/TextureNotFoundException.cpp src/exceptions/TextureNotFoundException.h src/exceptions/MissingResourceException.cpp src/exceptions/MissingResourceException.h)
 
 # Find SFML
 #set(SFML_STATIC_LIBRARIES TRUE)
