@@ -4,7 +4,7 @@
 
 #include "KeyPressedEvent.h"
 
-KeyPressedEvent::KeyPressedEvent(KeyAction action): Event(EventType::KEY_PRESSED), action(action) {}
+KeyPressedEvent::KeyPressedEvent(KeyAction action): Event(GameEventType::KEY_PRESSED), action(action) {}
 
 KeyAction KeyPressedEvent::getAction() {
     return action;

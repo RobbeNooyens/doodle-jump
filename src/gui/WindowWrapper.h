@@ -7,12 +7,14 @@
 
 
 #include <string>
+#include "EventWrapper.h"
 
 class WindowWrapper {
 public:
     virtual bool isOpen() = 0;
     virtual void clear() = 0;
     virtual void display() = 0;
+    virtual bool pollEvent(std::shared_ptr<EventWrapper>& event) = 0;
 
 
 };

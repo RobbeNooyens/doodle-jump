@@ -4,7 +4,7 @@
 
 #include "PlayerBouncesOnPlatformEvent.h"
 
-PlayerBouncesOnPlatformEvent::PlayerBouncesOnPlatformEvent(double surfaceHeight, long platformId): Event(EventType::PLAYER_BOUNCES_ON_PLATFORM), platformId(platformId), surfaceHeight(surfaceHeight) {
+PlayerBouncesOnPlatformEvent::PlayerBouncesOnPlatformEvent(double surfaceHeight, long platformId): Event(GameEventType::PLAYER_BOUNCES_ON_PLATFORM), platformId(platformId), surfaceHeight(surfaceHeight) {
 
 }
 

@@ -3,6 +3,7 @@
 //
 
 #include "SFWindow.h"
+#include "SFEvent.h"
 
 SFWindow::SFWindow(const std::string& applicationName, const unsigned int width, const unsigned int height):
 window(sf::VideoMode(width, height), applicationName, sf::Style::Close) {}
@@ -17,4 +18,9 @@ void SFWindow::clear() {
 
 void SFWindow::display() {
     window.display();
+}
+
+bool SFWindow::pollEvent(std::shared_ptr<EventWrapper> &event) {
+    // TODO: exception
+    return window.pollEvent(std::static_pointer_cast<SFEvent>(event)->getEvent());
 }

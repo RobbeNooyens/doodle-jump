@@ -16,12 +16,12 @@ public:
     SFTexture(double width, double height, std::shared_ptr<BoundingBox> boundingBox);
 
     // Loader
-    void loadFromFile(std::string &file) override;
+    void loadFromFile(const std::string &file) override;
 
     // Getters
-    const std::shared_ptr<BoundingBox> &getBoundingBox() override;
-    double getWidth() override;
-    double getHeight() override;
+    const std::shared_ptr<BoundingBox> &getBoundingBox() const override;
+    double getWidth() const override;
+    double getHeight() const override;
     const sf::Texture& getTexture();
 
 
@@ -29,7 +29,7 @@ private:
     const double height;
     const double width;
     const std::shared_ptr<BoundingBox> boundingBox;
-    const sf::Texture texture;
+    sf::Texture texture;
 
 };
 

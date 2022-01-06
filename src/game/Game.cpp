@@ -13,32 +13,34 @@
 #include "../Settings.h"
 #include "../gui/WindowWrapper.h"
 #include "../gui/sfml/SFWindow.h"
+#include "../gui/EventWrapper.h"
+#include "../gui/sfml/SFWrapperFactory.h"
 
-Game::Game(): window(std::make_unique<SFWindow>(settings::applicationName, settings::screenWidth, settings::screenHeight)) {}
+Game::Game():
+    wrapperFactory(std::make_shared<SFWrapperFactory>()),
+    window(wrapperFactory->createWindow(settings::applicationName, settings::screenWidth, settings::screenHeight))
+    {}
 
 void Game::run() {
     Stopwatch::getInstance().reset();
-    sf::Event event;
-
-    ResourceLoader::getInstance().load(jsonFile);
+    auto event = wrapperFactory->createEvent();
 
     World::getInstance().clear();
     World::getInstance().setup();
 
-    double minCycleTime = 1000000000.0 / settings::FPS;
+    const double minCycleTime = 1000000000.0 / settings::FPS;
 
     // Game loop
     while (window->isOpen()) {
         // Ensure max FPS
-        // TODO: move to settings
         if (Stopwatch::getInstance().elapsed() < minCycleTime)
             continue;
 
         // Check events
-        while (window.pollEvent(event)) {
-            if(event.type == sf::Event::Closed)
+        while (window->pollEvent(event)) {
+            if(event->getType() == WindowEventType::WINDOW_CLOSED)
                 return;
-            if(event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::Space)
+            if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR)
                 World::getInstance().spacebarPressed();
         }
 
@@ -46,19 +48,20 @@ void Game::run() {
         Stopwatch::getInstance().reset();
 
         // Check keyboard input
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+
+        if (event->isKeyPressed(Keyboard::ARROW_LEFT) || event->isKeyPressed(Keyboard::A)) {
             std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_LEFT);
             EventManager::getInstance().invoke(ev);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        } else if (event->isKeyPressed(Keyboard::ARROW_RIGHT) || event->isKeyPressed(Keyboard::D)) {
             std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_RIGHT);
             EventManager::getInstance().invoke(ev);
         }
 
         World::getInstance().update(elapsedNS/1000000000);
 
-        window.clear();
+        window->clear();
         World::getInstance().redraw(window);
-        window.display();
+        window->display();
     }
 
 }

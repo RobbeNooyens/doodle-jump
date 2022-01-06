@@ -7,6 +7,7 @@
 
 
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <memory>
 #include "../WindowWrapper.h"
 
 class SFWindow: public WindowWrapper {
@@ -18,6 +19,8 @@ public:
     bool isOpen() override;
     void clear() override;
     void display() override;
+
+    bool pollEvent(std::shared_ptr<EventWrapper> &event) override;
 
 private:
     sf::RenderWindow window;

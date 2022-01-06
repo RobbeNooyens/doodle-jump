@@ -8,6 +8,7 @@
 #include <memory>
 
 class WindowWrapper;
+class WrapperFactory;
 
 class Game {
 public:
@@ -15,7 +16,8 @@ public:
     void run();
 
 private:
-    std::unique_ptr<WindowWrapper> window;
+    std::shared_ptr<WrapperFactory> wrapperFactory;
+    std::shared_ptr<WindowWrapper> window;
 };
 
 
