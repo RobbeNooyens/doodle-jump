@@ -13,3 +13,7 @@ void SFSprite::addTexture(std::string &identifier, std::shared_ptr<TextureWrappe
 void SFSprite::applyTexture(std::string &identifier) {
     sprite.setTexture(textures.at(identifier)->getTexture());
 }
+
+void SFSprite::move(float x, float y) {
+    sprite.move(x, y);
+}

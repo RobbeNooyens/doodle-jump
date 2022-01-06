@@ -7,7 +7,8 @@
 
 class GameState {
 public:
-    virtual void update();
+    virtual void update(double elapsed) = 0;
+    virtual void redraw(std::shared_ptr<>) = 0;
 };
 
 #endif //DOODLEJUMP_GAMESTATE_H

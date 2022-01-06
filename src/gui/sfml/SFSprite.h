@@ -19,6 +19,8 @@ public:
     void addTexture(std::string &identifier, std::shared_ptr<TextureWrapper> &texture) override;
     void applyTexture(std::string &identifier) override;
 
+    void move(float x, float y) override;
+
 private:
     std::map<std::string, std::shared_ptr<SFTexture>> textures;
     sf::Sprite sprite;

@@ -9,6 +9,8 @@
 
 class WindowWrapper;
 class WrapperFactory;
+class EventWrapper;
+class GameState;
 
 class Game {
 public:
@@ -16,8 +18,14 @@ public:
     void run();
 
 private:
+    void checkEvents();
+    void checkKeyboardInput();
+
+    std::unique_ptr<GameState> state;
+
     std::shared_ptr<WrapperFactory> wrapperFactory;
     std::shared_ptr<WindowWrapper> window;
+    std::shared_ptr<EventWrapper> event;
 };
 
 

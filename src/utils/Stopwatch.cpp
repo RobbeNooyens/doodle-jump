@@ -15,16 +15,18 @@ void Stopwatch::reset() {
     begin = getCurrentTime();
 }
 
-double Stopwatch::elapsed() {
-    return (double) (getCurrentTime() - begin).count();
-}
-
 Stopwatch::Stopwatch(): begin(getCurrentTime()) {}
 
 TimeStamp Stopwatch::getCurrentTime() {
     return std::chrono::system_clock::now();
 }
 
-double Stopwatch::elapsedNanoseconds() {
-    return (double) std::chrono::duration_cast<std::chrono::nanoseconds>(getCurrentTime() - begin).count();
+template<typename T>
+T Stopwatch::elapsed() {
+    return (T) (getCurrentTime() - begin).count();
+}
+
+template<typename T>
+T Stopwatch::elapsedNanoseconds() {
+    return (T) std::chrono::duration_cast<std::chrono::nanoseconds>(getCurrentTime() - begin).count();
 }

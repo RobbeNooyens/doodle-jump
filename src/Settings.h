@@ -20,6 +20,7 @@ namespace settings {
     // ==================================================
     const std::string resourceFile = "../resources/textures/config.json";
     const std::string resourceFolder = "../resources/textures/";
+    const std::string font = "../resources/fonts/DoodleJump.ttf";
 
     // World generation
     // ==================================================

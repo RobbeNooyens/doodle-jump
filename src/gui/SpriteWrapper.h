@@ -13,6 +13,7 @@ class SpriteWrapper {
 public:
     virtual void addTexture(std::string& identifier, std::shared_ptr<TextureWrapper>& texture) = 0;
     virtual void applyTexture(std::string& identifier) = 0;
+    virtual void move(float x, float y) = 0;
 
 
 };

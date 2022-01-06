@@ -6,6 +6,8 @@
 #define DOODLEJUMP_TEXTWRAPPER_H
 
 class TextWrapper {
+public:
+    virtual void moveTo(float x, float y) = 0;
 
 };
 
