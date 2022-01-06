@@ -6,6 +6,7 @@
 #define DOODLEJUMP_ENTITYVIEW_H
 
 #include <memory>
+#include <string>
 
 class EntityController;
 class SpriteWrapper;

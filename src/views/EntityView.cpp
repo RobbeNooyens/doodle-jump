@@ -2,12 +2,11 @@
 // Created by robnoo on 28/11/21.
 //
 
-#include <stdexcept>
-#include <iostream>
+#include <utility>
 #include "EntityView.h"
 #include "../bounding_box/BoundingBox.h"
-#include "../gui/SpriteWrapper.h"
-#include "../gui/TextureWrapper.h"
+#include "../wrappers/SpriteWrapper.h"
+#include "../wrappers/TextureWrapper.h"
 
 void EntityView::setPosition(double x, double y) {
     auto center = sprite->getTexture()->getBoundingBox()->getCenter();
@@ -28,9 +27,8 @@ void EntityView::setTexture(const std::string &textureId) {
     this->sprite->setTexture(textureId);
 }
 
-EntityView::EntityView(std::shared_ptr<EntityController>& controller): controller(controller) {
-
-}
+EntityView::EntityView(std::shared_ptr<EntityController>& controller):
+    controller(controller) {}
 
 const std::shared_ptr<SpriteWrapper> &EntityView::getSprite() {
     return sprite;
