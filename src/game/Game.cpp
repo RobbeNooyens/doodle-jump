@@ -4,21 +4,22 @@
 
 #include <iostream>
 #include "Game.h"
-#include "utils/Stopwatch.h"
-#include "events/Event.h"
-#include "events/KeyPressedEvent.h"
-#include "events/EventManager.h"
-#include "utils/ResourceLoader.h"
-#include "World.h"
-#include "Settings.h"
+#include "../utils/Stopwatch.h"
+#include "../events/Event.h"
+#include "../events/KeyPressedEvent.h"
+#include "../events/EventManager.h"
+#include "../utils/ResourceLoader.h"
+#include "../World.h"
+#include "../Settings.h"
+#include "../gui/WindowWrapper.h"
+#include "../gui/sfml/SFWindow.h"
 
-Game::Game(): window(sf::VideoMode(settings::screenWidth, settings::screenHeight), settings::applicationName, sf::Style::Close) {}
+Game::Game(): window(std::make_unique<SFWindow>(settings::applicationName, settings::screenWidth, settings::screenHeight)) {}
 
 void Game::run() {
     Stopwatch::getInstance().reset();
     sf::Event event;
 
-    std::string jsonFile = "config.json";
     ResourceLoader::getInstance().load(jsonFile);
 
     World::getInstance().clear();
@@ -27,7 +28,7 @@ void Game::run() {
     double minCycleTime = 1000000000.0 / settings::FPS;
 
     // Game loop
-    while (window.isOpen()) {
+    while (window->isOpen()) {
         // Ensure max FPS
         // TODO: move to settings
         if (Stopwatch::getInstance().elapsed() < minCycleTime)

@@ -16,6 +16,11 @@ namespace settings {
     const unsigned int screenHeight = 600;
     const unsigned int FPS = 60;
 
+    // Resources
+    // ==================================================
+    const std::string resourceFile = "../resources/textures/config.json";
+    const std::string resourceFolder = "../resources/textures/";
+
     // World generation
     // ==================================================
     // Bonuses

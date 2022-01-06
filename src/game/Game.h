@@ -5,8 +5,9 @@
 #ifndef DOODLEJUMP_GAME_H
 #define DOODLEJUMP_GAME_H
 
+#include <memory>
 
-#include <SFML/Graphics.hpp>
+class WindowWrapper;
 
 class Game {
 public:
@@ -14,7 +15,7 @@ public:
     void run();
 
 private:
-    sf::RenderWindow window;
+    std::unique_ptr<WindowWrapper> window;
 };
 
 

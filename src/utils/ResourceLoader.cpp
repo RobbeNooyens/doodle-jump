@@ -6,6 +6,8 @@
 #include "ResourceLoader.h"
 #include "../../libraries/json.hpp"
 #include "../bounding_box/BoundingBox.h"
+#include "../Settings.h"
+#include "../gui/TextureWrapper.h"
 
 using json = nlohmann::json;
 
@@ -15,7 +17,7 @@ ResourceLoader &ResourceLoader::getInstance() {
 }
 
 void ResourceLoader::load(std::string &jsonFile) {
-    std::ifstream input("../resources/textures/" + jsonFile);
+    std::ifstream input(settings::resourceFile);
 
     std::string t;
     json j;
@@ -23,7 +25,7 @@ void ResourceLoader::load(std::string &jsonFile) {
 
     for(const auto& entity: j["entities"]) {
         std::string entity_id = entity["id"];
-        auto textures_map = std::map<std::string, std::shared_ptr<Resource>>();
+        auto textures_map = std::map<std::string, std::shared_ptr<TextureWrapper>>();
         for(const auto& texture: entity["textures"]) {
             // TODO: replace accessors with .at() for nullpointer instead of segfault
             std::string texture_id = texture["id"];
@@ -40,9 +42,9 @@ void ResourceLoader::load(std::string &jsonFile) {
             std::pair<double, double> center = {centerX, centerY};
             bbox->setCenter(center);
             sf::Texture textureObj;
-            textureObj.loadFromFile("../resources/textures/" + source);
+            textureObj.loadFromFile(settings::resourceFolder + source);
             // TODO: error handling
-            textures_map.insert({texture_id, std::make_shared<Resource>(width, height, bbox, textureObj)});
+            textures_map.insert({texture_id, std::make_shared<TextureWrapper>(width, height, bbox)});
         }
         resources.insert({entity_id, textures_map});
     }
