@@ -10,7 +10,7 @@
 namespace views {
     class BonusView: public EntityView {
     public:
-        BonusView();
+        explicit BonusView(std::shared_ptr<EntityController> controller);
     };
 }
 

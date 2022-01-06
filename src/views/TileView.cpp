@@ -4,6 +4,6 @@
 
 #include "TileView.h"
 
-views::TileView::TileView(): EntityView() {
+views::TileView::TileView(std::shared_ptr<EntityController> controller) : EntityView(controller) {
 
 }

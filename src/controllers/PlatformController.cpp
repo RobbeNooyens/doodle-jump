@@ -3,11 +3,36 @@
 //
 
 #include "PlatformController.h"
-#include "../utils/TextureLoader.h"
 #include "../events/Event.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../ScoreManager.h"
 #include "../events/PlayerBouncesOnPlatformEvent.h"
+#include "../models/PlatformModel.h"
+#include "../views/PlatformView.h"
+
+controllers::PlatformController::PlatformController(PlatformType type): EntityController(), platformType(type) {
+    view = std::make_shared<views::PlatformView>(shared_from_this());
+}
+
+controllers::StaticPlatformController::StaticPlatformController(): PlatformController(STATIC) {
+    model = std::make_shared<models::StaticPlatform>();
+}
+
+controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController(TEMPORARY) {
+    model = std::make_shared<models::TemporaryPlatform>();
+}
+
+controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController(HORIZONTAL) {
+    model = std::make_shared<models::HorizontalPlatform>();
+}
+
+controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController(VERTICAL) {
+    model = std::make_shared<models::VerticalPlatform>();
+}
+
+PlatformType controllers::PlatformController::getType() {
+    return platformType;
+}
 
 void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == REACHED_HEIGHT) {
@@ -27,40 +52,4 @@ void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
             }
         }
     }
-}
-
-controllers::PlatformController::PlatformController(): EntityController(EntityType::PLATFORM) {
-    view = std::make_shared<views::PlatformView>();
-}
-
-controllers::StaticPlatformController::StaticPlatformController(): PlatformController() {
-    model = std::make_shared<models::StaticPlatform>();
-}
-
-PlatformType controllers::StaticPlatformController::getType() {
-    return STATIC;
-}
-
-controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController() {
-    model = std::make_shared<models::TemporaryPlatform>();
-}
-
-PlatformType controllers::TemporaryPlatformController::getType() {
-    return TEMPORARY;
-}
-
-controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController() {
-    model = std::make_shared<models::HorizontalPlatform>();
-}
-
-PlatformType controllers::HorizontalPlatformController::getType() {
-    return HORIZONTAL;
-}
-
-controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController() {
-    model = std::make_shared<models::VerticalPlatform>();
-}
-
-PlatformType controllers::VerticalPlatformController::getType() {
-    return VERTICAL;
 }

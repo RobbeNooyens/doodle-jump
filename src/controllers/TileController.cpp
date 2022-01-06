@@ -7,9 +7,9 @@
 #include "../views/TileView.h"
 #include "../events/ReachedNewHeightEvent.h"
 
-controllers::TileController::TileController(): EntityController(EntityType::BGTILE) {
+controllers::TileController::TileController(): EntityController() {
     model = std::make_shared<models::TileModel>();
-    view = std::make_shared<views::TileView>();
+    view = std::make_shared<views::TileView>(shared_from_this());
 }
 
 void controllers::TileController::handle(std::shared_ptr<Event> &event) {

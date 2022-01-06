@@ -12,16 +12,12 @@
 #include "../Camera.h"
 
 void models::PlayerModel::update(double elapsed) {
-    auto previousBottom = this->getBoundingBox()->getBottom();
-
     double absDifference = elapsed * settings::acceleration;
     int sign = verticalDirection == UP ? -1 : 1;
     this->speed += sign * absDifference;
     this->y += sign * std::min(speed, settings::maxSpeed) * boost * settings::jumpAmplifier;
 
     updateBoundingBox();
-
-    World::getInstance().checkCollisions(previousBottom);
 
     if(speed < 0) {
         verticalDirection = DOWN;

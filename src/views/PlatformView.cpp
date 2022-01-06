@@ -4,6 +4,8 @@
 
 #include "PlatformView.h"
 
-views::PlatformView::PlatformView(): EntityView() {
+
+views::PlatformView::PlatformView(std::shared_ptr<EntityController> controller) : EntityView(controller) {
 
 }
+

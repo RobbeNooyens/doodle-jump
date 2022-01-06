@@ -8,12 +8,17 @@
 
 #include "GameState.h"
 
+class World;
+
 class GamePlayingState: public GameState {
 public:
     GamePlayingState();
 
     void update(double elapsed) override;
     void redraw(std::shared_ptr<WindowWrapper> ptr) override;
+
+private:
+    std::unique_ptr<World> world;
 
 };
 

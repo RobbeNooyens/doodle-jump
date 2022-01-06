@@ -14,9 +14,11 @@ class SFText: public TextWrapper {
 public:
     SFText(const std::string& content, unsigned int size);
 
-    void moveTo(float x, float y) override;
+    void setPosition(float x, float y) override;
 
     sf::Text& getText();
+
+    void setText(const std::string &text) override;
 
 private:
     static sf::Font font;

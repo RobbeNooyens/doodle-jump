@@ -6,10 +6,14 @@
 #define DOODLEJUMP_BONUSCONTROLLER_H
 
 #include "EntityController.h"
-#include "PlatformController.h"
 #include "../enums/BonusType.h"
 
 namespace controllers {
+    class PlatformController;
+}
+
+namespace controllers {
+
     class BonusController: public EntityController {
     public:
         explicit BonusController(BonusType type);
@@ -18,7 +22,7 @@ namespace controllers {
 
         void update(double elapsed) override;
 
-        void setPlatform(std::shared_ptr<PlatformController>& platformController);
+        void setPlatform(std::shared_ptr<controllers::PlatformController>& platformController);
 
         BonusType getType();
 
@@ -28,8 +32,6 @@ namespace controllers {
     private:
         double offset = 0;
         std::shared_ptr<PlatformController> platform;
-
-    protected:
         BonusType bonusType = BonusType::SPRING;
     };
 

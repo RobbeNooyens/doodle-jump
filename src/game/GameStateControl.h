@@ -17,7 +17,7 @@ public:
     void handle(std::shared_ptr<Event> &event) override;
 
     void update(double elapsed);
-    void redraw(std::shared_ptr<WindowWrapper>& window);
+    void draw(std::shared_ptr<WindowWrapper>& window);
 
 private:
     std::unique_ptr<GameState> state;

@@ -8,6 +8,7 @@
 #include <map>
 #include <cassert>
 #include <random>
+#include <stdexcept>
 #include "../ScoreManager.h"
 
 class Random {

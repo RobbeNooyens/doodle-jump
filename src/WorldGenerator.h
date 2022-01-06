@@ -6,20 +6,23 @@
 #define DOODLEJUMP_WORLDGENERATOR_H
 
 
-#include "events/EventHandler.h"
+#include <memory>
 #include "enums/PlatformType.h"
-#include "factories/AbstractFactory.h"
+#include "enums/BonusType.h"
+
+class AbstractFactory;
+class World;
 
 class WorldGenerator {
 public:
-    WorldGenerator();
+    WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<AbstractFactory>& factory);
+    void setup();
     void update();
     void reset();
 
 private:
     double previousHeight = 0;
     double nextHeight = 0;
-
     const double heightDifference = 0;
 
     bool addBonus = false;
@@ -27,8 +30,10 @@ private:
 
     PlatformType nextPlatformType = STATIC;
 
-    void generatePlatform();
+    std::shared_ptr<AbstractFactory> factory;
+    std::weak_ptr<World> world;
 
+    void generatePlatform();
     void calculateNextPlatformHeight();
 };
 

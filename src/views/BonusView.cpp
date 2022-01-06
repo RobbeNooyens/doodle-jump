@@ -4,6 +4,6 @@
 
 #include "BonusView.h"
 
-views::BonusView::BonusView(): EntityView() {
+views::BonusView::BonusView(std::shared_ptr<EntityController> controller) : EntityView(controller) {
 
 }

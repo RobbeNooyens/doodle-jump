@@ -5,8 +5,6 @@
 #include "PlayerView.h"
 #include "../utils/TextureLoader.h"
 
-views::PlayerView::PlayerView(): EntityView() {}
-
 void views::PlayerView::lookRight() {
     if(orientation == PlayerOrientation::ORIENTATION_LEFT) {
         auto control = this->controller.lock();
@@ -23,4 +21,8 @@ void views::PlayerView::lookLeft() {
         control->load(resource);
         orientation = PlayerOrientation::ORIENTATION_LEFT;
     }
+}
+
+views::PlayerView::PlayerView(std::shared_ptr<EntityController> &controller) : EntityView(controller) {
+
 }

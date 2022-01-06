@@ -8,7 +8,7 @@
 #include "../Settings.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../utils/Random.h"
-#include "../gui/WindowWrapper.h"
+#include "../wrappers/WindowWrapper.h"
 
 void EntityController::setPosition(double x, double y) {
     model->setPosition(x, y);
@@ -60,4 +60,8 @@ long EntityController::getId() const {
 
 void EntityController::draw(std::shared_ptr<WindowWrapper>& window) {
     window->draw(view->getSprite());
+}
+
+void EntityController::setTexture(const std::string &textureId) {
+
 }

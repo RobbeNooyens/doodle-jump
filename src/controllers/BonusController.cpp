@@ -9,9 +9,10 @@
 #include "../events/ReachedNewHeightEvent.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
+#include "../controllers/PlatformController.h"
 
-controllers::BonusController::BonusController(BonusType type): EntityController(EntityType::BONUS), bonusType(type) {
-    view = std::make_shared<views::BonusView>();
+controllers::BonusController::BonusController(BonusType type): EntityController(), bonusType(type) {
+    view = std::make_shared<views::BonusView>(shared_from_this());
 }
 
 void controllers::BonusController::handle(std::shared_ptr<Event> &event) {

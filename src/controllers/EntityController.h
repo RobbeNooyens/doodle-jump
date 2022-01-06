@@ -6,7 +6,6 @@
 #define DOODLEJUMP_ENTITYCONTROLLER_H
 
 #include "../events/EventHandler.h"
-#include "SFML/Graphics.hpp"
 #include "../enums/EntityType.h"
 
 class EntityModel;
@@ -28,6 +27,7 @@ public:
     // Actions
     void changeY(double value);
     void destroy();
+    void setTexture(const std::string& textureId);
 
     // Setters
     void setSize(double size);
@@ -39,10 +39,11 @@ public:
     bool isDestroyed() const;
     long getId() const;
 
-private:
+protected:
     std::shared_ptr<EntityModel> model;
     std::shared_ptr<EntityView> view;
 
+private:
     bool destroyed = false;
     long id = 0;
 };

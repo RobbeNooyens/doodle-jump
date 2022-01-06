@@ -7,49 +7,45 @@
 
 
 #include <vector>
-#include "controllers/EntityController.h"
-#include "controllers/PlayerController.h"
-#include "controllers/PlatformController.h"
-#include "controllers/BonusController.h"
-#include "controllers/TileController.h"
-#include "WorldGenerator.h"
+#include <memory>
 #include "enums/GameStateType.h"
+#include "factories/AbstractFactory.h"
 
-class World {
+class WindowWrapper;
+class WorldGenerator;
+class TextWrapper;
+
+namespace controllers {
+    class PlayerController;
+    class PlatformController;
+    class BonusController;
+    class TileController;
+}
+
+class World: public::std::enable_shared_from_this<World> {
 public:
+    explicit World(std::shared_ptr<AbstractFactory>& factory);
+
     void clear();
-
-    void setup();
-
     void update(double elapsed);
-
-    void redraw(sf::RenderWindow& window);
+    void draw(std::shared_ptr<WindowWrapper>& window);
 
     void addPlatform(std::shared_ptr<controllers::PlatformController>& platform);
-
     void addBonus(std::shared_ptr<controllers::BonusController>& bonus);
+    void addTile(std::shared_ptr<controllers::TileController>& tile);
 
     void checkCollisions(double previousPlayerBottom);
 
-    void spacebarPressed();
-
-    // Singleton
-    World(World const&) = delete;
-    void operator=(World const&) = delete;
-    static World& getInstance();
-
-
 private:
-    World();
-
     const std::unique_ptr<WorldGenerator> worldGenerator;
+    std::unique_ptr<controllers::PlayerController> player;
 
-    std::shared_ptr<controllers::PlayerController> player;
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
     std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
     std::vector<std::shared_ptr<controllers::TileController>> tiles;
 
-    GameStateType gameState = MENU;
+    std::shared_ptr<TextWrapper> score;
+
 };
 
 

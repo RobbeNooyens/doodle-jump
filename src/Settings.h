@@ -5,6 +5,8 @@
 #ifndef DOODLEJUMP_SETTINGS_H
 #define DOODLEJUMP_SETTINGS_H
 
+#include <string>
+#include <map>
 #include "enums/BonusType.h"
 #include "enums/PlatformType.h"
 

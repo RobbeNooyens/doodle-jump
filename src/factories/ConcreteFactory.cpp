@@ -27,8 +27,7 @@ ConcreteFactory::loadPlatform(PlatformType platformType) {
     } else {
         throw std::runtime_error("Something went wrong");
     }
-    std::shared_ptr<Resource> resource = TextureLoader::getInstance().getTexture(entity, texture);
-    platformController->load(resource);
+    auto resource = TextureLoader::getInstance().getTexture(entity, texture);
     platformController->setSize(60);
     std::shared_ptr<EntityController> controller = platformController;
     platformController->link(controller);

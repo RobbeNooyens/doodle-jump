@@ -2,7 +2,6 @@
 // Created by robbe on 20/11/2021.
 //
 
-#include <iostream>
 #include "Game.h"
 #include "../utils/Stopwatch.h"
 #include "../events/Event.h"
@@ -10,11 +9,9 @@
 #include "../events/EventManager.h"
 #include "../utils/TextureLoader.h"
 #include "../World.h"
-#include "../Settings.h"
-#include "../gui/WindowWrapper.h"
-#include "../gui/sfml/SFWindow.h"
-#include "../gui/EventWrapper.h"
-#include "../gui/sfml/SFWrapperFactory.h"
+#include "../wrappers/WindowWrapper.h"
+#include "../wrappers/EventWrapper.h"
+#include "../wrappers/sfml/SFWrapperFactory.h"
 
 Game::Game():
     wrapperFactory(std::make_shared<SFWrapperFactory>()),
@@ -29,9 +26,7 @@ Game::Game():
 void Game::run() {
     Stopwatch::getInstance().reset();
 
-    World::getInstance().clear();
-    World::getInstance().setup();
-
+    // Calculate min cycle time for a given FPS (ns)
     const double minCycleTime = 1000000000.0 / settings::FPS;
 
     // Game loop
@@ -40,17 +35,16 @@ void Game::run() {
         if (Stopwatch::getInstance().elapsed<double>() < minCycleTime)
             continue;
 
-        checkEvents();
-
         auto elapsedNS = Stopwatch::getInstance().elapsedNanoseconds<double>();
         Stopwatch::getInstance().reset();
 
+        checkEvents();
         checkKeyboardInput();
 
-        stateControl->getCurrentState()->update(elapsedNS/1000000000);
+        stateControl->update(elapsedNS/1000000000);
 
         window->clear();
-        stateControl->getCurrentState()->redraw(window);
+        stateControl->draw(window);
         window->display();
     }
 

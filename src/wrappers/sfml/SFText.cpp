@@ -22,10 +22,14 @@ SFText::SFText(const std::string& content, unsigned int size) {
     text.setFillColor(sf::Color::Black);
 }
 
-void SFText::moveTo(float x, float y) {
+void SFText::setPosition(float x, float y) {
     text.move(x, y);
 }
 
 sf::Text &SFText::getText() {
     return text;
+}
+
+void SFText::setText(const std::string &t) {
+    text.setString(t);
 }

@@ -7,7 +7,8 @@
 
 class TextWrapper {
 public:
-    virtual void moveTo(float x, float y) = 0;
+    virtual void setText(const std::string& text) = 0;
+    virtual void setPosition(float x, float y) = 0;
 
 };
 
