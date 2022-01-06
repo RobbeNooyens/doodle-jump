@@ -6,7 +6,19 @@
 #define DOODLEJUMP_SFTEXT_H
 
 
-class SFText {
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include "../TextWrapper.h"
+
+class SFText: public TextWrapper {
+public:
+    SFText(const std::string& content, unsigned int size);
+
+
+private:
+    static sf::Font font;
+    static bool fontInitialized;
+    sf::Text text;
 
 };
 

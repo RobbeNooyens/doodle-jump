@@ -8,13 +8,12 @@
 
 #include <SFML/Graphics/Texture.hpp>
 #include <memory>
-#include "../../bounding_box/BoundingBox.h"
 #include "../TextureWrapper.h"
 
 class SFTexture: public TextureWrapper {
 public:
     // Constructor
-    SFTexture(double width, double height, std::shared_ptr<BoundingBox>  boundingBox);
+    SFTexture(double width, double height, std::shared_ptr<BoundingBox> boundingBox);
 
     // Loader
     void loadFromFile(std::string &file) override;

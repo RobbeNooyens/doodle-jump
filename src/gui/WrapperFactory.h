@@ -11,13 +11,14 @@ class SpriteWrapper;
 class TextureWrapper;
 class WindowWrapper;
 class TextWrapper;
+class BoundingBox;
 
 class WrapperFactory {
 public:
     virtual std::shared_ptr<SpriteWrapper> loadSprite() = 0;
-    virtual std::shared_ptr<TextureWrapper> loadTexture() = 0;
+    virtual std::shared_ptr<TextureWrapper> loadTexture(const std::string& file, double width, double height, std::shared_ptr<BoundingBox>& bbox) = 0;
     virtual std::shared_ptr<WindowWrapper> loadWindow(const std::string& applicationName, unsigned int width, unsigned int height) = 0;
-    virtual std::shared_ptr<TextWrapper> loadText(std::string content, int size = 12) = 0;
+    virtual std::shared_ptr<TextWrapper> loadText(std::string& content, int size = 12) = 0;
 };
 
 #endif //DOODLEJUMP_WRAPPERFACTORY_H

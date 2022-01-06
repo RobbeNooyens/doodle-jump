@@ -3,3 +3,10 @@
 //
 
 #include "SFText.h"
+
+bool SFText::fontInitialized = false;
+
+SFText::SFText(const std::string& content, unsigned int size) {
+    text.setString(content);
+    text.setCharacterSize(size);
+}
