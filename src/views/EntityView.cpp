@@ -6,59 +6,32 @@
 #include <iostream>
 #include "EntityView.h"
 #include "../bounding_box/BoundingBox.h"
+#include "../gui/SpriteWrapper.h"
+#include "../gui/TextureWrapper.h"
 
-
-sf::Sprite &EntityView::getSprite() {
-    return sprite;
-}
-
-void EntityView::setTexture(std::string &textureFile) {
-    // TODO: exception handling
-    try {
-        texture.loadFromFile("../resources/textures/" + textureFile);
-        sprite.setTexture(texture);
-    } catch(...) {
-        throw std::runtime_error("Error while loading texture");
-    }
-}
-
-EntityView::EntityView() = default;
-
-void EntityView::setTexture(sf::Texture &newTexture) {
-    texture = newTexture;
-    sprite.setTexture(texture);
-}
-
-void EntityView::changeX(double increment) {
-    sprite.setPosition((float) (sprite.getPosition().x + increment), sprite.getPosition().y);
-}
-
-void EntityView::moveTo(double x, double y) {
-    float pixelX = x - boundingBox->getCenter().first*(sizeX);
-    float pixelY = y - boundingBox->getCenter().second*(sizeY);
-    sprite.setPosition(pixelX, pixelY);
+void EntityView::setPosition(double x, double y) {
+    auto center = sprite->getTexture()->getBoundingBox()->getCenter();
+    float pixelX = x - center.first*(sizeX);
+    float pixelY = y - center.second*(sizeY);
+    sprite->setPosition(pixelX, pixelY);
 }
 
 void EntityView::setSize(double s) {
-    double scale = s/width;
-    sprite.setScale(scale, scale);
+    auto texture = sprite->getTexture();
+    double scale = s/texture->getWidth();
+    sprite->setScale((float) scale, (float) scale);
     this->sizeX = s;
-    this->sizeY = (s*height)/width;
+    this->sizeY = (s*texture->getHeight())/texture->getWidth();
 }
 
-void EntityView::setWidth(double w) {
-    this->width = w;
+void EntityView::setTexture(const std::string &textureId) {
+    this->sprite->setTexture(textureId);
 }
 
-void EntityView::setHeight(double h) {
-    this->height = h;
-}
-
-void EntityView::setController(std::shared_ptr<EntityController>& ctrl) {
-    this->controller = ctrl;
+EntityView::EntityView(std::shared_ptr<EntityController>& controller): controller(controller) {
 
 }
 
-void EntityView::setBoundingBox(std::shared_ptr<BoundingBox> &bbox) {
-    this->boundingBox = bbox;
+const std::shared_ptr<SpriteWrapper> &EntityView::getSprite() {
+    return sprite;
 }

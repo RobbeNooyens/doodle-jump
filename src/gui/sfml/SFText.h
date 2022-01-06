@@ -16,6 +16,8 @@ public:
 
     void moveTo(float x, float y) override;
 
+    sf::Text& getText();
+
 private:
     static sf::Font font;
     static bool fontInitialized;

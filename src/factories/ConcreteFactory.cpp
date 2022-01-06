@@ -27,7 +27,7 @@ ConcreteFactory::loadPlatform(PlatformType platformType) {
     } else {
         throw std::runtime_error("Something went wrong");
     }
-    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    std::shared_ptr<Resource> resource = TextureLoader::getInstance().getTexture(entity, texture);
     platformController->load(resource);
     platformController->setSize(60);
     std::shared_ptr<EntityController> controller = platformController;
@@ -41,7 +41,7 @@ std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
     std::string entity = "player";
     std::string texture = "right";
-    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    std::shared_ptr<Resource> resource = TextureLoader::getInstance().getTexture(entity, texture);
     playerController->load(resource);
     playerController->setSize(60);
     std::shared_ptr<EntityController> controller = playerController;
@@ -64,7 +64,7 @@ std::shared_ptr<controllers::BonusController> ConcreteFactory::loadBonus(BonusTy
     } else {
         throw std::runtime_error("Something went wrong");
     }
-    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    std::shared_ptr<Resource> resource = TextureLoader::getInstance().getTexture(entity, texture);
     bonusController->load(resource);
     bonusController->setSize(20);
     std::shared_ptr<EntityController> controller = bonusController;
@@ -78,7 +78,7 @@ std::shared_ptr<controllers::TileController> ConcreteFactory::loadTile() {
     std::shared_ptr<controllers::TileController> tileController = std::make_shared<controllers::TileController>();
     std::string entity = "tile";
     std::string texture = "default";
-    std::shared_ptr<Resource> resource = ResourceLoader::getInstance().getResource(entity, texture);
+    std::shared_ptr<Resource> resource = TextureLoader::getInstance().getTexture(entity, texture);
     tileController->setSize(settings::screenWidth);
     tileController->load(resource);
     tileController->setSize(settings::screenWidth);

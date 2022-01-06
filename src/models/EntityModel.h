@@ -7,17 +7,16 @@
 
 #include <utility>
 #include <memory>
-#include "../controllers/EntityController.h"
 
-class RelativeBoundingBox;
+class EntityController;
+class BoundingBox;
 
 class EntityModel {
 public:
-    EntityModel();
+    explicit EntityModel(std::shared_ptr<EntityController>& controller);
 
     // Actions
     virtual void update(double elapsed) = 0;
-    void moveTo(double x, double y);
     void updateBoundingBox();
 
     // Getters
@@ -27,10 +26,10 @@ public:
 
     // Setters
     void setSize(double size);
+    void setPosition(double x, double y);
     void setWidth(double w);
     void setHeight(double h);
     void setRelativeBBox(std::shared_ptr<BoundingBox>& bbox);
-    void setController(std::shared_ptr<EntityController> controller);
 
 protected:
     double size = 1, sizeY = 1;
@@ -39,10 +38,6 @@ protected:
     std::shared_ptr<BoundingBox> relativeBBox;
     std::shared_ptr<BoundingBox> absoluteBBox;
     std::weak_ptr<EntityController> controller;
-
-
-
-
 
 };
 

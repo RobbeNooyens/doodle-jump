@@ -25,7 +25,7 @@ void WorldGenerator::generatePlatform() {
     auto midY = platform->getBoundingBox()->getHeight()/2;
     auto platformX = Random::getInstance().generate<double>(midX, settings::screenWidth-midX);
     auto platformY = -midY+(Camera::getInstance().getHeight()-nextHeight);
-    platform->moveTo(platformX, platformY);
+    platform->setPosition(platformX, platformY);
     World::getInstance().addPlatform(platform);
     if(addBonus) {
         std::shared_ptr<controllers::BonusController> bonusController = factory->loadBonus(bonusType);

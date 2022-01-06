@@ -3,14 +3,14 @@
 //
 
 #include "PlayerView.h"
-#include "../utils/ResourceLoader.h"
+#include "../utils/TextureLoader.h"
 
 views::PlayerView::PlayerView(): EntityView() {}
 
 void views::PlayerView::lookRight() {
     if(orientation == PlayerOrientation::ORIENTATION_LEFT) {
         auto control = this->controller.lock();
-        auto resource = ResourceLoader::getInstance().getResource(entity, textureRight);
+        auto resource = TextureLoader::getInstance().getTexture(entity, textureRight);
         control->load(resource);
         orientation = PlayerOrientation::ORIENTATION_RIGHT;
     }
@@ -19,7 +19,7 @@ void views::PlayerView::lookRight() {
 void views::PlayerView::lookLeft() {
     if(orientation == PlayerOrientation::ORIENTATION_RIGHT) {
         auto control = this->controller.lock();
-        auto resource = ResourceLoader::getInstance().getResource(entity, textureLeft);
+        auto resource = TextureLoader::getInstance().getTexture(entity, textureLeft);
         control->load(resource);
         orientation = PlayerOrientation::ORIENTATION_LEFT;
     }

@@ -12,14 +12,17 @@
 
 class GameStateControl: public EventHandler {
 public:
-    std::shared_ptr<GameState>& getCurrentState();
+    GameStateControl();
 
     void handle(std::shared_ptr<Event> &event) override;
 
-private:
-    GameStateType currentState;
-    std::shared_ptr<GameState> state;
+    void update(double elapsed);
+    void redraw(std::shared_ptr<WindowWrapper>& window);
 
+private:
+    std::unique_ptr<GameState> state;
+
+    void replaceState(GameStateType gameStateType);
 };
 
 

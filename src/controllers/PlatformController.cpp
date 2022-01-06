@@ -3,7 +3,7 @@
 //
 
 #include "PlatformController.h"
-#include "../utils/ResourceLoader.h"
+#include "../utils/TextureLoader.h"
 #include "../events/Event.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../ScoreManager.h"

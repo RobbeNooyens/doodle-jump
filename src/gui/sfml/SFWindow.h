@@ -19,8 +19,9 @@ public:
     bool isOpen() override;
     void clear() override;
     void display() override;
-
     bool pollEvent(std::shared_ptr<EventWrapper> &event) override;
+    void draw(const std::shared_ptr<SpriteWrapper> &sprite) override;
+    void draw(const std::shared_ptr<TextWrapper> &text) override;
 
 private:
     sf::RenderWindow window;

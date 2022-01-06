@@ -13,41 +13,37 @@ class EntityModel;
 class EntityView;
 class Resource;
 class BoundingBox;
+class WindowWrapper;
 
-class EntityController: public EventHandler {
+class EntityController: public EventHandler, public std::enable_shared_from_this<EntityController> {
 public:
     // Constructor
-    explicit EntityController(EntityType entityType);
+    EntityController();
 
     // Abstracts
     virtual void update(double elapsed);
+    virtual void draw(std::shared_ptr<WindowWrapper>& window);
     void handle(std::shared_ptr<Event>& event) override = 0;
 
     // Actions
-    void load(std::shared_ptr<Resource>& resource);
-    void moveTo(double x, double y);
     void changeY(double value);
-    void link(std::shared_ptr<EntityController>& controller);
     void destroy();
 
     // Setters
     void setSize(double size);
+    void setPosition(double x, double y);
     void setDestroyed(bool d);
 
     // Getters
-    sf::Sprite& getSprite();
     std::shared_ptr<BoundingBox> getBoundingBox();
-    bool isDestroyed();
-    EntityType getEntityType();
-    long getId();
+    bool isDestroyed() const;
+    long getId() const;
 
-protected:
+private:
     std::shared_ptr<EntityModel> model;
     std::shared_ptr<EntityView> view;
 
-private:
     bool destroyed = false;
-    EntityType type;
     long id = 0;
 };
 

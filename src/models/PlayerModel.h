@@ -6,7 +6,7 @@
 #define DOODLEJUMP_PLAYERMODEL_H
 
 #include "EntityModel.h"
-#include "../utils/ResourceLoader.h"
+#include "../utils/TextureLoader.h"
 #include "../enums/Direction.h"
 #include "../enums/BonusType.h"
 #include "../Settings.h"

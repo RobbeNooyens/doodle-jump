@@ -5,7 +5,7 @@
 #include "BonusController.h"
 #include "../models/BonusModel.h"
 #include "../views/BonusView.h"
-#include "../utils/ResourceLoader.h"
+#include "../utils/TextureLoader.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
@@ -36,7 +36,7 @@ void controllers::BonusController::update(double elapsed) {
             return;
         }
         auto platformBox = platform->getBoundingBox();
-        this->moveTo(platformBox->getCenter().first + offset, platformBox->getTop());
+        this->setPosition(platformBox->getCenter().first + offset, platformBox->getTop());
     } else {
         this->destroy();
     }
@@ -45,7 +45,7 @@ void controllers::BonusController::update(double elapsed) {
 void controllers::BonusController::setPlatform(std::shared_ptr<PlatformController> &platformController) {
     this->platform = platformController;
     auto platformBox = platform->getBoundingBox();
-    this->moveTo(platformBox->getCenter().first + offset, platformBox->getTop());
+    this->setPosition(platformBox->getCenter().first + offset, platformBox->getTop());
 }
 
 BonusType controllers::BonusController::getType() {
@@ -59,7 +59,7 @@ controllers::SpringController::SpringController(): BonusController(SPRING) {
 void controllers::SpringController::use() {
     std::string entity = "bonus";
     std::string texture = "spring_extended";
-    std::shared_ptr<Resource> extended_spring = ResourceLoader::getInstance().getResource(entity, texture);
+    std::shared_ptr<Resource> extended_spring = TextureLoader::getInstance().getTexture(entity, texture);
     this->load(extended_spring);
 }
 

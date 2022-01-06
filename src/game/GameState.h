@@ -12,11 +12,14 @@ class WindowWrapper;
 
 class GameState {
 public:
-    static GameStateType currentState;
+    explicit GameState(GameStateType type): gameStateType(type) {};
+    GameStateType getType() { return gameStateType; }
+
     virtual void update(double elapsed) = 0;
     virtual void redraw(std::shared_ptr<WindowWrapper>) = 0;
-};
 
-GameStateType GameState::currentState = MENU;
+private:
+    GameStateType gameStateType;
+};
 
 #endif //DOODLEJUMP_GAMESTATE_H

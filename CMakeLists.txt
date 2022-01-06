@@ -16,7 +16,7 @@ file(GLOB sourcefiles
 add_compile_options(-gdwarf-4)
 
 
-add_executable(DoodleJump ${sourcefiles} src/gui/EventWrapper.h src/gui/sfml/SFEvent.cpp src/gui/sfml/SFEvent.h src/enums/WindowEventType.h src/enums/Keyboard.h src/game/GameStateControl.cpp src/game/GameStateControl.h)
+add_executable(DoodleJump ${sourcefiles} src/gui/EventWrapper.h src/gui/sfml/SFEvent.cpp src/gui/sfml/SFEvent.h src/enums/WindowEventType.h src/enums/Keyboard.h src/game/GameStateControl.cpp src/game/GameStateControl.h src/game/GameOverState.cpp src/game/GameOverState.h)
 
 # Find SFML
 #set(SFML_STATIC_LIBRARIES TRUE)

@@ -81,12 +81,12 @@ void World::setup() {
     double tileBottom = 0;
     while(tileBottom < settings::screenHeight) {
         std::shared_ptr<controllers::TileController> tile = factory->loadTile();
-        tile->moveTo(tile->getBoundingBox()->getWidth()/2,tileBottom - tile->getBoundingBox()->getHeight()/2);
+        tile->setPosition(tile->getBoundingBox()->getWidth() / 2, tileBottom - tile->getBoundingBox()->getHeight() / 2);
         tiles.push_back(tile);
         tileBottom += tile->getBoundingBox()->getHeight();
     }
     std::shared_ptr<controllers::TileController> tile = factory->loadTile();
-    tile->moveTo(tile->getBoundingBox()->getWidth()/2,tileBottom - tile->getBoundingBox()->getHeight()/2);
+    tile->setPosition(tile->getBoundingBox()->getWidth() / 2, tileBottom - tile->getBoundingBox()->getHeight() / 2);
     tiles.push_back(tile);
 
     if(gameState == MENU)
@@ -179,7 +179,7 @@ void World::spacebarPressed() {
         std::shared_ptr<AbstractFactory> factory = std::make_shared<ConcreteFactory>();
         worldGenerator->reset();
         player = factory->loadPlayer();
-        player->moveTo(settings::screenWidth/2.0, settings::screenHeight + player->getBoundingBox()->getHeight());
+        player->setPosition(settings::screenWidth / 2.0, settings::screenHeight + player->getBoundingBox()->getHeight());
     } else if(gameState == PLAYING) {
         gameState = PAUSED;
     } else if(gameState == PAUSED) {

@@ -25,3 +25,7 @@ SFText::SFText(const std::string& content, unsigned int size) {
 void SFText::moveTo(float x, float y) {
     text.move(x, y);
 }
+
+sf::Text &SFText::getText() {
+    return text;
+}

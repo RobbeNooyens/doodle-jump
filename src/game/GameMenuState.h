@@ -6,7 +6,14 @@
 #define DOODLEJUMP_GAMEMENUSTATE_H
 
 
-class GameMenuState {
+#include "GameState.h"
+
+class GameMenuState: public GameState {
+public:
+    GameMenuState();
+
+    void update(double elapsed) override;
+    void redraw(std::shared_ptr<WindowWrapper> ptr) override;
 
 };
 

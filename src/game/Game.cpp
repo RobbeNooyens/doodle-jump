@@ -8,7 +8,7 @@
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
 #include "../events/EventManager.h"
-#include "../utils/ResourceLoader.h"
+#include "../utils/TextureLoader.h"
 #include "../World.h"
 #include "../Settings.h"
 #include "../gui/WindowWrapper.h"
@@ -21,7 +21,9 @@ Game::Game():
     window(wrapperFactory->createWindow(settings::applicationName, settings::screenWidth, settings::screenHeight)),
     event(wrapperFactory->createEvent())
     {
-        ResourceLoader::getInstance().load(wrapperFactory);
+        TextureLoader::getInstance().load(wrapperFactory);
+        auto stateControlEventHandler = std::static_pointer_cast<EventHandler>(stateControl);
+        EventManager::getInstance().registerHandler(stateControlEventHandler);
     }
 
 void Game::run() {

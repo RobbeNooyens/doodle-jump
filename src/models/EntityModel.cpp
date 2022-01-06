@@ -3,10 +3,10 @@
 //
 
 #include "EntityModel.h"
-#include "../utils/ResourceLoader.h"
+#include "../utils/TextureLoader.h"
 #include "../bounding_box/BoundingBox.h"
 
-void EntityModel::moveTo(double x, double y) {
+void EntityModel::setPosition(double x, double y) {
     this->x = x;
     this->y = y;
 }
@@ -32,10 +32,6 @@ void EntityModel::setHeight(double h) {
     this->height = h;
 }
 
-void EntityModel::setController(std::shared_ptr<EntityController> controller) {
-    this->controller = controller;
-}
-
 void EntityModel::setRelativeBBox(std::shared_ptr<BoundingBox> &bbox) {
     this->relativeBBox = bbox;
 
@@ -57,3 +53,5 @@ void EntityModel::updateBoundingBox() {
             x+relativeBBox->getRight()*size,
             y+relativeBBox->getBottom()*sizeY);
 }
+
+EntityModel::EntityModel(std::shared_ptr<EntityController> &controller): controller(controller) {}

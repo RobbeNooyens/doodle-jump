@@ -7,10 +7,15 @@
 
 
 #include <string>
-#include "EventWrapper.h"
+
+class TextWrapper;
+class EventWrapper;
+class SpriteWrapper;
 
 class WindowWrapper {
 public:
+    virtual void draw(const std::shared_ptr<SpriteWrapper> &sprite) = 0;
+    virtual void draw(const std::shared_ptr<TextWrapper>& text) = 0;
     virtual bool isOpen() = 0;
     virtual void clear() = 0;
     virtual void display() = 0;

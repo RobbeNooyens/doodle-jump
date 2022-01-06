@@ -3,7 +3,7 @@
 //
 
 #include <fstream>
-#include "ResourceLoader.h"
+#include "TextureLoader.h"
 #include "../../libraries/json.hpp"
 #include "../bounding_box/BoundingBox.h"
 #include "../Settings.h"
@@ -12,12 +12,12 @@
 
 using json = nlohmann::json;
 
-ResourceLoader &ResourceLoader::getInstance() {
-    static ResourceLoader INSTANCE;
+TextureLoader &TextureLoader::getInstance() {
+    static TextureLoader INSTANCE;
     return INSTANCE;
 }
 
-void ResourceLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
+void TextureLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
     std::ifstream input(settings::resourceFile);
 
     std::string t;
@@ -50,8 +50,8 @@ void ResourceLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
 
 }
 
-const std::shared_ptr<TextureWrapper> & ResourceLoader::getResource(const std::string &entity_id, const std::string &texture_id) {
+const std::shared_ptr<TextureWrapper> & TextureLoader::getTexture(const std::string &entity_id, const std::string &texture_id) {
     return resources.at(entity_id).at(texture_id);
 }
 
-ResourceLoader::ResourceLoader() = default;
+TextureLoader::TextureLoader() = default;
