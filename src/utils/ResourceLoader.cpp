@@ -8,6 +8,7 @@
 #include "../bounding_box/BoundingBox.h"
 #include "../Settings.h"
 #include "../gui/TextureWrapper.h"
+#include "../gui/WrapperFactory.h"
 
 using json = nlohmann::json;
 
@@ -16,7 +17,7 @@ ResourceLoader &ResourceLoader::getInstance() {
     return INSTANCE;
 }
 
-void ResourceLoader::load(std::string &jsonFile) {
+void ResourceLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
     std::ifstream input(settings::resourceFile);
 
     std::string t;
@@ -38,20 +39,18 @@ void ResourceLoader::load(std::string &jsonFile) {
             double right = texture["bounding_box"]["right"];
             double width = texture["width"];
             double height = texture["height"];
-            std::shared_ptr<BoundingBox> bbox = std::make_shared<BoundingBox>(left, up, right, down);
+            auto bbox = std::make_shared<BoundingBox>(left, up, right, down);
             std::pair<double, double> center = {centerX, centerY};
             bbox->setCenter(center);
-            sf::Texture textureObj;
-            textureObj.loadFromFile(settings::resourceFolder + source);
             // TODO: error handling
-            textures_map.insert({texture_id, std::make_shared<TextureWrapper>(width, height, bbox)});
+            textures_map.insert({texture_id, factory->createTexture(settings::resourceFolder + source, width, height, bbox)});
         }
         resources.insert({entity_id, textures_map});
     }
 
 }
 
-std::shared_ptr<Resource> ResourceLoader::getResource(std::string& entity_id, std::string &texture_id) {
+const std::shared_ptr<TextureWrapper> & ResourceLoader::getResource(const std::string &entity_id, const std::string &texture_id) {
     return resources.at(entity_id).at(texture_id);
 }
 

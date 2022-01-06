@@ -6,6 +6,7 @@
 #define DOODLEJUMP_GAME_H
 
 #include <memory>
+#include "GameStateControl.h"
 
 class WindowWrapper;
 class WrapperFactory;
@@ -18,10 +19,12 @@ public:
     void run();
 
 private:
+    bool running = true;
+
     void checkEvents();
     void checkKeyboardInput();
 
-    std::unique_ptr<GameState> state;
+    std::shared_ptr<GameStateControl> stateControl;
 
     std::shared_ptr<WrapperFactory> wrapperFactory;
     std::shared_ptr<WindowWrapper> window;

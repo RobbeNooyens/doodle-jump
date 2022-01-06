@@ -11,28 +11,23 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <memory>
 
-class BoundingBox;
-
-struct Resource {
-    Resource(double w, double h, std::shared_ptr<BoundingBox> bbox, const sf::Texture& texture)
-        : width(w), height(h), boundingBox(std::move(bbox)), texture(texture) {}
-    double width = 1;
-    double height = 1;
-    std::shared_ptr<BoundingBox> boundingBox;
-    sf::Texture texture;
-};
+class WrapperFactory;
+class TextureWrapper;
 
 class ResourceLoader {
 public:
-    static ResourceLoader& getInstance();
-    std::shared_ptr<Resource> getResource(std::string& entity_id, std::string& texture_id);
-    void load(std::string& jsonFile);
+    const std::shared_ptr<TextureWrapper> & getResource(const std::string &entity_id, const std::string &texture_id);
 
+    void load(const std::shared_ptr<WrapperFactory> &factory);
+
+    // Singleton specific
+    static ResourceLoader& getInstance();
     ResourceLoader(ResourceLoader()) = delete;
     void operator=(ResourceLoader const&) = delete;
 private:
     ResourceLoader();
-    std::map<std::string, std::map<std::string, std::shared_ptr<Resource>>> resources;
+
+    std::map<std::string, std::map<std::string, std::shared_ptr<TextureWrapper>>> resources;
 
 
 };

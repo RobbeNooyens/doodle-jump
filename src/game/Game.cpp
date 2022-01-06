@@ -20,7 +20,9 @@ Game::Game():
     wrapperFactory(std::make_shared<SFWrapperFactory>()),
     window(wrapperFactory->createWindow(settings::applicationName, settings::screenWidth, settings::screenHeight)),
     event(wrapperFactory->createEvent())
-    {}
+    {
+        ResourceLoader::getInstance().load(wrapperFactory);
+    }
 
 void Game::run() {
     Stopwatch::getInstance().reset();
@@ -31,7 +33,7 @@ void Game::run() {
     const double minCycleTime = 1000000000.0 / settings::FPS;
 
     // Game loop
-    while (window->isOpen()) {
+    while (window->isOpen() && running) {
         // Ensure max FPS
         if (Stopwatch::getInstance().elapsed<double>() < minCycleTime)
             continue;
@@ -43,10 +45,10 @@ void Game::run() {
 
         checkKeyboardInput();
 
-        World::getInstance().update(elapsedNS/1000000000);
+        stateControl->getCurrentState()->update(elapsedNS/1000000000);
 
         window->clear();
-        World::getInstance().redraw(window);
+        stateControl->getCurrentState()->redraw(window);
         window->display();
     }
 
@@ -54,19 +56,22 @@ void Game::run() {
 
 void Game::checkEvents() {
     while (window->pollEvent(event)) {
-        if(event->getType() == WindowEventType::WINDOW_CLOSED)
+        if(event->getType() == WindowEventType::WINDOW_CLOSED){
+            running = false;
             return;
-        if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR)
-            World::getInstance().spacebarPressed();
+        } else if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR) {
+            std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(Keyboard::SPACEBAR);
+            EventManager::getInstance().invoke(ev);
+        }
     }
 }
 
 void Game::checkKeyboardInput() {
-    if (event->isKeyPressed(Keyboard::ARROW_LEFT) || event->isKeyPressed(Keyboard::A)) {
-        std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_LEFT);
-        EventManager::getInstance().invoke(ev);
-    } else if (event->isKeyPressed(Keyboard::ARROW_RIGHT) || event->isKeyPressed(Keyboard::D)) {
-        std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(KeyAction::MOVE_RIGHT);
-        EventManager::getInstance().invoke(ev);
+    for(auto key: {ARROW_LEFT, A, ARROW_RIGHT, D}) {
+        if(event->isKeyPressed(key)) {
+            std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(key);
+            EventManager::getInstance().invoke(ev);
+            break;
+        }
     }
 }

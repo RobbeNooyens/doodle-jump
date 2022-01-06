@@ -15,7 +15,7 @@
 #include "Settings.h"
 #include "events/PlayerUsesBonusEvent.h"
 #include "events/PlayerBouncesOnPlatformEvent.h"
-#include "enums/GameState.h"
+#include "enums/GameStateType.h"
 #include "Camera.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;

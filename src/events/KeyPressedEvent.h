@@ -7,16 +7,15 @@
 
 
 #include "Event.h"
-
-enum KeyAction {MOVE_LEFT, MOVE_RIGHT, EXIT, PAUSE};
+#include "../enums/Keyboard.h"
 
 class KeyPressedEvent: public Event {
 public:
-    KeyPressedEvent(KeyAction action);
-    KeyAction getAction();
+    explicit KeyPressedEvent(Keyboard key);
+    Keyboard getKey();
 
 private:
-    KeyAction action;
+    Keyboard keyPressed;
 };
 
 

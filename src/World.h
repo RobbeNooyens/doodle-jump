@@ -13,7 +13,7 @@
 #include "controllers/BonusController.h"
 #include "controllers/TileController.h"
 #include "WorldGenerator.h"
-#include "enums/GameState.h"
+#include "enums/GameStateType.h"
 
 class World {
 public:
@@ -49,7 +49,7 @@ private:
     std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
     std::vector<std::shared_ptr<controllers::TileController>> tiles;
 
-    GameState gameState = MENU;
+    GameStateType gameState = MENU;
 };
 
 

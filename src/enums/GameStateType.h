@@ -1,0 +1,10 @@
+//
+// Created by robnoo on 23/12/21.
+//
+
+#ifndef DOODLEJUMP_GAMESTATETYPE_H
+#define DOODLEJUMP_GAMESTATETYPE_H
+
+enum GameStateType {MENU, PLAYING, PAUSED, ERROR};
+
+#endif //DOODLEJUMP_GAMESTATETYPE_H
