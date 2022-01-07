@@ -15,7 +15,10 @@ class World;
 
 class WorldGenerator {
 public:
+    // Constructor - destructor
     WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<EntityFactory>& factory);
+    ~WorldGenerator();
+
     void setup();
     void update();
     void reset();

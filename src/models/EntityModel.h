@@ -13,7 +13,9 @@ class BoundingBox;
 
 class EntityModel {
 public:
+    // Constructor - Destructor
     EntityModel();
+    virtual ~EntityModel();
 
     // Actions
     virtual void update(double elapsed) = 0;

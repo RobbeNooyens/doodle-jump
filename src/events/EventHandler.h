@@ -11,7 +11,17 @@ class Event;
 
 class EventHandler {
 public:
+    EventHandler();
+    virtual ~EventHandler();
+
     virtual void handle(std::shared_ptr<Event>& event) = 0;
+
+    void unregister() const;
+
+    [[nodiscard]] unsigned long getHandlerId() const;
+
+private:
+    unsigned long id;
 };
 
 #endif //DOODLEJUMP_EVENTHANDLER_H

@@ -6,7 +6,7 @@
 #define DOODLEJUMP_GAME_H
 
 #include <memory>
-#include "GameStateControl.h"
+#include "GameStateController.h"
 
 class WindowWrapper;
 class WrapperFactory;
@@ -22,7 +22,7 @@ public:
 private:
     bool running = true;
 
-    std::shared_ptr<GameStateControl> stateControl;
+    std::shared_ptr<GameStateController> stateControl;
 
     std::shared_ptr<EntityFactory> entityFactory;
 

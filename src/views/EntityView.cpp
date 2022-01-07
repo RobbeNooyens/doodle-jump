@@ -50,3 +50,8 @@ const std::shared_ptr<TextureWrapper> &EntityView::getTexture() {
 }
 
 EntityView::EntityView(std::string spriteId): spriteId(std::move(spriteId)) {}
+
+EntityView::~EntityView() {
+    texture.reset();
+    sprite.reset();
+}

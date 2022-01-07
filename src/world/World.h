@@ -23,7 +23,9 @@ namespace controllers {
 
 class World {
 public:
+    // Constructor - destructor
     explicit World(std::shared_ptr<EntityFactory>& factory);
+    ~World();
 
     void clear();
     void update(double elapsed);

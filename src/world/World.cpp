@@ -6,7 +6,6 @@
 #include "World.h"
 #include "../events/Event.h"
 #include "../events/EventManager.h"
-#include "../ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
 #include "../events/PlayerBouncesOnPlatformEvent.h"
@@ -30,12 +29,14 @@ void World::update(double elapsed) {
     // Remove destroyed objects
     for(auto& platform: platforms) {
         if(platform->isDestroyed()) {
+            platform->unregister();
             platform.reset();
         }
     }
     platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [](auto& platform){ return !platform; }), platforms.end());
     for(auto& bonus: bonuses) {
         if(bonus->isDestroyed()) {
+            bonus->unregister();
             bonus.reset();
         }
     }
@@ -51,27 +52,27 @@ void World::update(double elapsed) {
 }
 
 void World::clear() {
+    player->unregister();
     player.reset();
     for(auto& platform: platforms) {
+        platform->unregister();
         platform.reset();
     }
     platforms.clear();
-    for(auto& bonus: bonuses) {
+    for(auto& bonus: bonuses){
+        bonus->unregister();
         bonus.reset();
     }
     bonuses.clear();
 }
 
 void World::draw(std::shared_ptr<WindowWrapper>& window) {
-    for(auto& tile: tiles) {
+    for(auto& tile: tiles)
         tile->draw(window);
-    }
-    for (auto &bonus: bonuses) {
+    for (auto &bonus: bonuses)
         bonus->draw(window);
-    }
-    for (auto &platform: platforms) {
+    for (auto &platform: platforms)
         platform->draw(window);
-    }
     player->draw(window);
 //    window->draw(score);
 }
@@ -99,5 +100,14 @@ void World::checkCollisions(double previousPlayerBottom) {
                 continue;
             EventManager::getInstance().invoke(std::make_shared<PlayerBouncesOnPlatformEvent>(platformBox->getTop(), platform->getId()));
         }
+    }
+}
+
+World::~World() {
+    clear();
+    score.reset();
+    for(auto& tile: tiles) {
+        tile->unregister();
+        tile.reset();
     }
 }

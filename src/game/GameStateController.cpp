@@ -2,7 +2,7 @@
 // Created by robnoo on 6/01/22.
 //
 
-#include "GameStateControl.h"
+#include "GameStateController.h"
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
 #include "states/GameMenuState.h"
@@ -11,9 +11,10 @@
 #include "states/GameErrorState.h"
 #include "../world/World.h"
 
-void GameStateControl::handle(std::shared_ptr<Event> &event) {
+void GameStateController::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == GameEventType::PLAYER_DIED) {
-        replaceState(GAME_OVER);
+        shouldReplaceState = true;
+        replaceWith = GAME_OVER;
     } else if(event->getType() == GameEventType::KEY_PRESSED) {
         auto keyPressedEvent = std::static_pointer_cast<KeyPressedEvent>(event);
         if(keyPressedEvent->getKey() == Keyboard::SPACEBAR) {
@@ -32,15 +33,19 @@ void GameStateControl::handle(std::shared_ptr<Event> &event) {
     }
 }
 
-void GameStateControl::update(double elapsed) {
+void GameStateController::update(double elapsed) {
     state->update(elapsed);
+    if(shouldReplaceState) {
+        shouldReplaceState = false;
+        replaceState(replaceWith);
+    }
 }
 
-void GameStateControl::draw(std::shared_ptr<WindowWrapper> &window) {
+void GameStateController::draw(std::shared_ptr<WindowWrapper> &window) {
     state->draw(window);
 }
 
-void GameStateControl::replaceState(GameStateType gameStateType) {
+void GameStateController::replaceState(GameStateType gameStateType) {
     state.reset();
     switch (gameStateType) {
         case MENU:
@@ -56,10 +61,11 @@ void GameStateControl::replaceState(GameStateType gameStateType) {
             state = std::make_shared<GameErrorState>(factory);
             break;
     }
+    state->update(0);
 
 }
 
-GameStateControl::GameStateControl(std::shared_ptr<EntityFactory>& factory):
-    state(std::make_unique<GamePlayingState>(factory)),
+GameStateController::GameStateController(std::shared_ptr<EntityFactory>& factory):
+    state(std::make_unique<GameMenuState>(factory)),
     factory(factory) {
 }

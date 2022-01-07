@@ -2,8 +2,8 @@
 // Created by robnoo on 6/01/22.
 //
 
-#ifndef DOODLEJUMP_GAMESTATECONTROL_H
-#define DOODLEJUMP_GAMESTATECONTROL_H
+#ifndef DOODLEJUMP_GAMESTATECONTROLLER_H
+#define DOODLEJUMP_GAMESTATECONTROLLER_H
 
 
 #include "states/GameState.h"
@@ -12,9 +12,9 @@
 
 class EntityFactory;
 
-class GameStateControl: public EventHandler {
+class GameStateController: public EventHandler {
 public:
-    explicit GameStateControl(std::shared_ptr<EntityFactory>& factory);
+    explicit GameStateController(std::shared_ptr<EntityFactory>& factory);
 
     void handle(std::shared_ptr<Event> &event) override;
 
@@ -25,8 +25,11 @@ private:
     std::shared_ptr<GameState> state;
     std::shared_ptr<EntityFactory> factory;
 
+    bool shouldReplaceState = false;
+    GameStateType replaceWith = GameStateType::MENU;
+
     void replaceState(GameStateType gameStateType);
 };
 
 
-#endif //DOODLEJUMP_GAMESTATECONTROL_H
+#endif //DOODLEJUMP_GAMESTATECONTROLLER_H

@@ -14,7 +14,9 @@ class TextureWrapper;
 
 class EntityView {
 public:
+    // Constructor - Destructor
     explicit EntityView(std::string spriteId);
+    virtual ~EntityView();
 
     // Getters
     const std::shared_ptr<SpriteWrapper>& getSprite();

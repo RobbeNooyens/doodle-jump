@@ -81,3 +81,8 @@ void WorldGenerator::setup() {
     tile->setPosition(tile->getBoundingBox()->getWidth() / 2, tileBottom - tile->getBoundingBox()->getHeight() / 2);
     world->tiles.push_back(tile);
 }
+
+WorldGenerator::~WorldGenerator() {
+    factory.reset();
+    world.reset();
+}

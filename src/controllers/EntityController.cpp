@@ -80,3 +80,8 @@ void EntityController::setTexture(const std::string &textureId) {
 void EntityController::setSprite(std::shared_ptr<SpriteWrapper> sprite) {
     view->setSprite(std::move(sprite));
 }
+
+EntityController::~EntityController() {
+    model.reset();
+    view.reset();
+}

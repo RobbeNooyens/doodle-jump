@@ -18,6 +18,7 @@ class EntityController: public EventHandler {
 public:
     // Constructor
     EntityController();
+    virtual ~EntityController();
 
     // Abstracts
     virtual void update(double elapsed);

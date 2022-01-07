@@ -51,3 +51,8 @@ void EntityModel::updateBoundingBox() {
 }
 
 EntityModel::EntityModel(): absoluteBBox(std::make_shared<BoundingBox>()) {}
+
+EntityModel::~EntityModel() {
+    absoluteBBox.reset();
+    relativeBBox.reset();
+}

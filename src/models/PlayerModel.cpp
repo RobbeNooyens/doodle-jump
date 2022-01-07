@@ -10,6 +10,7 @@
 #include "../ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../Camera.h"
+#include "../events/PlayerDiedEvent.h"
 
 void models::PlayerModel::update(double elapsed) {
     double absDifference = elapsed * settings::acceleration;
@@ -49,6 +50,11 @@ void models::PlayerModel::update(double elapsed) {
         this->x = settings::screenWidth + getBoundingBox()->getWidth()/2;
     } else if(getBoundingBox()->getLeft() > settings::screenWidth) {
         this->x = -getBoundingBox()->getWidth()/2;
+    }
+
+    // Detect death
+    if(absoluteBBox->getTop() > settings::screenHeight) {
+        EventManager::getInstance().invoke(std::make_shared<PlayerDiedEvent>());
     }
 }
 
