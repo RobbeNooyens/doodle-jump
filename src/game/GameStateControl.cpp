@@ -4,11 +4,12 @@
 
 #include "GameStateControl.h"
 #include "../events/Event.h"
+#include "../events/KeyPressedEvent.h"
 #include "GameMenuState.h"
 #include "GameOverState.h"
-#include "../events/KeyPressedEvent.h"
 #include "GamePlayingState.h"
 #include "GameErrorState.h"
+#include "../World.h"
 
 void GameStateControl::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == GameEventType::PLAYER_DIED) {

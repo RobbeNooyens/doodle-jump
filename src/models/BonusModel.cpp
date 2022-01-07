@@ -5,15 +5,15 @@
 #include "BonusModel.h"
 #include "../controllers/PlatformController.h"
 
-models::JetpackModel::JetpackModel(): BonusModel() {
+models::JetpackModel::JetpackModel(std::shared_ptr<EntityController> controller): BonusModel(controller) {
 
 }
 
-models::SpringModel::SpringModel(): BonusModel() {
+models::SpringModel::SpringModel(std::shared_ptr<EntityController> controller): BonusModel(controller) {
 
 }
 
-models::BonusModel::BonusModel(): EntityModel() {
+models::BonusModel::BonusModel(std::shared_ptr<EntityController>& controller): EntityModel(controller) {
 
 }
 

@@ -23,6 +23,10 @@ namespace settings {
     const std::string resourceFile = "../resources/textures/config.json";
     const std::string resourceFolder = "../resources/textures/";
     const std::string font = "../resources/fonts/DoodleJump.ttf";
+    const unsigned int platformSize = 60;
+    const unsigned int playerSize = 60;
+    const unsigned int bonusSize = 20;
+
 
     // World generation
     // ==================================================

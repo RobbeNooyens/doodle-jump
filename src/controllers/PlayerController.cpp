@@ -16,10 +16,10 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     // Key pressed
     if (event->getType() == GameEventType::KEY_PRESSED) {
         std::shared_ptr<KeyPressedEvent> keyPressed = std::static_pointer_cast<KeyPressedEvent>(event);
-        if(keyPressed->getAction() == KeyAction::MOVE_RIGHT) {
+        if(keyPressed->getKey() == Keyboard::ARROW_RIGHT || keyPressed->getKey() == Keyboard::D) {
             playerView->lookRight();
             playerModel->moveHorizontal(Direction::RIGHT);
-        } else if(keyPressed->getAction() == KeyAction::MOVE_LEFT) {
+        } else if(keyPressed->getKey() == Keyboard::ARROW_LEFT || keyPressed->getKey() == Keyboard::A) {
             playerView->lookLeft();
             playerModel->moveHorizontal(Direction::LEFT);
         }
@@ -38,7 +38,7 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     }
 }
 
-controllers::PlayerController::PlayerController(): EntityController(EntityType::PLAYER) {
-    model = std::make_shared<models::PlayerModel>();
-    view = std::make_shared<views::PlayerView>();
+controllers::PlayerController::PlayerController(): EntityController() {
+    model = std::make_shared<models::PlayerModel>(shared_from_this());
+    view = std::make_shared<views::PlayerView>(shared_from_this());
 }

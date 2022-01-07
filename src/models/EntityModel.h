@@ -29,7 +29,7 @@ public:
     void setPosition(double x, double y);
     void setWidth(double w);
     void setHeight(double h);
-    void setRelativeBBox(std::shared_ptr<BoundingBox>& bbox);
+    void setRelativeBBox(const std::shared_ptr<BoundingBox>& bbox);
 
 protected:
     double size = 1, sizeY = 1;

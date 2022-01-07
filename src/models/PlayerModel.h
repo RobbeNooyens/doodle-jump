@@ -14,7 +14,7 @@
 namespace models {
     class PlayerModel: public EntityModel {
     public:
-        PlayerModel();
+        explicit PlayerModel(std::shared_ptr<EntityController> controller);
 
         void update(double elapsed) override;
 

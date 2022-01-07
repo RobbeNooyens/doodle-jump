@@ -11,19 +11,20 @@
 namespace models {
     class BonusModel: public EntityModel {
     public:
-        BonusModel();
-
         void update(double elapsed) override;
+
+    protected:
+        explicit BonusModel(std::shared_ptr<EntityController>& controller);
     };
 
     class SpringModel: public BonusModel {
     public:
-        SpringModel();
+        explicit SpringModel(std::shared_ptr<EntityController> controller);
     };
 
     class JetpackModel: public BonusModel {
     public:
-        JetpackModel();
+        explicit JetpackModel(std::shared_ptr<EntityController> controller);
     };
 }
 

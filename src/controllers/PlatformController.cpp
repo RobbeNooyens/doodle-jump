@@ -15,19 +15,23 @@ controllers::PlatformController::PlatformController(PlatformType type): EntityCo
 }
 
 controllers::StaticPlatformController::StaticPlatformController(): PlatformController(STATIC) {
-    model = std::make_shared<models::StaticPlatform>();
+    model = std::make_shared<models::StaticPlatform>(shared_from_this());
+    setTexture("static");
 }
 
 controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController(TEMPORARY) {
-    model = std::make_shared<models::TemporaryPlatform>();
+    model = std::make_shared<models::TemporaryPlatform>(shared_from_this());
+    setTexture("temporary");
 }
 
 controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController(HORIZONTAL) {
-    model = std::make_shared<models::HorizontalPlatform>();
+    model = std::make_shared<models::HorizontalPlatform>(shared_from_this());
+    setTexture("horizontal");
 }
 
 controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController(VERTICAL) {
-    model = std::make_shared<models::VerticalPlatform>();
+    model = std::make_shared<models::VerticalPlatform>(shared_from_this());
+    setTexture("vertical");
 }
 
 PlatformType controllers::PlatformController::getType() {

@@ -55,17 +55,16 @@ BonusType controllers::BonusController::getType() {
 
 controllers::SpringController::SpringController(): BonusController(SPRING) {
     model = std::make_shared<models::SpringModel>();
+    setTexture("spring");
 }
 
 void controllers::SpringController::use() {
-    std::string entity = "bonus";
-    std::string texture = "spring_extended";
-    std::shared_ptr<Resource> extended_spring = TextureLoader::getInstance().getTexture(entity, texture);
-    this->load(extended_spring);
+    this->setTexture("spring_extended");
 }
 
 controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
     model = std::make_shared<models::JetpackModel>();
+    setTexture("jetpack");
 }
 
 void controllers::JetpackController::use() {

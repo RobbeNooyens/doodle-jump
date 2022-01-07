@@ -32,17 +32,13 @@ void EntityModel::setHeight(double h) {
     this->height = h;
 }
 
-void EntityModel::setRelativeBBox(std::shared_ptr<BoundingBox> &bbox) {
+void EntityModel::setRelativeBBox(const std::shared_ptr<BoundingBox> &bbox) {
     this->relativeBBox = bbox;
 
 }
 
 std::shared_ptr<BoundingBox> EntityModel::getBoundingBox() {
     return absoluteBBox;
-}
-
-EntityModel::EntityModel() {
-    absoluteBBox = std::make_shared<BoundingBox>();
 }
 
 void EntityModel::updateBoundingBox() {
@@ -54,4 +50,4 @@ void EntityModel::updateBoundingBox() {
             y+relativeBBox->getBottom()*sizeY);
 }
 
-EntityModel::EntityModel(std::shared_ptr<EntityController> &controller): controller(controller) {}
+EntityModel::EntityModel(std::shared_ptr<EntityController> &controller): controller(controller), absoluteBBox(std::make_shared<BoundingBox>()) {}

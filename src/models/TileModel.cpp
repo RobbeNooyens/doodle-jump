@@ -5,7 +5,7 @@
 #include "TileModel.h"
 #include "../bounding_box/BoundingBox.h"
 
-models::TileModel::TileModel(): EntityModel() {
+models::TileModel::TileModel(std::shared_ptr<EntityController> controller): EntityModel(controller) {
 
 }
 

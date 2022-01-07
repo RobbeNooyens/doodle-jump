@@ -7,8 +7,8 @@
 #include "../../libraries/json.hpp"
 #include "../bounding_box/BoundingBox.h"
 #include "../Settings.h"
-#include "../gui/TextureWrapper.h"
-#include "../gui/WrapperFactory.h"
+#include "../wrappers/TextureWrapper.h"
+#include "../wrappers/WrapperFactory.h"
 
 using json = nlohmann::json;
 

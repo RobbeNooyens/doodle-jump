@@ -9,6 +9,7 @@
 #include "GameState.h"
 
 class World;
+class AbstractFactory;
 
 class GamePlayingState: public GameState {
 public:
@@ -19,6 +20,7 @@ public:
 
 private:
     std::unique_ptr<World> world;
+    std::shared_ptr<AbstractFactory> factory;
 
 };
 

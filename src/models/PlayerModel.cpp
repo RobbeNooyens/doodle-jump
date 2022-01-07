@@ -52,7 +52,7 @@ void models::PlayerModel::update(double elapsed) {
     }
 }
 
-models::PlayerModel::PlayerModel(): EntityModel() {}
+models::PlayerModel::PlayerModel(std::shared_ptr<EntityController> controller): EntityModel(controller) {}
 
 void models::PlayerModel::bounce(double from) {
     verticalDirection = UP;

@@ -6,8 +6,8 @@
 #define DOODLEJUMP_GAMESTATECONTROL_H
 
 
-#include "../enums/GameStateType.h"
 #include "GameState.h"
+#include "../enums/GameStateType.h"
 #include "../events/EventHandler.h"
 
 class GameStateControl: public EventHandler {

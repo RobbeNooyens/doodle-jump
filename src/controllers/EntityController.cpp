@@ -9,6 +9,8 @@
 #include "../bounding_box/BoundingBox.h"
 #include "../utils/Random.h"
 #include "../wrappers/WindowWrapper.h"
+#include "../wrappers/SpriteWrapper.h"
+#include "../wrappers/TextureWrapper.h"
 
 void EntityController::setPosition(double x, double y) {
     model->setPosition(x, y);
@@ -63,5 +65,9 @@ void EntityController::draw(std::shared_ptr<WindowWrapper>& window) {
 }
 
 void EntityController::setTexture(const std::string &textureId) {
-
+    view->setTexture(textureId);
+    auto texture = view->getSprite()->getTexture();
+    model->setRelativeBBox(texture->getBoundingBox());
+    model->setWidth(texture->getWidth());
+    model->setHeight(texture->getHeight());
 }
