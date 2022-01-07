@@ -9,8 +9,8 @@
 #include "SFText.h"
 #include "SFEvent.h"
 
-std::shared_ptr<SpriteWrapper> SFWrapperFactory::createSprite() {
-    return std::make_shared<SFSprite>();
+std::shared_ptr<SpriteWrapper> SFWrapperFactory::createSprite(const std::string& spriteId) {
+    return std::make_shared<SFSprite>(spriteId);
 }
 
 std::shared_ptr<WindowWrapper>

@@ -22,16 +22,14 @@ ConcreteFactory::loadPlatform(PlatformType platformType) {
         throw std::runtime_error("Something went wrong");
     }
     platformController->setSize(60);
-    std::shared_ptr<EventHandler> handler = platformController;
-    EventManager::getInstance().registerHandler(handler);
+    EventManager::getInstance().registerHandler(platformController);
     return platformController;
 }
 
 std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
     playerController->setSize(60);
-    std::shared_ptr<EventHandler> handler = playerController;
-    EventManager::getInstance().registerHandler(handler);
+    EventManager::getInstance().registerHandler(playerController);
     return playerController;
 }
 
@@ -45,15 +43,13 @@ std::shared_ptr<controllers::BonusController> ConcreteFactory::loadBonus(BonusTy
         throw std::runtime_error("Something went wrong");
     }
     bonusController->setSize(20);
-    std::shared_ptr<EventHandler> handler = bonusController;
-    EventManager::getInstance().registerHandler(handler);
+    EventManager::getInstance().registerHandler(bonusController);
     return bonusController;
 }
 
 std::shared_ptr<controllers::TileController> ConcreteFactory::loadTile() {
     std::shared_ptr<controllers::TileController> tileController = std::make_shared<controllers::TileController>();
     tileController->setSize(settings::screenWidth);
-    std::shared_ptr<EventHandler> handler = tileController;
-    EventManager::getInstance().registerHandler(handler);
+    EventManager::getInstance().registerHandler(tileController);
     return tileController;
 }

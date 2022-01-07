@@ -88,7 +88,6 @@ void models::PlayerModel::checkMaxHeight() {
         y = settings::maxHeight;
         ScoreManager::getInstance().addScore(difference);
         Camera::getInstance().addHeight(difference);
-        std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, Camera::getInstance().getHeight());
-        EventManager::getInstance().invoke(newHeight);
+        EventManager::getInstance().invoke(std::make_shared<ReachedNewHeightEvent>(difference, Camera::getInstance().getHeight()));
     }
 };

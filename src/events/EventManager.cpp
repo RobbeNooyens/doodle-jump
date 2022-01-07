@@ -8,16 +8,13 @@
 #include "EventHandler.h"
 #include "Event.h"
 
-void EventManager::registerHandler(std::shared_ptr<EventHandler> &handler) {
+void EventManager::registerHandler(std::shared_ptr<EventHandler> handler) {
     handlers.push_back(handler);
 }
 
-void EventManager::invoke(std::shared_ptr<Event> &event) {
-//    if(event->getType() != REACHED_HEIGHT && event->getEntityType() != KEY_PRESSED)
-//        std::cout << "Invoking " << event->getEntityType() << std::endl;
-    for(const auto& handler: handlers) {
+void EventManager::invoke(std::shared_ptr<Event> event) {
+    for(const auto& handler: handlers)
         handler->handle(event);
-    }
 }
 
 EventManager& EventManager::getInstance() {

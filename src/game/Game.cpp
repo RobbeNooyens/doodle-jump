@@ -19,8 +19,7 @@ Game::Game():
     event(wrapperFactory->createEvent())
     {
         TextureLoader::getInstance().load(wrapperFactory);
-        auto stateControlEventHandler = std::static_pointer_cast<EventHandler>(stateControl);
-        EventManager::getInstance().registerHandler(stateControlEventHandler);
+        EventManager::getInstance().registerHandler(stateControl);
     }
 
 void Game::run() {
@@ -52,21 +51,17 @@ void Game::run() {
 
 void Game::checkEvents() {
     while (window->pollEvent(event)) {
-        if(event->getType() == WindowEventType::WINDOW_CLOSED){
+        if(event->getType() == WindowEventType::WINDOW_CLOSED)
             running = false;
-            return;
-        } else if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR) {
-            std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(Keyboard::SPACEBAR);
-            EventManager::getInstance().invoke(ev);
-        }
+        else if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR)
+            EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(Keyboard::SPACEBAR));
     }
 }
 
 void Game::checkKeyboardInput() {
     for(auto key: {ARROW_LEFT, A, ARROW_RIGHT, D}) {
         if(event->isKeyPressed(key)) {
-            std::shared_ptr<Event> ev = std::make_shared<KeyPressedEvent>(key);
-            EventManager::getInstance().invoke(ev);
+            EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(key));
             break;
         }
     }

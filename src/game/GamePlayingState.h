@@ -16,10 +16,10 @@ public:
     GamePlayingState();
 
     void update(double elapsed) override;
-    void redraw(std::shared_ptr<WindowWrapper> ptr) override;
+    void draw(std::shared_ptr<WindowWrapper> window) override;
 
 private:
-    std::unique_ptr<World> world;
+    std::shared_ptr<World> world;
     std::shared_ptr<AbstractFactory> factory;
 
 };

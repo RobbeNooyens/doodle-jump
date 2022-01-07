@@ -37,7 +37,7 @@ public:
     void checkCollisions(double previousPlayerBottom);
 
 private:
-    const std::unique_ptr<WorldGenerator> worldGenerator;
+    const std::shared_ptr<WorldGenerator> worldGenerator;
     std::unique_ptr<controllers::PlayerController> player;
 
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;

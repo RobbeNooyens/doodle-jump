@@ -13,7 +13,7 @@ public:
     GameErrorState();
 
     void update(double elapsed) override;
-    void redraw(std::shared_ptr<WindowWrapper> ptr) override;
+    void draw(std::shared_ptr<WindowWrapper> ptr) override;
 
 };
 

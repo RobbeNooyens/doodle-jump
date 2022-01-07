@@ -8,7 +8,7 @@ void GameMenuState::update(double elapsed) {
 
 }
 
-void GameMenuState::redraw(std::shared_ptr<WindowWrapper> ptr) {
+void GameMenuState::draw(std::shared_ptr<WindowWrapper> ptr) {
 
 }
 

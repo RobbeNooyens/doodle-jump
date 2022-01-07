@@ -12,11 +12,15 @@ class WindowWrapper;
 
 class GameState {
 public:
+    // Constructor
     explicit GameState(GameStateType type): gameStateType(type) {};
+
+    // Getters
     GameStateType getType() { return gameStateType; }
 
+    // Actions
     virtual void update(double elapsed) = 0;
-    virtual void redraw(std::shared_ptr<WindowWrapper>) = 0;
+    virtual void draw(std::shared_ptr<WindowWrapper>) = 0;
 
 private:
     GameStateType gameStateType;

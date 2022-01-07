@@ -11,12 +11,12 @@ void GamePlayingState::update(double elapsed) {
     world->update(elapsed);
 }
 
-void GamePlayingState::redraw(std::shared_ptr<WindowWrapper> window) {
+void GamePlayingState::draw(std::shared_ptr<WindowWrapper> window) {
     world->draw(window);
 }
 
 GamePlayingState::GamePlayingState():
     GameState(GameStateType::PLAYING),
     factory(std::make_shared<ConcreteFactory>()),
-    world(std::make_unique<World>(factory))
+    world(std::make_shared<World>(factory))
     {}

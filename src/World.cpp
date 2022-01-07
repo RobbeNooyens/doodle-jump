@@ -20,7 +20,7 @@
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
 World::World(std::shared_ptr<AbstractFactory>& factory):
-    worldGenerator(std::make_unique<WorldGenerator>(shared_from_this(), factory)) {}
+    worldGenerator(std::make_shared<WorldGenerator>(shared_from_this(), factory)) {}
 
 void World::update(double elapsed) {
     double previousBottom = player->getBoundingBox()->getBottom();
@@ -119,8 +119,7 @@ void World::checkCollisions(double previousPlayerBottom) {
                 continue;
             if(playerBox->getBottom() < bonusBox->getTop())
                 continue;
-            std::shared_ptr<Event> bonusEvent = std::make_shared<PlayerUsesBonusEvent>(bonus->getType(), bonusBox->getTop(), bonus->getId());
-            EventManager::getInstance().invoke(bonusEvent);
+            EventManager::getInstance().invoke(std::make_shared<PlayerUsesBonusEvent>(bonus->getType(), bonusBox->getTop(), bonus->getId()));
         }
     }
     // Check platforms
@@ -131,8 +130,7 @@ void World::checkCollisions(double previousPlayerBottom) {
                 continue;
             if(playerBox->getBottom() < platformBox->getTop())
                 continue;
-            std::shared_ptr<Event> platformEvent = std::make_shared<PlayerBouncesOnPlatformEvent>(platformBox->getTop(), platform->getId());
-            EventManager::getInstance().invoke(platformEvent);
+            EventManager::getInstance().invoke(std::make_shared<PlayerBouncesOnPlatformEvent>(platformBox->getTop(), platform->getId()));
         }
     }
 }

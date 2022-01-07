@@ -5,7 +5,6 @@
 #include "BonusController.h"
 #include "../models/BonusModel.h"
 #include "../views/BonusView.h"
-#include "../utils/TextureLoader.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
@@ -54,7 +53,7 @@ BonusType controllers::BonusController::getType() {
 }
 
 controllers::SpringController::SpringController(): BonusController(SPRING) {
-    model = std::make_shared<models::SpringModel>();
+    model = std::make_shared<models::SpringModel>(shared_from_this());
     setTexture("spring");
 }
 
@@ -63,7 +62,7 @@ void controllers::SpringController::use() {
 }
 
 controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
-    model = std::make_shared<models::JetpackModel>();
+    model = std::make_shared<models::JetpackModel>(shared_from_this());
     setTexture("jetpack");
 }
 

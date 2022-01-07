@@ -8,7 +8,7 @@ void GameOverState::update(double elapsed) {
 
 }
 
-void GameOverState::redraw(std::shared_ptr<WindowWrapper> ptr) {
+void GameOverState::draw(std::shared_ptr<WindowWrapper> ptr) {
 
 }
 

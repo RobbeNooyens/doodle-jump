@@ -10,7 +10,7 @@
 
 class SFWrapperFactory: public WrapperFactory {
 public:
-    std::shared_ptr<SpriteWrapper> createSprite() override;
+    std::shared_ptr<SpriteWrapper> createSprite(const std::string& spriteId) override;
 
 
     std::shared_ptr<WindowWrapper>

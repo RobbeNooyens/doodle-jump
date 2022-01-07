@@ -16,8 +16,8 @@ class Event;
 
 class EventManager {
 public:
-    void registerHandler(std::shared_ptr<EventHandler>& handler);
-    void invoke(std::shared_ptr<Event>& event);
+    void registerHandler(std::shared_ptr<EventHandler> handler);
+    void invoke(std::shared_ptr<Event> event);
     static EventManager& getInstance();
 
     EventManager(EventManager()) = delete;
