@@ -21,9 +21,14 @@ public:
 
     // Getters
     template<typename T>
-    T elapsedNanoseconds();
+    T elapsed() {
+        return (T) (getCurrentTime() - begin).count();
+    }
+
     template<typename T>
-    T elapsed();
+    T elapsedNanoseconds() {
+        return (T) std::chrono::duration_cast<std::chrono::nanoseconds>(getCurrentTime() - begin).count();
+    }
 
 private:
     static TimeStamp getCurrentTime();

@@ -2,13 +2,13 @@
 // Created by robnoo on 26/11/21.
 //
 
-#ifndef DOODLEJUMP_CONCRETEFACTORY_H
-#define DOODLEJUMP_CONCRETEFACTORY_H
+#ifndef DOODLEJUMP_CONCRETEENTITYFACTORY_H
+#define DOODLEJUMP_CONCRETEENTITYFACTORY_H
 
 
-#include "AbstractFactory.h"
+#include "EntityFactory.h"
 
-class ConcreteFactory: public AbstractFactory {
+class ConcreteEntityFactory: public EntityFactory {
 public:
     std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType) override;
     std::shared_ptr<controllers::PlayerController> loadPlayer() override;
@@ -20,4 +20,4 @@ public:
 };
 
 
-#endif //DOODLEJUMP_CONCRETEFACTORY_H
+#endif //DOODLEJUMP_CONCRETEENTITYFACTORY_H

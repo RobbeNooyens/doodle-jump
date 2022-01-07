@@ -6,13 +6,15 @@
 #define DOODLEJUMP_GAMESTATECONTROL_H
 
 
-#include "GameState.h"
+#include "states/GameState.h"
 #include "../enums/GameStateType.h"
 #include "../events/EventHandler.h"
 
+class EntityFactory;
+
 class GameStateControl: public EventHandler {
 public:
-    GameStateControl();
+    explicit GameStateControl(std::shared_ptr<EntityFactory>& factory);
 
     void handle(std::shared_ptr<Event> &event) override;
 
@@ -21,6 +23,7 @@ public:
 
 private:
     std::unique_ptr<GameState> state;
+    std::shared_ptr<EntityFactory> factory;
 
     void replaceState(GameStateType gameStateType);
 };

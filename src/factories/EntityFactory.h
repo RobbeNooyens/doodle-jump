@@ -2,8 +2,8 @@
 // Created by robnoo on 26/11/21.
 //
 
-#ifndef DOODLEJUMP_ABSTRACTFACTORY_H
-#define DOODLEJUMP_ABSTRACTFACTORY_H
+#ifndef DOODLEJUMP_ENTITYFACTORY_H
+#define DOODLEJUMP_ENTITYFACTORY_H
 
 
 #include "../controllers/PlatformController.h"
@@ -12,7 +12,7 @@
 #include "../controllers/TileController.h"
 #include "../enums/PlatformType.h"
 
-class AbstractFactory {
+class EntityFactory {
 public:
     virtual std::shared_ptr<controllers::PlatformController> loadPlatform(PlatformType platformType) = 0;
     virtual std::shared_ptr<controllers::PlayerController> loadPlayer() = 0;
@@ -21,4 +21,4 @@ public:
 };
 
 
-#endif //DOODLEJUMP_ABSTRACTFACTORY_H
+#endif //DOODLEJUMP_ENTITYFACTORY_H

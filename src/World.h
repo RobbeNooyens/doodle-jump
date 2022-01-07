@@ -9,7 +9,7 @@
 #include <vector>
 #include <memory>
 #include "enums/GameStateType.h"
-#include "factories/AbstractFactory.h"
+#include "factories/EntityFactory.h"
 
 class WindowWrapper;
 class WorldGenerator;
@@ -24,7 +24,7 @@ namespace controllers {
 
 class World: public::std::enable_shared_from_this<World> {
 public:
-    explicit World(std::shared_ptr<AbstractFactory>& factory);
+    explicit World(std::shared_ptr<EntityFactory>& factory);
 
     void clear();
     void update(double elapsed);
@@ -37,7 +37,7 @@ public:
     void checkCollisions(double previousPlayerBottom);
 
 private:
-    const std::shared_ptr<WorldGenerator> worldGenerator;
+    std::shared_ptr<WorldGenerator> worldGenerator;
     std::unique_ptr<controllers::PlayerController> player;
 
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;

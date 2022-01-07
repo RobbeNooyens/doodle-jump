@@ -12,6 +12,7 @@ class WindowWrapper;
 class WrapperFactory;
 class EventWrapper;
 class GameState;
+class EntityFactory;
 
 class Game {
 public:
@@ -25,6 +26,8 @@ private:
     void checkKeyboardInput();
 
     std::shared_ptr<GameStateControl> stateControl;
+
+    std::shared_ptr<EntityFactory> entityFactory;
 
     std::shared_ptr<WrapperFactory> wrapperFactory;
     std::shared_ptr<WindowWrapper> window;

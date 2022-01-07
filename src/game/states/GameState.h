@@ -6,14 +6,15 @@
 #define DOODLEJUMP_GAMESTATE_H
 
 #include <memory>
-#include "../enums/GameStateType.h"
+#include "../../enums/GameStateType.h"
 
 class WindowWrapper;
+class EntityFactory;
 
 class GameState {
 public:
     // Constructor
-    explicit GameState(GameStateType type): gameStateType(type) {};
+    explicit GameState(GameStateType type, std::shared_ptr<EntityFactory>& factory): gameStateType(type), factory(factory) {};
 
     // Getters
     GameStateType getType() { return gameStateType; }
@@ -21,6 +22,9 @@ public:
     // Actions
     virtual void update(double elapsed) = 0;
     virtual void draw(std::shared_ptr<WindowWrapper>) = 0;
+
+protected:
+    std::shared_ptr<EntityFactory> factory;
 
 private:
     GameStateType gameStateType;

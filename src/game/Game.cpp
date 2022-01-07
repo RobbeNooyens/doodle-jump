@@ -12,9 +12,12 @@
 #include "../wrappers/WindowWrapper.h"
 #include "../wrappers/EventWrapper.h"
 #include "../wrappers/sfml/SFWrapperFactory.h"
+#include "../factories/ConcreteEntityFactory.h"
 
 Game::Game():
     wrapperFactory(std::make_shared<SFWrapperFactory>()),
+    entityFactory(std::make_shared<ConcreteEntityFactory>()),
+    stateControl(std::make_shared<GameStateControl>(entityFactory)),
     window(wrapperFactory->createWindow(settings::applicationName, settings::screenWidth, settings::screenHeight)),
     event(wrapperFactory->createEvent())
     {

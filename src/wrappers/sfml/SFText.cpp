@@ -3,9 +3,13 @@
 //
 
 #include "SFText.h"
+
+#include <SFML/Graphics/Font.hpp>
+
 #include "../../Settings.h"
 
 bool SFText::fontInitialized = false;
+sf::Font SFText::font;
 
 SFText::SFText(const std::string& content, unsigned int size) {
     if(!fontInitialized) {

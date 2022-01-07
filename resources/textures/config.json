@@ -1,5 +1,5 @@
 {
-  "entities": [
+  "sprites": [
     {
       "id": "player",
       "textures": [
@@ -156,6 +156,25 @@
             "right": 0.5,
             "up": 0.5,
             "down": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "menu",
+      "textures": [
+        {
+          "id": "default",
+          "source": "menu.png",
+          "width": 768,
+          "height": 1024,
+          "bounding_box": {
+            "centerX": 0,
+            "centerY": 0,
+            "left": 0,
+            "right": 1,
+            "up": 0,
+            "down": 1
           }
         }
       ]

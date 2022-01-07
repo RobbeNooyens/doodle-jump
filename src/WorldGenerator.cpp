@@ -6,7 +6,7 @@
 #include "events/ReachedNewHeightEvent.h"
 #include "World.h"
 #include "utils/Random.h"
-#include "factories/ConcreteFactory.h"
+#include "factories/ConcreteEntityFactory.h"
 #include "Settings.h"
 #include "bounding_box/BoundingBox.h"
 #include "Camera.h"
@@ -50,7 +50,7 @@ void WorldGenerator::calculateNextPlatformHeight() {
     }
 }
 
-WorldGenerator::WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<AbstractFactory>& factory):
+WorldGenerator::WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<EntityFactory>& factory):
     world(world),
     factory(factory),
     heightDifference(settings::maxPlatformDifference-settings::minPlatformDifference) {

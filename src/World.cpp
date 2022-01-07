@@ -3,7 +3,7 @@
 //
 
 #include "World.h"
-#include "factories/AbstractFactory.h"
+#include "factories/EntityFactory.h"
 #include "controllers/EntityController.h"
 #include "controllers/PlatformController.h"
 #include "SFML/Graphics.hpp"
@@ -19,8 +19,9 @@
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
-World::World(std::shared_ptr<AbstractFactory>& factory):
-    worldGenerator(std::make_shared<WorldGenerator>(shared_from_this(), factory)) {}
+World::World(std::shared_ptr<EntityFactory>& factory) {
+    worldGenerator = std::make_shared<WorldGenerator>(shared_from_this(), factory);
+}
 
 void World::update(double elapsed) {
     double previousBottom = player->getBoundingBox()->getBottom();

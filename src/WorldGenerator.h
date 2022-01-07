@@ -10,12 +10,12 @@
 #include "enums/PlatformType.h"
 #include "enums/BonusType.h"
 
-class AbstractFactory;
+class EntityFactory;
 class World;
 
 class WorldGenerator {
 public:
-    WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<AbstractFactory>& factory);
+    WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<EntityFactory>& factory);
     void setup();
     void update();
     void reset();
@@ -30,7 +30,7 @@ private:
 
     PlatformType nextPlatformType = STATIC;
 
-    std::shared_ptr<AbstractFactory> factory;
+    std::shared_ptr<EntityFactory> factory;
     std::weak_ptr<World> world;
 
     void generatePlatform();

@@ -9,19 +9,17 @@
 #include "GameState.h"
 
 class World;
-class AbstractFactory;
+class EntityFactory;
 
 class GamePlayingState: public GameState {
 public:
-    GamePlayingState();
+    explicit GamePlayingState(std::shared_ptr<EntityFactory>& factory);
 
     void update(double elapsed) override;
     void draw(std::shared_ptr<WindowWrapper> window) override;
 
 private:
     std::shared_ptr<World> world;
-    std::shared_ptr<AbstractFactory> factory;
-
 };
 
 

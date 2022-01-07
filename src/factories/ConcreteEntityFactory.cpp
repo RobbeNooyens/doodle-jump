@@ -3,12 +3,12 @@
 //
 
 #include <stdexcept>
-#include "ConcreteFactory.h"
+#include "ConcreteEntityFactory.h"
 #include "../events/EventManager.h"
 #include "../Settings.h"
 
 std::shared_ptr<controllers::PlatformController>
-ConcreteFactory::loadPlatform(PlatformType platformType) {
+ConcreteEntityFactory::loadPlatform(PlatformType platformType) {
     std::shared_ptr<controllers::PlatformController> platformController;
     if(platformType == PlatformType::STATIC) {
         platformController = std::make_shared<controllers::StaticPlatformController>();
@@ -26,14 +26,14 @@ ConcreteFactory::loadPlatform(PlatformType platformType) {
     return platformController;
 }
 
-std::shared_ptr<controllers::PlayerController> ConcreteFactory::loadPlayer() {
+std::shared_ptr<controllers::PlayerController> ConcreteEntityFactory::loadPlayer() {
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
     playerController->setSize(60);
     EventManager::getInstance().registerHandler(playerController);
     return playerController;
 }
 
-std::shared_ptr<controllers::BonusController> ConcreteFactory::loadBonus(BonusType bonusType) {
+std::shared_ptr<controllers::BonusController> ConcreteEntityFactory::loadBonus(BonusType bonusType) {
     std::shared_ptr<controllers::BonusController> bonusController;
     if(bonusType == BonusType::SPRING) {
         bonusController = std::make_shared<controllers::SpringController>();
@@ -47,7 +47,7 @@ std::shared_ptr<controllers::BonusController> ConcreteFactory::loadBonus(BonusTy
     return bonusController;
 }
 
-std::shared_ptr<controllers::TileController> ConcreteFactory::loadTile() {
+std::shared_ptr<controllers::TileController> ConcreteEntityFactory::loadTile() {
     std::shared_ptr<controllers::TileController> tileController = std::make_shared<controllers::TileController>();
     tileController->setSize(settings::screenWidth);
     EventManager::getInstance().registerHandler(tileController);

@@ -10,7 +10,7 @@
 
 class GameOverState: public GameState {
 public:
-    GameOverState();
+    explicit GameOverState(std::shared_ptr<EntityFactory>& factory);
 
     void update(double elapsed) override;
     void draw(std::shared_ptr<WindowWrapper> ptr) override;

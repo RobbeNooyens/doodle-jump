@@ -5,6 +5,8 @@
 #ifndef DOODLEJUMP_TEXTWRAPPER_H
 #define DOODLEJUMP_TEXTWRAPPER_H
 
+#include <string>
+
 class TextWrapper {
 public:
     virtual void setText(const std::string& text) = 0;

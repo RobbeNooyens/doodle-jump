@@ -4,8 +4,7 @@
 
 #include "GamePlayingState.h"
 
-#include "../World.h"
-#include "../factories/ConcreteFactory.h"
+#include "../../World.h"
 
 void GamePlayingState::update(double elapsed) {
     world->update(elapsed);
@@ -15,8 +14,7 @@ void GamePlayingState::draw(std::shared_ptr<WindowWrapper> window) {
     world->draw(window);
 }
 
-GamePlayingState::GamePlayingState():
-    GameState(GameStateType::PLAYING),
-    factory(std::make_shared<ConcreteFactory>()),
+GamePlayingState::GamePlayingState(std::shared_ptr<EntityFactory>& factory):
+    GameState(GameStateType::PLAYING, factory),
     world(std::make_shared<World>(factory))
     {}

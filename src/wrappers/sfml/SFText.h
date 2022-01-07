@@ -5,10 +5,12 @@
 #ifndef DOODLEJUMP_SFTEXT_H
 #define DOODLEJUMP_SFTEXT_H
 
-
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include "../TextWrapper.h"
+#include <SFML/Graphics/Text.hpp>
+
+namespace sf {
+    class Font;
+}
 
 class SFText: public TextWrapper {
 public:

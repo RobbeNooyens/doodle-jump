@@ -12,4 +12,4 @@ void GameErrorState::draw(std::shared_ptr<WindowWrapper> ptr) {
 
 }
 
-GameErrorState::GameErrorState(): GameState(GameStateType::ERROR) {}
+GameErrorState::GameErrorState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::ERROR, factory) {}

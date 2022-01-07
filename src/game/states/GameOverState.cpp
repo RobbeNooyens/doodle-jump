@@ -12,4 +12,4 @@ void GameOverState::draw(std::shared_ptr<WindowWrapper> ptr) {
 
 }
 
-GameOverState::GameOverState(): GameState(GameStateType::GAME_OVER) {}
+GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::GAME_OVER, factory) {}
