@@ -11,6 +11,7 @@
 #include "../world/World.h"
 #include "../wrappers/WindowWrapper.h"
 #include "../wrappers/EventWrapper.h"
+#include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/sfml/SFWrapperFactory.h"
 #include "../factories/ConcreteEntityFactory.h"
 

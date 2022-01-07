@@ -17,4 +17,4 @@ void views::PlayerView::lookLeft() {
     }
 }
 
-views::PlayerView::PlayerView() : EntityView() {}
+views::PlayerView::PlayerView() : EntityView("player") {}

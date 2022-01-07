@@ -11,7 +11,7 @@
 std::shared_ptr<controllers::PlatformController>
 ConcreteEntityFactory::loadPlatform(PlatformType platformType) {
     std::shared_ptr<controllers::PlatformController> platformController;
-    std::shared_ptr<SpriteWrapper> platformSprite = wrapperFactory->createSprite("platform");
+    std::shared_ptr<SpriteWrapper> platformSprite = wrapperFactory->createSprite();
     if(platformType == PlatformType::STATIC) {
         platformController = std::make_shared<controllers::StaticPlatformController>();
         platformController->setSprite(platformSprite);
@@ -38,7 +38,7 @@ ConcreteEntityFactory::loadPlatform(PlatformType platformType) {
 
 std::shared_ptr<controllers::PlayerController> ConcreteEntityFactory::loadPlayer() {
     std::shared_ptr<controllers::PlayerController> playerController = std::make_shared<controllers::PlayerController>();
-    playerController->setSprite(wrapperFactory->createSprite("player"));
+    playerController->setSprite(wrapperFactory->createSprite());
     playerController->setSize(settings::playerSize);
     playerController->setTexture("left");
     EventManager::getInstance().registerHandler(playerController);
@@ -47,7 +47,7 @@ std::shared_ptr<controllers::PlayerController> ConcreteEntityFactory::loadPlayer
 
 std::shared_ptr<controllers::BonusController> ConcreteEntityFactory::loadBonus(BonusType bonusType) {
     std::shared_ptr<controllers::BonusController> bonusController;
-    auto bonusSprite = wrapperFactory->createSprite("bonus");
+    auto bonusSprite = wrapperFactory->createSprite();
     if(bonusType == BonusType::SPRING) {
         bonusController = std::make_shared<controllers::SpringController>();
         bonusController->setSprite(bonusSprite);
@@ -66,7 +66,7 @@ std::shared_ptr<controllers::BonusController> ConcreteEntityFactory::loadBonus(B
 
 std::shared_ptr<controllers::TileController> ConcreteEntityFactory::loadTile() {
     std::shared_ptr<controllers::TileController> tileController = std::make_shared<controllers::TileController>();
-    tileController->setSprite(wrapperFactory->createSprite("tile"));
+    tileController->setSprite(wrapperFactory->createSprite());
     tileController->setSize(settings::screenWidth);
     tileController->setTexture("default");
     EventManager::getInstance().registerHandler(tileController);

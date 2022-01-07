@@ -5,12 +5,13 @@
 #include "SFTexture.h"
 
 #include <utility>
+#include <stdexcept>
 
-SFTexture::SFTexture(const double width, const double height, std::shared_ptr<BoundingBox> boundingBox): width(width), height(height), boundingBox(std::move(boundingBox)) {}
-
-void SFTexture::loadFromFile(const std::string &file) {
-    // TODO: error handling
-    texture.loadFromFile(file);
+SFTexture::SFTexture(const std::string& file, const double width, const double height, std::shared_ptr<BoundingBox> boundingBox): width(width), height(height), boundingBox(std::move(boundingBox)) {
+    if(!texture.loadFromFile(file)){
+        // TODO: error handling
+        throw std::runtime_error("Couldn't load texture");
+    }
 }
 
 const std::shared_ptr<BoundingBox> &SFTexture::getBoundingBox() const {

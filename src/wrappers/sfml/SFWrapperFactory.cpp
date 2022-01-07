@@ -9,8 +9,8 @@
 #include "SFText.h"
 #include "SFEvent.h"
 
-std::shared_ptr<SpriteWrapper> SFWrapperFactory::createSprite(const std::string& spriteId) {
-    return std::make_shared<SFSprite>(spriteId);
+std::shared_ptr<SpriteWrapper> SFWrapperFactory::createSprite() {
+    return std::make_shared<SFSprite>();
 }
 
 std::shared_ptr<WindowWrapper>
@@ -24,8 +24,7 @@ std::shared_ptr<TextWrapper> SFWrapperFactory::createText(std::string& content, 
 
 std::shared_ptr<TextureWrapper>
 SFWrapperFactory::createTexture(const std::string &file, double width, double height, std::shared_ptr<BoundingBox> &bbox) {
-    std::shared_ptr<TextureWrapper> texture = std::make_shared<SFTexture>(width, height, bbox);
-    return texture;
+    return std::make_shared<SFTexture>(file, width, height, bbox);
 }
 
 std::shared_ptr<EventWrapper> SFWrapperFactory::createEvent() {

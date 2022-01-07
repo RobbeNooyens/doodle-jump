@@ -28,11 +28,9 @@ bool SFWindow::pollEvent(std::shared_ptr<EventWrapper> &event) {
 }
 
 void SFWindow::draw(const std::shared_ptr<SpriteWrapper> &sprite) {
-    auto sfSprite = std::static_pointer_cast<SFSprite>(sprite);
-    window.draw(sfSprite->getSprite());
+    window.draw(std::static_pointer_cast<SFSprite>(sprite)->getSprite());
 }
 
 void SFWindow::draw(const std::shared_ptr<TextWrapper> &text) {
-    auto sfText = std::static_pointer_cast<SFText>(text);
-    window.draw(sfText->getText());
+    window.draw(std::static_pointer_cast<SFText>(text)->getText());
 }

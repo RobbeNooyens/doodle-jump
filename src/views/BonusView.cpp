@@ -4,4 +4,4 @@
 
 #include "BonusView.h"
 
-views::BonusView::BonusView() : EntityView() {}
+views::BonusView::BonusView() : EntityView("bonus") {}

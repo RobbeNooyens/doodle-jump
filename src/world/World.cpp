@@ -87,7 +87,7 @@ void World::draw(std::shared_ptr<WindowWrapper>& window) {
         platform->draw(window);
     }
     player->draw(window);
-    window->draw(score);
+//    window->draw(score);
 }
 
 void World::checkCollisions(double previousPlayerBottom) {

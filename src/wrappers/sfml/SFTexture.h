@@ -13,10 +13,7 @@
 class SFTexture: public TextureWrapper {
 public:
     // Constructor
-    SFTexture(double width, double height, std::shared_ptr<BoundingBox> boundingBox);
-
-    // Loader
-    void loadFromFile(const std::string &file) override;
+    SFTexture(const std::string& file, double width, double height, std::shared_ptr<BoundingBox> boundingBox);
 
     // Getters
     const std::shared_ptr<BoundingBox> &getBoundingBox() const override;

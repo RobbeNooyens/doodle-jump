@@ -12,8 +12,6 @@ class BoundingBox;
 
 class TextureWrapper {
 public:
-    virtual void loadFromFile(const std::string& file) = 0;
-
     [[nodiscard]] virtual const std::shared_ptr<BoundingBox>& getBoundingBox() const = 0;
     [[nodiscard]] virtual double getWidth() const = 0;
     [[nodiscard]] virtual double getHeight() const = 0;

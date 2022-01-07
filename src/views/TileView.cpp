@@ -4,4 +4,4 @@
 
 #include "TileView.h"
 
-views::TileView::TileView() : EntityView() {}
+views::TileView::TileView() : EntityView("tile") {}

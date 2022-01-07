@@ -23,7 +23,7 @@ public:
     void setTexture(std::shared_ptr<TextureWrapper> &texture) override;
 
 private:
-    sf::Sprite sprite;
+    sf::Sprite sprite{};
 };
 
 
