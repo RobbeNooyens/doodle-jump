@@ -5,6 +5,7 @@
 #include "EntityView.h"
 
 #include <utility>
+#include <iostream>
 #include "../bounding_box/BoundingBox.h"
 #include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/TextureWrapper.h"
@@ -40,8 +41,8 @@ void EntityView::updateSize() {
     this->sizeY = (size*texture->getHeight())/texture->getWidth();
 }
 
-void EntityView::setSprite(std::shared_ptr<SpriteWrapper> &spriteWrapper) {
-    this->sprite = spriteWrapper;
+void EntityView::setSprite(std::shared_ptr<SpriteWrapper> spriteWrapper) {
+    this->sprite = std::move(spriteWrapper);
 }
 
 const std::shared_ptr<TextureWrapper> &EntityView::getTexture() {

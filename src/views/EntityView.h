@@ -24,7 +24,7 @@ public:
     void setSize(double size);
     void setPosition(double x, double y);
     void setTexture(const std::string& textureId);
-    void setSprite(std::shared_ptr<SpriteWrapper>& spriteWrapper);
+    void setSprite(std::shared_ptr<SpriteWrapper> spriteWrapper);
 
 protected:
     const std::string spriteId;

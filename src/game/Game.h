@@ -22,9 +22,6 @@ public:
 private:
     bool running = true;
 
-    void checkEvents();
-    void checkKeyboardInput();
-
     std::shared_ptr<GameStateControl> stateControl;
 
     std::shared_ptr<EntityFactory> entityFactory;

@@ -9,7 +9,7 @@
 #include "../../utils/TextureLoader.h"
 
 void SFSprite::setPosition(float x, float y) {
-    sprite.move(x, y);
+    sprite.setPosition(x, y);
 }
 
 sf::Sprite &SFSprite::getSprite() {

@@ -2,6 +2,7 @@
 // Created by robbe on 20/11/2021.
 //
 
+#include <iostream>
 #include "Game.h"
 #include "../utils/Stopwatch.h"
 #include "../events/Event.h"
@@ -14,14 +15,15 @@
 #include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/sfml/SFWrapperFactory.h"
 #include "../factories/ConcreteEntityFactory.h"
+#include "../ScoreManager.h"
 
 Game::Game() {
     wrapperFactory = std::make_shared<SFWrapperFactory>();
+    TextureLoader::getInstance().load(wrapperFactory);
     entityFactory = std::make_shared<ConcreteEntityFactory>(wrapperFactory);
     stateControl = std::make_shared<GameStateControl>(entityFactory);
     window = wrapperFactory->createWindow(settings::applicationName, settings::screenWidth, settings::screenHeight);
     event = wrapperFactory->createEvent();
-    TextureLoader::getInstance().load(wrapperFactory);
     EventManager::getInstance().registerHandler(stateControl);
 }
 
@@ -30,6 +32,13 @@ void Game::run() {
 
     // Calculate min cycle time for a given FPS (ns)
     const double minCycleTime = 1000000000.0 / settings::FPS;
+
+//    auto test = wrapperFactory->createSprite();
+//    auto testTexture = TextureLoader::getInstance().getTexture("player", "left");
+//    test->setTexture(testTexture);
+//    test->setPosition(0,0);
+//    test->setScale(0.05, 0.05);
+    auto test = entityFactory->loadPlayer();
 
     // Game loop
     while (window->isOpen() && running) {
@@ -40,32 +49,26 @@ void Game::run() {
         auto elapsedNS = Stopwatch::getInstance().elapsedNanoseconds<double>();
         Stopwatch::getInstance().reset();
 
-        checkEvents();
-        checkKeyboardInput();
+        while (window->pollEvent(event)) {
+            if(event->getType() == WindowEventType::WINDOW_CLOSED)
+                running = false;
+            else if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR)
+                EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(Keyboard::SPACEBAR));
+        }
 
-        stateControl->update(elapsedNS/1000000000);
+        for(auto key: {ARROW_LEFT, A, ARROW_RIGHT, D}) {
+            if(event->isKeyPressed(key)) {
+                EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(key));
+                break;
+            }
+        }
+
+        stateControl->update(elapsedNS/1000000000.0);
 
         window->clear();
         stateControl->draw(window);
+//        test->draw(window);
         window->display();
     }
 
-}
-
-void Game::checkEvents() {
-    while (window->pollEvent(event)) {
-        if(event->getType() == WindowEventType::WINDOW_CLOSED)
-            running = false;
-        else if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR)
-            EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(Keyboard::SPACEBAR));
-    }
-}
-
-void Game::checkKeyboardInput() {
-    for(auto key: {ARROW_LEFT, A, ARROW_RIGHT, D}) {
-        if(event->isKeyPressed(key)) {
-            EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(key));
-            break;
-        }
-    }
 }

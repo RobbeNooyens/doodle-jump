@@ -3,6 +3,9 @@
 //
 
 #include "EntityController.h"
+
+#include <utility>
+#include <iostream>
 #include "../views/EntityView.h"
 #include "../models/EntityModel.h"
 #include "../Settings.h"
@@ -28,7 +31,7 @@ void EntityController::update(double elapsed) {
     model->updateBoundingBox();
     view->setPosition(model->getX(), model->getY());
     if(model->getBoundingBox()->getTop() > settings::screenHeight+40) {
-        // Do some check for vertical platforms and bonuses
+        // TODO Do some check for vertical platforms and bonuses
         destroy();
     }
 }
@@ -75,5 +78,5 @@ void EntityController::setTexture(const std::string &textureId) {
 }
 
 void EntityController::setSprite(std::shared_ptr<SpriteWrapper> sprite) {
-    view->setSprite(sprite);
+    view->setSprite(std::move(sprite));
 }

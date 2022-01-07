@@ -8,6 +8,7 @@
 
 #include "GameState.h"
 
+class SpriteWrapper;
 class TileController;
 
 class GameMenuState: public GameState {
@@ -18,7 +19,7 @@ public:
     void draw(std::shared_ptr<WindowWrapper> window) override;
 
 private:
-    std::shared_ptr<TileController> menu;
+    std::shared_ptr<SpriteWrapper> menu;
 };
 
 

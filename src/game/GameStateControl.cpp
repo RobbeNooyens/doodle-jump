@@ -60,6 +60,6 @@ void GameStateControl::replaceState(GameStateType gameStateType) {
 }
 
 GameStateControl::GameStateControl(std::shared_ptr<EntityFactory>& factory):
-    state(std::make_unique<GameMenuState>(factory)),
+    state(std::make_unique<GamePlayingState>(factory)),
     factory(factory) {
 }

@@ -83,7 +83,7 @@ void models::PlayerModel::bounceOnPlatform(double surfaceHeight) {
 }
 
 void models::PlayerModel::checkMaxHeight() {
-    if(y <= settings::maxHeight) {
+    if(y < settings::maxHeight) {
         double difference = settings::maxHeight - y;
         y = settings::maxHeight;
         ScoreManager::getInstance().addScore(difference);

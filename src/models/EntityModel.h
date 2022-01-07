@@ -39,8 +39,6 @@ protected:
     double x = 0, y = 0;
     std::shared_ptr<BoundingBox> relativeBBox;
     std::shared_ptr<BoundingBox> absoluteBBox;
-    std::weak_ptr<EntityController> controller;
-
 };
 
 

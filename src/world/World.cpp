@@ -2,6 +2,7 @@
 // Created by robbe on 20/11/2021.
 //
 
+#include <iostream>
 #include "World.h"
 #include "../events/Event.h"
 #include "../events/EventManager.h"
@@ -12,8 +13,6 @@
 #include "../wrappers/WindowWrapper.h"
 #include "../wrappers/TextWrapper.h"
 #include "WorldGenerator.h"
-
-#define RENDER_BBOX(yesno) if(!yesno) return;
 
 World::World(std::shared_ptr<EntityFactory>& factory) {}
 
@@ -46,7 +45,6 @@ void World::update(double elapsed) {
             tile->recycle();
         }
     }
-
     // Update score
     // TODO update
 //    score->setText(std::to_string((int) ScoreManager::getInstance().getScore()));
@@ -62,18 +60,6 @@ void World::clear() {
         bonus.reset();
     }
     bonuses.clear();
-}
-
-void drawBoundingBox(std::shared_ptr<WindowWrapper> &window, const std::shared_ptr<EntityController>& entity) {
-    RENDER_BBOX(false)
-//    auto box = entity->getBoundingBox();
-//    sf::RectangleShape cbox;
-//    cbox.setSize(sf::Vector2f(box->getWidth(), box->getHeight()));
-//    cbox.setPosition(box->getLeft(), box->getTop());
-//    cbox.setOutlineColor(sf::Color::Red);
-//    cbox.setOutlineThickness(1);
-//    cbox.setFillColor(sf::Color::Transparent);
-//    window.draw(cbox);
 }
 
 void World::draw(std::shared_ptr<WindowWrapper>& window) {
