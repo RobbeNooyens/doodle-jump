@@ -24,7 +24,8 @@ void TextureLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
     json j;
     input >> j;
 
-    for(const auto& entity: j["entities"]) {
+    // TODO error checking
+    for(const auto& entity: j["sprites"]) {
         std::string entity_id = entity["id"];
         auto textures_map = std::map<std::string, std::shared_ptr<TextureWrapper>>();
         for(const auto& texture: entity["textures"]) {

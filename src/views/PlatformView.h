@@ -10,7 +10,7 @@
 namespace views {
     class PlatformView: public EntityView {
     public:
-        explicit PlatformView(std::shared_ptr<EntityController> controller);
+        PlatformView();
 
     };
 }

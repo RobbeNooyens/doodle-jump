@@ -10,11 +10,11 @@
 
 class EntityModel;
 class EntityView;
-class Resource;
 class BoundingBox;
 class WindowWrapper;
+class SpriteWrapper;
 
-class EntityController: public EventHandler, public std::enable_shared_from_this<EntityController> {
+class EntityController: public EventHandler {
 public:
     // Constructor
     EntityController();
@@ -27,17 +27,18 @@ public:
     // Actions
     void changeY(double value);
     void destroy();
-    void setTexture(const std::string& textureId);
 
     // Setters
     void setSize(double size);
+    void setSprite(std::shared_ptr<SpriteWrapper> sprite);
+    void setTexture(const std::string& textureId);
     void setPosition(double x, double y);
     void setDestroyed(bool d);
 
     // Getters
     std::shared_ptr<BoundingBox> getBoundingBox();
-    bool isDestroyed() const;
-    long getId() const;
+    [[nodiscard]] bool isDestroyed() const;
+    [[nodiscard]] long getId() const;
 
 protected:
     std::shared_ptr<EntityModel> model;

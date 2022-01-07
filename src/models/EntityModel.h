@@ -13,10 +13,12 @@ class BoundingBox;
 
 class EntityModel {
 public:
-    explicit EntityModel(std::shared_ptr<EntityController>& controller);
+    EntityModel();
 
     // Actions
     virtual void update(double elapsed) = 0;
+
+    // TODO: check usage
     void updateBoundingBox();
 
     // Getters

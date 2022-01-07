@@ -3,25 +3,19 @@
 //
 
 #include "World.h"
-#include "factories/EntityFactory.h"
-#include "controllers/EntityController.h"
-#include "controllers/PlatformController.h"
-#include "SFML/Graphics.hpp"
-#include "events/Event.h"
-#include "events/EventManager.h"
-#include "ScoreManager.h"
-#include "bounding_box/BoundingBox.h"
-#include "events/PlayerUsesBonusEvent.h"
-#include "events/PlayerBouncesOnPlatformEvent.h"
-#include "wrappers/WindowWrapper.h"
-#include "wrappers/TextWrapper.h"
+#include "../events/Event.h"
+#include "../events/EventManager.h"
+#include "../ScoreManager.h"
+#include "../bounding_box/BoundingBox.h"
+#include "../events/PlayerUsesBonusEvent.h"
+#include "../events/PlayerBouncesOnPlatformEvent.h"
+#include "../wrappers/WindowWrapper.h"
+#include "../wrappers/TextWrapper.h"
 #include "WorldGenerator.h"
 
 #define RENDER_BBOX(yesno) if(!yesno) return;
 
-World::World(std::shared_ptr<EntityFactory>& factory) {
-    worldGenerator = std::make_shared<WorldGenerator>(shared_from_this(), factory);
-}
+World::World(std::shared_ptr<EntityFactory>& factory) {}
 
 void World::update(double elapsed) {
     double previousBottom = player->getBoundingBox()->getBottom();
@@ -53,11 +47,9 @@ void World::update(double elapsed) {
         }
     }
 
-    // Update worldgenerator
-    worldGenerator->update();
-
     // Update score
-    score->setText(std::to_string((int) ScoreManager::getInstance().getScore()));
+    // TODO update
+//    score->setText(std::to_string((int) ScoreManager::getInstance().getScore()));
 }
 
 void World::clear() {
@@ -96,18 +88,6 @@ void World::draw(std::shared_ptr<WindowWrapper>& window) {
     }
     player->draw(window);
     window->draw(score);
-}
-
-void World::addPlatform(std::shared_ptr<controllers::PlatformController> &platform) {
-    platforms.push_back(platform);
-}
-
-void World::addBonus(std::shared_ptr<controllers::BonusController> &bonus) {
-    bonuses.push_back(bonus);
-}
-
-void World::addTile(std::shared_ptr<controllers::TileController> &tile) {
-    tiles.push_back(tile);
 }
 
 void World::checkCollisions(double previousPlayerBottom) {

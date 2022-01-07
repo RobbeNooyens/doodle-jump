@@ -4,7 +4,7 @@
 
 #include <algorithm>
 #include "PlayerModel.h"
-#include "../World.h"
+#include "../world/World.h"
 #include "../events/ReachedNewHeightEvent.h"
 #include "../events/EventManager.h"
 #include "../ScoreManager.h"
@@ -52,7 +52,7 @@ void models::PlayerModel::update(double elapsed) {
     }
 }
 
-models::PlayerModel::PlayerModel(std::shared_ptr<EntityController> controller): EntityModel(controller) {}
+models::PlayerModel::PlayerModel(): EntityModel() {}
 
 void models::PlayerModel::bounce(double from) {
     verticalDirection = UP;

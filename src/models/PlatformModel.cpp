@@ -6,11 +6,11 @@
 #include "../Settings.h"
 #include "../bounding_box/BoundingBox.h"
 
-models::PlatformModel::PlatformModel(std::shared_ptr<EntityController>& controller): EntityModel(controller) {}
+models::PlatformModel::PlatformModel(): EntityModel() {}
 
 // Horizontal Platform
 // ===================
-models::HorizontalPlatform::HorizontalPlatform(std::shared_ptr<EntityController> controller): PlatformModel(controller), screenWidth(settings::screenWidth) {}
+models::HorizontalPlatform::HorizontalPlatform(): PlatformModel(), screenWidth(settings::screenWidth) {}
 
 void models::HorizontalPlatform::update(double elapsed) {
     if(direction == RIGHT) {
@@ -32,13 +32,13 @@ void models::HorizontalPlatform::update(double elapsed) {
 
 // Temporary Platform
 // ==================
-models::TemporaryPlatform::TemporaryPlatform(std::shared_ptr<EntityController> controller): PlatformModel(controller) {}
+models::TemporaryPlatform::TemporaryPlatform(): PlatformModel() {}
 
 void models::TemporaryPlatform::update(double elapsed) {}
 
 // Vertical Platform
 // =================
-models::VerticalPlatform::VerticalPlatform(std::shared_ptr<EntityController> controller): PlatformModel(controller) {}
+models::VerticalPlatform::VerticalPlatform(): PlatformModel() {}
 
 void models::VerticalPlatform::update(double elapsed) {
     if(direction == UP) {
@@ -65,6 +65,6 @@ void models::VerticalPlatform::update(double elapsed) {
 
 // Static Platform
 // ===============
-models::StaticPlatform::StaticPlatform(std::shared_ptr<EntityController> controller): PlatformModel(controller) {}
+models::StaticPlatform::StaticPlatform(): PlatformModel() {}
 
 void models::StaticPlatform::update(double elapsed) {}

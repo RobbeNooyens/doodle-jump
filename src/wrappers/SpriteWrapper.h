@@ -11,8 +11,7 @@ class TextureWrapper;
 
 class SpriteWrapper {
 public:
-    virtual const std::shared_ptr<TextureWrapper>& getTexture() = 0;
-    virtual void setTexture(const std::string &identifier) = 0;
+    virtual void setTexture(std::shared_ptr<TextureWrapper>& texture) = 0;
     virtual void setPosition(float x, float y) = 0;
     virtual void setScale(float factorX, float factorY) = 0;
 };

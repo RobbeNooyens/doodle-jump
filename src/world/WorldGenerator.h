@@ -7,8 +7,8 @@
 
 
 #include <memory>
-#include "enums/PlatformType.h"
-#include "enums/BonusType.h"
+#include "../enums/PlatformType.h"
+#include "../enums/BonusType.h"
 
 class EntityFactory;
 class World;
@@ -31,7 +31,7 @@ private:
     PlatformType nextPlatformType = STATIC;
 
     std::shared_ptr<EntityFactory> factory;
-    std::weak_ptr<World> world;
+    std::shared_ptr<World> world;
 
     void generatePlatform();
     void calculateNextPlatformHeight();

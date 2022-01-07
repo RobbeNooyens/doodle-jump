@@ -17,6 +17,4 @@ void views::PlayerView::lookLeft() {
     }
 }
 
-views::PlayerView::PlayerView(std::shared_ptr<EntityController> controller) : EntityView(controller) {
-
-}
+views::PlayerView::PlayerView() : EntityView() {}

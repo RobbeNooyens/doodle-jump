@@ -16,19 +16,14 @@ class SFTexture;
 
 class SFSprite: public SpriteWrapper {
 public:
-    explicit SFSprite(std::string spriteId);
-    void setTexture(const std::string &identifier) override;
-    void setPosition(float x, float y) override;
     sf::Sprite& getSprite();
 
-    const std::shared_ptr<TextureWrapper> &getTexture() override;
-
+    void setPosition(float x, float y) override;
     void setScale(float factorX, float factorY) override;
+    void setTexture(std::shared_ptr<TextureWrapper> &texture) override;
 
 private:
-    const std::string spriteId;
     sf::Sprite sprite;
-    std::shared_ptr<TextureWrapper> texture;
 };
 
 

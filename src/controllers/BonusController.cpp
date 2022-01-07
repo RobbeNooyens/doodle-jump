@@ -11,7 +11,7 @@
 #include "../controllers/PlatformController.h"
 
 controllers::BonusController::BonusController(BonusType type): EntityController(), bonusType(type) {
-    view = std::make_shared<views::BonusView>(shared_from_this());
+    view = std::make_shared<views::BonusView>();
 }
 
 void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
@@ -53,8 +53,8 @@ BonusType controllers::BonusController::getType() {
 }
 
 controllers::SpringController::SpringController(): BonusController(SPRING) {
-    model = std::make_shared<models::SpringModel>(shared_from_this());
-    setTexture("spring");
+    model = std::make_shared<models::SpringModel>();
+//    setTexture("spring");
 }
 
 void controllers::SpringController::use() {
@@ -62,8 +62,8 @@ void controllers::SpringController::use() {
 }
 
 controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
-    model = std::make_shared<models::JetpackModel>(shared_from_this());
-    setTexture("jetpack");
+    model = std::make_shared<models::JetpackModel>();
+//    setTexture("jetpack");
 }
 
 void controllers::JetpackController::use() {

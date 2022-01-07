@@ -14,18 +14,18 @@ namespace models {
         void update(double elapsed) override = 0;
 
     protected:
-        explicit PlatformModel(std::shared_ptr<EntityController>& controller);
+        PlatformModel();
     };
 
     class StaticPlatform: public PlatformModel {
     public:
-        explicit StaticPlatform(std::shared_ptr<EntityController> controller);
+        StaticPlatform();
         void update(double elapsed) override;
     };
 
     class HorizontalPlatform: public PlatformModel {
     public:
-        explicit HorizontalPlatform(std::shared_ptr<EntityController> controller);
+        HorizontalPlatform();
         void update(double elapsed) override;
 
     private:
@@ -36,7 +36,7 @@ namespace models {
 
     class VerticalPlatform: public PlatformModel{
     public:
-        explicit VerticalPlatform(std::shared_ptr<EntityController> controller);
+        VerticalPlatform();
         void update(double elapsed) override;
     private:
         Direction direction = UP;
@@ -47,7 +47,7 @@ namespace models {
 
     class TemporaryPlatform: public PlatformModel{
     public:
-        explicit TemporaryPlatform(std::shared_ptr<EntityController> controller);
+        TemporaryPlatform();
         void update(double elapsed) override;
     };
 }

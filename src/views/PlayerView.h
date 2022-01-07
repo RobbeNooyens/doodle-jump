@@ -14,7 +14,7 @@ enum PlayerOrientation { ORIENTATION_LEFT, ORIENTATION_RIGHT };
 namespace views {
     class PlayerView: public EntityView {
     public:
-        explicit PlayerView(std::shared_ptr<EntityController> controller);
+        PlayerView();
 
         void lookRight();
         void lookLeft();

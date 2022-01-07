@@ -11,27 +11,27 @@
 #include "../views/PlatformView.h"
 
 controllers::PlatformController::PlatformController(PlatformType type): EntityController(), platformType(type) {
-    view = std::make_shared<views::PlatformView>(shared_from_this());
+    view = std::make_shared<views::PlatformView>();
 }
 
 controllers::StaticPlatformController::StaticPlatformController(): PlatformController(STATIC) {
-    model = std::make_shared<models::StaticPlatform>(shared_from_this());
-    setTexture("static");
+    model = std::make_shared<models::StaticPlatform>();
+//    setTexture("static");
 }
 
 controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController(TEMPORARY) {
-    model = std::make_shared<models::TemporaryPlatform>(shared_from_this());
-    setTexture("temporary");
+    model = std::make_shared<models::TemporaryPlatform>();
+//    setTexture("temporary");
 }
 
 controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController(HORIZONTAL) {
-    model = std::make_shared<models::HorizontalPlatform>(shared_from_this());
-    setTexture("horizontal");
+    model = std::make_shared<models::HorizontalPlatform>();
+//    setTexture("horizontal");
 }
 
 controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController(VERTICAL) {
-    model = std::make_shared<models::VerticalPlatform>(shared_from_this());
-    setTexture("vertical");
+    model = std::make_shared<models::VerticalPlatform>();
+//    setTexture("vertical");
 }
 
 PlatformType controllers::PlatformController::getType() {

@@ -8,22 +8,21 @@
 #include "../events/KeyPressedEvent.h"
 #include "../events/EventManager.h"
 #include "../utils/TextureLoader.h"
-#include "../World.h"
+#include "../world/World.h"
 #include "../wrappers/WindowWrapper.h"
 #include "../wrappers/EventWrapper.h"
 #include "../wrappers/sfml/SFWrapperFactory.h"
 #include "../factories/ConcreteEntityFactory.h"
 
-Game::Game():
-    wrapperFactory(std::make_shared<SFWrapperFactory>()),
-    entityFactory(std::make_shared<ConcreteEntityFactory>()),
-    stateControl(std::make_shared<GameStateControl>(entityFactory)),
-    window(wrapperFactory->createWindow(settings::applicationName, settings::screenWidth, settings::screenHeight)),
-    event(wrapperFactory->createEvent())
-    {
-        TextureLoader::getInstance().load(wrapperFactory);
-        EventManager::getInstance().registerHandler(stateControl);
-    }
+Game::Game() {
+    wrapperFactory = std::make_shared<SFWrapperFactory>();
+    entityFactory = std::make_shared<ConcreteEntityFactory>(wrapperFactory);
+    stateControl = std::make_shared<GameStateControl>(entityFactory);
+    window = wrapperFactory->createWindow(settings::applicationName, settings::screenWidth, settings::screenHeight);
+    event = wrapperFactory->createEvent();
+    TextureLoader::getInstance().load(wrapperFactory);
+    EventManager::getInstance().registerHandler(stateControl);
+}
 
 void Game::run() {
     Stopwatch::getInstance().reset();

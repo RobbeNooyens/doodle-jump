@@ -10,7 +10,7 @@
 namespace models {
     class TileModel: public EntityModel {
     public:
-        explicit TileModel(std::shared_ptr<EntityController> controller);
+        TileModel();
 
         void update(double elapsed) override;
 

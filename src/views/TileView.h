@@ -10,7 +10,7 @@
 namespace views {
     class TileView: public EntityView {
     public:
-        explicit TileView(std::shared_ptr<EntityController> controller);
+        TileView();
     };
 }
 

@@ -22,7 +22,7 @@ public:
     void draw(std::shared_ptr<WindowWrapper>& window);
 
 private:
-    std::unique_ptr<GameState> state;
+    std::shared_ptr<GameState> state;
     std::shared_ptr<EntityFactory> factory;
 
     void replaceState(GameStateType gameStateType);

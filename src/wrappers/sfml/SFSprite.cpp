@@ -16,17 +16,10 @@ sf::Sprite &SFSprite::getSprite() {
     return sprite;
 }
 
-void SFSprite::setTexture(const std::string &identifier) {
-    texture = TextureLoader::getInstance().getTexture(spriteId, identifier);
-    sprite.setTexture(std::static_pointer_cast<SFTexture>(texture)->getTexture());
-}
-
-SFSprite::SFSprite(std::string spriteId): spriteId(std::move(spriteId)) {}
-
-const std::shared_ptr<TextureWrapper> &SFSprite::getTexture() {
-    return texture;
-}
-
 void SFSprite::setScale(float factorX, float factorY) {
+    sprite.setScale(factorX, factorY);
+}
 
+void SFSprite::setTexture(std::shared_ptr<TextureWrapper> &texture) {
+    sprite.setTexture(std::static_pointer_cast<SFTexture>(texture)->getTexture());
 }

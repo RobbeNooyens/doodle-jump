@@ -8,8 +8,8 @@
 #include "../events/ReachedNewHeightEvent.h"
 
 controllers::TileController::TileController(): EntityController() {
-    model = std::make_shared<models::TileModel>(shared_from_this());
-    view = std::make_shared<views::TileView>(shared_from_this());
+    model = std::make_shared<models::TileModel>();
+    view = std::make_shared<views::TileView>();
 }
 
 void controllers::TileController::handle(std::shared_ptr<Event> &event) {

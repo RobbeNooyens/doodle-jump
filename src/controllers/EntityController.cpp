@@ -28,6 +28,7 @@ void EntityController::update(double elapsed) {
     model->updateBoundingBox();
     view->setPosition(model->getX(), model->getY());
     if(model->getBoundingBox()->getTop() > settings::screenHeight+40) {
+        // Do some check for vertical platforms and bonuses
         destroy();
     }
 }
@@ -49,6 +50,7 @@ EntityController::EntityController() {
 }
 
 std::shared_ptr<BoundingBox> EntityController::getBoundingBox() {
+    model->updateBoundingBox();
     return model->getBoundingBox();
 }
 
@@ -66,8 +68,12 @@ void EntityController::draw(std::shared_ptr<WindowWrapper>& window) {
 
 void EntityController::setTexture(const std::string &textureId) {
     view->setTexture(textureId);
-    auto texture = view->getSprite()->getTexture();
+    auto texture = view->getTexture();
     model->setRelativeBBox(texture->getBoundingBox());
     model->setWidth(texture->getWidth());
     model->setHeight(texture->getHeight());
+}
+
+void EntityController::setSprite(std::shared_ptr<SpriteWrapper> sprite) {
+    view->setSprite(sprite);
 }

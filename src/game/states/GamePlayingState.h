@@ -9,6 +9,7 @@
 #include "GameState.h"
 
 class World;
+class WorldGenerator;
 class EntityFactory;
 
 class GamePlayingState: public GameState {
@@ -20,6 +21,7 @@ public:
 
 private:
     std::shared_ptr<World> world;
+    std::shared_ptr<WorldGenerator> worldGenerator;
 };
 
 

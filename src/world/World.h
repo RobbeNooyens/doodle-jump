@@ -5,11 +5,10 @@
 #ifndef DOODLEJUMP_WORLD_H
 #define DOODLEJUMP_WORLD_H
 
+#include "../factories/EntityFactory.h"
 
 #include <vector>
 #include <memory>
-#include "enums/GameStateType.h"
-#include "factories/EntityFactory.h"
 
 class WindowWrapper;
 class WorldGenerator;
@@ -22,7 +21,7 @@ namespace controllers {
     class TileController;
 }
 
-class World: public::std::enable_shared_from_this<World> {
+class World {
 public:
     explicit World(std::shared_ptr<EntityFactory>& factory);
 
@@ -30,21 +29,17 @@ public:
     void update(double elapsed);
     void draw(std::shared_ptr<WindowWrapper>& window);
 
-    void addPlatform(std::shared_ptr<controllers::PlatformController>& platform);
-    void addBonus(std::shared_ptr<controllers::BonusController>& bonus);
-    void addTile(std::shared_ptr<controllers::TileController>& tile);
-
-    void checkCollisions(double previousPlayerBottom);
-
 private:
-    std::shared_ptr<WorldGenerator> worldGenerator;
-    std::unique_ptr<controllers::PlayerController> player;
+    friend class WorldGenerator;
+
+    std::shared_ptr<controllers::PlayerController> player;
 
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
     std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
     std::vector<std::shared_ptr<controllers::TileController>> tiles;
-
     std::shared_ptr<TextWrapper> score;
+
+    void checkCollisions(double previousPlayerBottom);
 
 };
 

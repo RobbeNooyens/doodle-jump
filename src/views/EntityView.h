@@ -10,23 +10,29 @@
 
 class EntityController;
 class SpriteWrapper;
+class TextureWrapper;
 
 class EntityView {
 public:
-    explicit EntityView(std::shared_ptr<EntityController>& controller);
+    explicit EntityView(std::string spriteId);
 
     // Getters
     const std::shared_ptr<SpriteWrapper>& getSprite();
+    const std::shared_ptr<TextureWrapper>& getTexture();
 
     // Setters
     void setSize(double size);
     void setPosition(double x, double y);
     void setTexture(const std::string& textureId);
+    void setSprite(std::shared_ptr<SpriteWrapper>& spriteWrapper);
 
 protected:
-    double sizeX = 0, sizeY = 0;
+    const std::string spriteId;
+    double size = 1, sizeX = 1, sizeY = 1;
+    std::shared_ptr<TextureWrapper> texture;
     std::shared_ptr<SpriteWrapper> sprite;
-    std::weak_ptr<EntityController> controller;
+
+    void updateSize();
 };
 
 #endif //DOODLEJUMP_ENTITYVIEW_H

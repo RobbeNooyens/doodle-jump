@@ -2,34 +2,50 @@
 // Created by robnoo on 28/11/21.
 //
 
-#include <utility>
 #include "EntityView.h"
+
+#include <utility>
 #include "../bounding_box/BoundingBox.h"
 #include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/TextureWrapper.h"
+#include "../utils/TextureLoader.h"
 
 void EntityView::setPosition(double x, double y) {
-    auto center = sprite->getTexture()->getBoundingBox()->getCenter();
+    auto center = texture->getBoundingBox()->getCenter();
     float pixelX = x - center.first*(sizeX);
     float pixelY = y - center.second*(sizeY);
     sprite->setPosition(pixelX, pixelY);
 }
 
 void EntityView::setSize(double s) {
-    auto texture = sprite->getTexture();
-    double scale = s/texture->getWidth();
-    sprite->setScale((float) scale, (float) scale);
-    this->sizeX = s;
-    this->sizeY = (s*texture->getHeight())/texture->getWidth();
+    this->size = s;
+    if(texture)
+        updateSize();
 }
 
 void EntityView::setTexture(const std::string &textureId) {
-    this->sprite->setTexture(textureId);
+    texture = TextureLoader::getInstance().getTexture(spriteId, textureId);
+    sprite->setTexture(texture);
+    updateSize();
 }
-
-EntityView::EntityView(std::shared_ptr<EntityController>& controller):
-    controller(controller) {}
 
 const std::shared_ptr<SpriteWrapper> &EntityView::getSprite() {
     return sprite;
 }
+
+void EntityView::updateSize() {
+    double scale = size/texture->getWidth();
+    sprite->setScale((float) scale, (float) scale);
+    this->sizeX = size;
+    this->sizeY = (size*texture->getHeight())/texture->getWidth();
+}
+
+void EntityView::setSprite(std::shared_ptr<SpriteWrapper> &spriteWrapper) {
+    this->sprite = spriteWrapper;
+}
+
+const std::shared_ptr<TextureWrapper> &EntityView::getTexture() {
+    return texture;
+}
+
+EntityView::EntityView(std::string spriteId): spriteId(std::move(spriteId)) {}

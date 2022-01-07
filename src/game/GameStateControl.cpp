@@ -9,7 +9,7 @@
 #include "states/GameOverState.h"
 #include "states/GamePlayingState.h"
 #include "states/GameErrorState.h"
-#include "../World.h"
+#include "../world/World.h"
 
 void GameStateControl::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == GameEventType::PLAYER_DIED) {
@@ -20,6 +20,7 @@ void GameStateControl::handle(std::shared_ptr<Event> &event) {
             switch (state->getType()) {
                 case MENU:
                     replaceState(PLAYING);
+                    break;
                 case PLAYING:
                     break;
                 case GAME_OVER:
@@ -43,16 +44,16 @@ void GameStateControl::replaceState(GameStateType gameStateType) {
     state.reset();
     switch (gameStateType) {
         case MENU:
-            state = std::make_unique<GameMenuState>(factory);
+            state = std::make_shared<GameMenuState>(factory);
             break;
         case PLAYING:
-            state = std::make_unique<GamePlayingState>(factory);
+            state = std::make_shared<GamePlayingState>(factory);
             break;
         case GAME_OVER:
-            state = std::make_unique<GameOverState>(factory);
+            state = std::make_shared<GameOverState>(factory);
             break;
         case ERROR:
-            state = std::make_unique<GameErrorState>(factory);
+            state = std::make_shared<GameErrorState>(factory);
             break;
     }
 
@@ -60,4 +61,5 @@ void GameStateControl::replaceState(GameStateType gameStateType) {
 
 GameStateControl::GameStateControl(std::shared_ptr<EntityFactory>& factory):
     state(std::make_unique<GameMenuState>(factory)),
-    factory(factory) {}
+    factory(factory) {
+}
