@@ -5,7 +5,7 @@
 #include "BonusController.h"
 #include "../models/BonusModel.h"
 #include "../views/BonusView.h"
-#include "../events/ReachedNewHeightEvent.h"
+#include "../events/HeightChangedEvent.h"
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
 #include "../controllers/PlatformController.h"
@@ -15,8 +15,8 @@ controllers::BonusController::BonusController(BonusType type): EntityController(
 }
 
 void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
-    if(event->getType() == REACHED_HEIGHT) {
-        std::shared_ptr<ReachedNewHeightEvent> heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
+    if(event->getType() == HEIGHT_CHANGED) {
+        std::shared_ptr<HeightChangedEvent> heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
         this->changeY(heightEvent->getDifference());
     }
 

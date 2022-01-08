@@ -16,6 +16,7 @@ public:
     std::shared_ptr<controllers::PlayerController> loadPlayer() override;
     std::shared_ptr<controllers::BonusController> loadBonus(BonusType bonusType) override;
     std::shared_ptr<controllers::TileController> loadTile() override;
+    std::shared_ptr<controllers::TextController> loadText(std::basic_string<char> text, unsigned int size) override;
 
 private:
     std::shared_ptr<WrapperFactory> wrapperFactory;

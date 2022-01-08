@@ -19,15 +19,14 @@ namespace controllers {
     class PlatformController;
     class BonusController;
     class TileController;
+    class TextController;
 }
 
 class World {
 public:
     // Constructor - destructor
-    explicit World(std::shared_ptr<EntityFactory>& factory);
     ~World();
 
-    void clear();
     void update(double elapsed);
     void draw(std::shared_ptr<WindowWrapper>& window);
 
@@ -35,11 +34,11 @@ private:
     friend class WorldGenerator;
 
     std::shared_ptr<controllers::PlayerController> player;
+    std::shared_ptr<controllers::TextController> score;
 
     std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
     std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
     std::vector<std::shared_ptr<controllers::TileController>> tiles;
-    std::shared_ptr<TextWrapper> score;
 
     void checkCollisions(double previousPlayerBottom);
 

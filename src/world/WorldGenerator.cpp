@@ -6,7 +6,7 @@
 
 #include <utility>
 #include <iostream>
-#include "../events/ReachedNewHeightEvent.h"
+#include "../events/HeightChangedEvent.h"
 #include "World.h"
 #include "../utils/Random.h"
 #include "../factories/ConcreteEntityFactory.h"
@@ -71,6 +71,10 @@ void WorldGenerator::setup() {
     auto worldPtr = world.lock();
     // TODO move
     worldPtr->player = factory->loadPlayer();
+    double playerHeight = worldPtr->player->getBoundingBox()->getHeight();
+    worldPtr->player->setPosition(settings::screenWidth/2.0, settings::screenHeight-playerHeight);
+    worldPtr->score = factory->loadText(std::to_string(0), 40);
+    worldPtr->score->setPosition(20, 10);
 
     // Create Tiles
     double tileBottom = 0;

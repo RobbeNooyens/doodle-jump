@@ -4,7 +4,7 @@
 
 #include "PlatformController.h"
 #include "../events/Event.h"
-#include "../events/ReachedNewHeightEvent.h"
+#include "../events/HeightChangedEvent.h"
 #include "../ScoreManager.h"
 #include "../events/PlayerBouncesOnPlatformEvent.h"
 #include "../models/PlatformModel.h"
@@ -39,8 +39,8 @@ PlatformType controllers::PlatformController::getType() {
 }
 
 void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
-    if(event->getType() == REACHED_HEIGHT) {
-        auto heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
+    if(event->getType() == HEIGHT_CHANGED) {
+        auto heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
         this->changeY(heightEvent->getDifference());
     }
 

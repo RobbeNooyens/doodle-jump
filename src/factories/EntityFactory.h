@@ -11,6 +11,7 @@
 #include "../controllers/BonusController.h"
 #include "../controllers/TileController.h"
 #include "../enums/PlatformType.h"
+#include "../controllers/TextController.h"
 
 class EntityFactory {
 public:
@@ -18,6 +19,7 @@ public:
     virtual std::shared_ptr<controllers::PlayerController> loadPlayer() = 0;
     virtual std::shared_ptr<controllers::BonusController> loadBonus(BonusType bonusType) = 0;
     virtual std::shared_ptr<controllers::TileController> loadTile() = 0;
+    virtual std::shared_ptr<controllers::TextController> loadText(std::basic_string<char> text, unsigned int fontSize) = 0;
 };
 
 

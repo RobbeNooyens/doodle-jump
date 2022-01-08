@@ -5,7 +5,7 @@
 #include <algorithm>
 #include "PlayerModel.h"
 #include "../world/World.h"
-#include "../events/ReachedNewHeightEvent.h"
+#include "../events/HeightChangedEvent.h"
 #include "../events/EventManager.h"
 #include "../ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
@@ -94,6 +94,6 @@ void models::PlayerModel::checkMaxHeight() {
         y = settings::maxHeight;
         ScoreManager::getInstance().addScore(difference);
         Camera::getInstance().addHeight(difference);
-        EventManager::getInstance().invoke(std::make_shared<ReachedNewHeightEvent>(difference, Camera::getInstance().getHeight()));
+        EventManager::getInstance().invoke(std::make_shared<HeightChangedEvent>(difference, Camera::getInstance().getHeight()));
     }
 };

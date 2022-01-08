@@ -39,6 +39,7 @@ Necessary:
 - jumping animation
 - Error screen
 - Difficulty by platform types / spawnrate
+- Ensure namespaces used well
 
 
   Extra:

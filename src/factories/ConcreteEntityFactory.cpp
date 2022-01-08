@@ -76,3 +76,10 @@ std::shared_ptr<controllers::TileController> ConcreteEntityFactory::loadTile() {
 ConcreteEntityFactory::ConcreteEntityFactory(std::shared_ptr<WrapperFactory>& wrapperFactory) {
     this->wrapperFactory = wrapperFactory;
 }
+
+std::shared_ptr<controllers::TextController> ConcreteEntityFactory::loadText(std::basic_string<char> text, unsigned int size) {
+    auto textWrapper = wrapperFactory->createText(text, size);
+    auto textController = std::make_shared<controllers::TextController>();
+    textController->setTextWrapper(textWrapper);
+    return textController;
+}

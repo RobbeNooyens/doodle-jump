@@ -12,8 +12,7 @@
 #include "../wrappers/WindowWrapper.h"
 #include "../wrappers/TextWrapper.h"
 #include "WorldGenerator.h"
-
-World::World(std::shared_ptr<EntityFactory>& factory) {}
+#include "../ScoreManager.h"
 
 void World::update(double elapsed) {
     double previousBottom = player->getBoundingBox()->getBottom();
@@ -46,13 +45,7 @@ void World::update(double elapsed) {
             tile->recycle();
         }
     }
-    // Update score
-    // TODO update
-//    score->setText(std::to_string((int) ScoreManager::getInstance().getScore()));
-}
-
-void World::clear() {
-
+    score->update(std::to_string((int) ScoreManager::getInstance().getScore()));
 }
 
 void World::draw(std::shared_ptr<WindowWrapper>& window) {
@@ -63,7 +56,7 @@ void World::draw(std::shared_ptr<WindowWrapper>& window) {
     for (auto &platform: platforms)
         platform->draw(window);
     player->draw(window);
-//    window->draw(score);
+    score->draw(window);
 }
 
 void World::checkCollisions(double previousPlayerBottom) {
