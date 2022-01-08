@@ -10,6 +10,10 @@
 
 class SpriteWrapper;
 
+namespace controllers {
+    class TextController;
+}
+
 class GameOverState: public GameState {
 public:
     explicit GameOverState(std::shared_ptr<EntityFactory>& factory);
@@ -20,7 +24,8 @@ public:
 
 private:
     std::shared_ptr<SpriteWrapper> gameover;
-
+    std::shared_ptr<controllers::TextController> score;
+    std::shared_ptr<controllers::TextController> highScore;
 };
 
 

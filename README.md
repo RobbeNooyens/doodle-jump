@@ -35,17 +35,10 @@ Necessary:
 - Documentation
 - Virtual destructors
 - Format with CLANG
-- left/right
-- jumping animation
 - Error screen
 - Difficulty by platform types / spawnrate
 - Ensure namespaces used well
-
-
-  Extra:
-- Jump animation
-- Jetpack animation when using
-- Blue bar under score
+- Platform deletion
 
 ## Warning
 

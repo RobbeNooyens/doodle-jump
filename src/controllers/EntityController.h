@@ -6,7 +6,6 @@
 #define DOODLEJUMP_ENTITYCONTROLLER_H
 
 #include "../events/EventHandler.h"
-#include "../enums/EntityType.h"
 
 class EntityModel;
 class EntityView;

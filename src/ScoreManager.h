@@ -10,6 +10,8 @@
 class ScoreManager {
 public:
     [[nodiscard]] double getScore() const;
+    [[nodiscard]] double getHighScore() const;
+
     void setScore(double score);
     void addScore(double score);
 

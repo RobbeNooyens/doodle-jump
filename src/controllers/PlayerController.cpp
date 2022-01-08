@@ -17,8 +17,10 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
         std::shared_ptr<KeyPressedEvent> keyPressed = std::static_pointer_cast<KeyPressedEvent>(event);
         if(keyPressed->getKey() == Keyboard::ARROW_RIGHT || keyPressed->getKey() == Keyboard::D) {
             playerModel->moveHorizontal(Direction::RIGHT);
+            playerView->updateDirections(Direction::RIGHT, playerModel->getVerticalDirection());
         } else if(keyPressed->getKey() == Keyboard::ARROW_LEFT || keyPressed->getKey() == Keyboard::A) {
             playerModel->moveHorizontal(Direction::LEFT);
+            playerView->updateDirections(Direction::LEFT, playerModel->getVerticalDirection());
         }
     }
 

@@ -49,4 +49,8 @@ void ScoreManager::writeHighScore() const {
     myfile.open ("../resources/files/highscore.txt");
     myfile << highScore;
     myfile.close();
+}
+
+double ScoreManager::getHighScore() const {
+    return highScore;
 };
