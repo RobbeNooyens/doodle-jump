@@ -2,110 +2,106 @@
 // Created by robnoo on 25/11/21.
 //
 
-#include <complex>
+#include <algorithm>
 #include "PlayerModel.h"
-#include "../controllers/EntityController.h"
-#include "../World.h"
-#include "../utils/Stopwatch.h"
-#include "../events/ReachedNewHeightEvent.h"
+#include "../world/World.h"
+#include "../events/HeightChangedEvent.h"
 #include "../events/EventManager.h"
 #include "../ScoreManager.h"
+#include "../bounding_box/BoundingBox.h"
+#include "../Camera.h"
+#include "../events/PlayerDiedEvent.h"
 
 void models::PlayerModel::update(double elapsed) {
-    auto bboxBeforeMoving = this->getBox();
-    // Falling
-    if(state == FALLING) {
-        // Working
-        this->t += elapsed;
-        this->speed = acceleration*t;
-        this->y += speed*t;
+    double absDifference = elapsed * settings::acceleration;
+    int sign = verticalDirection == UP ? -1 : 1;
+    this->speed += sign * absDifference;
+    this->y += sign * std::min(speed, settings::maxSpeed) * boost * settings::jumpAmplifier;
 
+    updateBoundingBox();
 
-        auto box = getBox();
-        CollisionBox cbox = {box.first, box.second};
-        // Check bonuses
-        for(auto& bonus: World::getInstance().getBonuses()) {
-            CollisionBox bonusBox = bonus->getCollisionBox();
-            if(bonusBox.collides(cbox)) {
-                if(bboxBeforeMoving.second.second >= bonusBox.upperLeft.second)
-                    continue;
-                if(bonusBox.upperLeft.second > cbox.lowerRight.second || bonusBox.lowerRight.second < cbox.lowerRight.second)
-                    continue;
-                state = JUMPING;
-                double difference = cbox.lowerRight.second - bonusBox.upperLeft.second;
-                this->y -= difference;
-                this->t = 0;
-                this->speed = 10;
-                this->y0 = y;
-                bonus->use();
-                boost = 10;
-            }
-        }
-        // Check platforms
-        for(auto& platform: World::getInstance().getPlatforms()) {
-            CollisionBox platformBox = platform->getCollisionBox();
-            if(platformBox.collides(cbox)) {
-                if(bboxBeforeMoving.second.second >= platformBox.upperLeft.second)
-                    continue;
-                if(platformBox.upperLeft.second > cbox.lowerRight.second || platformBox.lowerRight.second < cbox.lowerRight.second)
-                    continue;
-                state = JUMPING;
-                double difference = cbox.lowerRight.second - platformBox.upperLeft.second;
-                this->y -= difference;
-                this->t = 0;
-                this->speed = 10;
-                this->y0 = y;
-                if(platform->getType() == PlatformType::TEMPORARY) {
-                    platform->destroy();
-                }
-            }
-        }
-    } else if(state == JUMPING) {
-        // Working
-//        this->t += elapsedSeconds;
-//        this->speed = acceleration*std::pow(t, 2);
-//        double height = -std::pow((t-1), 2) + 1;
-//        height *= 200;
-//        this->y = y0 - height;
-        this->t += elapsed;
-        this->speed = acceleration*t;
-        double difference = (5-(speed*t))*boost;
-        this->y -= difference;
-
-        if(difference < 0) {
-            state = FALLING;
-            speed = 2;
-            t = 0;
-        }
+    if(speed < 0) {
+        verticalDirection = DOWN;
+        speed = 0;
+        boost = 1;
     }
 
     // Update boost
     if(boost < 1) {
-        boost = 1;
+        boost *= (1+elapsed);
     } else if(boost > 1) {
         boost /= (1+elapsed);
     }
 
-    if(y <= 200) {
-        double difference = 200 - y;
-        y = 200;
-        this->highest += difference;
-        std::shared_ptr<Event> newHeight = std::make_shared<ReachedNewHeightEvent>(difference, highest);
-        EventManager::getInstance().invoke(newHeight);
-//        if(((int) ((highest-difference) / 60.0)) != ((int) (highest / 60.0))) {
-//            World::getInstance().createPlatform();
-//        }
-        ScoreManager::getInstance().setScore(highest);
-    }
-
+    checkMaxHeight();
 
     // Left right
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        this->x -= 300*(elapsed);
-    } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        this->x += 300*(elapsed);
+    if(moveXAxis) {
+        if(horizontalDirection == LEFT) {
+            this->x -= 300*(elapsed);
+        } else if(horizontalDirection == RIGHT) {
+            this->x += 300*(elapsed);
+        }
+    }
+    moveXAxis = false;
+
+    // Detect off-screen
+    if(getBoundingBox()->getRight() < 0) {
+        this->x = settings::screenWidth + getBoundingBox()->getWidth()/2;
+    } else if(getBoundingBox()->getLeft() > settings::screenWidth) {
+        this->x = -getBoundingBox()->getWidth()/2;
     }
 
+    // Detect death
+    if(absoluteBBox->getTop() > settings::screenHeight) {
+        EventManager::getInstance().invoke(std::make_shared<PlayerDiedEvent>());
+    }
 }
 
-models::PlayerModel::PlayerModel() = default;
+models::PlayerModel::PlayerModel(): EntityModel() {}
+
+void models::PlayerModel::bounce(double from) {
+    verticalDirection = UP;
+    double difference = this->getBoundingBox()->getBottom() - from;
+    this->y -= difference;
+    this->speed = 10;
+}
+
+void models::PlayerModel::moveHorizontal(Direction direction) {
+    horizontalDirection = direction;
+    moveXAxis = true;
+}
+
+void models::PlayerModel::useBonus(BonusType bonusType, double surfaceHeight) {
+    Direction previousDirection = verticalDirection;
+    bounce(surfaceHeight);
+    if(bonusType == BonusType::SPRING) {
+        boost = 5;
+    } else if(bonusType == BonusType::JETPACK) {
+        if(previousDirection == DOWN)
+            boost = 0.5;
+        speed = 40;
+    }
+}
+
+void models::PlayerModel::bounceOnPlatform(double surfaceHeight) {
+    bounce(surfaceHeight);
+}
+
+void models::PlayerModel::checkMaxHeight() {
+    if(y < settings::maxHeight) {
+        double difference = settings::maxHeight - y;
+        y = settings::maxHeight;
+        ScoreManager::getInstance().addScore(difference);
+        Camera::getInstance().addHeight(difference);
+        EventManager::getInstance().invoke(std::make_shared<HeightChangedEvent>(difference, Camera::getInstance().getHeight()));
+    }
+}
+
+Direction models::PlayerModel::getVerticalDirection() {
+    return verticalDirection;
+}
+
+Direction models::PlayerModel::getHorizontalDirection() {
+    return horizontalDirection;
+};

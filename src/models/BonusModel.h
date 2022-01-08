@@ -11,9 +11,10 @@
 namespace models {
     class BonusModel: public EntityModel {
     public:
-        BonusModel();
-
         void update(double elapsed) override;
+
+    protected:
+        BonusModel();
     };
 
     class SpringModel: public BonusModel {

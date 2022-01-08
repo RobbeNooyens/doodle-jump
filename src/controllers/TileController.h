@@ -13,6 +13,8 @@ namespace controllers {
         TileController();
 
         void handle(std::shared_ptr<Event> &event) override;
+
+        void recycle();
     };
 }
 

@@ -3,24 +3,16 @@
 //
 
 #include "PlayerView.h"
-#include "../utils/ResourceLoader.h"
+#include "../utils/TextureLoader.h"
 
-views::PlayerView::PlayerView(): EntityView() {}
+views::PlayerView::PlayerView() : EntityView("player") {}
 
-void views::PlayerView::lookRight() {
-    if(orientation == PlayerOrientation::ORIENTATION_LEFT) {
-        auto control = this->controller.lock();
-        auto resource = ResourceLoader::getInstance().getResource(entity, textureRight);
-        control->load(resource);
-        orientation = PlayerOrientation::ORIENTATION_RIGHT;
-    }
-}
-
-void views::PlayerView::lookLeft() {
-    if(orientation == PlayerOrientation::ORIENTATION_RIGHT) {
-        auto control = this->controller.lock();
-        auto resource = ResourceLoader::getInstance().getResource(entity, textureLeft);
-        control->load(resource);
-        orientation = PlayerOrientation::ORIENTATION_LEFT;
+void views::PlayerView::updateDirections(Direction horizontal, Direction vertical) {
+    if(horizontalDirection != horizontal || verticalDirection != vertical) {
+        horizontalDirection = horizontal;
+        verticalDirection = vertical;
+        std::string textureId = verticalDirection == UP ? "jump_" : "";
+        textureId.append(horizontalDirection == LEFT ? "left" : "right");
+        setTexture(textureId);
     }
 }

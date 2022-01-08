@@ -5,23 +5,29 @@
 #ifndef DOODLEJUMP_SCOREMANAGER_H
 #define DOODLEJUMP_SCOREMANAGER_H
 
-
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Text.hpp>
 #include "events/EventHandler.h"
 
 class ScoreManager {
 public:
+    [[nodiscard]] double getScore() const;
+    [[nodiscard]] double getHighScore() const;
+
+    void setScore(double score);
+    void addScore(double score);
+
+    void readHighScore();
+    void writeHighScore() const;
+
+    // Singleton specific
     static ScoreManager& getInstance();
-    int getScore() const;
-    void setScore(int score);
-    sf::Text& getText();
+    ScoreManager(ScoreManager()) = delete;
+    void operator=(ScoreManager const&) = delete;
 
 private:
     ScoreManager();
-    int score = 0;
-    sf::Text scoreText;
-    sf::Font font;
+
+    double score = 0;
+    double highScore = 0;
 
 };
 

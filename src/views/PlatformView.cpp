@@ -4,6 +4,6 @@
 
 #include "PlatformView.h"
 
-views::PlatformView::PlatformView(): EntityView() {
 
-}
+views::PlatformView::PlatformView() : EntityView("platform") {}
+

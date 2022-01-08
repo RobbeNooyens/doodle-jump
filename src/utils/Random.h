@@ -7,6 +7,8 @@
 
 #include <map>
 #include <cassert>
+#include <random>
+#include <stdexcept>
 #include "../ScoreManager.h"
 
 class Random {
@@ -14,17 +16,17 @@ public:
     static Random& getInstance();
 
     template<typename T>
-    T randomWeighted(std::map<double, T> weightMap) {
+    T randomWeighted(std::map<T, double> weightMap) {
         double sum = 0;
         for(auto& entry: weightMap) {
-            sum += entry.first;
+            sum += entry.second;
         }
         auto random = generate<double>(sum);
         double checkSum = 0;
         for(auto& entry: weightMap) {
-            checkSum += entry.first;
+            checkSum += entry.second;
             if(random <= checkSum)
-                return entry.second;
+                return entry.first;
         }
         throw std::runtime_error("Cant reach this");
     }
@@ -42,15 +44,18 @@ public:
     template<typename T>
     T generate(T lowerbound, T upperbound) {
         assert(lowerbound <= upperbound && "Lowerbound must be smaller than the upperbound.");
-        std::srand(ScoreManager::getInstance().getScore());
-        T result = (T) ((rand()%1000)/1000.0);
-        result *= (upperbound - lowerbound);
-        result += lowerbound;
-        return result;
+        return (T) (zeroToOne(mt) * (upperbound - lowerbound) + lowerbound);
     }
+
+    Random(Random()) = delete;
+    void operator=(Random const&) = delete;
 
 private:
     Random();
+
+    std::random_device rd;
+    std::mt19937 mt;
+    std::uniform_real_distribution<double> zeroToOne;
 
 };
 

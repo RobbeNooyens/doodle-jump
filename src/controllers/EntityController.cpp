@@ -3,34 +3,21 @@
 //
 
 #include "EntityController.h"
+
+#include <utility>
+#include <iostream>
 #include "../views/EntityView.h"
 #include "../models/EntityModel.h"
-#include "../utils/ResourceLoader.h"
 #include "../Settings.h"
-#include "../events/EventManager.h"
+#include "../bounding_box/BoundingBox.h"
+#include "../utils/Random.h"
+#include "../wrappers/WindowWrapper.h"
+#include "../wrappers/SpriteWrapper.h"
+#include "../wrappers/TextureWrapper.h"
 
-sf::Sprite &EntityController::getSprite() {
-    return view->getSprite();
-}
-
-void EntityController::moveTo(double x, double y) {
-    model->moveTo(x, y);
-    std::pair<double, double> corner = model->getUpperLeftCorner();
-    view->moveTo(corner.first, corner.second);
-}
-
-CollisionBox EntityController::getCollisionBox() {
-    auto box = model->getBox();
-    return {box.first, box.second};
-}
-
-void EntityController::load(std::shared_ptr<Resource>& resource) {
-    model->setBoundingBox(resource->boundingBox);
-    model->setWidth(resource->width);
-    model->setHeight(resource->height);
-    view->setTexture(resource->texture);
-    view->setWidth(resource->width);
-    view->setHeight(resource->height);
+void EntityController::setPosition(double x, double y) {
+    model->setPosition(x, y);
+    view->setPosition(model->getX(), model->getY());
 }
 
 void EntityController::setSize(double size) {
@@ -39,51 +26,62 @@ void EntityController::setSize(double size) {
 }
 
 void EntityController::update(double elapsed) {
+    model->updateBoundingBox();
     model->update(elapsed);
-    std::pair<double, double> corner = model->getUpperLeftCorner();
-    view->moveTo(corner.first, corner.second);
-    if(corner.second > screenHeight) {
+    model->updateBoundingBox();
+    view->setPosition(model->getX(), model->getY());
+    if(model->getBoundingBox()->getTop() > settings::screenHeight+40) {
+        // TODO Do some check for vertical platforms and bonuses
         destroy();
     }
-}
-
-void EntityController::link(std::shared_ptr<EntityController> &controller) {
-    model->setController(controller);
-    view->setController(controller);
 }
 
 void EntityController::destroy() {
     destroyed = true;
 }
 
-bool EntityController::isDestroyed() {
+bool EntityController::isDestroyed() const {
     return destroyed;
 }
 
 void EntityController::changeY(double value) {
-    this->model->moveTo(model->getX(), model->getY() + value);
+    this->model->setPosition(model->getX(), model->getY() + value);
 }
 
-EntityController::EntityController(): screenHeight(settings::screenHeight) {
-
+EntityController::EntityController() {
+    id = Random::getInstance().generate(static_cast<long>(1e20));
 }
 
-bool CollisionBox::collides(CollisionBox &box) const {
-    // Source: https://www.geeksforgeeks.org/find-two-rectangles-overlap/
+std::shared_ptr<BoundingBox> EntityController::getBoundingBox() {
+    model->updateBoundingBox();
+    return model->getBoundingBox();
+}
 
-    if (upperLeft.first == lowerRight.first || upperLeft.second == lowerRight.second || box.upperLeft.first == box.lowerRight.first
-        || box.upperLeft.second == box.lowerRight.second) {
-        // the line cannot have positive overlap
-        return false;
-    }
+void EntityController::setDestroyed(bool d) {
+    this->destroyed = d;
+}
 
-    // If one rectangle is on left side of other
-    if (upperLeft.first >= box.lowerRight.first || box.upperLeft.first >= lowerRight.first)
-        return false;
+long EntityController::getId() const {
+    return id;
+}
 
-    // If one rectangle is above other
-    if (lowerRight.second <= box.upperLeft.second || box.lowerRight.second <= upperLeft.second)
-        return false;
+void EntityController::draw(std::shared_ptr<WindowWrapper>& window) {
+    window->draw(view->getSprite());
+}
 
-    return true;
+void EntityController::setTexture(const std::string &textureId) {
+    view->setTexture(textureId);
+    auto texture = view->getTexture();
+    model->setRelativeBBox(texture->getBoundingBox());
+    model->setWidth(texture->getWidth());
+    model->setHeight(texture->getHeight());
+}
+
+void EntityController::setSprite(std::shared_ptr<SpriteWrapper> sprite) {
+    view->setSprite(std::move(sprite));
+}
+
+EntityController::~EntityController() {
+    model.reset();
+    view.reset();
 }

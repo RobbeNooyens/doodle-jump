@@ -6,17 +6,16 @@
 #define DOODLEJUMP_EVENT_H
 
 #include <chrono>
-
-enum EventType {NONE, KEY_PRESSED, REACHED_HEIGHT};
+#include "../enums/GameEventType.h"
 
 class Event {
 public:
-    explicit Event(EventType type): type(type) {}
-    Event(): type(EventType::NONE) {}
-    EventType getType() { return type; }
+    explicit Event(GameEventType type): type(type) {}
+    Event(): type(GameEventType::UNDEFINED) {}
+    GameEventType getType() { return type; }
 
 private:
-    EventType type;
+    GameEventType type;
     std::chrono::system_clock::time_point timeStamp;
 };
 

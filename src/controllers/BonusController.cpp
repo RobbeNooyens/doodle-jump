@@ -5,17 +5,26 @@
 #include "BonusController.h"
 #include "../models/BonusModel.h"
 #include "../views/BonusView.h"
-#include "../utils/ResourceLoader.h"
-#include "../events/ReachedNewHeightEvent.h"
+#include "../events/HeightChangedEvent.h"
+#include "../bounding_box/BoundingBox.h"
+#include "../events/PlayerUsesBonusEvent.h"
+#include "../controllers/PlatformController.h"
 
-controllers::BonusController::BonusController(): EntityController() {
+controllers::BonusController::BonusController(BonusType type): EntityController(), bonusType(type) {
     view = std::make_shared<views::BonusView>();
 }
 
 void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
-    if(event->getType() == REACHED_HEIGHT) {
-        std::shared_ptr<ReachedNewHeightEvent> heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
+    if(event->getType() == HEIGHT_CHANGED) {
+        std::shared_ptr<HeightChangedEvent> heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
         this->changeY(heightEvent->getDifference());
+    }
+
+    if(event->getType() == PLAYER_USES_BONUS) {
+        std::shared_ptr<PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<PlayerUsesBonusEvent>(event);
+        if(bonusEvent->getBonusEntityId() == getId()) {
+            this->use();
+        }
     }
 }
 
@@ -26,8 +35,8 @@ void controllers::BonusController::update(double elapsed) {
             this->destroy();
             return;
         }
-        CollisionBox platformBox = platform->getCollisionBox();
-        this->moveTo(platformBox.getRelativeCenter().first + platformBox.upperLeft.first + offset, platformBox.upperLeft.second);
+        auto platformBox = platform->getBoundingBox();
+        this->setPosition(platformBox->getCenter().first + offset, platformBox->getTop());
     } else {
         this->destroy();
     }
@@ -35,21 +44,26 @@ void controllers::BonusController::update(double elapsed) {
 
 void controllers::BonusController::setPlatform(std::shared_ptr<PlatformController> &platformController) {
     this->platform = platformController;
+    auto platformBox = platform->getBoundingBox();
+    this->setPosition(platformBox->getCenter().first + offset, platformBox->getTop());
 }
 
-controllers::SpringController::SpringController(): BonusController() {
+BonusType controllers::BonusController::getType() {
+    return bonusType;
+}
+
+controllers::SpringController::SpringController(): BonusController(SPRING) {
     model = std::make_shared<models::SpringModel>();
+//    setTexture("spring");
 }
 
 void controllers::SpringController::use() {
-    std::string entity = "bonus";
-    std::string texture = "spring_extended";
-    std::shared_ptr<Resource> extended_spring = ResourceLoader::getInstance().getResource(entity, texture);
-    this->load(extended_spring);
+    this->setTexture("spring_extended");
 }
 
-controllers::JetpackController::JetpackController(): BonusController() {
+controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
     model = std::make_shared<models::JetpackModel>();
+//    setTexture("jetpack");
 }
 
 void controllers::JetpackController::use() {

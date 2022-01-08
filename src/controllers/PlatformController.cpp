@@ -3,49 +3,57 @@
 //
 
 #include "PlatformController.h"
-#include "../utils/ResourceLoader.h"
 #include "../events/Event.h"
-#include "../events/ReachedNewHeightEvent.h"
+#include "../events/HeightChangedEvent.h"
+#include "../ScoreManager.h"
+#include "../events/PlayerBouncesOnPlatformEvent.h"
+#include "../models/PlatformModel.h"
+#include "../views/PlatformView.h"
 
-void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
-    if(event->getType() == REACHED_HEIGHT) {
-        std::shared_ptr<ReachedNewHeightEvent> heightEvent = std::static_pointer_cast<ReachedNewHeightEvent>(event);
-        this->changeY(heightEvent->getDifference());
-    }
-}
-
-controllers::PlatformController::PlatformController() {
+controllers::PlatformController::PlatformController(PlatformType type): EntityController(), platformType(type) {
     view = std::make_shared<views::PlatformView>();
 }
 
-controllers::StaticPlatformController::StaticPlatformController(): PlatformController() {
+controllers::StaticPlatformController::StaticPlatformController(): PlatformController(STATIC) {
     model = std::make_shared<models::StaticPlatform>();
+//    setTexture("static");
 }
 
-PlatformType controllers::StaticPlatformController::getType() {
-    return STATIC;
-}
-
-controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController() {
+controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController(TEMPORARY) {
     model = std::make_shared<models::TemporaryPlatform>();
+//    setTexture("temporary");
 }
 
-PlatformType controllers::TemporaryPlatformController::getType() {
-    return TEMPORARY;
-}
-
-controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController() {
+controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController(HORIZONTAL) {
     model = std::make_shared<models::HorizontalPlatform>();
+//    setTexture("horizontal");
 }
 
-PlatformType controllers::HorizontalPlatformController::getType() {
-    return HORIZONTAL;
-}
-
-controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController() {
+controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController(VERTICAL) {
     model = std::make_shared<models::VerticalPlatform>();
+//    setTexture("vertical");
 }
 
-PlatformType controllers::VerticalPlatformController::getType() {
-    return VERTICAL;
+PlatformType controllers::PlatformController::getType() {
+    return platformType;
+}
+
+void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
+    if(event->getType() == HEIGHT_CHANGED) {
+        auto heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
+        this->changeY(heightEvent->getDifference());
+    }
+
+    if(event->getType() == PLAYER_BOUNCES_ON_PLATFORM) {
+        auto bounceEvent = std::static_pointer_cast<PlayerBouncesOnPlatformEvent>(event);
+        if(bounceEvent->getPlatformId() == getId()) {
+            jumpCount++;
+            if(jumpCount > 1) {
+                ScoreManager::getInstance().addScore(-jumpCount*50);
+            }
+            if(getType() == TEMPORARY) {
+                destroy();
+            }
+        }
+    }
 }

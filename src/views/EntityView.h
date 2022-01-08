@@ -5,30 +5,36 @@
 #ifndef DOODLEJUMP_ENTITYVIEW_H
 #define DOODLEJUMP_ENTITYVIEW_H
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
-#include "../controllers/EntityController.h"
+#include <memory>
+#include <string>
+
+class EntityController;
+class SpriteWrapper;
+class TextureWrapper;
 
 class EntityView {
 public:
-    EntityView();
+    // Constructor - Destructor
+    explicit EntityView(std::string spriteId);
+    virtual ~EntityView();
 
-    sf::Sprite& getSprite();
-    void moveTo(double x, double y);
-    void changeX(double increment);
+    // Getters
+    const std::shared_ptr<SpriteWrapper>& getSprite();
+    const std::shared_ptr<TextureWrapper>& getTexture();
 
     // Setters
-    void setWidth(double w);
-    void setHeight(double h);
     void setSize(double size);
-    void setTexture(std::string& textureFile);
-    void setTexture(sf::Texture& texture);
-    void setController(std::shared_ptr<EntityController>& controller);
+    void setPosition(double x, double y);
+    void setTexture(const std::string& textureId);
+    void setSprite(std::shared_ptr<SpriteWrapper> spriteWrapper);
+
 protected:
-    sf::Texture texture;
-    sf::Sprite sprite;
-    double width = 0, height = 0;
-    std::weak_ptr<EntityController> controller;
+    const std::string spriteId;
+    double size = 1, sizeX = 1, sizeY = 1;
+    std::shared_ptr<TextureWrapper> texture;
+    std::shared_ptr<SpriteWrapper> sprite;
+
+    void updateSize();
 };
 
 #endif //DOODLEJUMP_ENTITYVIEW_H

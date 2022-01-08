@@ -29,16 +29,16 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 
 ## To do
 
-- Detect jumping on the same platform
-- Jetpack usage
-- Jump animation
-- Jetpack animation when using
-- Jetpack implementation
-- Blue bar under score
-- Game menu
-- Game over
-- Implement a Camera
+Necessary:
 - Cleanup
+- Exception handling
+- Documentation
+- Virtual destructors
+- Format with CLANG
+- Error screen
+- Difficulty by platform types / spawnrate
+- Ensure namespaces used well
+- Platform deletion
 
 ## Warning
 

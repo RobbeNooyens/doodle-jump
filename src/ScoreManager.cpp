@@ -2,37 +2,55 @@
 // Created by robnoo on 4/12/21.
 //
 
+#include <fstream>
+#include <iostream>
 #include "ScoreManager.h"
-#include "events/Event.h"
-#include "events/ReachedNewHeightEvent.h"
-#include "Settings.h"
 
-int ScoreManager::getScore() const {
+double ScoreManager::getScore() const {
     return score;
 }
 
-sf::Text& ScoreManager::getText() {
-    return scoreText;
-}
-
 ScoreManager::ScoreManager() {
-    if (!font.loadFromFile("../resources/fonts/DoodleJump.ttf"))
-    {
-        // error...
-    }
-    scoreText.setFont(font);
-    scoreText.move(20, 10);
-    scoreText.setCharacterSize(40);
-    scoreText.setFillColor(sf::Color::Black);
-    scoreText.setString("0");
+    readHighScore();
 }
 
-void ScoreManager::setScore(int score) {
-    this->score = score;
-    scoreText.setString(std::to_string(score));
+void ScoreManager::setScore(double s) {
+    this->score = s;
+    this->score = std::max(score, 0.0);
+    if(score > highScore)
+        highScore = score;
 }
 
 ScoreManager &ScoreManager::getInstance() {
     static ScoreManager INSTANCE;
     return INSTANCE;
+}
+
+void ScoreManager::addScore(double s) {
+    setScore(score + s);
+}
+
+void ScoreManager::readHighScore() {
+    std::string line;
+    std::ifstream myfile ("../resources/files/highscore.txt");
+    if (myfile.is_open()) {
+        getline(myfile, line);
+        myfile.close();
+    } else {
+        // TODO: error
+        std::cout << "Unable to open file";
+    }
+    highScore = std::stod(line);
+}
+
+void ScoreManager::writeHighScore() const {
+    // TODO: error
+    std::ofstream myfile;
+    myfile.open ("../resources/files/highscore.txt");
+    myfile << highScore;
+    myfile.close();
+}
+
+double ScoreManager::getHighScore() const {
+    return highScore;
 };

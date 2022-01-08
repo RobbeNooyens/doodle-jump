@@ -45,7 +45,7 @@ SOFTWARE.
 #include <memory> // unique_ptr
 #include <numeric> // accumulate
 #include <string> // string, stoi, to_string
-#include <utility> // declval, forward, move, pair, swap
+#include <utility> // declval, forward, setPosition, pair, swap
 #include <vector> // vector
 
 // #include <nlohmann/adl_serializer.hpp>
@@ -1906,7 +1906,7 @@ json.exception.parse_error.101 | parse error at 2: unexpected end of input; expe
 json.exception.parse_error.102 | parse error at 14: missing or wrong low surrogate | JSON uses the `\uxxxx` format to describe Unicode characters. Code points above above 0xFFFF are split into two `\uxxxx` entries ("surrogate pairs"). This error indicates that the surrogate pair is incomplete or contains an invalid code point.
 json.exception.parse_error.103 | parse error: code points above 0x10FFFF are invalid | Unicode supports code points up to 0x10FFFF. Code points above 0x10FFFF are invalid.
 json.exception.parse_error.104 | parse error: JSON patch must be an array of objects | [RFC 6902](https://tools.ietf.org/html/rfc6902) requires a JSON Patch document to be a JSON document that represents an array of objects.
-json.exception.parse_error.105 | parse error: operation must have string member 'op' | An operation of a JSON Patch document must contain exactly one "op" member, whose value indicates the operation to perform. Its value must be one of "add", "remove", "replace", "move", "copy", or "test"; other values are errors.
+json.exception.parse_error.105 | parse error: operation must have string member 'op' | An operation of a JSON Patch document must contain exactly one "op" member, whose value indicates the operation to perform. Its value must be one of "add", "remove", "replace", "setPosition", "copy", or "test"; other values are errors.
 json.exception.parse_error.106 | parse error: array index '01' must not begin with '0' | An array index in a JSON Pointer ([RFC 6901](https://tools.ietf.org/html/rfc6901)) may be `0` or any number without a leading `0`.
 json.exception.parse_error.107 | parse error: JSON pointer must be empty or begin with '/' - was: 'foo' | A JSON Pointer must be a Unicode string containing a sequence of zero or more reference tokens, each prefixed by a `/` character.
 json.exception.parse_error.108 | parse error: escape character '~' must be followed with '0' or '1' | In a JSON Pointer, only `~0` and `~1` are valid escape sequences.
@@ -3268,7 +3268,7 @@ constexpr const auto& from_json = detail::static_const<detail::from_json_fn>::va
 #include <string> // string
 #include <tuple> // tuple, get
 #include <type_traits> // is_same, is_constructible, is_floating_point, is_enum, underlying_type
-#include <utility> // move, forward, declval, pair
+#include <utility> // setPosition, forward, declval, pair
 #include <valarray> // valarray
 #include <vector> // vector
 
@@ -3854,7 +3854,7 @@ struct adl_serializer
 #include <iterator> // back_inserter
 #include <limits> // numeric_limits
 #include <string> // char_traits, string
-#include <utility> // make_pair, move
+#include <utility> // make_pair, setPosition
 
 // #include <nlohmann/detail/exceptions.hpp>
 
@@ -3923,7 +3923,7 @@ class file_input_adapter : public input_adapter_protocol
         : m_file(f)
     {}
 
-    // make class move-only
+    // make class setPosition-only
     file_input_adapter(const file_input_adapter&) = delete;
     file_input_adapter(file_input_adapter&&) = default;
     file_input_adapter& operator=(const file_input_adapter&) = delete;
@@ -4310,7 +4310,7 @@ class input_adapter
 #include <cassert> // assert
 #include <cstddef>
 #include <string> // string
-#include <utility> // move
+#include <utility> // setPosition
 #include <vector> // vector
 
 // #include <nlohmann/detail/exceptions.hpp>
@@ -4380,7 +4380,7 @@ struct json_sax
     @brief a string was read
     @param[in] val  string value
     @return whether parsing should proceed
-    @note It is safe to move the passed string.
+    @note It is safe to setPosition the passed string.
     */
     virtual bool string(string_t& val) = 0;
 
@@ -4396,7 +4396,7 @@ struct json_sax
     @brief an object key was read
     @param[in] val  object key
     @return whether parsing should proceed
-    @note It is safe to move the passed string.
+    @note It is safe to setPosition the passed string.
     */
     virtual bool key(string_t& val) = 0;
 
@@ -4468,7 +4468,7 @@ class json_sax_dom_parser
         : root(r), allow_exceptions(allow_exceptions_)
     {}
 
-    // make class move-only
+    // make class setPosition-only
     json_sax_dom_parser(const json_sax_dom_parser&) = delete;
     json_sax_dom_parser(json_sax_dom_parser&&) = default;
     json_sax_dom_parser& operator=(const json_sax_dom_parser&) = delete;
@@ -4651,7 +4651,7 @@ class json_sax_dom_callback_parser
         keep_stack.push_back(true);
     }
 
-    // make class move-only
+    // make class setPosition-only
     json_sax_dom_callback_parser(const json_sax_dom_callback_parser&) = delete;
     json_sax_dom_callback_parser(json_sax_dom_callback_parser&&) = default;
     json_sax_dom_callback_parser& operator=(const json_sax_dom_callback_parser&) = delete;
@@ -5192,7 +5192,7 @@ class binary_reader
         assert(ia);
     }
 
-    // make class move-only
+    // make class setPosition-only
     binary_reader(const binary_reader&) = delete;
     binary_reader(binary_reader&&) = default;
     binary_reader& operator=(const binary_reader&) = delete;
@@ -6535,7 +6535,7 @@ class binary_reader
     {
         if (get_char)
         {
-            get();  // TODO(niels): may we ignore N here?
+            get();
         }
 
         if (JSON_HEDLEY_UNLIKELY(not unexpect_eof(input_format_t::ubjson, "value")))
@@ -7134,7 +7134,7 @@ class binary_reader
 #include <cstdlib> // strtof, strtod, strtold, strtoll, strtoull
 #include <initializer_list> // initializer_list
 #include <string> // char_traits, string
-#include <utility> // move
+#include <utility> // setPosition
 #include <vector> // vector
 
 // #include <nlohmann/detail/input/input_adapters.hpp>
@@ -8649,7 +8649,7 @@ scan_number_done:
 #include <cstdint> // uint8_t
 #include <functional> // function
 #include <string> // string
-#include <utility> // move
+#include <utility> // setPosition
 #include <vector> // vector
 
 // #include <nlohmann/detail/exceptions.hpp>
@@ -10076,7 +10076,7 @@ class json_reverse_iterator : public std::reverse_iterator<Base>
 #include <cctype> // isdigit
 #include <numeric> // accumulate
 #include <string> // string
-#include <utility> // move
+#include <utility> // setPosition
 #include <vector> // vector
 
 // #include <nlohmann/detail/exceptions.hpp>
@@ -12643,7 +12643,7 @@ class binary_writer
 #include <limits> // numeric_limits
 #include <string> // string
 #include <type_traits> // is_same
-#include <utility> // move
+#include <utility> // setPosition
 
 // #include <nlohmann/detail/conversions/to_chars.hpp>
 
@@ -15544,7 +15544,7 @@ class basic_json
             // flatten the current json_value to a heap-allocated stack
             std::vector<basic_json> stack;
 
-            // move the top-level items to stack
+            // setPosition the top-level items to stack
             if (t == value_t::array)
             {
                 stack.reserve(array->size());
@@ -15561,11 +15561,11 @@ class basic_json
 
             while (not stack.empty())
             {
-                // move the last item to local variable to be processed
+                // setPosition the last item to local variable to be processed
                 basic_json current_item(std::move(stack.back()));
                 stack.pop_back();
 
-                // if current_item is array/object, move
+                // if current_item is array/object, setPosition
                 // its children to the stack to be processed later
                 if (current_item.is_array())
                 {
@@ -15716,7 +15716,7 @@ class basic_json
     //////////////////
 
     /// @name constructors and destructors
-    /// Constructors of class @ref basic_json, copy/move constructor, copy
+    /// Constructors of class @ref basic_json, copy/setPosition constructor, copy
     /// assignment, static functions creating objects, and the destructor.
     /// @{
 
@@ -15810,7 +15810,7 @@ class basic_json
 
     @tparam CompatibleType a type such that:
     - @a CompatibleType is not derived from `std::istream`,
-    - @a CompatibleType is not @ref basic_json (to avoid hijacking copy/move
+    - @a CompatibleType is not @ref basic_json (to avoid hijacking copy/setPosition
          constructors),
     - @a CompatibleType is not a different @ref basic_json type (i.e. with different template arguments)
     - @a CompatibleType is not a @ref basic_json nested type (e.g.,
@@ -15852,7 +15852,7 @@ class basic_json
     @brief create a JSON value from an existing one
 
     This is a constructor for existing @ref basic_json types.
-    It does not hijack copy/move constructors, since the parameter has different
+    It does not hijack copy/setPosition constructors, since the parameter has different
     template arguments than the current ones.
 
     The constructor tries to convert the internal @ref m_value of the parameter.
@@ -16404,13 +16404,13 @@ class basic_json
     }
 
     /*!
-    @brief move constructor
+    @brief setPosition constructor
 
     Move constructor. Constructs a JSON value with the contents of the given
-    value @a other using move semantics. It "steals" the resources from @a
+    value @a other using setPosition semantics. It "steals" the resources from @a
     other and leaves it as JSON null value.
 
-    @param[in,out] other  value to move to this object
+    @param[in,out] other  value to setPosition to this object
 
     @post `*this` has the same value as @a other before the call.
     @post @a other is a JSON null value.
@@ -16424,8 +16424,8 @@ class basic_json
     [MoveConstructible](https://en.cppreference.com/w/cpp/named_req/MoveConstructible)
     requirements.
 
-    @liveexample{The code below shows the move constructor explicitly called
-    via std::move.,basic_json__moveconstructor}
+    @liveexample{The code below shows the setPosition constructor explicitly called
+    via std::setPosition.,basic_json__moveconstructor}
 
     @since version 1.0.0
     */
@@ -19419,7 +19419,7 @@ class basic_json
             assert_invariant();
         }
 
-        // add element to array (move semantics)
+        // add element to array (setPosition semantics)
         m_value.array->push_back(std::move(val));
         // invalidate object: mark it null so we do not call the destructor
         // cppcheck-suppress accessMoved
@@ -20038,7 +20038,7 @@ class basic_json
     @brief exchanges the values
 
     Exchanges the contents of the JSON value with those of @a other. Does not
-    invoke any move, copy, or swap operations on individual elements. All
+    invoke any setPosition, copy, or swap operations on individual elements. All
     iterators and references remain valid. The past-the-end iterator is
     invalidated.
 
@@ -20067,7 +20067,7 @@ class basic_json
     @brief exchanges the values
 
     Exchanges the contents of a JSON array with those of @a other. Does not
-    invoke any move, copy, or swap operations on individual elements. All
+    invoke any setPosition, copy, or swap operations on individual elements. All
     iterators and references remain valid. The past-the-end iterator is
     invalidated.
 
@@ -20100,7 +20100,7 @@ class basic_json
     @brief exchanges the values
 
     Exchanges the contents of a JSON object with those of @a other. Does not
-    invoke any move, copy, or swap operations on individual elements. All
+    invoke any setPosition, copy, or swap operations on individual elements. All
     iterators and references remain valid. The past-the-end iterator is
     invalidated.
 
@@ -20133,7 +20133,7 @@ class basic_json
     @brief exchanges the values
 
     Exchanges the contents of a JSON string with those of @a other. Does not
-    invoke any move, copy, or swap operations on individual elements. All
+    invoke any setPosition, copy, or swap operations on individual elements. All
     iterators and references remain valid. The past-the-end iterator is
     invalidated.
 
@@ -22089,7 +22089,7 @@ class basic_json
     found"`
 
     @throw out_of_range.405 if JSON pointer has no parent ("add", "remove",
-    "move")
+    "setPosition")
 
     @throw other_error.501 if "test" operation was unsuccessful
 
@@ -22129,7 +22129,7 @@ class basic_json
             {
                 return patch_operations::replace;
             }
-            if (op == "move")
+            if (op == "setPosition")
             {
                 return patch_operations::move;
             }
@@ -22304,13 +22304,13 @@ class basic_json
 
                 case patch_operations::move:
                 {
-                    const std::string from_path = get_value("move", "from", true);
+                    const std::string from_path = get_value("setPosition", "from", true);
                     json_pointer from_ptr(from_path);
 
                     // the "from" location must exist - use at()
                     basic_json v = result.at(from_ptr);
 
-                    // The move operation is functionally identical to a
+                    // The setPosition operation is functionally identical to a
                     // "remove" operation on the "from" location, followed
                     // immediately by an "add" operation at the target
                     // location with the value that was just removed.
@@ -22359,7 +22359,7 @@ class basic_json
 
                 default:
                 {
-                    // op must be "add", "remove", "replace", "move", "copy", or
+                    // op must be "add", "remove", "replace", "setPosition", "copy", or
                     // "test"
                     JSON_THROW(parse_error::create(105, 0, "operation value '" + op + "' is invalid"));
                 }

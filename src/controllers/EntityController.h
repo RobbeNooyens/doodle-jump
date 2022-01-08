@@ -6,45 +6,39 @@
 #define DOODLEJUMP_ENTITYCONTROLLER_H
 
 #include "../events/EventHandler.h"
-#include "SFML/Graphics.hpp"
 
 class EntityModel;
 class EntityView;
-class Resource;
-
-struct CollisionBox {
-    std::pair<double, double> upperLeft;
-    std::pair<double, double> lowerRight;
-    std::pair<double, double> getRelativeCenter() {return {(lowerRight.first - upperLeft.first) / 2, (lowerRight.second - upperLeft.second) / 2};}
-    double width() const {return lowerRight.first - upperLeft.first;}
-    double height() const {return lowerRight.second - upperLeft.second;}
-
-    bool collides(CollisionBox& box) const;
-};
+class BoundingBox;
+class WindowWrapper;
+class SpriteWrapper;
 
 class EntityController: public EventHandler {
 public:
     // Constructor
     EntityController();
+    virtual ~EntityController();
 
     // Abstracts
     virtual void update(double elapsed);
+    virtual void draw(std::shared_ptr<WindowWrapper>& window);
     void handle(std::shared_ptr<Event>& event) override = 0;
 
     // Actions
-    void load(std::shared_ptr<Resource>& resource);
-    void moveTo(double x, double y);
     void changeY(double value);
-    void link(std::shared_ptr<EntityController>& controller);
     void destroy();
 
     // Setters
     void setSize(double size);
+    void setSprite(std::shared_ptr<SpriteWrapper> sprite);
+    void setTexture(const std::string& textureId);
+    void setPosition(double x, double y);
+    void setDestroyed(bool d);
 
     // Getters
-    sf::Sprite& getSprite();
-    CollisionBox getCollisionBox();
-    bool isDestroyed();
+    std::shared_ptr<BoundingBox> getBoundingBox();
+    [[nodiscard]] bool isDestroyed() const;
+    [[nodiscard]] long getId() const;
 
 protected:
     std::shared_ptr<EntityModel> model;
@@ -52,7 +46,7 @@ protected:
 
 private:
     bool destroyed = false;
-    double screenHeight = 0;
+    long id = 0;
 };
 
 #endif //DOODLEJUMP_ENTITYCONTROLLER_H

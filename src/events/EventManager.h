@@ -14,9 +14,15 @@ class Event;
 
 class EventManager {
 public:
-    void registerHandler(std::shared_ptr<EventHandler>& handler);
-    void invoke(std::shared_ptr<Event>& event);
+    void registerHandler(std::shared_ptr<EventHandler> handler);
+    void unregisterHandler(unsigned long id);
+    void invoke(std::shared_ptr<Event> event);
+
     static EventManager& getInstance();
+    unsigned long generateId();
+
+    EventManager(EventManager()) = delete;
+    void operator=(EventManager const&) = delete;
 private:
     EventManager();
     std::vector<std::shared_ptr<EventHandler>> handlers;

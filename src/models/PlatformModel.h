@@ -1,6 +1,6 @@
 //
 // Created by robnoo on 25/11/21.
-//
+//ev
 
 #ifndef DOODLEJUMP_PLATFORMMODEL_H
 #define DOODLEJUMP_PLATFORMMODEL_H
@@ -11,8 +11,10 @@
 namespace models {
     class PlatformModel: public EntityModel {
     public:
-        PlatformModel();
         void update(double elapsed) override = 0;
+
+    protected:
+        PlatformModel();
     };
 
     class StaticPlatform: public PlatformModel {
