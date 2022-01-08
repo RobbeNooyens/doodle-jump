@@ -12,14 +12,13 @@ file(GLOB sourcefiles
         "src/**/**/*.cpp"
         )
 
-# Compile option needed to prevent Clion from skipping breakpoints
-add_compile_options(-gdwarf-4)
+# Compile option needed to prevent Clion from skipping breakpoints and to use multithreading
+add_compile_options(-gdwarf-4 -O3 -pthread)
 
 
-add_executable(DoodleJump ${sourcefiles} src/wrappers/EventWrapper.h src/wrappers/sfml/SFEvent.cpp src/wrappers/sfml/SFEvent.h src/enums/WindowEventType.h src/enums/Keyboard.h src/game/GameStateController.cpp src/game/GameStateController.h src/game/states/GameOverState.cpp src/game/states/GameOverState.h src/events/EventHandler.cpp src/events/PlayerDiedEvent.cpp src/events/PlayerDiedEvent.h src/controllers/TextController.cpp src/controllers/TextController.h src/views/TextView.cpp src/views/TextView.h)
+add_executable(DoodleJump ${sourcefiles} src/exceptions/FontLoadException.h src/exceptions/TextureLoadException.h)
 
 # Find SFML
-#set(SFML_STATIC_LIBRARIES TRUE)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/")
 FIND_PACKAGE(SFML 2.4 COMPONENTS graphics window system)
 

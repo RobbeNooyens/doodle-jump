@@ -9,15 +9,22 @@
 #include <exception>
 #include <string>
 
-class Exception: public std::exception {
-public:
-    explicit Exception(std::string message);
-    [[nodiscard]] const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW override;
+namespace exceptions {
 
-private:
-    std::string message;
+    class Exception : public std::exception {
+    public:
+        explicit Exception(std::string message): message(std::move(message)) {}
 
-};
+        [[nodiscard]] const char *what() const _GLIBCXX_TXN_SAFE_DYN _GLIBCXX_NOTHROW override {
+            return message.c_str();
+        }
+
+    private:
+        std::string message;
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_EXCEPTION_H

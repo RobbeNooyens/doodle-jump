@@ -7,14 +7,16 @@
 #include <SFML/Graphics/Font.hpp>
 
 #include "../../Settings.h"
+#include "../../exceptions/FontLoadException.h"
 
 bool SFText::fontInitialized = false;
 sf::Font SFText::font;
 
 SFText::SFText(const std::string& content, unsigned int size) {
     if(!fontInitialized) {
-        if (!font.loadFromFile(settings::font)) {
-            // TODO: error...
+        std::string fontFile = settings::font;
+        if (!font.loadFromFile(fontFile)) {
+            throw exceptions::FontLoadException(fontFile);
         }
         fontInitialized = true;
     }

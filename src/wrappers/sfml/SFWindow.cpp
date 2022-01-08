@@ -23,7 +23,6 @@ void SFWindow::display() {
 }
 
 bool SFWindow::pollEvent(std::shared_ptr<EventWrapper> &event) {
-    // TODO: exception
     return window.pollEvent(std::static_pointer_cast<SFEvent>(event)->getEvent());
 }
 

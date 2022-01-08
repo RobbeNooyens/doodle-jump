@@ -8,11 +8,14 @@
 
 #include "Exception.h"
 
-class TextureNotFoundException: public Exception {
-public:
-    explicit TextureNotFoundException(std::string& textureFile);
+namespace exceptions {
+    class TextureNotFoundException : public Exception {
+    public:
+        explicit TextureNotFoundException(const std::string& spriteId, const std::string& textureId):
+        Exception("Texture not found: sprite = " + spriteId + ", texture = " + textureId) {};
 
-};
+    };
+}
 
 
 #endif //DOODLEJUMP_TEXTURENOTFOUNDEXCEPTION_H

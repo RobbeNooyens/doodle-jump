@@ -20,6 +20,8 @@ WindowEventType SFEvent::getType() {
 }
 
 bool SFEvent::isKeyPressed(Keyboard key) {
+    if(key == UNDEFINED_KEYBOARD_KEY)
+        return false;
     sf::Keyboard::Key sfKey;
     switch (key) {
         case A:
@@ -37,9 +39,6 @@ bool SFEvent::isKeyPressed(Keyboard key) {
         case ARROW_RIGHT:
             sfKey = sf::Keyboard::Right;
             break;
-        default:
-            // TODO: exception handling
-            throw std::runtime_error("Invalid key input");
     }
     return sf::Keyboard::isKeyPressed(sfKey);
 }
