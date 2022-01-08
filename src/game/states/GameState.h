@@ -15,6 +15,7 @@ class GameState {
 public:
     // Constructor
     explicit GameState(GameStateType type, std::shared_ptr<EntityFactory>& factory): gameStateType(type), factory(factory) {};
+    virtual ~GameState() {factory.reset();}
 
     // Getters
     GameStateType getType() { return gameStateType; }

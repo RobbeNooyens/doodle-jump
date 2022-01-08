@@ -8,12 +8,14 @@
 void views::PlayerView::lookRight() {
     if(orientation == PlayerOrientation::ORIENTATION_LEFT) {
         orientation = PlayerOrientation::ORIENTATION_RIGHT;
+        setTexture("right");
     }
 }
 
 void views::PlayerView::lookLeft() {
     if(orientation == PlayerOrientation::ORIENTATION_RIGHT) {
         orientation = PlayerOrientation::ORIENTATION_LEFT;
+        setTexture("left");
     }
 }
 

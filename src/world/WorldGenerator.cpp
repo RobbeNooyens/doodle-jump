@@ -5,6 +5,7 @@
 #include "WorldGenerator.h"
 
 #include <utility>
+#include <iostream>
 #include "../events/ReachedNewHeightEvent.h"
 #include "World.h"
 #include "../utils/Random.h"
@@ -21,17 +22,18 @@ void WorldGenerator::update() {
 }
 
 void WorldGenerator::generatePlatform() {
+    auto worldPtr = world.lock();
     std::shared_ptr<controllers::PlatformController> platform = factory->loadPlatform(nextPlatformType);
     auto midX = platform->getBoundingBox()->getWidth()/2;
     auto midY = platform->getBoundingBox()->getHeight()/2;
     auto platformX = Random::getInstance().generate<double>(midX, settings::screenWidth-midX);
     auto platformY = -midY+(Camera::getInstance().getHeight()-nextHeight);
     platform->setPosition(platformX, platformY);
-    world->platforms.push_back(platform);
+    worldPtr->platforms.push_back(platform);
     if(addBonus) {
         std::shared_ptr<controllers::BonusController> bonusController = factory->loadBonus(bonusType);
         bonusController->setPlatform(platform);
-        world->bonuses.push_back(bonusController);
+        worldPtr->bonuses.push_back(bonusController);
     }
 }
 
@@ -52,7 +54,7 @@ void WorldGenerator::calculateNextPlatformHeight() {
 }
 
 WorldGenerator::WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<EntityFactory>& factory):
-    world(std::move(world)),
+    world(world),
     factory(factory),
     heightDifference(settings::maxPlatformDifference-settings::minPlatformDifference) {
     setup();
@@ -66,20 +68,21 @@ void WorldGenerator::reset() {
 }
 
 void WorldGenerator::setup() {
+    auto worldPtr = world.lock();
     // TODO move
-    world->player = factory->loadPlayer();
+    worldPtr->player = factory->loadPlayer();
 
     // Create Tiles
     double tileBottom = 0;
     while(tileBottom < settings::screenHeight) {
         std::shared_ptr<controllers::TileController> tile = factory->loadTile();
         tile->setPosition(tile->getBoundingBox()->getWidth() / 2, tileBottom - tile->getBoundingBox()->getHeight() / 2);
-        world->tiles.push_back(tile);
+        worldPtr->tiles.push_back(tile);
         tileBottom += tile->getBoundingBox()->getHeight();
     }
     std::shared_ptr<controllers::TileController> tile = factory->loadTile();
     tile->setPosition(tile->getBoundingBox()->getWidth() / 2, tileBottom - tile->getBoundingBox()->getHeight() / 2);
-    world->tiles.push_back(tile);
+    worldPtr->tiles.push_back(tile);
 }
 
 WorldGenerator::~WorldGenerator() {

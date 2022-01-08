@@ -19,7 +19,6 @@ public:
     WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<EntityFactory>& factory);
     ~WorldGenerator();
 
-    void setup();
     void update();
     void reset();
 
@@ -34,10 +33,11 @@ private:
     PlatformType nextPlatformType = STATIC;
 
     std::shared_ptr<EntityFactory> factory;
-    std::shared_ptr<World> world;
+    std::weak_ptr<World> world;
 
     void generatePlatform();
     void calculateNextPlatformHeight();
+    void setup();
 };
 
 

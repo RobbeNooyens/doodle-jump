@@ -8,12 +8,18 @@
 
 #include "GameState.h"
 
+class SpriteWrapper;
+
 class GameOverState: public GameState {
 public:
     explicit GameOverState(std::shared_ptr<EntityFactory>& factory);
+    ~GameOverState();
 
     void update(double elapsed) override;
     void draw(std::shared_ptr<WindowWrapper> ptr) override;
+
+private:
+    std::shared_ptr<SpriteWrapper> gameover;
 
 };
 

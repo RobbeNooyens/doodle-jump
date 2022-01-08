@@ -161,13 +161,27 @@
       ]
     },
     {
-      "id": "menu",
+      "id": "screen",
       "textures": [
         {
-          "id": "default",
+          "id": "menu",
           "source": "menu.png",
-          "width": 768,
-          "height": 1024,
+          "width": 400,
+          "height": 600,
+          "bounding_box": {
+            "centerX": 0,
+            "centerY": 0,
+            "left": 0,
+            "right": 1,
+            "up": 0,
+            "down": 1
+          }
+        },
+        {
+          "id": "gameover",
+          "source": "gameover.png",
+          "width": 400,
+          "height": 600,
           "bounding_box": {
             "centerX": 0,
             "centerY": 0,

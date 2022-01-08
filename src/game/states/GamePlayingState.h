@@ -15,6 +15,7 @@ class EntityFactory;
 class GamePlayingState: public GameState {
 public:
     explicit GamePlayingState(std::shared_ptr<EntityFactory>& factory);
+    ~GamePlayingState();
 
     void update(double elapsed) override;
     void draw(std::shared_ptr<WindowWrapper> window) override;

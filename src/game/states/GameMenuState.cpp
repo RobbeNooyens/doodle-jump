@@ -21,9 +21,13 @@ void GameMenuState::draw(std::shared_ptr<WindowWrapper> window) {
 GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::MENU, factory) {
     SFWrapperFactory wrapperFactory{};
     menu = wrapperFactory.createSprite();
-    auto texture = TextureLoader::getInstance().getTexture("menu", "default");
+    auto texture = TextureLoader::getInstance().getTexture("screen", "menu");
     menu->setTexture(texture);
     double scaleX = settings::screenWidth/texture->getWidth();
     double scaleY = settings::screenHeight/texture->getHeight();
-    menu->setScale(scaleX, scaleY);
+    menu->setScale((float)scaleX, (float)scaleY);
+}
+
+GameMenuState::~GameMenuState() {
+    menu.reset();
 }

@@ -20,5 +20,9 @@ void GamePlayingState::draw(std::shared_ptr<WindowWrapper> window) {
 GamePlayingState::GamePlayingState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::PLAYING, factory) {
     world = std::make_shared<World>(factory);
     worldGenerator = std::make_shared<WorldGenerator>(world, factory);
-    worldGenerator->setup();
+}
+
+GamePlayingState::~GamePlayingState() {
+    world.reset();
+    worldGenerator->reset();
 }

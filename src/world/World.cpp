@@ -52,18 +52,7 @@ void World::update(double elapsed) {
 }
 
 void World::clear() {
-    player->unregister();
-    player.reset();
-    for(auto& platform: platforms) {
-        platform->unregister();
-        platform.reset();
-    }
-    platforms.clear();
-    for(auto& bonus: bonuses){
-        bonus->unregister();
-        bonus.reset();
-    }
-    bonuses.clear();
+
 }
 
 void World::draw(std::shared_ptr<WindowWrapper>& window) {
@@ -104,7 +93,18 @@ void World::checkCollisions(double previousPlayerBottom) {
 }
 
 World::~World() {
-    clear();
+    player->unregister();
+    player.reset();
+    for(auto& platform: platforms) {
+        platform->unregister();
+        platform.reset();
+    }
+    platforms.clear();
+    for(auto& bonus: bonuses){
+        bonus->unregister();
+        bonus.reset();
+    }
+    bonuses.clear();
     score.reset();
     for(auto& tile: tiles) {
         tile->unregister();

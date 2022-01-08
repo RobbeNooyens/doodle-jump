@@ -35,6 +35,10 @@ Necessary:
 - Documentation
 - Virtual destructors
 - Format with CLANG
+- left/right
+- jumping animation
+- Error screen
+- Difficulty by platform types / spawnrate
 
 
   Extra:

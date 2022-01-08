@@ -9,13 +9,21 @@
 #include "Event.h"
 #include "../utils/Random.h"
 
+// TODO remove debug
+
 void EventManager::registerHandler(std::shared_ptr<EventHandler> handler) {
+//    std::cout << "Registering " << handler->getHandlerId() << std::endl;
     handlers.push_back(handler);
 }
 
 void EventManager::invoke(std::shared_ptr<Event> event) {
-    for(const auto& handler: handlers)
-        handler->handle(event);
+    if(event->getType() == KEY_PRESSED) {
+        event->getType();
+    }
+    for(const auto& handler: handlers) {
+        if(handler != nullptr)
+            handler->handle(event);
+    }
 }
 
 EventManager& EventManager::getInstance() {
@@ -36,12 +44,14 @@ unsigned long EventManager::generateId() {
 }
 
 void EventManager::unregisterHandler(unsigned long id) {
+//    std::cout << "Unregistering " << id << std::endl;
     int i;
     for(i = 0; i < handlers.size(); i++) {
         if(handlers[i]->getHandlerId() == id)
             break;
     }
     if(i < handlers.size()) {
+//        std::cout << "Succesfully unregistered" << std::endl;
         handlers.erase(handlers.begin() + i);
     }
 }
