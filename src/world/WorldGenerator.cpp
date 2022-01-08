@@ -54,6 +54,7 @@ void WorldGenerator::calculateNextPlatformHeight() {
 }
 
 WorldGenerator::WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<EntityFactory>& factory):
+    nextHeight(-((double)settings::screenHeight)), // prevent empty startscreen
     world(world),
     factory(factory),
     heightDifference(settings::maxPlatformDifference-settings::minPlatformDifference) {
@@ -69,10 +70,13 @@ void WorldGenerator::reset() {
 
 void WorldGenerator::setup() {
     auto worldPtr = world.lock();
-    // TODO move
+
+    // Create player
     worldPtr->player = factory->loadPlayer();
     double playerHeight = worldPtr->player->getBoundingBox()->getHeight();
     worldPtr->player->setPosition(settings::screenWidth/2.0, settings::screenHeight-playerHeight);
+
+    // Create score
     worldPtr->score = factory->loadText(std::to_string(0), 40);
     worldPtr->score->setPosition(20, 10);
 

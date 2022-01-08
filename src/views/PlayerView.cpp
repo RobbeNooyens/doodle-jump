@@ -5,18 +5,14 @@
 #include "PlayerView.h"
 #include "../utils/TextureLoader.h"
 
-void views::PlayerView::lookRight() {
-    if(orientation == PlayerOrientation::ORIENTATION_LEFT) {
-        orientation = PlayerOrientation::ORIENTATION_RIGHT;
-        setTexture("right");
-    }
-}
-
-void views::PlayerView::lookLeft() {
-    if(orientation == PlayerOrientation::ORIENTATION_RIGHT) {
-        orientation = PlayerOrientation::ORIENTATION_LEFT;
-        setTexture("left");
-    }
-}
-
 views::PlayerView::PlayerView() : EntityView("player") {}
+
+void views::PlayerView::updateDirections(Direction horizontal, Direction vertical) {
+    if(horizontalDirection != horizontal || verticalDirection != vertical) {
+        horizontalDirection = horizontal;
+        verticalDirection = vertical;
+        std::string textureId = verticalDirection == UP ? "jump_" : "";
+        textureId.append(horizontalDirection == LEFT ? "left" : "right");
+        setTexture(textureId);
+    }
+}

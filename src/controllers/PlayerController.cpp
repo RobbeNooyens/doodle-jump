@@ -3,7 +3,6 @@
 //
 
 #include "PlayerController.h"
-#include "../../libraries/json.hpp"
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
 #include "../events/PlayerUsesBonusEvent.h"
@@ -17,10 +16,8 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
     if (event->getType() == GameEventType::KEY_PRESSED) {
         std::shared_ptr<KeyPressedEvent> keyPressed = std::static_pointer_cast<KeyPressedEvent>(event);
         if(keyPressed->getKey() == Keyboard::ARROW_RIGHT || keyPressed->getKey() == Keyboard::D) {
-            playerView->lookRight();
             playerModel->moveHorizontal(Direction::RIGHT);
         } else if(keyPressed->getKey() == Keyboard::ARROW_LEFT || keyPressed->getKey() == Keyboard::A) {
-            playerView->lookLeft();
             playerModel->moveHorizontal(Direction::LEFT);
         }
     }
@@ -41,4 +38,11 @@ void controllers::PlayerController::handle(std::shared_ptr<Event>& event) {
 controllers::PlayerController::PlayerController(): EntityController() {
     model = std::make_shared<models::PlayerModel>();
     view = std::make_shared<views::PlayerView>();
+}
+
+void controllers::PlayerController::update(double elapsed) {
+    EntityController::update(elapsed);
+    auto pModel = std::static_pointer_cast<models::PlayerModel>(model);
+    auto pView = std::static_pointer_cast<views::PlayerView>(view);
+    pView->updateDirections(pModel->getHorizontalDirection(), pModel->getVerticalDirection());
 }

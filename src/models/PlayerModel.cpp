@@ -96,4 +96,12 @@ void models::PlayerModel::checkMaxHeight() {
         Camera::getInstance().addHeight(difference);
         EventManager::getInstance().invoke(std::make_shared<HeightChangedEvent>(difference, Camera::getInstance().getHeight()));
     }
+}
+
+Direction models::PlayerModel::getVerticalDirection() {
+    return verticalDirection;
+}
+
+Direction models::PlayerModel::getHorizontalDirection() {
+    return horizontalDirection;
 };

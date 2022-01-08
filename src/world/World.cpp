@@ -2,7 +2,6 @@
 // Created by robbe on 20/11/2021.
 //
 
-#include <iostream>
 #include "World.h"
 #include "../events/Event.h"
 #include "../events/EventManager.h"

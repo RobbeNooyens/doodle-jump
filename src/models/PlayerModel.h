@@ -22,6 +22,9 @@ namespace models {
         void useBonus(BonusType bonusType, double surfaceHeight);
         void bounceOnPlatform(double surfaceHeight);
 
+        Direction getVerticalDirection();
+        Direction getHorizontalDirection();
+
     private:
         double speed = 15, boost = 1;
         Direction verticalDirection = Direction::UP;
