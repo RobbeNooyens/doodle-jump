@@ -18,8 +18,15 @@
 #include "Exception.h"
 
 namespace exceptions {
+    /**
+     * @brief Exception thrown when an exception other than the custom defined ones has been thrown
+     */
     class UndefinedException: public Exception {
     public:
+        /**
+         * @brief Parameter constructor
+         * @param what descriptive error message
+         */
         explicit UndefinedException(const std::string& what): Exception(what) {};
     };
 }

@@ -69,22 +69,22 @@ void GameStateController::replaceState(GameStateType gameStateType) {
     state.reset();
     switch (gameStateType) {
         case MENU:
-            state = std::make_shared<GameMenuState>(factory);
+            state = std::make_shared<states::GameMenuState>(factory);
             break;
         case PLAYING:
-            state = std::make_shared<GamePlayingState>(factory);
+            state = std::make_shared<states::GamePlayingState>(factory);
             break;
         case GAME_OVER:
-            state = std::make_shared<GameOverState>(factory);
+            state = std::make_shared<states::GameOverState>(factory);
             break;
         case ERROR:
-            state = std::make_shared<GameErrorState>(factory);
+            state = std::make_shared<states::GameErrorState>(factory);
             break;
     }
     update(0);
 }
 
 GameStateController::GameStateController(std::shared_ptr<EntityFactory>& factory):
-    state(std::make_unique<GameMenuState>(factory)),
+    state(std::make_unique<states::GameMenuState>(factory)),
     factory(factory) {
 }

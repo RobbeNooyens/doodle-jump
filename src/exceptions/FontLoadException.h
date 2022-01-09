@@ -18,8 +18,15 @@
 #include "Exception.h"
 
 namespace exceptions {
+    /**
+     * @brief Exception thrown when a font wasn't able to load
+     */
     class FontLoadException: public Exception {
     public:
+        /**
+         * @brief Parameter constructor
+         * @param fontFile file in which the font is located
+         */
         explicit FontLoadException(const std::string& fontFile):
         Exception("Failed to load font: " + fontFile) {};
     };

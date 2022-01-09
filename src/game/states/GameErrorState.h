@@ -18,14 +18,17 @@
 
 #include "GameState.h"
 
-class GameErrorState: public GameState {
-public:
-    explicit GameErrorState(std::shared_ptr<EntityFactory>& factory);
+namespace states {
+    class GameErrorState : public GameState {
+    public:
+        explicit GameErrorState(std::shared_ptr<EntityFactory> &factory);
 
-    void update(double elapsed) override;
-    void draw(std::shared_ptr<wrappers::WindowWrapper> ptr) override;
+        void update(double elapsed) override;
 
-};
+        void draw(std::shared_ptr<wrappers::WindowWrapper> ptr) override;
+
+    };
+}
 
 
 #endif //DOODLEJUMP_GAMEERRORSTATE_H

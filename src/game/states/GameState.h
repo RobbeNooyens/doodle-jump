@@ -24,24 +24,29 @@ namespace wrappers {
 
 class EntityFactory;
 
-class GameState {
-public:
-    // Constructor
-    explicit GameState(GameStateType type, std::shared_ptr<EntityFactory>& factory): gameStateType(type), factory(factory) {};
-    virtual ~GameState() {factory.reset();}
+namespace states {
+    class GameState {
+    public:
+        // Constructor
+        explicit GameState(GameStateType type, std::shared_ptr<EntityFactory> &factory) : gameStateType(type),
+                                                                                          factory(factory) {};
 
-    // Getters
-    GameStateType getType() { return gameStateType; }
+        virtual ~GameState() { factory.reset(); }
 
-    // Actions
-    virtual void update(double elapsed) = 0;
-    virtual void draw(std::shared_ptr<wrappers::WindowWrapper>) = 0;
+        // Getters
+        GameStateType getType() { return gameStateType; }
 
-protected:
-    std::shared_ptr<EntityFactory> factory;
+        // Actions
+        virtual void update(double elapsed) = 0;
 
-private:
-    GameStateType gameStateType;
-};
+        virtual void draw(std::shared_ptr<wrappers::WindowWrapper>) = 0;
+
+    protected:
+        std::shared_ptr<EntityFactory> factory;
+
+    private:
+        GameStateType gameStateType;
+    };
+}
 
 #endif //DOODLEJUMP_GAMESTATE_H

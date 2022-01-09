@@ -15,12 +15,18 @@
 #ifndef DOODLEJUMP_GAMESTATECONTROLLER_H
 #define DOODLEJUMP_GAMESTATECONTROLLER_H
 
-
-#include "states/GameState.h"
 #include "../enums/GameStateType.h"
 #include "../events/EventHandler.h"
 
 class EntityFactory;
+
+namespace wrappers {
+    class WindowWrapper;
+}
+
+namespace states {
+    class GameState;
+}
 
 class GameStateController: public EventHandler {
 public:
@@ -32,7 +38,7 @@ public:
     void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
 
 private:
-    std::shared_ptr<GameState> state;
+    std::shared_ptr<states::GameState> state;
     std::shared_ptr<EntityFactory> factory;
 
     bool shouldReplaceState = false;

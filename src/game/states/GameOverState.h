@@ -26,19 +26,23 @@ namespace controllers {
     class TextController;
 }
 
-class GameOverState: public GameState {
-public:
-    explicit GameOverState(std::shared_ptr<EntityFactory>& factory);
-    ~GameOverState();
+namespace states {
+    class GameOverState : public GameState {
+    public:
+        explicit GameOverState(std::shared_ptr<EntityFactory> &factory);
 
-    void update(double elapsed) override;
-    void draw(std::shared_ptr<wrappers::WindowWrapper> ptr) override;
+        ~GameOverState();
 
-private:
-    std::shared_ptr<wrappers::SpriteWrapper> gameover;
-    std::shared_ptr<controllers::TextController> score;
-    std::shared_ptr<controllers::TextController> highScore;
-};
+        void update(double elapsed) override;
+
+        void draw(std::shared_ptr<wrappers::WindowWrapper> ptr) override;
+
+    private:
+        std::shared_ptr<wrappers::SpriteWrapper> gameover;
+        std::shared_ptr<controllers::TextController> score;
+        std::shared_ptr<controllers::TextController> highScore;
+    };
+}
 
 
 #endif //DOODLEJUMP_GAMEOVERSTATE_H

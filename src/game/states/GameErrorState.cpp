@@ -14,12 +14,12 @@
 
 #include "GameErrorState.h"
 
-void GameErrorState::update(double elapsed) {
+void states::GameErrorState::update(double elapsed) {
 
 }
 
-void GameErrorState::draw(std::shared_ptr<wrappers::WindowWrapper> ptr) {
+void states::GameErrorState::draw(std::shared_ptr<wrappers::WindowWrapper> ptr) {
 
 }
 
-GameErrorState::GameErrorState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::ERROR, factory) {}
+states::GameErrorState::GameErrorState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::ERROR, factory) {}

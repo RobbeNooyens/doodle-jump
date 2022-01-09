@@ -18,8 +18,15 @@
 #include "Exception.h"
 
 namespace exceptions {
+    /**
+     * @brief Exception thrown when a texture wasn't able to load
+     */
     class TextureLoadException: public Exception {
     public:
+        /**
+         * @brief Parameter constructor
+         * @param textureFile file containing the texture
+         */
         explicit TextureLoadException(const std::string& textureFile):
                 Exception("Failed to load texture: " + textureFile) {};
     };

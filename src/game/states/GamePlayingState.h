@@ -22,18 +22,22 @@ class World;
 class WorldGenerator;
 class EntityFactory;
 
-class GamePlayingState: public GameState {
-public:
-    explicit GamePlayingState(std::shared_ptr<EntityFactory>& factory);
-    ~GamePlayingState();
+namespace states {
+    class GamePlayingState : public GameState {
+    public:
+        explicit GamePlayingState(std::shared_ptr<EntityFactory> &factory);
 
-    void update(double elapsed) override;
-    void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
+        ~GamePlayingState();
 
-private:
-    std::shared_ptr<World> world;
-    std::shared_ptr<WorldGenerator> worldGenerator;
-};
+        void update(double elapsed) override;
+
+        void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
+
+    private:
+        std::shared_ptr<World> world;
+        std::shared_ptr<WorldGenerator> worldGenerator;
+    };
+}
 
 
 #endif //DOODLEJUMP_GAMEPLAYINGSTATE_H

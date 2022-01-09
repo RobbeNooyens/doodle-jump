@@ -24,15 +24,15 @@
 #include "../../score/ScoreManager.h"
 #include "../../controllers/TextController.h"
 
-void GameOverState::update(double elapsed) {}
+void states::GameOverState::update(double elapsed) {}
 
-void GameOverState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
+void states::GameOverState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
     window->draw(gameover);
     highScore->draw(window);
     score->draw(window);
 }
 
-GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::GAME_OVER, factory) {
+states::GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::GAME_OVER, factory) {
     wrappers::sfml::SFWrapperFactory wrapperFactory{};
     gameover = wrapperFactory.createSprite();
     auto texture = TextureLoader::getInstance().getTexture("screen", "gameover");
@@ -46,7 +46,7 @@ GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState
     highScore->setPosition(settings::screenWidth*0.70, settings::screenHeight*0.47);
 }
 
-GameOverState::~GameOverState() {
+states::GameOverState::~GameOverState() {
     gameover.reset();
     score.reset();
     highScore.reset();

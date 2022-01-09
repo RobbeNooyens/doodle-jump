@@ -23,17 +23,21 @@ namespace wrappers {
     class WindowWrapper;
 }
 
-class GameMenuState: public GameState {
-public:
-    explicit GameMenuState(std::shared_ptr<EntityFactory>& factory);
-    ~GameMenuState();
+namespace states {
+    class GameMenuState : public GameState {
+    public:
+        explicit GameMenuState(std::shared_ptr<EntityFactory> &factory);
 
-    void update(double elapsed) override;
-    void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
+        ~GameMenuState();
 
-private:
-    std::shared_ptr<wrappers::SpriteWrapper> menu;
-};
+        void update(double elapsed) override;
+
+        void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
+
+    private:
+        std::shared_ptr<wrappers::SpriteWrapper> menu;
+    };
+}
 
 
 #endif //DOODLEJUMP_GAMEMENUSTATE_H

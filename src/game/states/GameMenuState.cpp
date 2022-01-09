@@ -22,13 +22,13 @@
 #include "../../utils/TextureLoader.h"
 #include "../../Settings.h"
 
-void GameMenuState::update(double elapsed) {}
+void states::GameMenuState::update(double elapsed) {}
 
-void GameMenuState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
+void states::GameMenuState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
     window->draw(menu);
 }
 
-GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::MENU, factory) {
+states::GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::MENU, factory) {
     wrappers::sfml::SFWrapperFactory wrapperFactory{};
     menu = wrapperFactory.createSprite();
     auto texture = TextureLoader::getInstance().getTexture("screen", "menu");
@@ -38,6 +38,6 @@ GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState
     menu->setScale((float)scaleX, (float)scaleY);
 }
 
-GameMenuState::~GameMenuState() {
+states::GameMenuState::~GameMenuState() {
     menu.reset();
 }
