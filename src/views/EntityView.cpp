@@ -28,7 +28,7 @@ void EntityView::setPosition(double x, double y) {
 }
 
 void EntityView::setSize(double s) {
-    this->size = s;
+    this->sizeX = s;
     if(texture)
         updateSize();
 }
@@ -44,10 +44,9 @@ const std::shared_ptr<wrappers::SpriteWrapper> &EntityView::getSprite() {
 }
 
 void EntityView::updateSize() {
-    double scale = size/texture->getWidth();
+    double scale = sizeX/texture->getWidth();
     sprite->setScale((float) scale, (float) scale);
-    this->sizeX = size;
-    this->sizeY = (size*texture->getHeight())/texture->getWidth();
+    this->sizeY = (sizeX*texture->getHeight())/texture->getWidth();
 }
 
 void EntityView::setSprite(std::shared_ptr<wrappers::SpriteWrapper> spriteWrapper) {

@@ -18,10 +18,20 @@
 
 #include "../events/EventHandler.h"
 
+/**
+ * @brief Keeps track of the camera height
+ */
 class Camera: public EventHandler {
 public:
+    /**
+     * @return current camera height
+     */
     [[nodiscard]] double getHeight() const;
 
+    /**
+     * @brief Handles incoming game events
+     * @param event event that got invoked
+     */
     void handle(std::shared_ptr<events::Event> &event) override;
 
 private:

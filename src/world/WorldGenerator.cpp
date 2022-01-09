@@ -82,13 +82,6 @@ WorldGenerator::WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<Ent
     setup();
 }
 
-void WorldGenerator::reset() {
-    this->nextHeight = 0;
-    this->nextPlatformType = STATIC;
-    this->addBonus = false;
-    this->previousHeight = 0;
-}
-
 void WorldGenerator::setup() {
     auto worldPtr = world.lock();
 

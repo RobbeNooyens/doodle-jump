@@ -35,5 +35,5 @@ states::GamePlayingState::GamePlayingState(std::shared_ptr<EntityFactory>& facto
 
 states::GamePlayingState::~GamePlayingState() {
     world.reset();
-    worldGenerator->reset();
+    worldGenerator.reset();
 }

@@ -18,8 +18,14 @@
 #include "EntityView.h"
 
 namespace views {
+    /**
+     * @brief Represents the entity rendering
+     */
     class TileView: public EntityView {
     public:
+        /**
+         * @brief Constructor
+         */
         TileView();
     };
 }

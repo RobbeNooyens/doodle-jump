@@ -23,14 +23,27 @@
 class EntityFactory;
 class World;
 
+/**
+ * @brief Creates entities and puts them in the world
+ */
 class WorldGenerator {
 public:
     // Constructor - destructor
+    /**
+     * @brief Parameter constructor
+     * @param world world to put entities in
+     * @param factory factory used to create entities
+     */
     WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<EntityFactory>& factory);
+    /**
+     * @brief destructor
+     */
     ~WorldGenerator();
 
+    /**
+     * @brief Update generating processes and create platforms/bonuses if necessary
+     */
     void update();
-    void reset();
 
 private:
     double previousHeight = 0;

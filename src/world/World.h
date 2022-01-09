@@ -36,13 +36,30 @@ namespace controllers {
     class TextController;
 }
 
+/**
+ * @brief Represents a game world with entities
+ */
 class World {
 public:
     // Constructor - destructor
+    /**
+     * @brief Constructor
+     */
     World();
+    /**
+     * @brief Destructor
+     */
     ~World();
 
+    /**
+     * Updates entities in the world based on the elapsed time
+     * @param elapsed elapsed nanoseconds since last frame
+     */
     void update(double elapsed);
+    /**
+     * @brief draws all entities in the window
+     * @param window window to draw entities in
+     */
     void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
 
 private:

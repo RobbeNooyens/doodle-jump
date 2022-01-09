@@ -18,8 +18,14 @@
 #include "EntityView.h"
 
 namespace views {
+    /**
+     * @brief Represents the platform entity rendering
+     */
     class PlatformView: public EntityView {
     public:
+        /**
+         * @brief Constructor
+         */
         PlatformView();
 
     };

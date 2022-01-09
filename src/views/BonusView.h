@@ -18,8 +18,14 @@
 #include "EntityView.h"
 
 namespace views {
+    /**
+    * @brief Represents the bonus entity rendering
+    */
     class BonusView: public EntityView {
     public:
+        /**
+         * @brief Constructor
+         */
         BonusView();
     };
 }
