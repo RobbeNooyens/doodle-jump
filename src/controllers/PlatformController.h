@@ -12,6 +12,9 @@
 class Event;
 
 namespace controllers {
+
+    class BonusController;
+
     class PlatformController: public EntityController {
     public:
         // Constructor
@@ -19,11 +22,17 @@ namespace controllers {
 
         // Actions
         void handle(std::shared_ptr<events::Event> &event) override;
+        void goesBeneathScreen() override;
 
         // Getters
         PlatformType getType();
+        bool isBeneathScreen();
+
+        // Setters
+        void setBonus(std::shared_ptr<BonusController>& bonusController);
 
     private:
+        std::weak_ptr<BonusController> bonus;
         PlatformType platformType;
         int jumpCount = 0;
     };

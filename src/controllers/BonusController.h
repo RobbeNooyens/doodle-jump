@@ -9,10 +9,8 @@
 #include "../enums/BonusType.h"
 
 namespace controllers {
-    class PlatformController;
-}
 
-namespace controllers {
+    class PlatformController;
 
     class BonusController: public EntityController {
     public:
@@ -25,6 +23,8 @@ namespace controllers {
         void setPlatform(std::shared_ptr<controllers::PlatformController>& platformController);
 
         BonusType getType();
+
+        void goesBeneathScreen() override;
 
     protected:
         virtual void use() = 0;

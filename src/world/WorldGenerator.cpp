@@ -34,6 +34,7 @@ void WorldGenerator::generatePlatform() {
     if(addBonus) {
         std::shared_ptr<controllers::BonusController> bonusController = factory->loadBonus(bonusType);
         bonusController->setPlatform(platform);
+        platform->setBonus(bonusController);
         worldPtr->bonuses.push_back(bonusController);
     }
 }

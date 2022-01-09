@@ -12,6 +12,7 @@ namespace models {
     class PlatformModel: public EntityModel {
     public:
         void update(double elapsed) override = 0;
+        virtual bool isBeneathScreen();
 
     protected:
         PlatformModel();
@@ -38,6 +39,7 @@ namespace models {
     public:
         VerticalPlatform();
         void update(double elapsed) override;
+        bool isBeneathScreen() override;
     private:
         Direction direction = UP;
         double speed = 100;

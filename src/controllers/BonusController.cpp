@@ -52,9 +52,14 @@ BonusType controllers::BonusController::getType() {
     return bonusType;
 }
 
+void controllers::BonusController::goesBeneathScreen() {
+    if(platform->isBeneathScreen()) {
+        destroy();
+    }
+}
+
 controllers::SpringController::SpringController(): BonusController(SPRING) {
     model = std::make_shared<models::SpringModel>();
-//    setTexture("spring");
 }
 
 void controllers::SpringController::use() {
@@ -63,7 +68,6 @@ void controllers::SpringController::use() {
 
 controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
     model = std::make_shared<models::JetpackModel>();
-//    setTexture("jetpack");
 }
 
 void controllers::JetpackController::use() {

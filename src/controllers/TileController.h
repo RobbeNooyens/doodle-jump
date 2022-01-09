@@ -14,7 +14,7 @@ namespace controllers {
 
         void handle(std::shared_ptr<events::Event> &event) override;
 
-        void recycle();
+        void goesBeneathScreen() override;
     };
 }
 

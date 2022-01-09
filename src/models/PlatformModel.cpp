@@ -8,6 +8,10 @@
 
 models::PlatformModel::PlatformModel(): EntityModel() {}
 
+bool models::PlatformModel::isBeneathScreen() {
+    return getBoundingBox()->getTop() > settings::screenHeight;
+}
+
 // Horizontal Platform
 // ===================
 models::HorizontalPlatform::HorizontalPlatform(): PlatformModel(), screenWidth(settings::screenWidth) {}
@@ -60,6 +64,10 @@ void models::VerticalPlatform::update(double elapsed) {
             this->relativeY = 0;
         }
     }
+}
+
+bool models::VerticalPlatform::isBeneathScreen() {
+    return y-(distance-relativeY) > settings::screenHeight;
 }
 
 

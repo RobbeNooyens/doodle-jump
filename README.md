@@ -30,7 +30,6 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 ## To do
 
 Necessary:
-- Cleanup
 - Documentation
 - Format with CLANG
 - Platform deletion

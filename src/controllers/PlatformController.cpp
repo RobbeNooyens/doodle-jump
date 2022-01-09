@@ -9,6 +9,7 @@
 #include "../events/PlayerBouncesOnPlatformEvent.h"
 #include "../models/PlatformModel.h"
 #include "../views/PlatformView.h"
+#include "../controllers/BonusController.h"
 
 controllers::PlatformController::PlatformController(PlatformType type): EntityController(), platformType(type) {
     view = std::make_shared<views::PlatformView>();
@@ -16,22 +17,18 @@ controllers::PlatformController::PlatformController(PlatformType type): EntityCo
 
 controllers::StaticPlatformController::StaticPlatformController(): PlatformController(STATIC) {
     model = std::make_shared<models::StaticPlatform>();
-//    setTexture("static");
 }
 
 controllers::TemporaryPlatformController::TemporaryPlatformController(): PlatformController(TEMPORARY) {
     model = std::make_shared<models::TemporaryPlatform>();
-//    setTexture("temporary");
 }
 
 controllers::HorizontalPlatformController::HorizontalPlatformController(): PlatformController(HORIZONTAL) {
     model = std::make_shared<models::HorizontalPlatform>();
-//    setTexture("horizontal");
 }
 
 controllers::VerticalPlatformController::VerticalPlatformController(): PlatformController(VERTICAL) {
     model = std::make_shared<models::VerticalPlatform>();
-//    setTexture("vertical");
 }
 
 PlatformType controllers::PlatformController::getType() {
@@ -56,4 +53,18 @@ void controllers::PlatformController::handle(std::shared_ptr<events::Event> &eve
             }
         }
     }
+}
+
+void controllers::PlatformController::setBonus(std::shared_ptr<BonusController> &bonusController) {
+    this->bonus = bonusController;
+}
+
+void controllers::PlatformController::goesBeneathScreen() {
+    if(!bonus.lock()) {
+        destroy();
+    }
+}
+
+bool controllers::PlatformController::isBeneathScreen() {
+    return std::static_pointer_cast<models::PlatformModel>(model)->isBeneathScreen();
 }

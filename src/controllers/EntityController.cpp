@@ -30,9 +30,8 @@ void EntityController::update(double elapsed) {
     model->update(elapsed);
     model->updateBoundingBox();
     view->setPosition(model->getX(), model->getY());
-    if(model->getBoundingBox()->getTop() > settings::screenHeight+40) {
-        // TODO Do some check for vertical platforms and bonuses
-        destroy();
+    if(model->getBoundingBox()->getTop() > settings::screenHeight) {
+        goesBeneathScreen();
     }
 }
 

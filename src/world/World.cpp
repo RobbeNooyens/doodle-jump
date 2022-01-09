@@ -40,11 +40,6 @@ void World::update(double elapsed) {
         }
     }
     bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(), [](std::shared_ptr<controllers::BonusController>& bonus){ return !bonus; }), bonuses.end());
-    for(auto& tile: tiles) {
-        if(tile->isDestroyed()) {
-            tile->recycle();
-        }
-    }
     score->update(std::to_string((int) ScoreManager::getInstance().getScore()));
 }
 

@@ -25,6 +25,7 @@ public:
     // Abstracts
     virtual void update(double elapsed);
     virtual void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
+    virtual void goesBeneathScreen() = 0;
     void handle(std::shared_ptr<events::Event>& event) override = 0;
 
     // Actions

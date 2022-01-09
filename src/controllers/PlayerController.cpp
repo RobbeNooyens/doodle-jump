@@ -7,6 +7,8 @@
 #include "../events/KeyPressedEvent.h"
 #include "../events/PlayerUsesBonusEvent.h"
 #include "../events/PlayerBouncesOnPlatformEvent.h"
+#include "../events/EventManager.h"
+#include "../events/PlayerDiedEvent.h"
 
 void controllers::PlayerController::handle(std::shared_ptr<events::Event>& event) {
     auto playerView = std::static_pointer_cast<views::PlayerView>(view);
@@ -47,4 +49,9 @@ void controllers::PlayerController::update(double elapsed) {
     auto pModel = std::static_pointer_cast<models::PlayerModel>(model);
     auto pView = std::static_pointer_cast<views::PlayerView>(view);
     pView->updateDirections(pModel->getHorizontalDirection(), pModel->getVerticalDirection());
+}
+
+void controllers::PlayerController::goesBeneathScreen() {
+    destroy();
+    EventManager::getInstance().invoke(std::make_shared<events::PlayerDiedEvent>());
 }

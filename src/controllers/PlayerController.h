@@ -22,6 +22,7 @@ namespace controllers {
         // Actions
         void handle(std::shared_ptr<events::Event>& event) override;
         void update(double elapsed) override;
+        void goesBeneathScreen() override;
 
     };
 }
