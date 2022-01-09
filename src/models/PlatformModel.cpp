@@ -52,22 +52,22 @@ void models::VerticalPlatform::update(double elapsed) {
             double difference = relativeY-distance;
             this->y += 2*difference;
             direction = DOWN;
-            this->relativeY = 0;
+            this->relativeY = distance-difference;
         }
     } else {
         this->y += elapsed * speed;
-        this->relativeY += elapsed * speed;
-        if (relativeY >= distance) {
-            double difference = relativeY - distance;
+        this->relativeY -= elapsed * speed;
+        if (relativeY <= 0) {
+            double difference = -relativeY;
             this->y += 2 * difference;
             direction = UP;
-            this->relativeY = 0;
+            this->relativeY = difference;
         }
     }
 }
 
 bool models::VerticalPlatform::isBeneathScreen() {
-    return y-(distance-relativeY) > settings::screenHeight;
+    return getBoundingBox()->getTop()-(distance-relativeY) > settings::screenHeight;
 }
 
 

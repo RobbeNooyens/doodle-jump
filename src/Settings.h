@@ -48,7 +48,7 @@ namespace settings {
             {STATIC, {0, 5}},
             {HORIZONTAL, {(1/20000.0), 1}},
             {TEMPORARY, {(1/5000.0), -3}},
-            {VERTICAL, {1/10000.0, -2}},
+            {VERTICAL, {1/10000.0, -2}}
     };
 
     // Player movement

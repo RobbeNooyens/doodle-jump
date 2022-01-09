@@ -2,6 +2,7 @@
 // Created by robnoo on 25/11/21.
 //
 
+#include <iostream>
 #include "PlatformController.h"
 #include "../events/Event.h"
 #include "../events/HeightChangedEvent.h"
@@ -60,7 +61,7 @@ void controllers::PlatformController::setBonus(std::shared_ptr<BonusController> 
 }
 
 void controllers::PlatformController::goesBeneathScreen() {
-    if(!bonus.lock()) {
+    if(!bonus.lock() && isBeneathScreen()) {
         destroy();
     }
 }

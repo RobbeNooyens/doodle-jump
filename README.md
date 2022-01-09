@@ -32,7 +32,6 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 Necessary:
 - Documentation
 - Format with CLANG
-- Platform deletion
 
 ## Warning
 
