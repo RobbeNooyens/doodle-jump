@@ -5,14 +5,8 @@
 #include "HeightChangedEvent.h"
 
 
-HeightChangedEvent::HeightChangedEvent(double difference, double maxHeight): Event(HEIGHT_CHANGED), difference(difference), maxHeight(maxHeight) {
+HeightChangedEvent::HeightChangedEvent(double difference): Event(HEIGHT_CHANGED), difference(difference) {}
 
-}
-
-double HeightChangedEvent::getDifference() {
+double HeightChangedEvent::getDifference() const {
     return difference;
-}
-
-double HeightChangedEvent::getMaxHeight() {
-    return maxHeight;
 }

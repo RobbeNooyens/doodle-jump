@@ -11,7 +11,7 @@
 #include "../../wrappers/TextureWrapper.h"
 #include "../../wrappers/TextWrapper.h"
 #include "../../factories/EntityFactory.h"
-#include "../../ScoreManager.h"
+#include "../../score/ScoreManager.h"
 
 void GameOverState::update(double elapsed) {}
 

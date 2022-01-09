@@ -5,7 +5,7 @@
 #include "PlatformController.h"
 #include "../events/Event.h"
 #include "../events/HeightChangedEvent.h"
-#include "../ScoreManager.h"
+#include "../score/ScoreManager.h"
 #include "../events/PlayerBouncesOnPlatformEvent.h"
 #include "../models/PlatformModel.h"
 #include "../views/PlatformView.h"

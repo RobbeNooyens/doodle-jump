@@ -9,7 +9,7 @@
 #include <cassert>
 #include <random>
 #include <stdexcept>
-#include "../ScoreManager.h"
+#include "../score/ScoreManager.h"
 
 class Random {
 public:

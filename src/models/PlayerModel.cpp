@@ -7,9 +7,9 @@
 #include "../world/World.h"
 #include "../events/HeightChangedEvent.h"
 #include "../events/EventManager.h"
-#include "../ScoreManager.h"
+#include "../score/ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
-#include "../Camera.h"
+#include "../world/Camera.h"
 #include "../events/PlayerDiedEvent.h"
 
 void models::PlayerModel::update(double elapsed) {
@@ -93,8 +93,7 @@ void models::PlayerModel::checkMaxHeight() {
         double difference = settings::maxHeight - y;
         y = settings::maxHeight;
         ScoreManager::getInstance().addScore(difference);
-        Camera::getInstance().addHeight(difference);
-        EventManager::getInstance().invoke(std::make_shared<HeightChangedEvent>(difference, Camera::getInstance().getHeight()));
+        EventManager::getInstance().invoke(std::make_shared<HeightChangedEvent>(difference));
     }
 }
 

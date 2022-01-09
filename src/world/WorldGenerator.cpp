@@ -12,10 +12,11 @@
 #include "../factories/ConcreteEntityFactory.h"
 #include "../Settings.h"
 #include "../bounding_box/BoundingBox.h"
-#include "../Camera.h"
+#include "Camera.h"
 
 void WorldGenerator::update() {
-    while(Camera::getInstance().getHeight() >= nextHeight) {
+    auto worldPtr = world.lock();
+    while(worldPtr->camera->getHeight() >= nextHeight) {
         generatePlatform();
         calculateNextPlatformHeight();
     }
@@ -27,7 +28,7 @@ void WorldGenerator::generatePlatform() {
     auto midX = platform->getBoundingBox()->getWidth()/2;
     auto midY = platform->getBoundingBox()->getHeight()/2;
     auto platformX = Random::getInstance().generate<double>(midX, settings::screenWidth-midX);
-    auto platformY = -midY+(Camera::getInstance().getHeight()-nextHeight);
+    auto platformY = -midY+(worldPtr->camera->getHeight()-nextHeight);
     platform->setPosition(platformX, platformY);
     worldPtr->platforms.push_back(platform);
     if(addBonus) {
@@ -38,7 +39,8 @@ void WorldGenerator::generatePlatform() {
 }
 
 void WorldGenerator::calculateNextPlatformHeight() {
-    double height = Camera::getInstance().getHeight();
+    auto worldPtr = world.lock();
+    double height = worldPtr->camera->getHeight();
     double difficulty = std::min(height / 40000.0, 1.0);
     double intervalBegin = difficulty/2;
     double intervalEnd = difficulty + 0.5;

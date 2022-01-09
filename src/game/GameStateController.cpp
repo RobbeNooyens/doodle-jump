@@ -11,7 +11,7 @@
 #include "states/GamePlayingState.h"
 #include "states/GameErrorState.h"
 #include "../world/World.h"
-#include "../ScoreManager.h"
+#include "../score/ScoreManager.h"
 #include "../exceptions/Exception.h"
 
 void GameStateController::handle(std::shared_ptr<Event> &event) {

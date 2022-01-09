@@ -5,7 +5,7 @@
 #ifndef DOODLEJUMP_SCOREMANAGER_H
 #define DOODLEJUMP_SCOREMANAGER_H
 
-#include "events/EventHandler.h"
+#include "../events/EventHandler.h"
 
 class ScoreManager {
 public:

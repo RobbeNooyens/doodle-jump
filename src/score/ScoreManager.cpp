@@ -5,8 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include "ScoreManager.h"
-#include "exceptions/FileNotFoundException.h"
-#include "Settings.h"
+#include "../exceptions/FileNotFoundException.h"
+#include "../Settings.h"
 
 double ScoreManager::getScore() const {
     return score;

@@ -13,6 +13,7 @@
 class WindowWrapper;
 class WorldGenerator;
 class TextWrapper;
+class Camera;
 
 namespace controllers {
     class PlayerController;
@@ -25,6 +26,7 @@ namespace controllers {
 class World {
 public:
     // Constructor - destructor
+    World();
     ~World();
 
     void update(double elapsed);
@@ -32,6 +34,8 @@ public:
 
 private:
     friend class WorldGenerator;
+
+    std::shared_ptr<Camera> camera;
 
     std::shared_ptr<controllers::PlayerController> player;
     std::shared_ptr<controllers::TextController> score;

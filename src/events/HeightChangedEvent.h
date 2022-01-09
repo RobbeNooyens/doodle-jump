@@ -10,14 +10,12 @@
 
 class HeightChangedEvent: public Event {
 public:
-    HeightChangedEvent(double difference, double maxHeight);
+    explicit HeightChangedEvent(double difference);
 
-    double getDifference();
-    double getMaxHeight();
+    [[nodiscard]] double getDifference() const;
 
 private:
     double difference;
-    double maxHeight;
 
 };
 

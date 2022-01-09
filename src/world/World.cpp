@@ -11,7 +11,8 @@
 #include "../wrappers/WindowWrapper.h"
 #include "../wrappers/TextWrapper.h"
 #include "WorldGenerator.h"
-#include "../ScoreManager.h"
+#include "../score/ScoreManager.h"
+#include "Camera.h"
 
 void World::update(double elapsed) {
     double previousBottom = player->getBoundingBox()->getBottom();
@@ -102,4 +103,10 @@ World::~World() {
         tile->unregister();
         tile.reset();
     }
+    EventManager::getInstance().unregisterHandler(camera->getHandlerId());
+    camera.reset();
+}
+
+World::World(): camera(std::make_shared<Camera>()) {
+    EventManager::getInstance().registerHandler(camera);
 }
