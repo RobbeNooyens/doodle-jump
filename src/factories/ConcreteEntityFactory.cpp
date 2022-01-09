@@ -17,6 +17,12 @@
 #include "ConcreteEntityFactory.h"
 #include "../events/EventManager.h"
 #include "../wrappers/WrapperFactory.h"
+#include "../controllers/PlatformController.h"
+#include "../controllers/PlayerController.h"
+#include "../controllers/BonusController.h"
+#include "../controllers/TileController.h"
+#include "../controllers/TextController.h"
+#include "../Settings.h"
 
 std::shared_ptr<controllers::PlatformController>
 ConcreteEntityFactory::loadPlatform(PlatformType platformType) {

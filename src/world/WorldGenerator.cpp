@@ -16,13 +16,18 @@
 
 #include <utility>
 #include <iostream>
-#include "../events/HeightChangedEvent.h"
+
 #include "World.h"
+#include "Camera.h"
+#include "../events/HeightChangedEvent.h"
 #include "../utils/Random.h"
-#include "../factories/ConcreteEntityFactory.h"
 #include "../Settings.h"
 #include "../bounding_box/BoundingBox.h"
-#include "Camera.h"
+#include "../controllers/PlayerController.h"
+#include "../controllers/PlatformController.h"
+#include "../controllers/TileController.h"
+#include "../controllers/BonusController.h"
+#include "../controllers/TextController.h"
 
 void WorldGenerator::update() {
     auto worldPtr = world.lock();

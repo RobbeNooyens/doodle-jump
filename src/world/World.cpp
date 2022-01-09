@@ -12,17 +12,23 @@
  *  ╘══════════════════════════════════════╛
  */
 
+#include <algorithm>
 #include "World.h"
+#include "WorldGenerator.h"
+#include "Camera.h"
 #include "../events/Event.h"
 #include "../events/EventManager.h"
-#include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
 #include "../events/PlayerBouncesOnPlatformEvent.h"
+#include "../bounding_box/BoundingBox.h"
 #include "../wrappers/WindowWrapper.h"
 #include "../wrappers/TextWrapper.h"
-#include "WorldGenerator.h"
 #include "../score/ScoreManager.h"
-#include "Camera.h"
+#include "../controllers/PlayerController.h"
+#include "../controllers/PlatformController.h"
+#include "../controllers/TileController.h"
+#include "../controllers/BonusController.h"
+#include "../controllers/TextController.h"
 
 void World::update(double elapsed) {
     double previousBottom = player->getBoundingBox()->getBottom();
