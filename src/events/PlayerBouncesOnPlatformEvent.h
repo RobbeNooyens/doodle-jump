@@ -8,17 +8,22 @@
 
 #include "Event.h"
 
-class PlayerBouncesOnPlatformEvent: public Event {
-public:
-    explicit PlayerBouncesOnPlatformEvent(double surfaceHeight, long platformId);
-    [[nodiscard]] long getPlatformId() const;
-    double getSurfaceHeight();
+namespace events {
 
-private:
-    double surfaceHeight;
-    long platformId;
+    class PlayerBouncesOnPlatformEvent : public Event {
+    public:
+        explicit PlayerBouncesOnPlatformEvent(double surfaceHeight, long platformId);
 
-};
+        [[nodiscard]] long getPlatformId() const;
 
+        double getSurfaceHeight();
+
+    private:
+        double surfaceHeight;
+        long platformId;
+
+    };
+
+}
 
 #endif //DOODLEJUMP_PLAYERBOUNCESONPLATFORMEVENT_H

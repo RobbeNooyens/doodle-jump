@@ -5,8 +5,8 @@
 #include "HeightChangedEvent.h"
 
 
-HeightChangedEvent::HeightChangedEvent(double difference): Event(HEIGHT_CHANGED), difference(difference) {}
+events::HeightChangedEvent::HeightChangedEvent(double difference): Event(HEIGHT_CHANGED), difference(difference) {}
 
-double HeightChangedEvent::getDifference() const {
+double events::HeightChangedEvent::getDifference() const {
     return difference;
 }

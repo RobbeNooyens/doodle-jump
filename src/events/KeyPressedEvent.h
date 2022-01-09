@@ -9,14 +9,19 @@
 #include "Event.h"
 #include "../enums/Keyboard.h"
 
-class KeyPressedEvent: public Event {
-public:
-    explicit KeyPressedEvent(Keyboard key);
-    Keyboard getKey();
+namespace events {
 
-private:
-    Keyboard keyPressed;
-};
+    class KeyPressedEvent : public Event {
+    public:
+        explicit KeyPressedEvent(Keyboard key);
+
+        Keyboard getKey();
+
+    private:
+        Keyboard keyPressed;
+    };
+
+}
 
 
 #endif //DOODLEJUMP_KEYPRESSEDEVENT_H

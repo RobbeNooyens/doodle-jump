@@ -8,15 +8,21 @@
 #include <chrono>
 #include "../enums/GameEventType.h"
 
-class Event {
-public:
-    explicit Event(GameEventType type): type(type) {}
-    Event(): type(GameEventType::UNDEFINED) {}
-    GameEventType getType() { return type; }
+namespace events {
 
-private:
-    GameEventType type;
-    std::chrono::system_clock::time_point timeStamp;
-};
+    class Event {
+    public:
+        explicit Event(GameEventType type) : type(type) {}
+
+        Event() : type(GameEventType::UNDEFINED) {}
+
+        GameEventType getType() { return type; }
+
+    private:
+        GameEventType type;
+        std::chrono::system_clock::time_point timeStamp;
+    };
+
+}
 
 #endif //DOODLEJUMP_EVENT_H

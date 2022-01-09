@@ -4,4 +4,4 @@
 
 #include "PlayerDiedEvent.h"
 
-PlayerDiedEvent::PlayerDiedEvent(): Event(GameEventType::PLAYER_DIED) {}
+events::PlayerDiedEvent::PlayerDiedEvent(): Event(GameEventType::PLAYER_DIED) {}

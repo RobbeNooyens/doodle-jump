@@ -11,8 +11,8 @@ double Camera::getHeight() const {
     return height;
 }
 
-void Camera::handle(std::shared_ptr<Event> &event) {
+void Camera::handle(std::shared_ptr<events::Event> &event) {
     if(event->getType() == GameEventType::HEIGHT_CHANGED) {
-        this->height += std::static_pointer_cast<HeightChangedEvent>(event)->getDifference();
+        this->height += std::static_pointer_cast<events::HeightChangedEvent>(event)->getDifference();
     }
 }

@@ -10,13 +10,16 @@
 #include <vector>
 
 class EventHandler;
-class Event;
+
+namespace events {
+    class Event;
+}
 
 class EventManager {
 public:
     void registerHandler(std::shared_ptr<EventHandler> handler);
     void unregisterHandler(unsigned long id);
-    void invoke(std::shared_ptr<Event> event);
+    void invoke(std::shared_ptr<events::Event> event);
 
     static EventManager& getInstance();
     unsigned long generateId();

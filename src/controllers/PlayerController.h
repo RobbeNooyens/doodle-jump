@@ -20,7 +20,7 @@ namespace controllers {
         PlayerController();
 
         // Actions
-        void handle(std::shared_ptr<Event>& event) override;
+        void handle(std::shared_ptr<events::Event>& event) override;
         void update(double elapsed) override;
 
     };

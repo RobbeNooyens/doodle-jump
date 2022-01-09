@@ -8,11 +8,15 @@
 
 #include "Event.h"
 
-class PlayerDiedEvent: public Event {
-public:
-    PlayerDiedEvent();
+namespace events {
 
-};
+    class PlayerDiedEvent : public Event {
+    public:
+        PlayerDiedEvent();
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_PLAYERDIEDEVENT_H

@@ -14,14 +14,14 @@ controllers::BonusController::BonusController(BonusType type): EntityController(
     view = std::make_shared<views::BonusView>();
 }
 
-void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
+void controllers::BonusController::handle(std::shared_ptr<events::Event> &event) {
     if(event->getType() == HEIGHT_CHANGED) {
-        std::shared_ptr<HeightChangedEvent> heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
+        std::shared_ptr<events::HeightChangedEvent> heightEvent = std::static_pointer_cast<events::HeightChangedEvent>(event);
         this->changeY(heightEvent->getDifference());
     }
 
     if(event->getType() == PLAYER_USES_BONUS) {
-        std::shared_ptr<PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<PlayerUsesBonusEvent>(event);
+        std::shared_ptr<events::PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<events::PlayerUsesBonusEvent>(event);
         if(bonusEvent->getBonusEntityId() == getId()) {
             this->use();
         }

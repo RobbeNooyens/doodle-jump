@@ -8,16 +8,20 @@
 
 #include "Event.h"
 
-class HeightChangedEvent: public Event {
-public:
-    explicit HeightChangedEvent(double difference);
+namespace events {
 
-    [[nodiscard]] double getDifference() const;
+    class HeightChangedEvent : public Event {
+    public:
+        explicit HeightChangedEvent(double difference);
 
-private:
-    double difference;
+        [[nodiscard]] double getDifference() const;
 
-};
+    private:
+        double difference;
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_HEIGHTCHANGEDEVENT_H

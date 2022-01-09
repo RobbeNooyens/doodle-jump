@@ -69,7 +69,7 @@ void World::checkCollisions(double previousPlayerBottom) {
                 continue;
             if(playerBox->getBottom() < bonusBox->getTop())
                 continue;
-            EventManager::getInstance().invoke(std::make_shared<PlayerUsesBonusEvent>(bonus->getType(), bonusBox->getTop(), bonus->getId()));
+            EventManager::getInstance().invoke(std::make_shared<events::PlayerUsesBonusEvent>(bonus->getType(), bonusBox->getTop(), bonus->getId()));
         }
     }
     // Check platforms
@@ -80,7 +80,7 @@ void World::checkCollisions(double previousPlayerBottom) {
                 continue;
             if(playerBox->getBottom() < platformBox->getTop())
                 continue;
-            EventManager::getInstance().invoke(std::make_shared<PlayerBouncesOnPlatformEvent>(platformBox->getTop(), platform->getId()));
+            EventManager::getInstance().invoke(std::make_shared<events::PlayerBouncesOnPlatformEvent>(platformBox->getTop(), platform->getId()));
         }
     }
 }

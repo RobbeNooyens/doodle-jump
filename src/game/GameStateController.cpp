@@ -14,13 +14,13 @@
 #include "../score/ScoreManager.h"
 #include "../exceptions/Exception.h"
 
-void GameStateController::handle(std::shared_ptr<Event> &event) {
+void GameStateController::handle(std::shared_ptr<events::Event> &event) {
     if(event->getType() == GameEventType::PLAYER_DIED) {
         shouldReplaceState = true;
         replaceWith = GAME_OVER;
         ScoreManager::getInstance().writeHighScore();
     } else if(event->getType() == GameEventType::KEY_PRESSED) {
-        auto keyPressedEvent = std::static_pointer_cast<KeyPressedEvent>(event);
+        auto keyPressedEvent = std::static_pointer_cast<events::KeyPressedEvent>(event);
         if(keyPressedEvent->getKey() == Keyboard::SPACEBAR) {
             switch (state->getType()) {
                 case MENU:

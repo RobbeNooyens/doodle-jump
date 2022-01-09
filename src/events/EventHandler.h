@@ -7,14 +7,16 @@
 
 #include <memory>
 
-class Event;
+namespace events {
+    class Event;
+}
 
 class EventHandler {
 public:
     EventHandler();
     virtual ~EventHandler();
 
-    virtual void handle(std::shared_ptr<Event>& event) = 0;
+    virtual void handle(std::shared_ptr<events::Event> &event) = 0;
 
     void unregister() const;
 

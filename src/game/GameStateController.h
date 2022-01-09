@@ -16,7 +16,7 @@ class GameStateController: public EventHandler {
 public:
     explicit GameStateController(std::shared_ptr<EntityFactory>& factory);
 
-    void handle(std::shared_ptr<Event> &event) override;
+    void handle(std::shared_ptr<events::Event> &event) override;
 
     void update(double elapsed);
     void draw(std::shared_ptr<wrappers::WindowWrapper>& window);

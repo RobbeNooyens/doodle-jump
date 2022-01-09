@@ -9,19 +9,26 @@
 #include "Event.h"
 #include "../enums/BonusType.h"
 
-class PlayerUsesBonusEvent: public Event {
-public:
-    PlayerUsesBonusEvent(BonusType type, double surfaceHeight, long bonusId);
-    BonusType getBonusType();
-    double getSurfaceHeight();
-    long getBonusEntityId();
+namespace events {
 
-private:
-    BonusType bonusType;
-    double surfaceHeight;
-    long bonusId;
+    class PlayerUsesBonusEvent : public Event {
+    public:
+        PlayerUsesBonusEvent(BonusType type, double surfaceHeight, long bonusId);
 
-};
+        BonusType getBonusType();
+
+        double getSurfaceHeight();
+
+        long getBonusEntityId();
+
+    private:
+        BonusType bonusType;
+        double surfaceHeight;
+        long bonusId;
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_PLAYERUSESBONUSEVENT_H

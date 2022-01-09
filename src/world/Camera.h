@@ -12,7 +12,7 @@ class Camera: public EventHandler {
 public:
     [[nodiscard]] double getHeight() const;
 
-    void handle(std::shared_ptr<Event> &event) override;
+    void handle(std::shared_ptr<events::Event> &event) override;
 
 private:
     double height = 0;

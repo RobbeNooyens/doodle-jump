@@ -54,7 +54,7 @@ void models::PlayerModel::update(double elapsed) {
 
     // Detect death
     if(absoluteBBox->getTop() > settings::screenHeight) {
-        EventManager::getInstance().invoke(std::make_shared<PlayerDiedEvent>());
+        EventManager::getInstance().invoke(std::make_shared<events::PlayerDiedEvent>());
     }
 }
 
@@ -93,7 +93,7 @@ void models::PlayerModel::checkMaxHeight() {
         double difference = settings::maxHeight - y;
         y = settings::maxHeight;
         ScoreManager::getInstance().addScore(difference);
-        EventManager::getInstance().invoke(std::make_shared<HeightChangedEvent>(difference));
+        EventManager::getInstance().invoke(std::make_shared<events::HeightChangedEvent>(difference));
     }
 }
 

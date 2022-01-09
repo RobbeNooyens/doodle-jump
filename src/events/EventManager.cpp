@@ -14,7 +14,7 @@ void EventManager::registerHandler(std::shared_ptr<EventHandler> handler) {
     handlers.push_back(handler);
 }
 
-void EventManager::invoke(std::shared_ptr<Event> event) {
+void EventManager::invoke(std::shared_ptr<events::Event> event) {
     if(event->getType() == KEY_PRESSED) {
         event->getType();
     }

@@ -38,14 +38,14 @@ PlatformType controllers::PlatformController::getType() {
     return platformType;
 }
 
-void controllers::PlatformController::handle(std::shared_ptr<Event> &event) {
+void controllers::PlatformController::handle(std::shared_ptr<events::Event> &event) {
     if(event->getType() == HEIGHT_CHANGED) {
-        auto heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
+        auto heightEvent = std::static_pointer_cast<events::HeightChangedEvent>(event);
         this->changeY(heightEvent->getDifference());
     }
 
     if(event->getType() == PLAYER_BOUNCES_ON_PLATFORM) {
-        auto bounceEvent = std::static_pointer_cast<PlayerBouncesOnPlatformEvent>(event);
+        auto bounceEvent = std::static_pointer_cast<events::PlayerBouncesOnPlatformEvent>(event);
         if(bounceEvent->getPlatformId() == getId()) {
             jumpCount++;
             if(jumpCount > 1) {

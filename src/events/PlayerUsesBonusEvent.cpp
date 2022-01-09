@@ -4,18 +4,18 @@
 
 #include "PlayerUsesBonusEvent.h"
 
-PlayerUsesBonusEvent::PlayerUsesBonusEvent(BonusType type, double surfaceHeight, long bonusId): Event(PLAYER_USES_BONUS), bonusType(type), surfaceHeight(surfaceHeight), bonusId(bonusId) {
+events::PlayerUsesBonusEvent::PlayerUsesBonusEvent(BonusType type, double surfaceHeight, long bonusId): Event(PLAYER_USES_BONUS), bonusType(type), surfaceHeight(surfaceHeight), bonusId(bonusId) {
 
 }
 
-BonusType PlayerUsesBonusEvent::getBonusType() {
+BonusType events::PlayerUsesBonusEvent::getBonusType() {
     return bonusType;
 }
 
-double PlayerUsesBonusEvent::getSurfaceHeight() {
+double events::PlayerUsesBonusEvent::getSurfaceHeight() {
     return surfaceHeight;
 }
 
-long PlayerUsesBonusEvent::getBonusEntityId() {
+long events::PlayerUsesBonusEvent::getBonusEntityId() {
     return bonusId;
 }
