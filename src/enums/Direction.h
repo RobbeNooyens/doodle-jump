@@ -15,6 +15,9 @@
 #ifndef DOODLEJUMP_DIRECTION_H
 #define DOODLEJUMP_DIRECTION_H
 
+/**
+ * @brief Represents a movement direction
+ */
 enum Direction {LEFT, RIGHT, UP, DOWN};
 
 #endif //DOODLEJUMP_DIRECTION_H

@@ -21,10 +21,20 @@
 
 namespace events {
 
+    /**
+     * @brief Represents an event when a key is pressed on an input device
+     */
     class KeyPressedEvent : public Event {
     public:
+        /**
+         * @brief Parameter constructor
+         * @param key key being pressed
+         */
         explicit KeyPressedEvent(Keyboard key);
 
+        /**
+         * @return the key that was pressed
+         */
         Keyboard getKey();
 
     private:

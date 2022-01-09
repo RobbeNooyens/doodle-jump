@@ -15,6 +15,9 @@
 #ifndef DOODLEJUMP_PLATFORMTYPE_H
 #define DOODLEJUMP_PLATFORMTYPE_H
 
+/**
+ * @brief Represents a platform type
+ */
 enum PlatformType {STATIC, HORIZONTAL, VERTICAL, TEMPORARY};
 
 #endif //DOODLEJUMP_PLATFORMTYPE_H

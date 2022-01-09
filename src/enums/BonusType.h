@@ -15,6 +15,9 @@
 #ifndef DOODLEJUMP_BONUSTYPE_H
 #define DOODLEJUMP_BONUSTYPE_H
 
+/**
+ * @brief Represents a bonus type
+ */
 enum BonusType {JETPACK, SPRING};
 
 #endif //DOODLEJUMP_BONUSTYPE_H

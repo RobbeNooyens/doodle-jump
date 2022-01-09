@@ -20,13 +20,24 @@
 
 namespace events {
 
+    /**
+     * @brief Represents an event in the game
+     */
     class Event {
     public:
-        explicit Event(GameEventType type) : type(type) {}
+        /**
+         * @brief Parameter constructor
+         * @param type event type
+         */
+        explicit Event(GameEventType type = UNDEFINED) : type(type) {}
+        /**
+         * @brief Default virtual destructor
+         */
         virtual ~Event() = default;
 
-        Event() : type(GameEventType::UNDEFINED) {}
-
+        /**
+         * @return game event type
+         */
         GameEventType getType() { return type; }
 
     private:

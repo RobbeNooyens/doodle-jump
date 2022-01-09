@@ -20,10 +20,20 @@
 
 namespace events {
 
+    /**
+     * @brief Represents an event invoked when the camera height changes
+     */
     class HeightChangedEvent : public Event {
     public:
+        /**
+         * @brief Parameter constructor
+         * @param difference distance added
+         */
         explicit HeightChangedEvent(double difference);
 
+        /**
+         * @return the distance that was added
+         */
         [[nodiscard]] double getDifference() const;
 
     private:

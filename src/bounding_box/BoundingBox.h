@@ -75,9 +75,21 @@ public:
      * @return bounding box height
      */
     [[nodiscard]] double getHeight() const;
+    /**
+     * @return bounding box upperbound
+     */
     [[nodiscard]] double getTop() const;
+    /**
+     * @return bounding box lower-bound
+     */
     [[nodiscard]] double getBottom() const;
+    /**
+     * @return bounding box left-bound
+     */
     [[nodiscard]] double getLeft() const;
+    /**
+     * @return bounding box right-bound
+     */
     [[nodiscard]] double getRight() const;
 
 private:

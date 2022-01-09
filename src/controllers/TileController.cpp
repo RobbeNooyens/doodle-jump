@@ -30,6 +30,5 @@ void controllers::TileController::handle(std::shared_ptr<events::Event> &event) 
 }
 
 void controllers::TileController::goesBeneathScreen() {
-    this->setDestroyed(false);
     std::static_pointer_cast<models::TileModel>(model)->recycle();
 }
