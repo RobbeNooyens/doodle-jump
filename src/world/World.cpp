@@ -48,7 +48,7 @@ void World::update(double elapsed) {
     score->update(std::to_string((int) ScoreManager::getInstance().getScore()));
 }
 
-void World::draw(std::shared_ptr<WindowWrapper>& window) {
+void World::draw(std::shared_ptr<wrappers::WindowWrapper>& window) {
     for(auto& tile: tiles)
         tile->draw(window);
     for (auto &bonus: bonuses)

@@ -10,23 +10,32 @@
 #include <memory>
 #include "../WindowWrapper.h"
 
-class SFWindow: public WindowWrapper {
-public:
-    // Construtor
-    SFWindow(const std::string &applicationName, unsigned int width, unsigned int height);
+namespace wrappers::sfml {
 
-    // Forwarding calls
-    bool isOpen() override;
-    void clear() override;
-    void display() override;
-    bool pollEvent(std::shared_ptr<EventWrapper> &event) override;
-    void draw(const std::shared_ptr<SpriteWrapper> &sprite) override;
-    void draw(const std::shared_ptr<TextWrapper> &text) override;
+    class SFWindow : public WindowWrapper {
+    public:
+        // Construtor
+        SFWindow(const std::string &applicationName, unsigned int width, unsigned int height);
 
-private:
-    sf::RenderWindow window;
+        // Forwarding calls
+        bool isOpen() override;
 
-};
+        void clear() override;
+
+        void display() override;
+
+        bool pollEvent(std::shared_ptr<EventWrapper> &event) override;
+
+        void draw(const std::shared_ptr<SpriteWrapper> &sprite) override;
+
+        void draw(const std::shared_ptr<TextWrapper> &text) override;
+
+    private:
+        sf::RenderWindow window;
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_SFWINDOW_H

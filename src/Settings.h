@@ -44,11 +44,11 @@ namespace settings {
     // Platforms
     const double minPlatformDifference = 30;
     const double maxPlatformDifference = 120;
-    const std::map<PlatformType, double> platformRarityMap = {
-            {STATIC, 5},
-            {HORIZONTAL, 1},
-            {TEMPORARY, 0.5},
-            {VERTICAL, 0.1},
+    const std::map<PlatformType, std::pair<double, double>> platformRarityMap = {
+            {STATIC, {0, 5}},
+            {HORIZONTAL, {(1/20000.0), 1}},
+            {TEMPORARY, {(1/5000.0), -3}},
+            {VERTICAL, {1/10000.0, -2}},
     };
 
     // Player movement

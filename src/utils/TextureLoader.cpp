@@ -21,7 +21,7 @@ TextureLoader &TextureLoader::getInstance() {
     return INSTANCE;
 }
 
-void TextureLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
+void TextureLoader::load(const std::shared_ptr<wrappers::WrapperFactory> &factory) {
     std::string spritesConfig = settings::resourceFile;
     std::ifstream input(spritesConfig);
 
@@ -43,7 +43,7 @@ void TextureLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
     try {
         for (const auto &entity: j.at("sprites")) {
             std::string entity_id = entity.at("id");
-            auto textures_map = std::map<std::string, std::shared_ptr<TextureWrapper>>();
+            auto textures_map = std::map<std::string, std::shared_ptr<wrappers::TextureWrapper>>();
             for (const auto &texture: entity.at("textures")) {
                 std::string texture_id = texture.at("id");
                 std::string source = texture.at("source");
@@ -70,7 +70,7 @@ void TextureLoader::load(const std::shared_ptr<WrapperFactory> &factory) {
 
 }
 
-const std::shared_ptr<TextureWrapper> & TextureLoader::getTexture(const std::string &entity_id, const std::string &texture_id) {
+const std::shared_ptr<wrappers::TextureWrapper> & TextureLoader::getTexture(const std::string &entity_id, const std::string &texture_id) {
     try {
         return resources.at(entity_id).at(texture_id);
     } catch (std::out_of_range& e) {

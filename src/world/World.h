@@ -10,10 +10,13 @@
 #include <vector>
 #include <memory>
 
-class WindowWrapper;
 class WorldGenerator;
-class TextWrapper;
 class Camera;
+
+namespace wrappers {
+    class WindowWrapper;
+    class TextWrapper;
+}
 
 namespace controllers {
     class PlayerController;
@@ -30,7 +33,7 @@ public:
     ~World();
 
     void update(double elapsed);
-    void draw(std::shared_ptr<WindowWrapper>& window);
+    void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
 
 private:
     friend class WorldGenerator;

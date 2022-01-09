@@ -15,14 +15,14 @@
 
 void GameOverState::update(double elapsed) {}
 
-void GameOverState::draw(std::shared_ptr<WindowWrapper> window) {
+void GameOverState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
     window->draw(gameover);
     highScore->draw(window);
     score->draw(window);
 }
 
 GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::GAME_OVER, factory) {
-    SFWrapperFactory wrapperFactory{};
+    wrappers::sfml::SFWrapperFactory wrapperFactory{};
     gameover = wrapperFactory.createSprite();
     auto texture = TextureLoader::getInstance().getTexture("screen", "gameover");
     gameover->setTexture(texture);

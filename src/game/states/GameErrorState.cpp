@@ -8,7 +8,7 @@ void GameErrorState::update(double elapsed) {
 
 }
 
-void GameErrorState::draw(std::shared_ptr<WindowWrapper> ptr) {
+void GameErrorState::draw(std::shared_ptr<wrappers::WindowWrapper> ptr) {
 
 }
 

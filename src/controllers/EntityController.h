@@ -10,8 +10,11 @@
 class EntityModel;
 class EntityView;
 class BoundingBox;
-class WindowWrapper;
-class SpriteWrapper;
+
+namespace wrappers {
+    class WindowWrapper;
+    class SpriteWrapper;
+}
 
 class EntityController: public EventHandler {
 public:
@@ -21,7 +24,7 @@ public:
 
     // Abstracts
     virtual void update(double elapsed);
-    virtual void draw(std::shared_ptr<WindowWrapper>& window);
+    virtual void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
     void handle(std::shared_ptr<Event>& event) override = 0;
 
     // Actions
@@ -30,7 +33,7 @@ public:
 
     // Setters
     void setSize(double size);
-    void setSprite(std::shared_ptr<SpriteWrapper> sprite);
+    void setSprite(std::shared_ptr<wrappers::SpriteWrapper> sprite);
     void setTexture(const std::string& textureId);
     void setPosition(double x, double y);
     void setDestroyed(bool d);

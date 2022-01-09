@@ -11,7 +11,7 @@
 std::shared_ptr<controllers::PlatformController>
 ConcreteEntityFactory::loadPlatform(PlatformType platformType) {
     std::shared_ptr<controllers::PlatformController> platformController;
-    std::shared_ptr<SpriteWrapper> platformSprite = wrapperFactory->createSprite();
+    std::shared_ptr<wrappers::SpriteWrapper> platformSprite = wrapperFactory->createSprite();
     if(platformType == PlatformType::STATIC) {
         platformController = std::make_shared<controllers::StaticPlatformController>();
         platformController->setSprite(platformSprite);
@@ -73,7 +73,7 @@ std::shared_ptr<controllers::TileController> ConcreteEntityFactory::loadTile() {
     return tileController;
 }
 
-ConcreteEntityFactory::ConcreteEntityFactory(std::shared_ptr<WrapperFactory>& wrapperFactory) {
+ConcreteEntityFactory::ConcreteEntityFactory(std::shared_ptr<wrappers::WrapperFactory>& wrapperFactory) {
     this->wrapperFactory = wrapperFactory;
 }
 

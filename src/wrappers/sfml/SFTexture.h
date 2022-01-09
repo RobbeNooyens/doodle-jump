@@ -10,25 +10,32 @@
 #include <memory>
 #include "../TextureWrapper.h"
 
-class SFTexture: public TextureWrapper {
-public:
-    // Constructor
-    SFTexture(const std::string& file, double width, double height, std::shared_ptr<BoundingBox> boundingBox);
+namespace wrappers::sfml {
 
-    // Getters
-    const std::shared_ptr<BoundingBox> &getBoundingBox() const override;
-    double getWidth() const override;
-    double getHeight() const override;
-    const sf::Texture& getTexture();
+    class SFTexture : public TextureWrapper {
+    public:
+        // Constructor
+        SFTexture(const std::string &file, double width, double height, std::shared_ptr<BoundingBox> boundingBox);
+
+        // Getters
+        const std::shared_ptr<BoundingBox> &getBoundingBox() const override;
+
+        double getWidth() const override;
+
+        double getHeight() const override;
+
+        const sf::Texture &getTexture();
 
 
-private:
-    const double height;
-    const double width;
-    const std::shared_ptr<BoundingBox> boundingBox;
-    sf::Texture texture;
+    private:
+        const double height;
+        const double width;
+        const std::shared_ptr<BoundingBox> boundingBox;
+        sf::Texture texture;
 
-};
+    };
+
+}
 
 
 #endif //DOODLEJUMP_SFTEXTURE_H

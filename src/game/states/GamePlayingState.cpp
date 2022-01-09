@@ -13,7 +13,7 @@ void GamePlayingState::update(double elapsed) {
     worldGenerator->update();
 }
 
-void GamePlayingState::draw(std::shared_ptr<WindowWrapper> window) {
+void GamePlayingState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
     world->draw(window);
 }
 

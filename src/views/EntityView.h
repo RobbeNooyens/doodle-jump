@@ -9,8 +9,11 @@
 #include <string>
 
 class EntityController;
-class SpriteWrapper;
-class TextureWrapper;
+
+namespace wrappers {
+    class SpriteWrapper;
+    class TextureWrapper;
+}
 
 class EntityView {
 public:
@@ -19,20 +22,20 @@ public:
     virtual ~EntityView();
 
     // Getters
-    const std::shared_ptr<SpriteWrapper>& getSprite();
-    const std::shared_ptr<TextureWrapper>& getTexture();
+    const std::shared_ptr<wrappers::SpriteWrapper>& getSprite();
+    const std::shared_ptr<wrappers::TextureWrapper>& getTexture();
 
     // Setters
     void setSize(double size);
     void setPosition(double x, double y);
     void setTexture(const std::string& textureId);
-    void setSprite(std::shared_ptr<SpriteWrapper> spriteWrapper);
+    void setSprite(std::shared_ptr<wrappers::SpriteWrapper> spriteWrapper);
 
 protected:
     const std::string spriteId;
     double size = 1, sizeX = 1, sizeY = 1;
-    std::shared_ptr<TextureWrapper> texture;
-    std::shared_ptr<SpriteWrapper> sprite;
+    std::shared_ptr<wrappers::TextureWrapper> texture;
+    std::shared_ptr<wrappers::SpriteWrapper> sprite;
 
     void updateSize();
 };

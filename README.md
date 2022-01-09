@@ -34,7 +34,6 @@ Necessary:
 - Documentation
 - Virtual destructors
 - Format with CLANG
-- Difficulty by platform types / spawnrate
 - Ensure namespaces used well
 - Platform deletion
 

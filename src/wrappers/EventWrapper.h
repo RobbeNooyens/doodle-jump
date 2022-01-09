@@ -8,12 +8,18 @@
 #include "../enums/WindowEventType.h"
 #include "../enums/Keyboard.h"
 
-class EventWrapper {
-public:
-    virtual WindowEventType getType() = 0;
-    virtual bool isKeyPressed(Keyboard key) = 0;
-    virtual Keyboard getKey() = 0;
+namespace wrappers {
 
-};
+    class EventWrapper {
+    public:
+        virtual WindowEventType getType() = 0;
+
+        virtual bool isKeyPressed(Keyboard key) = 0;
+
+        virtual Keyboard getKey() = 0;
+
+    };
+
+}
 
 #endif //DOODLEJUMP_EVENTWRAPPER_H

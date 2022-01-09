@@ -12,22 +12,25 @@ namespace sf {
     class Font;
 }
 
-class SFText: public TextWrapper {
-public:
-    SFText(const std::string& content, unsigned int size);
+namespace wrappers::sfml {
 
-    void setPosition(float x, float y) override;
+    class SFText : public TextWrapper {
+    public:
+        SFText(const std::string &content, unsigned int size);
 
-    sf::Text& getText();
+        void setPosition(float x, float y) override;
 
-    void setText(const std::string &text) override;
+        sf::Text &getText();
 
-private:
-    static sf::Font font;
-    static bool fontInitialized;
-    sf::Text text;
+        void setText(const std::string &text) override;
 
-};
+    private:
+        static sf::Font font;
+        static bool fontInitialized;
+        sf::Text text;
 
+    };
+
+}
 
 #endif //DOODLEJUMP_SFTEXT_H

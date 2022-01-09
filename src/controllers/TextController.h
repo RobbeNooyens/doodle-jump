@@ -10,8 +10,11 @@
 #include <memory>
 
 class TextView;
-class WindowWrapper;
-class TextWrapper;
+
+namespace wrappers {
+    class WindowWrapper;
+    class TextWrapper;
+}
 
 namespace controllers {
     class TextController {
@@ -20,10 +23,10 @@ namespace controllers {
         ~TextController();
 
         void update(const std::string& s);
-        void draw(std::shared_ptr<WindowWrapper> &window);
+        void draw(std::shared_ptr<wrappers::WindowWrapper> &window);
 
         void setPosition(double x, double y);
-        void setTextWrapper(std::shared_ptr<TextWrapper> &wrapper);
+        void setTextWrapper(std::shared_ptr<wrappers::TextWrapper> &wrapper);
 
     private:
         std::shared_ptr<TextView> view;

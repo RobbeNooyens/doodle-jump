@@ -47,7 +47,10 @@ void WorldGenerator::calculateNextPlatformHeight() {
     int yRelative = (int) (Random::getInstance().generate(intervalBegin, intervalEnd) * heightDifference);
     previousHeight = nextHeight;
     nextHeight = previousHeight + (settings::minPlatformDifference + yRelative);
-    nextPlatformType = Random::getInstance().randomWeighted(settings::platformRarityMap);
+    std::map<PlatformType, double> platformRarityMap;
+    for(auto& entry: settings::platformRarityMap)
+        platformRarityMap.emplace(entry.first, std::max(entry.second.first*height+entry.second.second, 0.0));
+    nextPlatformType = Random::getInstance().randomWeighted(platformRarityMap);
     // Decide whether or not to include a bonus
     addBonus = Random::getInstance().generate<double>() <= settings::bonusSpawnRate;
     if(addBonus && height > 500 && nextPlatformType != TEMPORARY) {

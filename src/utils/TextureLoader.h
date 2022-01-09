@@ -11,14 +11,16 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <memory>
 
-class WrapperFactory;
-class TextureWrapper;
+namespace wrappers {
+    class WrapperFactory;
+    class TextureWrapper;
+}
 
 class TextureLoader {
 public:
-    const std::shared_ptr<TextureWrapper> & getTexture(const std::string &entity_id, const std::string &texture_id);
+    const std::shared_ptr<wrappers::TextureWrapper> & getTexture(const std::string &entity_id, const std::string &texture_id);
 
-    void load(const std::shared_ptr<WrapperFactory> &factory);
+    void load(const std::shared_ptr<wrappers::WrapperFactory> &factory);
 
     // Singleton specific
     static TextureLoader& getInstance();
@@ -27,7 +29,7 @@ public:
 
 private:
     TextureLoader();
-    std::map<std::string, std::map<std::string, std::shared_ptr<TextureWrapper>>> resources;
+    std::map<std::string, std::map<std::string, std::shared_ptr<wrappers::TextureWrapper>>> resources;
 
 
 };

@@ -7,24 +7,25 @@
 
 
 #include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
 #include <memory>
 #include <map>
 #include "../SpriteWrapper.h"
 
-class SFTexture;
+namespace wrappers::sfml {
 
-class SFSprite: public SpriteWrapper {
-public:
-    sf::Sprite& getSprite();
+    class SFSprite : public SpriteWrapper {
+    public:
+        sf::Sprite &getSprite();
 
-    void setPosition(float x, float y) override;
-    void setScale(float factorX, float factorY) override;
-    void setTexture(std::shared_ptr<TextureWrapper> &texture) override;
+        void setPosition(float x, float y) override;
 
-private:
-    sf::Sprite sprite{};
-};
+        void setScale(float factorX, float factorY) override;
 
+        void setTexture(std::shared_ptr<TextureWrapper> &texture) override;
 
+    private:
+        sf::Sprite sprite{};
+    };
+
+}
 #endif //DOODLEJUMP_SFSPRITE_H

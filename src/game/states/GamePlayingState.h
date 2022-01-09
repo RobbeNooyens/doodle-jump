@@ -18,7 +18,7 @@ public:
     ~GamePlayingState();
 
     void update(double elapsed) override;
-    void draw(std::shared_ptr<WindowWrapper> window) override;
+    void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
 
 private:
     std::shared_ptr<World> world;

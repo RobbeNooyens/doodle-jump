@@ -8,9 +8,14 @@
 #include <memory>
 #include "GameStateController.h"
 
-class WindowWrapper;
-class WrapperFactory;
-class EventWrapper;
+namespace wrappers {
+    class WindowWrapper;
+
+    class WrapperFactory;
+
+    class EventWrapper;
+}
+
 class GameState;
 class EntityFactory;
 
@@ -26,9 +31,9 @@ private:
 
     std::shared_ptr<EntityFactory> entityFactory;
 
-    std::shared_ptr<WrapperFactory> wrapperFactory;
-    std::shared_ptr<WindowWrapper> window;
-    std::shared_ptr<EventWrapper> event;
+    std::shared_ptr<wrappers::WrapperFactory> wrapperFactory;
+    std::shared_ptr<wrappers::WindowWrapper> window;
+    std::shared_ptr<wrappers::EventWrapper> event;
 };
 
 

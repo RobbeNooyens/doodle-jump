@@ -8,7 +8,10 @@
 #include <memory>
 #include "../../enums/GameStateType.h"
 
-class WindowWrapper;
+namespace wrappers {
+    class WindowWrapper;
+}
+
 class EntityFactory;
 
 class GameState {
@@ -22,7 +25,7 @@ public:
 
     // Actions
     virtual void update(double elapsed) = 0;
-    virtual void draw(std::shared_ptr<WindowWrapper>) = 0;
+    virtual void draw(std::shared_ptr<wrappers::WindowWrapper>) = 0;
 
 protected:
     std::shared_ptr<EntityFactory> factory;

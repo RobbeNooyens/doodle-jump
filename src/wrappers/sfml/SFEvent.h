@@ -9,20 +9,26 @@
 #include <SFML/Window/Event.hpp>
 #include "../EventWrapper.h"
 
-class SFEvent: public EventWrapper {
-public:
-    // Checking
-    bool isKeyPressed(Keyboard key) override;
+namespace wrappers::sfml {
 
-    // Getters
-    sf::Event& getEvent();
-    WindowEventType getType() override;
-    Keyboard getKey() override;
+    class SFEvent : public EventWrapper {
+    public:
+        // Checking
+        bool isKeyPressed(Keyboard key) override;
 
-private:
-    sf::Event event{};
+        // Getters
+        sf::Event &getEvent();
 
-};
+        WindowEventType getType() override;
+
+        Keyboard getKey() override;
+
+    private:
+        sf::Event event{};
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_SFEVENT_H

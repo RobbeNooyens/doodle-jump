@@ -8,7 +8,9 @@
 
 #include "GameState.h"
 
-class SpriteWrapper;
+namespace wrappers {
+    class SpriteWrapper;
+}
 
 namespace controllers {
     class TextController;
@@ -20,10 +22,10 @@ public:
     ~GameOverState();
 
     void update(double elapsed) override;
-    void draw(std::shared_ptr<WindowWrapper> ptr) override;
+    void draw(std::shared_ptr<wrappers::WindowWrapper> ptr) override;
 
 private:
-    std::shared_ptr<SpriteWrapper> gameover;
+    std::shared_ptr<wrappers::SpriteWrapper> gameover;
     std::shared_ptr<controllers::TextController> score;
     std::shared_ptr<controllers::TextController> highScore;
 };

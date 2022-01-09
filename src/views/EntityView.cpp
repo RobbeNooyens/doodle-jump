@@ -30,7 +30,7 @@ void EntityView::setTexture(const std::string &textureId) {
     updateSize();
 }
 
-const std::shared_ptr<SpriteWrapper> &EntityView::getSprite() {
+const std::shared_ptr<wrappers::SpriteWrapper> &EntityView::getSprite() {
     return sprite;
 }
 
@@ -41,11 +41,11 @@ void EntityView::updateSize() {
     this->sizeY = (size*texture->getHeight())/texture->getWidth();
 }
 
-void EntityView::setSprite(std::shared_ptr<SpriteWrapper> spriteWrapper) {
+void EntityView::setSprite(std::shared_ptr<wrappers::SpriteWrapper> spriteWrapper) {
     this->sprite = std::move(spriteWrapper);
 }
 
-const std::shared_ptr<TextureWrapper> &EntityView::getTexture() {
+const std::shared_ptr<wrappers::TextureWrapper> &EntityView::getTexture() {
     return texture;
 }
 

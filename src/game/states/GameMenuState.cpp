@@ -10,16 +10,14 @@
 #include "../../factories/EntityFactory.h"
 #include "../../wrappers/sfml/SFWrapperFactory.h"
 
-void GameMenuState::update(double elapsed) {
+void GameMenuState::update(double elapsed) {}
 
-}
-
-void GameMenuState::draw(std::shared_ptr<WindowWrapper> window) {
+void GameMenuState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
     window->draw(menu);
 }
 
 GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::MENU, factory) {
-    SFWrapperFactory wrapperFactory{};
+    wrappers::sfml::SFWrapperFactory wrapperFactory{};
     menu = wrapperFactory.createSprite();
     auto texture = TextureLoader::getInstance().getTexture("screen", "menu");
     menu->setTexture(texture);

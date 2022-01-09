@@ -8,7 +8,10 @@
 
 #include "GameState.h"
 
-class SpriteWrapper;
+namespace wrappers {
+    class SpriteWrapper;
+    class WindowWrapper;
+}
 class TileController;
 
 class GameMenuState: public GameState {
@@ -17,10 +20,10 @@ public:
     ~GameMenuState();
 
     void update(double elapsed) override;
-    void draw(std::shared_ptr<WindowWrapper> window) override;
+    void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
 
 private:
-    std::shared_ptr<SpriteWrapper> menu;
+    std::shared_ptr<wrappers::SpriteWrapper> menu;
 };
 
 

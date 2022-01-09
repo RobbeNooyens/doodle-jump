@@ -65,7 +65,7 @@ long EntityController::getId() const {
     return id;
 }
 
-void EntityController::draw(std::shared_ptr<WindowWrapper>& window) {
+void EntityController::draw(std::shared_ptr<wrappers::WindowWrapper>& window) {
     window->draw(view->getSprite());
 }
 
@@ -77,7 +77,7 @@ void EntityController::setTexture(const std::string &textureId) {
     model->setHeight(texture->getHeight());
 }
 
-void EntityController::setSprite(std::shared_ptr<SpriteWrapper> sprite) {
+void EntityController::setSprite(std::shared_ptr<wrappers::SpriteWrapper> sprite) {
     view->setSprite(std::move(sprite));
 }
 

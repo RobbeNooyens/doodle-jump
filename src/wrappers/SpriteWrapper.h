@@ -7,13 +7,21 @@
 
 #include <string>
 
-class TextureWrapper;
+namespace wrappers {
+    class TextureWrapper;
+}
 
-class SpriteWrapper {
-public:
-    virtual void setTexture(std::shared_ptr<TextureWrapper>& texture) = 0;
-    virtual void setPosition(float x, float y) = 0;
-    virtual void setScale(float factorX, float factorY) = 0;
-};
+namespace wrappers {
+
+    class SpriteWrapper {
+    public:
+        virtual void setTexture(std::shared_ptr<TextureWrapper> &texture) = 0;
+
+        virtual void setPosition(float x, float y) = 0;
+
+        virtual void setScale(float factorX, float factorY) = 0;
+    };
+
+}
 
 #endif //DOODLEJUMP_SPRITEWRAPPER_H

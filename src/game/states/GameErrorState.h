@@ -13,7 +13,7 @@ public:
     explicit GameErrorState(std::shared_ptr<EntityFactory>& factory);
 
     void update(double elapsed) override;
-    void draw(std::shared_ptr<WindowWrapper> ptr) override;
+    void draw(std::shared_ptr<wrappers::WindowWrapper> ptr) override;
 
 };
 

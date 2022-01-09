@@ -6,7 +6,7 @@
 
 #include "../wrappers/TextWrapper.h"
 
-const std::shared_ptr<TextWrapper> &TextView::getText() {
+const std::shared_ptr<wrappers::TextWrapper> &TextView::getText() {
     return text;
 }
 
@@ -18,7 +18,7 @@ void TextView::setPosition(double x, double y) {
     text->setPosition((float) x, (float) y);
 }
 
-void TextView::setTextWrapper(std::shared_ptr<TextWrapper> &wrapper) {
+void TextView::setTextWrapper(std::shared_ptr<wrappers::TextWrapper> &wrapper) {
     text = wrapper;
 }
 

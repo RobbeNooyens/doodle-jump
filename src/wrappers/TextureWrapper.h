@@ -10,12 +10,18 @@
 
 class BoundingBox;
 
-class TextureWrapper {
-public:
-    [[nodiscard]] virtual const std::shared_ptr<BoundingBox>& getBoundingBox() const = 0;
-    [[nodiscard]] virtual double getWidth() const = 0;
-    [[nodiscard]] virtual double getHeight() const = 0;
+namespace wrappers {
 
-};
+    class TextureWrapper {
+    public:
+        [[nodiscard]] virtual const std::shared_ptr<BoundingBox> &getBoundingBox() const = 0;
+
+        [[nodiscard]] virtual double getWidth() const = 0;
+
+        [[nodiscard]] virtual double getHeight() const = 0;
+
+    };
+
+}
 
 #endif //DOODLEJUMP_TEXTUREWRAPPER_H

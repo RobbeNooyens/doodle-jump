@@ -51,7 +51,7 @@ void GameStateController::update(double elapsed) {
 
 }
 
-void GameStateController::draw(std::shared_ptr<WindowWrapper> &window) {
+void GameStateController::draw(std::shared_ptr<wrappers::WindowWrapper> &window) {
     state->draw(window);
 }
 

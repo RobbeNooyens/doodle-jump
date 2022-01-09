@@ -16,7 +16,7 @@
 #include "../factories/ConcreteEntityFactory.h"
 
 Game::Game() {
-    wrapperFactory = std::make_shared<SFWrapperFactory>();
+    wrapperFactory = std::make_shared<wrappers::sfml::SFWrapperFactory>();
     TextureLoader::getInstance().load(wrapperFactory);
     entityFactory = std::make_shared<ConcreteEntityFactory>(wrapperFactory);
     stateControl = std::make_shared<GameStateController>(entityFactory);

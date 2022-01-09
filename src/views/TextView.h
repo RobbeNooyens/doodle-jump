@@ -8,20 +8,22 @@
 
 #include <memory>
 
-class TextWrapper;
+namespace wrappers {
+    class TextWrapper;
+}
 
 class TextView {
 public:
     ~TextView();
 
-    const std::shared_ptr<TextWrapper>& getText();
+    const std::shared_ptr<wrappers::TextWrapper>& getText();
 
     void setPosition(double x, double y);
     void setText(const std::string& t);
-    void setTextWrapper(std::shared_ptr<TextWrapper>& wrapper);
+    void setTextWrapper(std::shared_ptr<wrappers::TextWrapper>& wrapper);
 
 private:
-    std::shared_ptr<TextWrapper> text;
+    std::shared_ptr<wrappers::TextWrapper> text;
 
 };
 
