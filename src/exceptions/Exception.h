@@ -5,7 +5,6 @@
 #ifndef DOODLEJUMP_EXCEPTION_H
 #define DOODLEJUMP_EXCEPTION_H
 
-
 #include <exception>
 #include <string>
 

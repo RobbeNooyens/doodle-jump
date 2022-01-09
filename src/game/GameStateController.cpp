@@ -2,6 +2,7 @@
 // Created by robnoo on 6/01/22.
 //
 
+#include <iostream>
 #include "GameStateController.h"
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
@@ -10,11 +11,14 @@
 #include "states/GamePlayingState.h"
 #include "states/GameErrorState.h"
 #include "../world/World.h"
+#include "../ScoreManager.h"
+#include "../exceptions/Exception.h"
 
 void GameStateController::handle(std::shared_ptr<Event> &event) {
     if(event->getType() == GameEventType::PLAYER_DIED) {
         shouldReplaceState = true;
         replaceWith = GAME_OVER;
+        ScoreManager::getInstance().writeHighScore();
     } else if(event->getType() == GameEventType::KEY_PRESSED) {
         auto keyPressedEvent = std::static_pointer_cast<KeyPressedEvent>(event);
         if(keyPressedEvent->getKey() == Keyboard::SPACEBAR) {
@@ -34,11 +38,17 @@ void GameStateController::handle(std::shared_ptr<Event> &event) {
 }
 
 void GameStateController::update(double elapsed) {
-    state->update(elapsed);
-    if(shouldReplaceState) {
-        shouldReplaceState = false;
-        replaceState(replaceWith);
+    try {
+        state->update(elapsed);
+        if(shouldReplaceState) {
+            shouldReplaceState = false;
+            replaceState(replaceWith);
+        }
+    } catch (exceptions::Exception& e) {
+        replaceState(ERROR);
+        std::cerr << e.what() << std::endl;
     }
+
 }
 
 void GameStateController::draw(std::shared_ptr<WindowWrapper> &window) {
@@ -61,8 +71,7 @@ void GameStateController::replaceState(GameStateType gameStateType) {
             state = std::make_shared<GameErrorState>(factory);
             break;
     }
-    state->update(0);
-
+    update(0);
 }
 
 GameStateController::GameStateController(std::shared_ptr<EntityFactory>& factory):

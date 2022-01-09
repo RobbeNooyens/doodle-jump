@@ -5,6 +5,8 @@
 #include <fstream>
 #include <iostream>
 #include "ScoreManager.h"
+#include "exceptions/FileNotFoundException.h"
+#include "Settings.h"
 
 double ScoreManager::getScore() const {
     return score;
@@ -32,23 +34,23 @@ void ScoreManager::addScore(double s) {
 
 void ScoreManager::readHighScore() {
     std::string line;
-    std::ifstream myfile ("../resources/files/highscore.txt");
-    if (myfile.is_open()) {
-        getline(myfile, line);
-        myfile.close();
-    } else {
-        // TODO: error
-        std::cout << "Unable to open file";
+    std::ifstream highScoreFile (settings::highscoreFile);
+    if(!highScoreFile.good() || !highScoreFile.is_open()) {
+        throw exceptions::FileNotFoundException(settings::highscoreFile);
     }
+    getline(highScoreFile, line);
+    highScoreFile.close();
     highScore = std::stod(line);
 }
 
 void ScoreManager::writeHighScore() const {
-    // TODO: error
-    std::ofstream myfile;
-    myfile.open ("../resources/files/highscore.txt");
-    myfile << highScore;
-    myfile.close();
+    std::ofstream highScoreFile;
+    highScoreFile.open (settings::highscoreFile);
+    if(!highScoreFile.good()) {
+        throw exceptions::FileNotFoundException(settings::highscoreFile);
+    }
+    highScoreFile << highScore;
+    highScoreFile.close();
 }
 
 double ScoreManager::getHighScore() const {
