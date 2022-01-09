@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 1/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_HEIGHTCHANGEDEVENT_H
 #define DOODLEJUMP_HEIGHTCHANGEDEVENT_H

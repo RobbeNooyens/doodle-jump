@@ -1,14 +1,22 @@
-//
-// Created by robnoo on 1/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_TEXTURELOADER_H
 #define DOODLEJUMP_TEXTURELOADER_H
 
-#include <utility>
 #include <map>
 #include <string>
-#include <SFML/Graphics/Texture.hpp>
 #include <memory>
 
 namespace wrappers {

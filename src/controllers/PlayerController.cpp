@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "PlayerController.h"
 #include "../events/Event.h"
@@ -9,6 +19,8 @@
 #include "../events/PlayerBouncesOnPlatformEvent.h"
 #include "../events/EventManager.h"
 #include "../events/PlayerDiedEvent.h"
+#include "../views/PlayerView.h"
+#include "../models/PlayerModel.h"
 
 void controllers::PlayerController::handle(std::shared_ptr<events::Event>& event) {
     auto playerView = std::static_pointer_cast<views::PlayerView>(view);

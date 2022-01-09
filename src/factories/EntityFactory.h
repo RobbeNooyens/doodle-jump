@@ -1,17 +1,31 @@
-//
-// Created by robnoo on 26/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_ENTITYFACTORY_H
 #define DOODLEJUMP_ENTITYFACTORY_H
 
-
-#include "../controllers/PlatformController.h"
-#include "../controllers/PlayerController.h"
-#include "../controllers/BonusController.h"
-#include "../controllers/TileController.h"
+#include <memory>
 #include "../enums/PlatformType.h"
-#include "../controllers/TextController.h"
+#include "../enums/BonusType.h"
+
+namespace controllers {
+    class PlatformController;
+    class PlayerController;
+    class BonusController;
+    class TileController;
+    class TextController;
+}
 
 class EntityFactory {
 public:

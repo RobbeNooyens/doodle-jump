@@ -1,10 +1,19 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "SFSprite.h"
 
-#include <utility>
 #include "SFTexture.h"
 #include "../../utils/TextureLoader.h"
 

@@ -1,6 +1,16 @@
-//
-// Created by robbe on 20/11/2021.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_RANDOM_H
 #define DOODLEJUMP_RANDOM_H
@@ -9,7 +19,6 @@
 #include <cassert>
 #include <random>
 #include <stdexcept>
-#include "../score/ScoreManager.h"
 
 class Random {
 public:

@@ -1,8 +1,17 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
-#include <iostream>
 #include "PlatformController.h"
 #include "../events/Event.h"
 #include "../events/HeightChangedEvent.h"

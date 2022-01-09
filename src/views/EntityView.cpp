@@ -1,11 +1,20 @@
-//
-// Created by robnoo on 28/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "EntityView.h"
 
 #include <utility>
-#include <iostream>
 #include "../bounding_box/BoundingBox.h"
 #include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/TextureWrapper.h"

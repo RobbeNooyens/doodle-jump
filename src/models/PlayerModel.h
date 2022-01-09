@@ -1,15 +1,25 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_PLAYERMODEL_H
 #define DOODLEJUMP_PLAYERMODEL_H
 
 #include "EntityModel.h"
-#include "../utils/TextureLoader.h"
 #include "../enums/Direction.h"
 #include "../enums/BonusType.h"
-#include "../Settings.h"
+
+class TextureLoader;
 
 namespace models {
     class PlayerModel: public EntityModel {

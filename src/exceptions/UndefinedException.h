@@ -1,13 +1,21 @@
-//
-// Created by robnoo on 8/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_UNDEFINEDEXCEPTION_H
 #define DOODLEJUMP_UNDEFINEDEXCEPTION_H
 
 #include "Exception.h"
-
-#include <string>
 
 namespace exceptions {
     class UndefinedException: public Exception {

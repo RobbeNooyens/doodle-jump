@@ -1,6 +1,16 @@
-//
-// Created by robbe on 20/11/2021.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "Game.h"
 #include "../utils/Stopwatch.h"
@@ -14,6 +24,7 @@
 #include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/sfml/SFWrapperFactory.h"
 #include "../factories/ConcreteEntityFactory.h"
+#include "../Settings.h"
 
 Game::Game() {
     wrapperFactory = std::make_shared<wrappers::sfml::SFWrapperFactory>();

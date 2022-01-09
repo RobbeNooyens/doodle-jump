@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_GAMEMENUSTATE_H
 #define DOODLEJUMP_GAMEMENUSTATE_H
@@ -12,7 +22,6 @@ namespace wrappers {
     class SpriteWrapper;
     class WindowWrapper;
 }
-class TileController;
 
 class GameMenuState: public GameState {
 public:

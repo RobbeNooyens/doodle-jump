@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "GameOverState.h"
 #include "../../wrappers/sfml/SFWrapperFactory.h"
@@ -12,6 +22,7 @@
 #include "../../wrappers/TextWrapper.h"
 #include "../../factories/EntityFactory.h"
 #include "../../score/ScoreManager.h"
+#include "../../controllers/TextController.h"
 
 void GameOverState::update(double elapsed) {}
 

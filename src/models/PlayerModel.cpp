@@ -1,16 +1,24 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include <algorithm>
 #include "PlayerModel.h"
-#include "../world/World.h"
 #include "../events/HeightChangedEvent.h"
 #include "../events/EventManager.h"
 #include "../score/ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
-#include "../world/Camera.h"
-#include "../events/PlayerDiedEvent.h"
+#include "../Settings.h"
 
 void models::PlayerModel::update(double elapsed) {
     double absDifference = elapsed * settings::acceleration;
