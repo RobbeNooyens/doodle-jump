@@ -18,12 +18,25 @@
 #include "EntityModel.h"
 
 namespace models {
+    /**
+     * @brief Represents tile logic
+     */
     class TileModel: public EntityModel {
     public:
+        /**
+         * @brief Constructor
+         */
         TileModel();
 
+        /**
+         * @brief Update model based on the elapsed time
+         * @param elapsed elapsed seconds since last frame
+         */
         void update(double elapsed) override;
 
+        /**
+         * @brief move tile above upper screen border to continue scrolling effect
+         */
         void recycle();
     };
 }

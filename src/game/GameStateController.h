@@ -28,13 +28,32 @@ namespace states {
     class GameState;
 }
 
+/**
+ * @brief Controls the game states
+ */
 class GameStateController: public EventHandler {
 public:
+    /**
+     * @brief Parameter Constructor
+     * @param factory factory used to create new entity instances
+     */
     explicit GameStateController(std::shared_ptr<EntityFactory>& factory);
 
+    /**
+     * @brief Handles incoming game events
+     * @param event event that got invoked
+     */
     void handle(std::shared_ptr<events::Event> &event) override;
 
+    /**
+     * @brief Update state based on the elapsed time
+     * @param elapsed elapsed seconds since last frame
+     */
     void update(double elapsed);
+    /**
+     * @brief Draws state content to the given window
+     * @param window window to draw content on
+     */
     void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
 
 private:

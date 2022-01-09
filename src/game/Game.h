@@ -29,9 +29,19 @@ namespace wrappers {
 class GameState;
 class EntityFactory;
 
+/**
+ * @brief Represents a game instance and handles the game loop
+ */
 class Game {
 public:
+    /**
+     * @brief Default constructor
+     */
     Game();
+
+    /**
+     * @brief runs gameloop
+     */
     void run();
 
 private:

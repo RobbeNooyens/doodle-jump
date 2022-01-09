@@ -19,11 +19,24 @@
 #include <cassert>
 #include <random>
 #include <stdexcept>
+#include "../exceptions/UndefinedException.h"
 
+/**
+ * @brief Singleton that generates random numbers
+ */
 class Random {
 public:
+    /**
+     * @return Singleton instance of Random
+     */
     static Random& getInstance();
 
+    /**
+     * @brief Choose random element from a map with weights
+     * @tparam T random element type
+     * @param weightMap map with an element and its weight
+     * @return a weighted random element from the input map
+     */
     template<typename T>
     T randomWeighted(std::map<T, double> weightMap) {
         double sum = 0;
@@ -37,19 +50,37 @@ public:
             if(random <= checkSum)
                 return entry.first;
         }
-        throw std::runtime_error("Cant reach this");
+        throw exceptions::UndefinedException("Reached an unreachable statement");
     }
 
+    /**
+     * @brief Generates random number between 0 and 1
+     * @tparam T number type
+     * @return random number of type T between 0 and 1
+     */
     template<typename T>
     T generate() {
         return generate((T) 1);
     }
 
     template<typename T>
+    /**
+     * @brief Generates random number between 0 and upperbound
+     * @tparam T number type
+     * @param upperbound upperbound for random number
+     * @return random number between 0 and upperbound
+     */
     T generate(T upperbound) {
         return generate((T) 0, upperbound);
     }
 
+    /**
+     * @brief Generates random number between lowerbound and upperbound
+     * @tparam T number type
+     * @param lowerbound lowerbound for random number
+     * @param upperbound upperbound for random number
+     * @return random number between lowerbound and upperbound
+     */
     template<typename T>
     T generate(T lowerbound, T upperbound) {
         assert(lowerbound <= upperbound && "Lowerbound must be smaller than the upperbound.");
