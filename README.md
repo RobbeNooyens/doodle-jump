@@ -32,9 +32,7 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 Necessary:
 - Cleanup
 - Documentation
-- Virtual destructors
 - Format with CLANG
-- Ensure namespaces used well
 - Platform deletion
 
 ## Warning

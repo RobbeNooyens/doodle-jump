@@ -13,6 +13,7 @@ namespace events {
     class Event {
     public:
         explicit Event(GameEventType type) : type(type) {}
+        virtual ~Event() = default;
 
         Event() : type(GameEventType::UNDEFINED) {}
 
