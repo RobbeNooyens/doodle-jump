@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 2/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "EntityController.h"
 
@@ -30,9 +40,8 @@ void EntityController::update(double elapsed) {
     model->update(elapsed);
     model->updateBoundingBox();
     view->setPosition(model->getX(), model->getY());
-    if(model->getBoundingBox()->getTop() > settings::screenHeight+40) {
-        // TODO Do some check for vertical platforms and bonuses
-        destroy();
+    if(model->getBoundingBox()->getTop() > settings::screenHeight) {
+        goesBeneathScreen();
     }
 }
 
@@ -57,15 +66,11 @@ std::shared_ptr<BoundingBox> EntityController::getBoundingBox() {
     return model->getBoundingBox();
 }
 
-void EntityController::setDestroyed(bool d) {
-    this->destroyed = d;
-}
-
 long EntityController::getId() const {
     return id;
 }
 
-void EntityController::draw(std::shared_ptr<WindowWrapper>& window) {
+void EntityController::draw(std::shared_ptr<wrappers::WindowWrapper>& window) {
     window->draw(view->getSprite());
 }
 
@@ -77,7 +82,7 @@ void EntityController::setTexture(const std::string &textureId) {
     model->setHeight(texture->getHeight());
 }
 
-void EntityController::setSprite(std::shared_ptr<SpriteWrapper> sprite) {
+void EntityController::setSprite(std::shared_ptr<wrappers::SpriteWrapper> sprite) {
     view->setSprite(std::move(sprite));
 }
 

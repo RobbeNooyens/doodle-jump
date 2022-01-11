@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "GameMenuState.h"
 
@@ -9,17 +19,17 @@
 #include "../../wrappers/TextureWrapper.h"
 #include "../../factories/EntityFactory.h"
 #include "../../wrappers/sfml/SFWrapperFactory.h"
+#include "../../utils/TextureLoader.h"
+#include "../../Settings.h"
 
-void GameMenuState::update(double elapsed) {
+void states::GameMenuState::update(double elapsed) {}
 
-}
-
-void GameMenuState::draw(std::shared_ptr<WindowWrapper> window) {
+void states::GameMenuState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
     window->draw(menu);
 }
 
-GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::MENU, factory) {
-    SFWrapperFactory wrapperFactory{};
+states::GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::MENU, factory) {
+    wrappers::sfml::SFWrapperFactory wrapperFactory{};
     menu = wrapperFactory.createSprite();
     auto texture = TextureLoader::getInstance().getTexture("screen", "menu");
     menu->setTexture(texture);
@@ -28,6 +38,6 @@ GameMenuState::GameMenuState(std::shared_ptr<EntityFactory>& factory): GameState
     menu->setScale((float)scaleX, (float)scaleY);
 }
 
-GameMenuState::~GameMenuState() {
+states::GameMenuState::~GameMenuState() {
     menu.reset();
 }

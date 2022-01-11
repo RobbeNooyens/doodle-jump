@@ -1,11 +1,21 @@
-//
-// Created by robnoo on 28/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "KeyPressedEvent.h"
 
-KeyPressedEvent::KeyPressedEvent(Keyboard key): Event(GameEventType::KEY_PRESSED), keyPressed(key) {}
+events::KeyPressedEvent::KeyPressedEvent(Keyboard key): Event(GameEventType::KEY_PRESSED), keyPressed(key) {}
 
-Keyboard KeyPressedEvent::getKey() {
+Keyboard events::KeyPressedEvent::getKey() {
     return keyPressed;
 }

@@ -12,11 +12,11 @@ file(GLOB sourcefiles
         "src/**/**/*.cpp"
         )
 
-# Compile option needed to prevent Clion from skipping breakpoints and to use multithreading
-add_compile_options(-gdwarf-4 -O3 -pthread)
+# Compile option needed to prevent Clion from skipping breakpoints
+add_compile_options(-gdwarf-4)
 
 
-add_executable(DoodleJump ${sourcefiles} src/exceptions/FontLoadException.h src/exceptions/TextureLoadException.h)
+add_executable(DoodleJump ${sourcefiles})
 
 # Find SFML
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/")

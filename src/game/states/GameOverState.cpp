@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "GameOverState.h"
 #include "../../wrappers/sfml/SFWrapperFactory.h"
@@ -11,18 +21,19 @@
 #include "../../wrappers/TextureWrapper.h"
 #include "../../wrappers/TextWrapper.h"
 #include "../../factories/EntityFactory.h"
-#include "../../ScoreManager.h"
+#include "../../score/ScoreManager.h"
+#include "../../controllers/TextController.h"
 
-void GameOverState::update(double elapsed) {}
+void states::GameOverState::update(double elapsed) {}
 
-void GameOverState::draw(std::shared_ptr<WindowWrapper> window) {
+void states::GameOverState::draw(std::shared_ptr<wrappers::WindowWrapper> window) {
     window->draw(gameover);
     highScore->draw(window);
     score->draw(window);
 }
 
-GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::GAME_OVER, factory) {
-    SFWrapperFactory wrapperFactory{};
+states::GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState(GameStateType::GAME_OVER, factory) {
+    wrappers::sfml::SFWrapperFactory wrapperFactory{};
     gameover = wrapperFactory.createSprite();
     auto texture = TextureLoader::getInstance().getTexture("screen", "gameover");
     gameover->setTexture(texture);
@@ -35,7 +46,7 @@ GameOverState::GameOverState(std::shared_ptr<EntityFactory>& factory): GameState
     highScore->setPosition(settings::screenWidth*0.70, settings::screenHeight*0.47);
 }
 
-GameOverState::~GameOverState() {
+states::GameOverState::~GameOverState() {
     gameover.reset();
     score.reset();
     highScore.reset();

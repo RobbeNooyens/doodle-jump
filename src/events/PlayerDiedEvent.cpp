@@ -1,7 +1,17 @@
-//
-// Created by robnoo on 7/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "PlayerDiedEvent.h"
 
-PlayerDiedEvent::PlayerDiedEvent(): Event(GameEventType::PLAYER_DIED) {}
+events::PlayerDiedEvent::PlayerDiedEvent(): Event(GameEventType::PLAYER_DIED) {}

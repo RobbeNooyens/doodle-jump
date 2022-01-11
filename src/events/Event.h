@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 28/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_EVENT_H
 #define DOODLEJUMP_EVENT_H
@@ -8,15 +18,33 @@
 #include <chrono>
 #include "../enums/GameEventType.h"
 
-class Event {
-public:
-    explicit Event(GameEventType type): type(type) {}
-    Event(): type(GameEventType::UNDEFINED) {}
-    GameEventType getType() { return type; }
+namespace events {
 
-private:
-    GameEventType type;
-    std::chrono::system_clock::time_point timeStamp;
-};
+    /**
+     * @brief Represents an event in the game
+     */
+    class Event {
+    public:
+        /**
+         * @brief Parameter constructor
+         * @param type event type
+         */
+        explicit Event(GameEventType type = UNDEFINED) : type(type) {}
+        /**
+         * @brief Default virtual destructor
+         */
+        virtual ~Event() = default;
+
+        /**
+         * @return game event type
+         */
+        GameEventType getType() { return type; }
+
+    private:
+        GameEventType type = GameEventType::UNDEFINED;
+        std::chrono::system_clock::time_point timeStamp{};
+    };
+
+}
 
 #endif //DOODLEJUMP_EVENT_H

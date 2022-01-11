@@ -1,21 +1,36 @@
-//
-// Created by robnoo on 4/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "WorldGenerator.h"
 
-#include <utility>
 #include <iostream>
-#include "../events/HeightChangedEvent.h"
+
 #include "World.h"
+#include "Camera.h"
+#include "../events/HeightChangedEvent.h"
 #include "../utils/Random.h"
-#include "../factories/ConcreteEntityFactory.h"
 #include "../Settings.h"
 #include "../bounding_box/BoundingBox.h"
-#include "../Camera.h"
+#include "../controllers/PlayerController.h"
+#include "../controllers/PlatformController.h"
+#include "../controllers/TileController.h"
+#include "../controllers/BonusController.h"
+#include "../controllers/TextController.h"
 
 void WorldGenerator::update() {
-    while(Camera::getInstance().getHeight() >= nextHeight) {
+    auto worldPtr = world.lock();
+    while(worldPtr->camera->getHeight() >= nextHeight) {
         generatePlatform();
         calculateNextPlatformHeight();
     }
@@ -27,25 +42,30 @@ void WorldGenerator::generatePlatform() {
     auto midX = platform->getBoundingBox()->getWidth()/2;
     auto midY = platform->getBoundingBox()->getHeight()/2;
     auto platformX = Random::getInstance().generate<double>(midX, settings::screenWidth-midX);
-    auto platformY = -midY+(Camera::getInstance().getHeight()-nextHeight);
+    auto platformY = -midY+(worldPtr->camera->getHeight()-nextHeight);
     platform->setPosition(platformX, platformY);
     worldPtr->platforms.push_back(platform);
     if(addBonus) {
         std::shared_ptr<controllers::BonusController> bonusController = factory->loadBonus(bonusType);
         bonusController->setPlatform(platform);
+        platform->setBonus(bonusController);
         worldPtr->bonuses.push_back(bonusController);
     }
 }
 
 void WorldGenerator::calculateNextPlatformHeight() {
-    double height = Camera::getInstance().getHeight();
+    auto worldPtr = world.lock();
+    double height = worldPtr->camera->getHeight();
     double difficulty = std::min(height / 40000.0, 1.0);
     double intervalBegin = difficulty/2;
     double intervalEnd = difficulty + 0.5;
     int yRelative = (int) (Random::getInstance().generate(intervalBegin, intervalEnd) * heightDifference);
     previousHeight = nextHeight;
     nextHeight = previousHeight + (settings::minPlatformDifference + yRelative);
-    nextPlatformType = Random::getInstance().randomWeighted(settings::platformRarityMap);
+    std::map<PlatformType, double> platformRarityMap;
+    for(auto& entry: settings::platformRarityMap)
+        platformRarityMap.emplace(entry.first, std::max(entry.second.first*height+entry.second.second, 0.0));
+    nextPlatformType = Random::getInstance().randomWeighted(platformRarityMap);
     // Decide whether or not to include a bonus
     addBonus = Random::getInstance().generate<double>() <= settings::bonusSpawnRate;
     if(addBonus && height > 500 && nextPlatformType != TEMPORARY) {
@@ -59,13 +79,6 @@ WorldGenerator::WorldGenerator(std::shared_ptr<World> world, std::shared_ptr<Ent
     factory(factory),
     heightDifference(settings::maxPlatformDifference-settings::minPlatformDifference) {
     setup();
-}
-
-void WorldGenerator::reset() {
-    this->nextHeight = 0;
-    this->nextPlatformType = STATIC;
-    this->addBonus = false;
-    this->previousHeight = 0;
 }
 
 void WorldGenerator::setup() {

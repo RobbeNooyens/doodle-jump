@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_TEXTUREWRAPPER_H
 #define DOODLEJUMP_TEXTUREWRAPPER_H
@@ -10,12 +20,30 @@
 
 class BoundingBox;
 
-class TextureWrapper {
-public:
-    [[nodiscard]] virtual const std::shared_ptr<BoundingBox>& getBoundingBox() const = 0;
-    [[nodiscard]] virtual double getWidth() const = 0;
-    [[nodiscard]] virtual double getHeight() const = 0;
+namespace wrappers {
 
-};
+    /**
+     * @brief Wrapper for a texture object
+     */
+    class TextureWrapper {
+    public:
+        /**
+         * @return texture's bounding box
+         */
+        [[nodiscard]] virtual const std::shared_ptr<BoundingBox> &getBoundingBox() const = 0;
+
+        /**
+         * @return texture width
+         */
+        [[nodiscard]] virtual double getWidth() const = 0;
+
+        /**
+         * @return texture height
+         */
+        [[nodiscard]] virtual double getHeight() const = 0;
+
+    };
+
+}
 
 #endif //DOODLEJUMP_TEXTUREWRAPPER_H

@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "SFText.h"
 
@@ -9,10 +19,10 @@
 #include "../../Settings.h"
 #include "../../exceptions/FontLoadException.h"
 
-bool SFText::fontInitialized = false;
-sf::Font SFText::font;
+bool wrappers::sfml::SFText::fontInitialized = false;
+sf::Font wrappers::sfml::SFText::font;
 
-SFText::SFText(const std::string& content, unsigned int size) {
+wrappers::sfml::SFText::SFText(const std::string& content, unsigned int size) {
     if(!fontInitialized) {
         std::string fontFile = settings::font;
         if (!font.loadFromFile(fontFile)) {
@@ -28,14 +38,14 @@ SFText::SFText(const std::string& content, unsigned int size) {
     text.setFillColor(sf::Color::Black);
 }
 
-void SFText::setPosition(float x, float y) {
+void wrappers::sfml::SFText::setPosition(float x, float y) {
     text.move(x, y);
 }
 
-sf::Text &SFText::getText() {
+sf::Text &wrappers::sfml::SFText::getText() {
     return text;
 }
 
-void SFText::setText(const std::string &t) {
+void wrappers::sfml::SFText::setText(const std::string &t) {
     text.setString(t);
 }

@@ -1,14 +1,24 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "SFEvent.h"
 
-sf::Event &SFEvent::getEvent() {
+sf::Event &wrappers::sfml::SFEvent::getEvent() {
     return event;
 }
 
-WindowEventType SFEvent::getType() {
+WindowEventType wrappers::sfml::SFEvent::getType() {
     switch (event.type) {
         case sf::Event::KeyReleased:
             return WindowEventType::KEY_RELEASED;
@@ -19,7 +29,7 @@ WindowEventType SFEvent::getType() {
     }
 }
 
-bool SFEvent::isKeyPressed(Keyboard key) {
+bool wrappers::sfml::SFEvent::isKeyPressed(Keyboard key) {
     if(key == UNDEFINED_KEYBOARD_KEY)
         return false;
     sf::Keyboard::Key sfKey;
@@ -43,7 +53,7 @@ bool SFEvent::isKeyPressed(Keyboard key) {
     return sf::Keyboard::isKeyPressed(sfKey);
 }
 
-Keyboard SFEvent::getKey() {
+Keyboard wrappers::sfml::SFEvent::getKey() {
     switch (event.key.code) {
         case sf::Keyboard::Space:
             return Keyboard::SPACEBAR;

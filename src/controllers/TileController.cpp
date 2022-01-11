@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "TileController.h"
 #include "../models/TileModel.h"
@@ -12,14 +22,13 @@ controllers::TileController::TileController(): EntityController() {
     view = std::make_shared<views::TileView>();
 }
 
-void controllers::TileController::handle(std::shared_ptr<Event> &event) {
+void controllers::TileController::handle(std::shared_ptr<events::Event> &event) {
     if(event->getType() == HEIGHT_CHANGED) {
-        std::shared_ptr<HeightChangedEvent> heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
+        std::shared_ptr<events::HeightChangedEvent> heightEvent = std::static_pointer_cast<events::HeightChangedEvent>(event);
         this->changeY(heightEvent->getDifference()/2);
     }
 }
 
-void controllers::TileController::recycle() {
-    this->setDestroyed(false);
+void controllers::TileController::goesBeneathScreen() {
     std::static_pointer_cast<models::TileModel>(model)->recycle();
 }

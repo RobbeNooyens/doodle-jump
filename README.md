@@ -30,15 +30,9 @@ SFML can be downloaded from https://www.sfml-dev.org/download.php.
 ## To do
 
 Necessary:
-- Cleanup
-- Exception handling
 - Documentation
-- Virtual destructors
 - Format with CLANG
-- Error screen
-- Difficulty by platform types / spawnrate
-- Ensure namespaces used well
-- Platform deletion
+- Report
 
 ## Warning
 

@@ -1,33 +1,60 @@
-//
-// Created by robnoo on 1/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_TEXTURELOADER_H
 #define DOODLEJUMP_TEXTURELOADER_H
 
-#include <utility>
 #include <map>
 #include <string>
-#include <SFML/Graphics/Texture.hpp>
 #include <memory>
 
-class WrapperFactory;
-class TextureWrapper;
+namespace wrappers {
+    class WrapperFactory;
+    class TextureWrapper;
+}
 
+/**
+ * @brief Singleton that loads and stores textures
+ */
 class TextureLoader {
 public:
-    const std::shared_ptr<TextureWrapper> & getTexture(const std::string &entity_id, const std::string &texture_id);
+    /**
+     * @param entity_id id of entity of requested texture
+     * @param texture_id texture id
+     * @return smart pointer to texture if found
+     * @throws exceptions::TextureNotFoundException if entityId or textureId not found
+     */
+    const std::shared_ptr<wrappers::TextureWrapper> & getTexture(const std::string &entity_id, const std::string &texture_id);
 
-    void load(const std::shared_ptr<WrapperFactory> &factory);
+    /**
+     * @brief Load textures created with given factory in memory
+     * @param factory factory to create textures with
+     */
+    void load(const std::shared_ptr<wrappers::WrapperFactory> &factory);
 
     // Singleton specific
+    /**
+     * @return static singleton instance of TextureLoader
+     */
     static TextureLoader& getInstance();
+
     TextureLoader(TextureLoader()) = delete;
     void operator=(TextureLoader const&) = delete;
 
 private:
     TextureLoader();
-    std::map<std::string, std::map<std::string, std::shared_ptr<TextureWrapper>>> resources;
+    std::map<std::string, std::map<std::string, std::shared_ptr<wrappers::TextureWrapper>>> resources{};
 
 
 };

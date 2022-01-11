@@ -1,21 +1,31 @@
-//
-// Created by robnoo on 21/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "PlayerUsesBonusEvent.h"
 
-PlayerUsesBonusEvent::PlayerUsesBonusEvent(BonusType type, double surfaceHeight, long bonusId): Event(PLAYER_USES_BONUS), bonusType(type), surfaceHeight(surfaceHeight), bonusId(bonusId) {
+events::PlayerUsesBonusEvent::PlayerUsesBonusEvent(BonusType type, double surfaceHeight, long bonusId): Event(PLAYER_USES_BONUS), bonusType(type), surfaceHeight(surfaceHeight), bonusId(bonusId) {
 
 }
 
-BonusType PlayerUsesBonusEvent::getBonusType() {
+BonusType events::PlayerUsesBonusEvent::getBonusType() {
     return bonusType;
 }
 
-double PlayerUsesBonusEvent::getSurfaceHeight() {
+double events::PlayerUsesBonusEvent::getSurfaceHeight() const {
     return surfaceHeight;
 }
 
-long PlayerUsesBonusEvent::getBonusEntityId() {
+long events::PlayerUsesBonusEvent::getBonusEntityId() const {
     return bonusId;
 }

@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 1/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_HEIGHTCHANGEDEVENT_H
 #define DOODLEJUMP_HEIGHTCHANGEDEVENT_H
@@ -8,18 +18,30 @@
 
 #include "Event.h"
 
-class HeightChangedEvent: public Event {
-public:
-    HeightChangedEvent(double difference, double maxHeight);
+namespace events {
 
-    double getDifference();
-    double getMaxHeight();
+    /**
+     * @brief Represents an event invoked when the camera height changes
+     */
+    class HeightChangedEvent : public Event {
+    public:
+        /**
+         * @brief Parameter constructor
+         * @param difference distance added
+         */
+        explicit HeightChangedEvent(double difference);
 
-private:
-    double difference;
-    double maxHeight;
+        /**
+         * @return the distance that was added
+         */
+        [[nodiscard]] double getDifference() const;
 
-};
+    private:
+        double difference = 0;
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_HEIGHTCHANGEDEVENT_H

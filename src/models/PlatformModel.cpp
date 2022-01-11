@@ -1,12 +1,26 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "PlatformModel.h"
 #include "../Settings.h"
 #include "../bounding_box/BoundingBox.h"
 
 models::PlatformModel::PlatformModel(): EntityModel() {}
+
+bool models::PlatformModel::isBeneathScreen() {
+    return getBoundingBox()->getTop() > settings::screenHeight;
+}
 
 // Horizontal Platform
 // ===================
@@ -48,18 +62,22 @@ void models::VerticalPlatform::update(double elapsed) {
             double difference = relativeY-distance;
             this->y += 2*difference;
             direction = DOWN;
-            this->relativeY = 0;
+            this->relativeY = distance-difference;
         }
     } else {
         this->y += elapsed * speed;
-        this->relativeY += elapsed * speed;
-        if (relativeY >= distance) {
-            double difference = relativeY - distance;
+        this->relativeY -= elapsed * speed;
+        if (relativeY <= 0) {
+            double difference = -relativeY;
             this->y += 2 * difference;
             direction = UP;
-            this->relativeY = 0;
+            this->relativeY = difference;
         }
     }
+}
+
+bool models::VerticalPlatform::isBeneathScreen() {
+    return getBoundingBox()->getTop()-(distance-relativeY) > settings::screenHeight;
 }
 
 

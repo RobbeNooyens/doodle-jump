@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_TILECONTROLLER_H
 #define DOODLEJUMP_TILECONTROLLER_H
@@ -8,13 +18,25 @@
 #include "EntityController.h"
 
 namespace controllers {
+    /**
+     * @brief Represents a background tile
+     */
     class TileController: public EntityController {
     public:
+        /**
+         * @brief Default constructor
+         */
         TileController();
 
-        void handle(std::shared_ptr<Event> &event) override;
-
-        void recycle();
+        /**
+         * @brief Handles incoming game events
+         * @param event event that got invoked
+         */
+        void handle(std::shared_ptr<events::Event> &event) override;
+        /**
+         * @brief Performs actions when the entity goes below the bottom screenedge
+         */
+        void goesBeneathScreen() override;
     };
 }
 

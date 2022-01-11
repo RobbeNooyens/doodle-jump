@@ -1,7 +1,18 @@
-//
-// Created by robnoo on 6/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
+#include <iostream>
 #include "GameStateController.h"
 #include "../events/Event.h"
 #include "../events/KeyPressedEvent.h"
@@ -10,13 +21,16 @@
 #include "states/GamePlayingState.h"
 #include "states/GameErrorState.h"
 #include "../world/World.h"
+#include "../score/ScoreManager.h"
+#include "../exceptions/Exception.h"
 
-void GameStateController::handle(std::shared_ptr<Event> &event) {
+void GameStateController::handle(std::shared_ptr<events::Event> &event) {
     if(event->getType() == GameEventType::PLAYER_DIED) {
         shouldReplaceState = true;
         replaceWith = GAME_OVER;
+        ScoreManager::getInstance().writeHighScore();
     } else if(event->getType() == GameEventType::KEY_PRESSED) {
-        auto keyPressedEvent = std::static_pointer_cast<KeyPressedEvent>(event);
+        auto keyPressedEvent = std::static_pointer_cast<events::KeyPressedEvent>(event);
         if(keyPressedEvent->getKey() == Keyboard::SPACEBAR) {
             switch (state->getType()) {
                 case MENU:
@@ -34,14 +48,20 @@ void GameStateController::handle(std::shared_ptr<Event> &event) {
 }
 
 void GameStateController::update(double elapsed) {
-    state->update(elapsed);
-    if(shouldReplaceState) {
-        shouldReplaceState = false;
-        replaceState(replaceWith);
+    try {
+        state->update(elapsed);
+        if(shouldReplaceState) {
+            shouldReplaceState = false;
+            replaceState(replaceWith);
+        }
+    } catch (exceptions::Exception& e) {
+        replaceState(ERROR);
+        std::cerr << e.what() << std::endl;
     }
+
 }
 
-void GameStateController::draw(std::shared_ptr<WindowWrapper> &window) {
+void GameStateController::draw(std::shared_ptr<wrappers::WindowWrapper> &window) {
     state->draw(window);
 }
 
@@ -49,23 +69,22 @@ void GameStateController::replaceState(GameStateType gameStateType) {
     state.reset();
     switch (gameStateType) {
         case MENU:
-            state = std::make_shared<GameMenuState>(factory);
+            state = std::make_shared<states::GameMenuState>(factory);
             break;
         case PLAYING:
-            state = std::make_shared<GamePlayingState>(factory);
+            state = std::make_shared<states::GamePlayingState>(factory);
             break;
         case GAME_OVER:
-            state = std::make_shared<GameOverState>(factory);
+            state = std::make_shared<states::GameOverState>(factory);
             break;
         case ERROR:
-            state = std::make_shared<GameErrorState>(factory);
+            state = std::make_shared<states::GameErrorState>(factory);
             break;
     }
-    state->update(0);
-
+    update(0);
 }
 
 GameStateController::GameStateController(std::shared_ptr<EntityFactory>& factory):
-    state(std::make_unique<GameMenuState>(factory)),
+    state(std::make_unique<states::GameMenuState>(factory)),
     factory(factory) {
 }

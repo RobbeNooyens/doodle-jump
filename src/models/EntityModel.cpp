@@ -1,9 +1,18 @@
-//
-// Created by robnoo on 1/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "EntityModel.h"
-#include "../utils/TextureLoader.h"
 #include "../bounding_box/BoundingBox.h"
 
 void EntityModel::setPosition(double x, double y) {

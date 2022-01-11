@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 28/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_ENTITYVIEW_H
 #define DOODLEJUMP_ENTITYVIEW_H
@@ -9,31 +19,82 @@
 #include <string>
 
 class EntityController;
-class SpriteWrapper;
-class TextureWrapper;
 
+namespace wrappers {
+    class SpriteWrapper;
+    class TextureWrapper;
+}
+
+/**
+ * @brief Represents the entity rendering
+ */
 class EntityView {
 public:
     // Constructor - Destructor
+    /**
+     * @brief Parameter constructor
+     * @param spriteId sprite id used to retrieve textures
+     */
     explicit EntityView(std::string spriteId);
+    /**
+     * @brief Virtual destructor
+     */
     virtual ~EntityView();
 
     // Getters
-    const std::shared_ptr<SpriteWrapper>& getSprite();
-    const std::shared_ptr<TextureWrapper>& getTexture();
+    /**
+     * @return spritewrapper
+     */
+    const std::shared_ptr<wrappers::SpriteWrapper>& getSprite();
+    /**
+     * @return current texture applied to the sprite
+     */
+    const std::shared_ptr<wrappers::TextureWrapper>& getTexture();
 
     // Setters
+    /**
+     * @param size width to scale the sprite to
+     */
     void setSize(double size);
+    /**
+     * @param x new x coordinate
+     * @param y new y coordinate
+     */
     void setPosition(double x, double y);
+    /**
+     * @param textureId new texture id
+     */
     void setTexture(const std::string& textureId);
-    void setSprite(std::shared_ptr<SpriteWrapper> spriteWrapper);
+    /**
+     * @param spriteWrapper sprite to use for rendering
+     */
+    void setSprite(std::shared_ptr<wrappers::SpriteWrapper> spriteWrapper);
 
 protected:
+    /**
+     * @brief Sprite id to retrieve textures for this entity
+     */
     const std::string spriteId;
-    double size = 1, sizeX = 1, sizeY = 1;
-    std::shared_ptr<TextureWrapper> texture;
-    std::shared_ptr<SpriteWrapper> sprite;
+    /**
+     * @brief Scaled width
+     */
+    double sizeX = 1;
+    /**
+     * @brief Scaled height
+     */
+    double sizeY = 1;
+    /**
+     * @brief current texture in use
+     */
+    std::shared_ptr<wrappers::TextureWrapper> texture{};
+    /**
+     * @brief sprite used for rendering entity
+     */
+    std::shared_ptr<wrappers::SpriteWrapper> sprite{};
 
+    /**
+     * @brief Synchronizes sizeX and sizeY width the texture in use
+     */
     void updateSize();
 };
 

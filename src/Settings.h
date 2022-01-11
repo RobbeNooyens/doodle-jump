@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 3/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_SETTINGS_H
 #define DOODLEJUMP_SETTINGS_H
@@ -23,12 +33,13 @@ namespace settings {
     const std::string resourceFile = "../resources/textures/config.json";
     const std::string resourceFolder = "../resources/textures/";
     const std::string font = "../resources/fonts/DoodleJump.ttf";
+    const std::string highscoreFile = "../resources/files/highscore.txt";
     const unsigned int platformSize = 60;
     const unsigned int playerSize = 60;
     const unsigned int bonusSize = 20;
 
 
-    // World generation
+    // World generation and entities
     // ==================================================
     // Bonuses
     const double bonusSpawnRate = 0.05;
@@ -36,18 +47,24 @@ namespace settings {
             {SPRING, 3},
             {JETPACK, 0.1}
     };
-    const std::map<BonusType, double> spawnHeight{
-            {SPRING, 100},
-            {JETPACK, 1000}
+    const std::map<BonusType, double> bonusBouncePoints = {
+            {SPRING, 20},
+            {JETPACK, 80}
     };
     // Platforms
     const double minPlatformDifference = 30;
     const double maxPlatformDifference = 120;
-    const std::map<PlatformType, double> platformRarityMap = {
-            {STATIC, 5},
-            {HORIZONTAL, 1},
-            {TEMPORARY, 0.5},
-            {VERTICAL, 0.1},
+    const std::map<PlatformType, std::pair<double, double>> platformRarityMap = {
+            {STATIC, {0, 5}},
+            {HORIZONTAL, {(1/20000.0), 1}},
+            {TEMPORARY, {(1/5000.0), -3}},
+            {VERTICAL, {1/10000.0, -2}}
+    };
+    const std::map<PlatformType, double> platformBouncePoints = {
+            {STATIC, 10},
+            {HORIZONTAL, 15},
+            {TEMPORARY, 50},
+            {VERTICAL, 25}
     };
 
     // Player movement

@@ -1,11 +1,20 @@
-//
-// Created by robnoo on 28/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "EntityView.h"
 
 #include <utility>
-#include <iostream>
 #include "../bounding_box/BoundingBox.h"
 #include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/TextureWrapper.h"
@@ -19,7 +28,7 @@ void EntityView::setPosition(double x, double y) {
 }
 
 void EntityView::setSize(double s) {
-    this->size = s;
+    this->sizeX = s;
     if(texture)
         updateSize();
 }
@@ -30,22 +39,21 @@ void EntityView::setTexture(const std::string &textureId) {
     updateSize();
 }
 
-const std::shared_ptr<SpriteWrapper> &EntityView::getSprite() {
+const std::shared_ptr<wrappers::SpriteWrapper> &EntityView::getSprite() {
     return sprite;
 }
 
 void EntityView::updateSize() {
-    double scale = size/texture->getWidth();
+    double scale = sizeX/texture->getWidth();
     sprite->setScale((float) scale, (float) scale);
-    this->sizeX = size;
-    this->sizeY = (size*texture->getHeight())/texture->getWidth();
+    this->sizeY = (sizeX*texture->getHeight())/texture->getWidth();
 }
 
-void EntityView::setSprite(std::shared_ptr<SpriteWrapper> spriteWrapper) {
+void EntityView::setSprite(std::shared_ptr<wrappers::SpriteWrapper> spriteWrapper) {
     this->sprite = std::move(spriteWrapper);
 }
 
-const std::shared_ptr<TextureWrapper> &EntityView::getTexture() {
+const std::shared_ptr<wrappers::TextureWrapper> &EntityView::getTexture() {
     return texture;
 }
 

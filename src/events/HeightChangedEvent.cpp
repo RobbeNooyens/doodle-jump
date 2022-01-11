@@ -1,18 +1,22 @@
-//
-// Created by robnoo on 1/12/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "HeightChangedEvent.h"
 
 
-HeightChangedEvent::HeightChangedEvent(double difference, double maxHeight): Event(HEIGHT_CHANGED), difference(difference), maxHeight(maxHeight) {
+events::HeightChangedEvent::HeightChangedEvent(double difference): Event(HEIGHT_CHANGED), difference(difference) {}
 
-}
-
-double HeightChangedEvent::getDifference() {
+double events::HeightChangedEvent::getDifference() const {
     return difference;
-}
-
-double HeightChangedEvent::getMaxHeight() {
-    return maxHeight;
 }

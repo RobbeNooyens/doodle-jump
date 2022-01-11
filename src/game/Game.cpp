@@ -1,6 +1,16 @@
-//
-// Created by robbe on 20/11/2021.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "Game.h"
 #include "../utils/Stopwatch.h"
@@ -14,9 +24,11 @@
 #include "../wrappers/SpriteWrapper.h"
 #include "../wrappers/sfml/SFWrapperFactory.h"
 #include "../factories/ConcreteEntityFactory.h"
+#include "../Settings.h"
+#include "../game/GameStateController.h"
 
 Game::Game() {
-    wrapperFactory = std::make_shared<SFWrapperFactory>();
+    wrapperFactory = std::make_shared<wrappers::sfml::SFWrapperFactory>();
     TextureLoader::getInstance().load(wrapperFactory);
     entityFactory = std::make_shared<ConcreteEntityFactory>(wrapperFactory);
     stateControl = std::make_shared<GameStateController>(entityFactory);
@@ -44,12 +56,12 @@ void Game::run() {
             if(event->getType() == WindowEventType::WINDOW_CLOSED)
                 running = false;
             else if(event->getType() == WindowEventType::KEY_RELEASED && event->getKey() == Keyboard::SPACEBAR)
-                EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(Keyboard::SPACEBAR));
+                EventManager::getInstance().invoke(std::make_shared<events::KeyPressedEvent>(Keyboard::SPACEBAR));
         }
 
         for(auto key: {ARROW_LEFT, A, ARROW_RIGHT, D}) {
             if(event->isKeyPressed(key)) {
-                EventManager::getInstance().invoke(std::make_shared<KeyPressedEvent>(key));
+                EventManager::getInstance().invoke(std::make_shared<events::KeyPressedEvent>(key));
                 break;
             }
         }

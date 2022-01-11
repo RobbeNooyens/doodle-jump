@@ -1,6 +1,16 @@
-//
-// Created by robbe on 20/11/2021.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_WORLD_H
 #define DOODLEJUMP_WORLD_H
@@ -10,9 +20,13 @@
 #include <vector>
 #include <memory>
 
-class WindowWrapper;
 class WorldGenerator;
-class TextWrapper;
+class Camera;
+
+namespace wrappers {
+    class WindowWrapper;
+    class TextWrapper;
+}
 
 namespace controllers {
     class PlayerController;
@@ -22,23 +36,43 @@ namespace controllers {
     class TextController;
 }
 
+/**
+ * @brief Represents a game world with entities
+ */
 class World {
 public:
     // Constructor - destructor
+    /**
+     * @brief Constructor
+     */
+    World();
+    /**
+     * @brief Destructor
+     */
     ~World();
 
+    /**
+     * Updates entities in the world based on the elapsed time
+     * @param elapsed elapsed nanoseconds since last frame
+     */
     void update(double elapsed);
-    void draw(std::shared_ptr<WindowWrapper>& window);
+    /**
+     * @brief draws all entities in the window
+     * @param window window to draw entities in
+     */
+    void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
 
 private:
     friend class WorldGenerator;
 
-    std::shared_ptr<controllers::PlayerController> player;
-    std::shared_ptr<controllers::TextController> score;
+    std::shared_ptr<Camera> camera{};
 
-    std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
-    std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
-    std::vector<std::shared_ptr<controllers::TileController>> tiles;
+    std::shared_ptr<controllers::PlayerController> player{};
+    std::shared_ptr<controllers::TextController> score{};
+
+    std::vector<std::shared_ptr<controllers::PlatformController>> platforms{};
+    std::vector<std::shared_ptr<controllers::BonusController>> bonuses{};
+    std::vector<std::shared_ptr<controllers::TileController>> tiles{};
 
     void checkCollisions(double previousPlayerBottom);
 

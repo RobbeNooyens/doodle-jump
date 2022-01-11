@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 7/01/22.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #ifndef DOODLEJUMP_PLAYERDIEDEVENT_H
 #define DOODLEJUMP_PLAYERDIEDEVENT_H
@@ -8,11 +18,21 @@
 
 #include "Event.h"
 
-class PlayerDiedEvent: public Event {
-public:
-    PlayerDiedEvent();
+namespace events {
 
-};
+    /**
+     * @brief Reperesents an event when the player goes below the lower windowborder and dies
+     */
+    class PlayerDiedEvent : public Event {
+    public:
+        /**
+         * @brief Default constructor
+         */
+        PlayerDiedEvent();
+
+    };
+
+}
 
 
 #endif //DOODLEJUMP_PLAYERDIEDEVENT_H

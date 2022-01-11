@@ -1,17 +1,31 @@
-//
-// Created by robnoo on 26/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
-#include <stdexcept>
-#include <utility>
 #include "ConcreteEntityFactory.h"
 #include "../events/EventManager.h"
 #include "../wrappers/WrapperFactory.h"
+#include "../controllers/PlatformController.h"
+#include "../controllers/PlayerController.h"
+#include "../controllers/BonusController.h"
+#include "../controllers/TileController.h"
+#include "../controllers/TextController.h"
+#include "../Settings.h"
 
 std::shared_ptr<controllers::PlatformController>
 ConcreteEntityFactory::loadPlatform(PlatformType platformType) {
     std::shared_ptr<controllers::PlatformController> platformController;
-    std::shared_ptr<SpriteWrapper> platformSprite = wrapperFactory->createSprite();
+    std::shared_ptr<wrappers::SpriteWrapper> platformSprite = wrapperFactory->createSprite();
     if(platformType == PlatformType::STATIC) {
         platformController = std::make_shared<controllers::StaticPlatformController>();
         platformController->setSprite(platformSprite);
@@ -28,8 +42,6 @@ ConcreteEntityFactory::loadPlatform(PlatformType platformType) {
         platformController = std::make_shared<controllers::VerticalPlatformController>();
         platformController->setSprite(platformSprite);
         platformController->setTexture("vertical");
-    } else {
-        throw std::runtime_error("Something went wrong");
     }
     platformController->setSize(settings::platformSize);
     EventManager::getInstance().registerHandler(platformController);
@@ -56,8 +68,6 @@ std::shared_ptr<controllers::BonusController> ConcreteEntityFactory::loadBonus(B
         bonusController = std::make_shared<controllers::JetpackController>();
         bonusController->setSprite(bonusSprite);
         bonusController->setTexture("jetpack");
-    } else {
-        throw std::runtime_error("Something went wrong");
     }
     bonusController->setSize(settings::bonusSize);
     EventManager::getInstance().registerHandler(bonusController);
@@ -73,7 +83,7 @@ std::shared_ptr<controllers::TileController> ConcreteEntityFactory::loadTile() {
     return tileController;
 }
 
-ConcreteEntityFactory::ConcreteEntityFactory(std::shared_ptr<WrapperFactory>& wrapperFactory) {
+ConcreteEntityFactory::ConcreteEntityFactory(std::shared_ptr<wrappers::WrapperFactory>& wrapperFactory) {
     this->wrapperFactory = wrapperFactory;
 }
 

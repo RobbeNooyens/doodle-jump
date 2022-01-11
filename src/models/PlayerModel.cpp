@@ -1,22 +1,30 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include <algorithm>
 #include "PlayerModel.h"
-#include "../world/World.h"
 #include "../events/HeightChangedEvent.h"
 #include "../events/EventManager.h"
-#include "../ScoreManager.h"
+#include "../score/ScoreManager.h"
 #include "../bounding_box/BoundingBox.h"
-#include "../Camera.h"
-#include "../events/PlayerDiedEvent.h"
+#include "../Settings.h"
 
 void models::PlayerModel::update(double elapsed) {
     double absDifference = elapsed * settings::acceleration;
     int sign = verticalDirection == UP ? -1 : 1;
     this->speed += sign * absDifference;
-    this->y += sign * std::min(speed, settings::maxSpeed) * boost * settings::jumpAmplifier;
+    this->y += sign * std::min(speed, settings::maxSpeed) * (boost*(elapsed*60)) * (settings::jumpAmplifier);
 
     updateBoundingBox();
 
@@ -50,11 +58,6 @@ void models::PlayerModel::update(double elapsed) {
         this->x = settings::screenWidth + getBoundingBox()->getWidth()/2;
     } else if(getBoundingBox()->getLeft() > settings::screenWidth) {
         this->x = -getBoundingBox()->getWidth()/2;
-    }
-
-    // Detect death
-    if(absoluteBBox->getTop() > settings::screenHeight) {
-        EventManager::getInstance().invoke(std::make_shared<PlayerDiedEvent>());
     }
 }
 
@@ -93,8 +96,7 @@ void models::PlayerModel::checkMaxHeight() {
         double difference = settings::maxHeight - y;
         y = settings::maxHeight;
         ScoreManager::getInstance().addScore(difference);
-        Camera::getInstance().addHeight(difference);
-        EventManager::getInstance().invoke(std::make_shared<HeightChangedEvent>(difference, Camera::getInstance().getHeight()));
+        EventManager::getInstance().invoke(std::make_shared<events::HeightChangedEvent>(difference));
     }
 }
 

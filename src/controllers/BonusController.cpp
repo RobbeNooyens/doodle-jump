@@ -1,6 +1,16 @@
-//
-// Created by robnoo on 25/11/21.
-//
+/**
+ *  ╒══════════════════════════════════════╕
+ *  │                                      │
+ *  │             Doodle Jump              │
+ *  │        Advanced Programming          │
+ *  │                                      │
+ *  │            Robbe Nooyens             │
+ *  │    s0201010@student.uantwerpen.be    │
+ *  │                                      │
+ *  │        University of Antwerp         │
+ *  │                                      │
+ *  ╘══════════════════════════════════════╛
+ */
 
 #include "BonusController.h"
 #include "../models/BonusModel.h"
@@ -9,21 +19,24 @@
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
 #include "../controllers/PlatformController.h"
+#include "../score/ScoreManager.h"
+#include "../Settings.h"
 
 controllers::BonusController::BonusController(BonusType type): EntityController(), bonusType(type) {
     view = std::make_shared<views::BonusView>();
 }
 
-void controllers::BonusController::handle(std::shared_ptr<Event> &event) {
+void controllers::BonusController::handle(std::shared_ptr<events::Event> &event) {
     if(event->getType() == HEIGHT_CHANGED) {
-        std::shared_ptr<HeightChangedEvent> heightEvent = std::static_pointer_cast<HeightChangedEvent>(event);
+        std::shared_ptr<events::HeightChangedEvent> heightEvent = std::static_pointer_cast<events::HeightChangedEvent>(event);
         this->changeY(heightEvent->getDifference());
     }
 
     if(event->getType() == PLAYER_USES_BONUS) {
-        std::shared_ptr<PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<PlayerUsesBonusEvent>(event);
+        std::shared_ptr<events::PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<events::PlayerUsesBonusEvent>(event);
         if(bonusEvent->getBonusEntityId() == getId()) {
             this->use();
+            ScoreManager::getInstance().addScore(settings::bonusBouncePoints.at(getType()));
         }
     }
 }
@@ -52,9 +65,14 @@ BonusType controllers::BonusController::getType() {
     return bonusType;
 }
 
+void controllers::BonusController::goesBeneathScreen() {
+    if(platform->isBeneathScreen()) {
+        destroy();
+    }
+}
+
 controllers::SpringController::SpringController(): BonusController(SPRING) {
     model = std::make_shared<models::SpringModel>();
-//    setTexture("spring");
 }
 
 void controllers::SpringController::use() {
@@ -63,7 +81,6 @@ void controllers::SpringController::use() {
 
 controllers::JetpackController::JetpackController(): BonusController(JETPACK) {
     model = std::make_shared<models::JetpackModel>();
-//    setTexture("jetpack");
 }
 
 void controllers::JetpackController::use() {
