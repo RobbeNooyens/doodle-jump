@@ -1,0 +1,25 @@
+var _settings_8h =
+[
+    [ "acceleration", "_settings_8h.html#a882f813962512344d43814bfa0df98fe", null ],
+    [ "applicationName", "_settings_8h.html#a95b8cc6505ddf31aeb9261cfdc5e173c", null ],
+    [ "bonusBouncePoints", "_settings_8h.html#a65978c3d3059ca452da62c084a22d3a7", null ],
+    [ "bonusRarityMap", "_settings_8h.html#a16be8096009e25a855859caa2678a546", null ],
+    [ "bonusSize", "_settings_8h.html#a1d06f83ff2771f3bdc563a534de6791f", null ],
+    [ "bonusSpawnRate", "_settings_8h.html#ab1b97f43cb38fe88bae2d83779ef86f0", null ],
+    [ "font", "_settings_8h.html#a0373fe3bf4cb82340f4ad3925eb09ac8", null ],
+    [ "FPS", "_settings_8h.html#a0ca72894467a97906c1b7bcc8b63f3a0", null ],
+    [ "highscoreFile", "_settings_8h.html#a9c7cfbc0d96c95cb75c61d8a8e7d6aa6", null ],
+    [ "jumpAmplifier", "_settings_8h.html#acb605a61f3567cd2b2bf68035ab99248", null ],
+    [ "maxHeight", "_settings_8h.html#ac768131c33da51cf43ffa5618875bf0f", null ],
+    [ "maxPlatformDifference", "_settings_8h.html#ab65646947e9060dff83b2a1ad0b4e072", null ],
+    [ "maxSpeed", "_settings_8h.html#a3c17a736e36b8afa5cc67df34a426fff", null ],
+    [ "minPlatformDifference", "_settings_8h.html#a28d29c0685ac80b7da4cb9d789970173", null ],
+    [ "platformBouncePoints", "_settings_8h.html#a1df9901527efca68ffe555e4f51ecc2c", null ],
+    [ "platformRarityMap", "_settings_8h.html#a9729ceace3d30da7b1b641ddf0f32b5e", null ],
+    [ "platformSize", "_settings_8h.html#adf785ab1083473725618282eeda4ba81", null ],
+    [ "playerSize", "_settings_8h.html#ad5b6f450edc07bc4c17cce54d942aa53", null ],
+    [ "resourceFile", "_settings_8h.html#a9dd0c784dda115c71bc6167a2ef5df8c", null ],
+    [ "resourceFolder", "_settings_8h.html#a41846c7c773b30fcc0f4bb24a964c9d8", null ],
+    [ "screenHeight", "_settings_8h.html#a16c81a66422219cf0fc404882464c512", null ],
+    [ "screenWidth", "_settings_8h.html#adced499b51cf3e7d0ac0aec3e0150db5", null ]
+];
