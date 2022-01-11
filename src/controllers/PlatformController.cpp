@@ -20,6 +20,7 @@
 #include "../models/PlatformModel.h"
 #include "../views/PlatformView.h"
 #include "../controllers/BonusController.h"
+#include "../Settings.h"
 
 controllers::PlatformController::PlatformController(PlatformType type): EntityController(), platformType(type) {
     view = std::make_shared<views::PlatformView>();
@@ -57,6 +58,9 @@ void controllers::PlatformController::handle(std::shared_ptr<events::Event> &eve
             jumpCount++;
             if(jumpCount > 1) {
                 ScoreManager::getInstance().addScore(-jumpCount*50);
+            } else {
+                ScoreManager::getInstance().addScore(settings::platformBouncePoints.at(getType()));
+
             }
             if(getType() == TEMPORARY) {
                 destroy();

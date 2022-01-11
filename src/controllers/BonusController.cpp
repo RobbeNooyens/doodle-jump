@@ -19,6 +19,8 @@
 #include "../bounding_box/BoundingBox.h"
 #include "../events/PlayerUsesBonusEvent.h"
 #include "../controllers/PlatformController.h"
+#include "../score/ScoreManager.h"
+#include "../Settings.h"
 
 controllers::BonusController::BonusController(BonusType type): EntityController(), bonusType(type) {
     view = std::make_shared<views::BonusView>();
@@ -34,6 +36,7 @@ void controllers::BonusController::handle(std::shared_ptr<events::Event> &event)
         std::shared_ptr<events::PlayerUsesBonusEvent> bonusEvent = std::static_pointer_cast<events::PlayerUsesBonusEvent>(event);
         if(bonusEvent->getBonusEntityId() == getId()) {
             this->use();
+            ScoreManager::getInstance().addScore(settings::bonusBouncePoints.at(getType()));
         }
     }
 }

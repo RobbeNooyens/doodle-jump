@@ -39,7 +39,7 @@ namespace settings {
     const unsigned int bonusSize = 20;
 
 
-    // World generation
+    // World generation and entities
     // ==================================================
     // Bonuses
     const double bonusSpawnRate = 0.05;
@@ -47,7 +47,10 @@ namespace settings {
             {SPRING, 3},
             {JETPACK, 0.1}
     };
-
+    const std::map<BonusType, double> bonusBouncePoints = {
+            {SPRING, 20},
+            {JETPACK, 80}
+    };
     // Platforms
     const double minPlatformDifference = 30;
     const double maxPlatformDifference = 120;
@@ -56,6 +59,12 @@ namespace settings {
             {HORIZONTAL, {(1/20000.0), 1}},
             {TEMPORARY, {(1/5000.0), -3}},
             {VERTICAL, {1/10000.0, -2}}
+    };
+    const std::map<PlatformType, double> platformBouncePoints = {
+            {STATIC, 10},
+            {HORIZONTAL, 15},
+            {TEMPORARY, 50},
+            {VERTICAL, 25}
     };
 
     // Player movement
