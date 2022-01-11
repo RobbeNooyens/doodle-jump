@@ -51,7 +51,7 @@ public:
     [[nodiscard]] unsigned long getHandlerId() const;
 
 private:
-    unsigned long id;
+    unsigned long id = 0;
 };
 
 #endif //DOODLEJUMP_EVENTHANDLER_H

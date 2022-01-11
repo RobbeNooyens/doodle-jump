@@ -43,7 +43,7 @@ namespace exceptions {
         }
 
     private:
-        std::string message;
+        std::string message{};
 
     };
 

@@ -40,11 +40,11 @@ namespace events {
         /**
          * @return y value of platform top
          */
-        double getSurfaceHeight();
+        [[nodiscard]] double getSurfaceHeight() const;
 
     private:
-        double surfaceHeight;
-        long platformId;
+        double surfaceHeight = 0;
+        long platformId = 0;
 
     };
 

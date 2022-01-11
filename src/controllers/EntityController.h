@@ -39,7 +39,7 @@ public:
     /**
      * @brief Virtual destructor
      */
-    virtual ~EntityController();
+    ~EntityController() override;
 
     // Abstracts
     /**
@@ -112,11 +112,11 @@ protected:
     /**
      * @brief model handling all back-end functionality
      */
-    std::shared_ptr<EntityModel> model;
+    std::shared_ptr<EntityModel> model{};
     /**
      * @brief view handling all front-end functionality
      */
-    std::shared_ptr<EntityView> view;
+    std::shared_ptr<EntityView> view{};
 
 private:
     bool destroyed = false;

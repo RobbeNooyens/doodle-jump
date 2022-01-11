@@ -27,7 +27,7 @@ namespace models {
         /**
          * @brief Virtual destructor
          */
-        virtual ~PlatformModel() = default;
+        ~PlatformModel() override = default;
 
         /**
          * @brief Update model based on the elapsed time

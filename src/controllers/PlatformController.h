@@ -19,8 +19,6 @@
 #include "EntityController.h"
 #include "../enums/PlatformType.h"
 
-class Event;
-
 namespace controllers {
 
     class BonusController;
@@ -65,8 +63,8 @@ namespace controllers {
         void setBonus(std::shared_ptr<BonusController>& bonusController);
 
     private:
-        std::weak_ptr<BonusController> bonus;
-        PlatformType platformType;
+        std::weak_ptr<BonusController> bonus{};
+        PlatformType platformType = PlatformType::STATIC;
         int jumpCount = 0;
     };
 

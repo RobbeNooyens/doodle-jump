@@ -54,7 +54,7 @@ public:
 
 private:
     TextureLoader();
-    std::map<std::string, std::map<std::string, std::shared_ptr<wrappers::TextureWrapper>>> resources;
+    std::map<std::string, std::map<std::string, std::shared_ptr<wrappers::TextureWrapper>>> resources{};
 
 
 };

@@ -14,7 +14,6 @@
 
 #include "WorldGenerator.h"
 
-#include <utility>
 #include <iostream>
 
 #include "World.h"

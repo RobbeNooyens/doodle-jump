@@ -86,11 +86,11 @@ protected:
     /**
      * @brief current texture in use
      */
-    std::shared_ptr<wrappers::TextureWrapper> texture;
+    std::shared_ptr<wrappers::TextureWrapper> texture{};
     /**
      * @brief sprite used for rendering entity
      */
-    std::shared_ptr<wrappers::SpriteWrapper> sprite;
+    std::shared_ptr<wrappers::SpriteWrapper> sprite{};
 
     /**
      * @brief Synchronizes sizeX and sizeY width the texture in use

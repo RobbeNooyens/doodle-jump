@@ -16,7 +16,6 @@
 #define DOODLEJUMP_GAME_H
 
 #include <memory>
-#include "GameStateController.h"
 
 namespace wrappers {
     class WindowWrapper;
@@ -26,8 +25,8 @@ namespace wrappers {
     class EventWrapper;
 }
 
-class GameState;
 class EntityFactory;
+class GameStateController;
 
 /**
  * @brief Represents a game instance and handles the game loop
@@ -47,13 +46,13 @@ public:
 private:
     bool running = true;
 
-    std::shared_ptr<GameStateController> stateControl;
+    std::shared_ptr<GameStateController> stateControl{};
 
-    std::shared_ptr<EntityFactory> entityFactory;
+    std::shared_ptr<EntityFactory> entityFactory{};
 
-    std::shared_ptr<wrappers::WrapperFactory> wrapperFactory;
-    std::shared_ptr<wrappers::WindowWrapper> window;
-    std::shared_ptr<wrappers::EventWrapper> event;
+    std::shared_ptr<wrappers::WrapperFactory> wrapperFactory{};
+    std::shared_ptr<wrappers::WindowWrapper> window{};
+    std::shared_ptr<wrappers::EventWrapper> event{};
 };
 
 

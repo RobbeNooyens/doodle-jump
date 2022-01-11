@@ -93,9 +93,9 @@ public:
 private:
     Random();
 
-    std::random_device rd;
-    std::mt19937 mt;
-    std::uniform_real_distribution<double> zeroToOne;
+    std::random_device rd{};
+    std::mt19937 mt{};
+    std::uniform_real_distribution<double> zeroToOne{};
 
 };
 

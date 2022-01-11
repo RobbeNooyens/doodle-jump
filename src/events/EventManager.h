@@ -60,7 +60,7 @@ public:
     void operator=(EventManager const&) = delete;
 private:
     EventManager();
-    std::vector<std::shared_ptr<EventHandler>> handlers;
+    std::vector<std::shared_ptr<EventHandler>> handlers{};
 };
 
 

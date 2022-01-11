@@ -112,11 +112,11 @@ protected:
     /**
      * @brief texture bounding box
      */
-    std::shared_ptr<BoundingBox> relativeBBox;
+    std::shared_ptr<BoundingBox> relativeBBox{};
     /**
      * @brief model bounding box
      */
-    std::shared_ptr<BoundingBox> absoluteBBox;
+    std::shared_ptr<BoundingBox> absoluteBBox{};
 };
 
 

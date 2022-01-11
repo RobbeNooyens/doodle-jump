@@ -22,7 +22,7 @@ long events::PlayerBouncesOnPlatformEvent::getPlatformId() const {
     return platformId;
 }
 
-double events::PlayerBouncesOnPlatformEvent::getSurfaceHeight() {
+double events::PlayerBouncesOnPlatformEvent::getSurfaceHeight() const {
     return surfaceHeight;
 }
 

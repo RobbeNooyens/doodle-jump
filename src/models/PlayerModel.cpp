@@ -24,7 +24,7 @@ void models::PlayerModel::update(double elapsed) {
     double absDifference = elapsed * settings::acceleration;
     int sign = verticalDirection == UP ? -1 : 1;
     this->speed += sign * absDifference;
-    this->y += sign * std::min(speed, settings::maxSpeed) * boost * settings::jumpAmplifier;
+    this->y += sign * std::min(speed, settings::maxSpeed) * (boost*(elapsed*60)) * (settings::jumpAmplifier);
 
     updateBoundingBox();
 

@@ -37,7 +37,7 @@ namespace events {
         [[nodiscard]] double getDifference() const;
 
     private:
-        double difference;
+        double difference = 0;
 
     };
 

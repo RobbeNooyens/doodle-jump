@@ -55,8 +55,8 @@ private:
 
     PlatformType nextPlatformType = STATIC;
 
-    std::shared_ptr<EntityFactory> factory;
-    std::weak_ptr<World> world;
+    std::shared_ptr<EntityFactory> factory{};
+    std::weak_ptr<World> world{};
 
     void generatePlatform();
     void calculateNextPlatformHeight();

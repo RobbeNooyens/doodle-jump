@@ -38,7 +38,7 @@ namespace events {
         Keyboard getKey();
 
     private:
-        Keyboard keyPressed;
+        Keyboard keyPressed = Keyboard::UNDEFINED_KEYBOARD_KEY;
     };
 
 }

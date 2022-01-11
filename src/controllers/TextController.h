@@ -63,7 +63,7 @@ namespace controllers {
         void setTextWrapper(std::shared_ptr<wrappers::TextWrapper> &wrapper);
 
     private:
-        std::shared_ptr<TextView> view;
+        std::shared_ptr<TextView> view{};
     };
 }
 

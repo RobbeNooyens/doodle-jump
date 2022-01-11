@@ -22,10 +22,10 @@ BonusType events::PlayerUsesBonusEvent::getBonusType() {
     return bonusType;
 }
 
-double events::PlayerUsesBonusEvent::getSurfaceHeight() {
+double events::PlayerUsesBonusEvent::getSurfaceHeight() const {
     return surfaceHeight;
 }
 
-long events::PlayerUsesBonusEvent::getBonusEntityId() {
+long events::PlayerUsesBonusEvent::getBonusEntityId() const {
     return bonusId;
 }

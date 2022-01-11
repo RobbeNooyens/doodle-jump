@@ -52,7 +52,7 @@ public:
     void setTextWrapper(std::shared_ptr<wrappers::TextWrapper>& wrapper);
 
 private:
-    std::shared_ptr<wrappers::TextWrapper> text;
+    std::shared_ptr<wrappers::TextWrapper> text{};
 
 };
 

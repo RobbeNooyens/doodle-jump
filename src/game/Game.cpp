@@ -25,6 +25,7 @@
 #include "../wrappers/sfml/SFWrapperFactory.h"
 #include "../factories/ConcreteEntityFactory.h"
 #include "../Settings.h"
+#include "../game/GameStateController.h"
 
 Game::Game() {
     wrapperFactory = std::make_shared<wrappers::sfml::SFWrapperFactory>();

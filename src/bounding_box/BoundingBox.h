@@ -93,8 +93,8 @@ public:
     [[nodiscard]] double getRight() const;
 
 private:
-    double left, right, top, bottom;
-    std::pair<double, double> center;
+    double left=0, right=0, top=0, bottom=0;
+    std::pair<double, double> center{};
 };
 
 

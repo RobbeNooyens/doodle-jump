@@ -21,16 +21,31 @@
 
 namespace wrappers::sfml {
 
+    /**
+     * @brief SFML wrapper for a GUI event
+     */
     class SFEvent : public EventWrapper {
     public:
         // Checking
+        /**
+         * @brief Checks if key is being pressed
+         * @param key key to check
+         * @return true if the given key is being pressed
+         */
         bool isKeyPressed(Keyboard key) override;
 
         // Getters
+        /**
+         * @return wrapped SFML event
+         */
         sf::Event &getEvent();
-
+        /**
+         * @return event type
+         */
         WindowEventType getType() override;
-
+        /**
+         * @return key being pressed if event is keypress
+         */
         Keyboard getKey() override;
 
     private:

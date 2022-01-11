@@ -41,8 +41,8 @@ namespace events {
         GameEventType getType() { return type; }
 
     private:
-        GameEventType type;
-        std::chrono::system_clock::time_point timeStamp;
+        GameEventType type = GameEventType::UNDEFINED;
+        std::chrono::system_clock::time_point timeStamp{};
     };
 
 }

@@ -37,7 +37,7 @@ namespace states {
         /**
          * @brief Destructor
          */
-        ~GameMenuState();
+        ~GameMenuState() override;
 
         /**
          * @brief Update state based on the elapsed time
@@ -51,7 +51,7 @@ namespace states {
         void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
 
     private:
-        std::shared_ptr<wrappers::SpriteWrapper> menu;
+        std::shared_ptr<wrappers::SpriteWrapper> menu{};
     };
 }
 

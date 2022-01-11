@@ -27,7 +27,7 @@ namespace models {
         /**
          * @brief Virtual destructor
          */
-        virtual ~BonusModel() = default;
+        ~BonusModel() override = default;
 
         /**
          * @brief Update model based on the elapsed time

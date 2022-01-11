@@ -65,7 +65,7 @@ private:
 
     Stopwatch();
 
-    TimeStamp begin;
+    TimeStamp begin{};
 };
 
 

@@ -62,7 +62,7 @@ public:
     std::shared_ptr<controllers::TextController> loadText(std::basic_string<char> text, unsigned int size) override;
 
 private:
-    std::shared_ptr<wrappers::WrapperFactory> wrapperFactory;
+    std::shared_ptr<wrappers::WrapperFactory> wrapperFactory{};
 
 };
 

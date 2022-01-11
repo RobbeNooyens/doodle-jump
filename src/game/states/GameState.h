@@ -62,10 +62,10 @@ namespace states {
         /**
          * @brief Factory used to create new entity instances
          */
-        std::shared_ptr<EntityFactory> factory;
+        std::shared_ptr<EntityFactory> factory{};
 
     private:
-        GameStateType gameStateType;
+        GameStateType gameStateType = GameStateType::MENU;
     };
 }
 

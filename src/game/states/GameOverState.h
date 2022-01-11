@@ -40,7 +40,7 @@ namespace states {
         /**
          * @brief Destructor
          */
-        ~GameOverState();
+        ~GameOverState() override;
 
         /**
          * @brief Update state based on the elapsed time
@@ -54,9 +54,9 @@ namespace states {
         void draw(std::shared_ptr<wrappers::WindowWrapper> ptr) override;
 
     private:
-        std::shared_ptr<wrappers::SpriteWrapper> gameover;
-        std::shared_ptr<controllers::TextController> score;
-        std::shared_ptr<controllers::TextController> highScore;
+        std::shared_ptr<wrappers::SpriteWrapper> gameover{};
+        std::shared_ptr<controllers::TextController> score{};
+        std::shared_ptr<controllers::TextController> highScore{};
     };
 }
 

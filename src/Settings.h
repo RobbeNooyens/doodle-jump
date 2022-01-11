@@ -47,10 +47,7 @@ namespace settings {
             {SPRING, 3},
             {JETPACK, 0.1}
     };
-    const std::map<BonusType, double> spawnHeight{
-            {SPRING, 100},
-            {JETPACK, 1000}
-    };
+
     // Platforms
     const double minPlatformDifference = 30;
     const double maxPlatformDifference = 120;

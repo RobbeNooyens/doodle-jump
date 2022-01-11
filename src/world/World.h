@@ -65,14 +65,14 @@ public:
 private:
     friend class WorldGenerator;
 
-    std::shared_ptr<Camera> camera;
+    std::shared_ptr<Camera> camera{};
 
-    std::shared_ptr<controllers::PlayerController> player;
-    std::shared_ptr<controllers::TextController> score;
+    std::shared_ptr<controllers::PlayerController> player{};
+    std::shared_ptr<controllers::TextController> score{};
 
-    std::vector<std::shared_ptr<controllers::PlatformController>> platforms;
-    std::vector<std::shared_ptr<controllers::BonusController>> bonuses;
-    std::vector<std::shared_ptr<controllers::TileController>> tiles;
+    std::vector<std::shared_ptr<controllers::PlatformController>> platforms{};
+    std::vector<std::shared_ptr<controllers::BonusController>> bonuses{};
+    std::vector<std::shared_ptr<controllers::TileController>> tiles{};
 
     void checkCollisions(double previousPlayerBottom);
 

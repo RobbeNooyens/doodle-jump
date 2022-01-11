@@ -36,7 +36,7 @@ namespace states {
         /**
          * @brief Destructor
          */
-        ~GamePlayingState();
+        ~GamePlayingState() override;
 
         /**
          * @brief Update state based on the elapsed time
@@ -50,8 +50,8 @@ namespace states {
         void draw(std::shared_ptr<wrappers::WindowWrapper> window) override;
 
     private:
-        std::shared_ptr<World> world;
-        std::shared_ptr<WorldGenerator> worldGenerator;
+        std::shared_ptr<World> world{};
+        std::shared_ptr<WorldGenerator> worldGenerator{};
     };
 }
 

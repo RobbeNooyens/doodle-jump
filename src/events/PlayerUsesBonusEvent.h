@@ -41,16 +41,16 @@ namespace events {
         /**
          * @return y value of bonus top
          */
-        double getSurfaceHeight();
+        [[nodiscard]] double getSurfaceHeight() const;
         /**
          * @return bonus entity id
          */
-        long getBonusEntityId();
+        [[nodiscard]] long getBonusEntityId() const;
 
     private:
-        BonusType bonusType;
-        double surfaceHeight;
-        long bonusId;
+        BonusType bonusType = BonusType::SPRING;
+        double surfaceHeight = 0;
+        long bonusId = 0;
 
     };
 

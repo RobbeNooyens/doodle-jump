@@ -70,7 +70,7 @@ namespace controllers {
 
     private:
         double offset = 0;
-        std::shared_ptr<PlatformController> platform;
+        std::shared_ptr<PlatformController> platform{};
         BonusType bonusType = BonusType::SPRING;
     };
 

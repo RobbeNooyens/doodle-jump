@@ -57,8 +57,8 @@ public:
     void draw(std::shared_ptr<wrappers::WindowWrapper>& window);
 
 private:
-    std::shared_ptr<states::GameState> state;
-    std::shared_ptr<EntityFactory> factory;
+    std::shared_ptr<states::GameState> state{};
+    std::shared_ptr<EntityFactory> factory{};
 
     bool shouldReplaceState = false;
     GameStateType replaceWith = GameStateType::MENU;
