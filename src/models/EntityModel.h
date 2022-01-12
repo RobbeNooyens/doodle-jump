@@ -51,11 +51,11 @@ public:
     /**
      * @return logic x coordinate
      */
-    double getX();
+    double getX() const;
     /**
      * @return logic y coordinate
      */
-    double getY();
+    double getY() const;
     /**
      * @return model's bounding box
      */

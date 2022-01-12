@@ -33,7 +33,7 @@ namespace exceptions {
         /**
          * @brief Default virtual destructor
          */
-        virtual ~Exception() = default;
+        ~Exception() override = default;
 
         /**
          * @return info message about the exception

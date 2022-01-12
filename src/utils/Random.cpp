@@ -19,4 +19,4 @@ Random &Random::getInstance() {
     return INSTANCE;
 }
 
-Random::Random(): mt(rd()), zeroToOne() {};
+Random::Random(): mt(rd()), zeroToOne() {}

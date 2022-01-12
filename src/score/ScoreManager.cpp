@@ -65,4 +65,4 @@ void ScoreManager::writeHighScore() const {
 
 double ScoreManager::getHighScore() const {
     return highScore;
-};
+}

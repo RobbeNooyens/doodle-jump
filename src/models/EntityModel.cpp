@@ -20,11 +20,11 @@ void EntityModel::setPosition(double x, double y) {
     this->y = y;
 }
 
-double EntityModel::getX() {
+double EntityModel::getX() const {
     return x;
 }
 
-double EntityModel::getY() {
+double EntityModel::getY() const {
     return y;
 }
 
