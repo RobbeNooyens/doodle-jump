@@ -57,8 +57,10 @@ void controllers::PlatformController::handle(std::shared_ptr<events::Event> &eve
         if(bounceEvent->getPlatformId() == getId()) {
             jumpCount++;
             if(jumpCount > 1) {
+                // Subtract points if the player jumps on the same platform multiple times
                 ScoreManager::getInstance().addScore(-jumpCount*50);
             } else {
+                // Add extra points depending on the type of platform
                 ScoreManager::getInstance().addScore(settings::platformBouncePoints.at(getType()));
 
             }
